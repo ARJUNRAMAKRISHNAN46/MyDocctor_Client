@@ -11,7 +11,7 @@ function Reviews() {
               <img
                 className=" border rounded-full"
                 width={40}
-                src="../../src/assets/images/1580.png"
+                src="../../src/assets/1580.png"
                 alt=""
               />
             </div>
@@ -30,7 +30,7 @@ function Reviews() {
               <img
                 className=" border rounded-full"
                 width={40}
-                src="../../src/assets/images/1580.png"
+                src="../../src/assets/1580.png"
                 alt=""
               />
             </div>

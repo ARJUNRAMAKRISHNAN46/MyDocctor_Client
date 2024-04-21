@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { UserData } from "../../redux/store";
+import { UserData } from "../types/userData";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -44,9 +44,12 @@ function OtpComp({ data }: OtpCompProps) {
     index: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const value  = e.target.value;
+    const { value } = e.target;
+    if (value.length > 1) {
+      return;
+    }
     const newOtp = [...otp];
-    newOtp[index] = value.substring(value.length - 1);
+    newOtp[index] = value;
     const finOtp = newOtp.join("");
     if (finOtp.length > 4) {
       return;
@@ -109,10 +112,10 @@ function OtpComp({ data }: OtpCompProps) {
       </div>
       <div className="flex justify-center mt-6">
         <div>
-          {inputRefs.map((value, index) => (
+          {inputRefs.map((ref, index) => (
             <input
               key={index}
-              ref={value}
+              ref={ref}
               className="w-[60px] h-[60px] m-1 text-center text-[30px] font-semibold border rounded-sm"
               type="number"
               maxLength={1}

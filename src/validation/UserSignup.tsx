@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const PatientSignupValidation = Yup.object({
+export const UserSignupValidation = Yup.object({
   name: Yup.string()
     .min(4, "Name must be greater than 3 characters")
     .required("Please enter your name"),
@@ -20,4 +20,5 @@ export const PatientSignupValidation = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Please confirm your password"),
+  otp: Yup.string(),
 });

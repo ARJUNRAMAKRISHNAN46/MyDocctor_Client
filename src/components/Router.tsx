@@ -1,38 +1,95 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Signup from "../pages/patient/Signup";
-import Login from "../pages/patient/Login";
+import Signup from "../pages/user/Signup";
+import Login from "../pages/user/Login";
 import { useEffect } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import Home from "../pages/patient/Home";
-import { UserData } from "../../redux/store";
-import { RootState } from "../../redux/store";
+import Home from "../pages/user/Home";
+import DoctorHome from "../pages/doctor/DoctorHome";
+import { AppDispatch, RootState } from "../redux/store";
+import { getUser } from "../redux/actions/UserActions";
 
 function Router() {
-  const dispatch = useDispatch();
-  const userData = useSelector((data: RootState) => data.userData);
-  
+  const dispatch: AppDispatch = useDispatch();
+  const doctorData = {};
+  const userData = useSelector((state: RootState) => state.userData);
+  console.log("🚀 ~ Router ~ userData:================================>", userData);
+
   useEffect(() => {
-    axios
-      .get<UserData>("http://localhost:8080/auth/isExist",{ withCredentials: true })
-      .then((response) => {
-        dispatch({ type: 'SET_USER_DATA',payload: response.data});
-        console.log();
+    dispatch(getUser())
+      .then((res) => {
+        console.log("🚀 ~ dispatch ~ res:", res);
       })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
+      .catch((err) => {
+        console.log("🚀 ~ dispatch ~ res:", err);
       });
   }, [dispatch]);
-  
-  console.log(userData, '<--------------userData--------------->');
+
   return (
     <div>
       <Routes>
-        <Route path="/" element={ userData ? <Navigate to={'/home'} /> : <Navigate to={'/login'}/>} />
-        <Route path="/login" element={!userData ? <Login/> : <Navigate to={'/home'}/>} />
-        <Route path="/signup" element={!userData ? <Signup/> : <Navigate to={'/home'}/>} />
-        {/* <Route path="/home" element={<Home/>}/> */}
-        <Route path='/home' element={userData ? <Home />:<Navigate to="/login" />} />
+        {/* user routes */}
+        <Route
+          path="/"
+          element={
+            userData?.user ? (
+              <Navigate to={"/home"} />
+            ) : (
+              <Navigate to={"/login"} />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={!userData?.user ? <Login /> : <Navigate to={"/home"} />}
+        />
+        <Route
+          path="/signup"
+          element={!userData?.user ? <Signup /> : <Navigate to={"/home"} />}
+        />
+        <Route
+          path="/home"
+          element={userData?.user ? <Home /> : <Navigate to="/login" />}
+        />
+        {/* doctor routes */}
+        <Route
+          path="/doctor"
+          element={
+            doctorData ? (
+              <Navigate to={"/doctorHome"} />
+            ) : (
+              <Navigate to={"/doctorLogin"} />
+            )
+          }
+        />
+        <Route
+          path="/doctorLogin"
+          element={
+            doctorData ? (
+              <Navigate to={"/doctorHome"} />
+            ) : (
+              <Navigate to={"/doctorLogin"} />
+            )
+          }
+        />
+        <Route
+          path="/doctorSignup"
+          element={
+            doctorData ? (
+              <Navigate to={"/doctorHome"} />
+            ) : (
+              <Navigate to={"/doctorLogin"} />
+            )
+          }
+        />
+        <Route
+          path="/doctorHome"
+          element={
+            doctorData ? <DoctorHome /> : <Navigate to={"/doctorLogin"} />
+          }
+        />
+        {/* admin routes */}
+        <Route />
+        <Route />
       </Routes>
     </div>
   );

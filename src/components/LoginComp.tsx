@@ -1,10 +1,10 @@
 import { Formik, Form, Field } from "formik";
-import { PatientLoginValidation } from "../validation/PatientLogin";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { UserLoginValidation } from "../validation/UserLogin";
+import { useDispatch } from "react-redux";
 import { FormikProps } from "formik";
+import { LoginUser } from "../redux/actions/UserActions";
+import { AppDispatch } from "../redux/store";
+import { useState } from "react";
 
 const initialValues = {
   email: "",
@@ -14,29 +14,31 @@ const initialValues = {
 interface FormValues {
   email: string;
   password: string;
+  role: "user" | "doctor" | "admin";
 }
 
-function PatientLogin() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const userData = useSelector((data: RootState) => data.userData);
-  console.log(userData, "userdata");
+function LoginComp() {
+  const [logError, setLogError] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
 
   const handleSubmit = async (values: FormValues) => {
     try {
       console.log("submitted", values);
-      const response = await axios.post(
-        `http://localhost:8080/auth/login`,
-        values,
-        { withCredentials: true }
-      );
+      dispatch(LoginUser(values))
+        .then((res) => {
+          console.log("🚀 ~ dispatch ~ res:", res);
+          if (res.type.endsWith("rejected")) {
+            setLogError(true);
+          }
+          setTimeout(() => {
+            setLogError(false);
+          }, 3000);
+        })
+        .catch((err) => {
+          console.log("🚀 ~ dispatch ~ err:", err);
+        });
 
-      if (response.status === 200) {
-        dispatch({ type: "SET_USER_DATA", payload: response.data });
-        console.log("routing to home page----------------->", response.status);
-        navigate("/home");
-      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error);
     }
@@ -44,14 +46,16 @@ function PatientLogin() {
 
   return (
     <div>
+      {logError && (
+        <div className="bg-red-500 text-white text-center py-2">
+          Invalid email or password
+        </div>
+      )}
       <div className="md:flex grid-flow-row">
         <div className="md:w-[50%] mt-16 flex items-center hidden md:block">
-          <img
-            src="../../src/assets/images/patient-login.jpg"
-            alt="login-image"
-          />
+          <img src="../../src/assets/patient-login.jpg" alt="login-image" />
         </div>
-        <div className="bg-gray-800 md:w-[50%] p-3 md:p-0 md:h-[700px]">
+        <div className="bg-gray-800 md:w-[50%] h-[660px] p-3 md:p-0 md:h-[700px]">
           <div
             className="flex justify-center pt-8
             "
@@ -68,7 +72,7 @@ function PatientLogin() {
           </div>
           <Formik
             initialValues={initialValues}
-            validationSchema={PatientLoginValidation}
+            validationSchema={UserLoginValidation}
             onSubmit={handleSubmit}
           >
             {(formikProps: FormikProps<FormValues>) => (
@@ -90,7 +94,7 @@ function PatientLogin() {
                     placeholder="Enter your email"
                   ></Field>
                 </div>
-                <div className="md:ml-40">
+                <div className="md:ml-48">
                   {formikProps.errors.email && formikProps.touched.email && (
                     <small className="text-red-600 text-center">
                       {formikProps.errors.email}
@@ -114,7 +118,7 @@ function PatientLogin() {
                     placeholder="Enter your password"
                   ></Field>
                 </div>
-                <div className="md:ml-40">
+                <div className="md:ml-48">
                   {formikProps.errors.password &&
                     formikProps.touched.password && (
                       <small className="text-red-600 text-center">
@@ -142,4 +146,4 @@ function PatientLogin() {
   );
 }
 
-export default PatientLogin;
+export default LoginComp;

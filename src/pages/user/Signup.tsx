@@ -1,4 +1,4 @@
-import PatientSignup from '../../components/PatientSignup'
+import PatientSignup from '../../components/SignupComp'
 
 function Signup() {
   return (

@@ -1,32 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../redux/store";
+import { LogoutUser } from "../redux/actions/UserActions";
 
 function Navbar() {
-
-  const navigate = useNavigate();
   const userData = useSelector((data: RootState) => data.userData);
-  console.log(userData,'userdata is here');
-  const dispatch = useDispatch();
+  console.log(userData, "userdata is here");
+  const dispatch: AppDispatch = useDispatch();
 
-  const handleClick = async() => {
+  const handleClick = async () => {
     try {
       console.log("submitted");
-      const response = await axios.get(
-        `http://localhost:8080/auth/logout`,
-        { withCredentials: true }
-      );
 
-      if (response.status === 200) {
-        dispatch({ type: 'SET_USER_DATA',payload: ''});
-        console.log("routing to home page----------------->", response.status);
-        navigate('/login');
-      }
+      dispatch(LogoutUser())
+        .then((res) => {
+          console.log("🚀 ~ logout ~ dispatch ~ res:", res);
+        })
+        .catch((err) => {
+          console.log("🚀 ~ logout ~ dispatch ~ err:", err);
+        });
+      // const response = await axios.get(
+      //   `http://localhost:8080/auth/logout`,
+      //   { withCredentials: true }
+      // );
+
+      // if (response.status === 200) {
+      //   dispatch({ type: 'SET_USER_DATA',payload: ''});
+      //   console.log("routing to home page----------------->", response.status);
+      //   navigate('/login');
+      // }
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error?.message);
     }
-  }
+  };
 
   return (
     <div>
@@ -42,12 +49,18 @@ function Navbar() {
           type="text"
           placeholder="Search Specialists, Doctors, Hospitals, Clinics, Labs"
         />
-        {userData? (<button onClick={handleClick} className="bg-gray-700 border-0 md:text-xl text-[8px] px-2 py-1 rounded-full md:px-8 md:py-2 md:h-14 text-gray-300 md:font-bold">
-         Logout
-        </button>) : (<button className="bg-gray-700 border-0 md:text-xl text-[8px] px-2 py-1 rounded-full md:px-8 md:py-2 md:h-14 text-gray-300 md:font-bold">
-          Login / Signup
-        </button>)}
-        
+        {userData ? (
+          <button
+            onClick={handleClick}
+            className="bg-gray-700 border-0 md:text-xl text-[8px] px-2 py-1 rounded-full md:px-8 md:py-2 md:h-14 text-gray-300 md:font-bold"
+          >
+            Logout
+          </button>
+        ) : (
+          <button className="bg-gray-700 border-0 md:text-xl text-[8px] px-2 py-1 rounded-full md:px-8 md:py-2 md:h-14 text-gray-300 md:font-bold">
+            Login / Signup
+          </button>
+        )}
       </div>
       <div className="bg-gray-900 md:h-10 h-5 flex justify-center">
         <div className="flex items-center">

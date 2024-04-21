@@ -1,10 +1,10 @@
 import React from 'react'
-import PatientLogin from '../../components/PatientLogin'
+import LoginComp from '../../components/LoginComp'
 
 function Login() {
   return (
     <div>
-      <PatientLogin/>
+      <LoginComp/>
     </div>
   )
 }
