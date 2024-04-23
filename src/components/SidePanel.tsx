@@ -1,15 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { SidePanelProps } from "../types/doctorSidebar";
 import DoctorOverview from "./DoctorOverview";
+import { useDispatch, useSelector } from "react-redux";
+import { LogoutUser } from "../redux/actions/UserActions";
+import { AppDispatch } from "../redux/store";
+import { RootState } from "@reduxjs/toolkit/query";
 
 const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const userData = useSelector((state: RootState) => state.userData.user);
 
   useEffect(() => {
     setClickedIndex(0);
     onItemClick(<DoctorOverview/>)
 
   }, []);
+
+  const handleLogout = () => {
+    dispatch(LogoutUser())
+        .then((res) => {
+          console.log("🚀 ~ logout ~ dispatch ~ res:", res);
+        })
+        .catch((err) => {
+          console.log("🚀 ~ logout ~ dispatch ~ err:", err);
+        });
+  }
+
+  
 
   const handleClick = (index: number) => {
     setClickedIndex(index);
@@ -29,15 +47,16 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
       </div>
       <div className="flex justify-center rounded-full w-full h-[100px] my-2">
         <img
-          src="../../src/assets/1580.png"
+          src={!userData?.avatar ? '../../src/assets/demoimage.png' : userData?.avatar}
+          // src='../../src/assets/demoimage.png'
           className="rounded-full"
           alt="profile image"
         />
       </div>
       <div className="text-center mb-2">
-        <h1 className="font-bold text-[20px]">Sangeetha K P</h1>
-        <h1 className="text-[14px] font-semibold">MBBS, MD (OBG), DGO</h1>
-        <h1 className="text-[14px] font-semibold">GYNECOLOGIST</h1>
+        <h1 className="font-bold text-[20px]">Dr.{userData?.name}</h1>
+        <h1 className="text-[14px] font-semibold">{userData?.qualification}</h1>
+        <h1 className="text-[14px] font-semibold">{userData?.specialization}</h1>
       </div>
       {data.map((item, index) => (
         <div
@@ -60,6 +79,9 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
           </span>
         </div>
       ))}
+      <div onClick={handleLogout} className={`mt-32 text-gray-800 bg-gray-200 font-semibold text-center py-1.5 m-1 rounded-md`}>
+        <span>Logout</span>
+      </div>
     </div>
   );
 };

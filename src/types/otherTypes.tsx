@@ -1,14 +1,13 @@
-export type UserReducerInitial = {
-    loading: boolean;
+export type userReducerInitial = {
+  loading: boolean;
   err: boolean | string;
-  role: "user" | "admin" | "company" | null;
+  role: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: null | any;
   message?: string;
   status?: string;
-}
+};
 
 export interface ErrorPayload {
-    message: string;
-  }
-  
+  message: string;
+}

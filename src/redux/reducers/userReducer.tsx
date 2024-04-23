@@ -5,15 +5,20 @@ import {
   //   changePassword,
   LogoutUser,
   getUser,
+  signupDoctor,
+  doctorGoogle,
+  userGoogle,
+  googleLogin,
+  updatePassword,
 } from "../actions/UserActions";
 import toast from "react-hot-toast";
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
-import { UserReducerInitial, ErrorPayload } from "../../types/otherTypes";
+import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
 
-const initialState: UserReducerInitial = {
+const initialState: userReducerInitial = {
   loading: false,
   err: false,
-  role: null,
+  role: "",
   user: null,
   message: "",
   status: "",
@@ -27,7 +32,7 @@ const userReducer = createSlice({
       state.message = "";
     },
   },
-  extraReducers: (builder: ActionReducerMapBuilder<UserReducerInitial>) => {
+  extraReducers: (builder: ActionReducerMapBuilder<userReducerInitial>) => {
     builder
       .addCase(signupUser.pending, (state) => {
         state.loading = true;
@@ -36,13 +41,97 @@ const userReducer = createSlice({
         console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
-        state.user = payload.data;
+        state.user = payload.user;
         state.message = payload.message;
         toast.success("An OTP has been sent to user email", {
           className: "text-center",
         });
       })
       .addCase(signupUser.rejected, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(signupDoctor.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(signupDoctor.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload.message;
+        toast.success("An OTP has been sent to user email", {
+          className: "text-center",
+        });
+      })
+      .addCase(signupDoctor.rejected, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(doctorGoogle.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(doctorGoogle.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload.message;
+        toast.success("An OTP has been sent to user email", {
+          className: "text-center",
+        });
+      })
+      .addCase(doctorGoogle.rejected, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(updatePassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updatePassword.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload.message;
+        toast.success("An OTP has been sent to user email", {
+          className: "text-center",
+        });
+      })
+      .addCase(updatePassword.rejected, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(userGoogle.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userGoogle.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload.message;
+        toast.success("An OTP has been sent to user email", {
+          className: "text-center",
+        });
+      })
+      .addCase(userGoogle.rejected, (state, { payload }) => {
         console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
@@ -71,14 +160,34 @@ const userReducer = createSlice({
         toast.error(errorPayload.message);
         state.user = null;
       })
+      .addCase(googleLogin.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(googleLogin.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.role = payload?.role;
+        if (payload) {
+          toast.success("Login successful !!!");
+        }
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.user = payload?.data;
+      })
+      .addCase(googleLogin.rejected, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
       .addCase(LogoutUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(LogoutUser.fulfilled, (state, { payload }) => {
         console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
-        state.user = payload?.user;
-        state.role = null;
+        state.user = payload?.data;
       })
       .addCase(LogoutUser.rejected, (state, { payload }) => {
         console.log("🚀 ~ .addCase ~ payload:", payload);
@@ -95,7 +204,6 @@ const userReducer = createSlice({
         console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.user = payload?.data;
-        state.role = null;
       })
       .addCase(getUser.rejected, (state, { payload }) => {
         console.log("🚀 ~ .addCase ~ payload:", payload);

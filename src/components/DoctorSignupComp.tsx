@@ -5,7 +5,7 @@ import { FormikProps } from "formik";
 import OtpInput from "./OtpInput";
 import { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
-import { signupUser, userGoogle } from "../redux/actions/UserActions";
+import { doctorGoogle, signupDoctor } from "../redux/actions/UserActions";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
@@ -29,16 +29,17 @@ interface FormValues {
   role: string;
 }
 
-function SignupComp() {
+function DoctorSignupComp() {
   const [status, setStatus] = useState<boolean>(false);
   const [data, setData] = useState<FormValues | null>(null);
   const [emailExists, setEmailExists] = useState<boolean>(false);
 
   const dispatch: AppDispatch = useDispatch();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const googleSubmit = async (values: FormValues) => {
     try {
-      dispatch(userGoogle(values))
+      dispatch(doctorGoogle(values))
         .then((res) => {
           console.log("🚀 ~ dispatch ~ res:", res);
         })
@@ -57,13 +58,12 @@ function SignupComp() {
 
   const handleSubmit = async (values: FormValues) => {
     try {
-      values.role = "user";
+      values.role = "doctor";
+
       setData(values);
 
-      dispatch(signupUser(values))
+      dispatch(signupDoctor(values))
         .then((res) => {
-          console.log("🚀 ~ .then ~ res~~~~~~~~~~~~~~~~~~~~~:", res);
-
           if (res.type.endsWith("fulfilled")) {
             setStatus(true);
           }
@@ -79,7 +79,6 @@ function SignupComp() {
         });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log("🚀 ~ handleSubmit ~ error:", error);
       if (error?.response && error?.response.status === 409) {
         setEmailExists(true);
         console.log("Error:", error);
@@ -94,7 +93,6 @@ function SignupComp() {
           Email already exists
         </div>
       )}
-      {console.log(status, "--------------------------------status")}
       {!status ? (
         <div className="md:flex grid-flow-row">
           <div className="md:w-[50%] mt-16 bg-white items-center hidden md:block">
@@ -103,7 +101,7 @@ function SignupComp() {
           <div className=" md:w-[50%] p-3 md:p-0 bg-gray-800">
             <div
               className="flex justify-center pt-8
-              "
+          "
             >
               <h1 className="text-red-600 font-bold text-[28px] md:text-[40px]">
                 My
@@ -246,14 +244,14 @@ function SignupComp() {
                       )}
                   </div>
                   <Field type="hidden" name="otp" />
-                  <Field type="hidden" name="role" value="user" />
+                  <Field type="hidden" name="role" value="doctor" />
                   <div className="text-gray-300 text-[10px] md:text-[15px] text-center mt-16 md:mt-8">
                     <a href="/login">Already a member ? Login now</a>
                   </div>
                   <div className="flex justify-center mt-4">
                     <button
                       type="submit"
-                      className="text-white font-bold mb-8 bg-red-600 px-10 py-2 border-none rounded-md"
+                      className="text-white font-bold mb-12 bg-red-600 px-10 py-2 border-none rounded-md"
                     >
                       SIGN UP
                     </button>
@@ -261,7 +259,7 @@ function SignupComp() {
                 </Form>
               )}
             </Formik>
-            <div className="px-16 flex justify-center mb-16">
+            <div className="px-16 flex justify-center">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
                   const decodeToken = jwtDecode(credentialResponse?.credential);
@@ -274,7 +272,7 @@ function SignupComp() {
                     email: decodeToken?.email,
                     mobileNumber: "9876543210",
                     password: "User@123",
-                    role: "user",
+                    role: "doctor",
                   };
 
                   googleSubmit(values);
@@ -287,12 +285,9 @@ function SignupComp() {
           </div>
         </div>
       ) : (
-        // <OtpComp data={data}   />
         <OtpInput length={4} userData={data} />
       )}
     </>
   );
 }
-
-export default SignupComp;
-
+export default DoctorSignupComp;

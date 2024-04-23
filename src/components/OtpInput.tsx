@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
 import { UserData } from "../types/userData";
-import { signupUser } from "../redux/actions/UserActions";
+import { signupDoctor, signupUser } from "../redux/actions/UserActions";
 import { AppDispatch } from "../redux/store";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 interface OtpInputProps {
   length?: number;
@@ -15,8 +14,9 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
   const [otp, setOtp] = useState<string[]>(new Array(length).fill(""));
   const inputRefs = useRef<HTMLInputElement[]>([]);
   const [validOtp, setValidOtp] = useState<boolean>(false);
-
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
+  const [countDown, setCountDown] = useState<number>(30);
 
   console.log("userData on otp page", userData);
 
@@ -24,6 +24,12 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
     if (inputRefs.current[0]) {
       inputRefs.current[0].focus();
     }
+
+    const timer = setInterval(() => {
+      setCountDown((prevCount) => (prevCount > 0 ? prevCount - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, []);
 
   const onOtpSubmit = async (otp: string) => {
@@ -34,23 +40,45 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
       delete userData.confirmPassword;
       console.log("userData with otp :", userData);
 
-      dispatch(signupUser(userData))
-        .then((res) => {
-          console.log("🚀 ~ .then ~ res----------------------:", res);
+      if (userData.role === "user") {
+        dispatch(signupUser(userData))
+          .then((res) => {
+            console.log("🚀 ~ .then ~ res----------------------:", res);
 
-          if (res.type.endsWith("fulfilled")) {
-            console.log("heree");
-          }
-          if (res.type.endsWith("rejected")) {
-            setValidOtp(true);
-            setTimeout(() => {
-              setValidOtp(false);
-            }, 3000);
-          }
-        })
-        .catch((err) => {
-          console.log(err, "error");
-        });
+            if (res.type.endsWith("fulfilled")) {
+              navigate("/userHome");
+              console.log("heree");
+            }
+            if (res.type.endsWith("rejected")) {
+              setValidOtp(true);
+              setTimeout(() => {
+                setValidOtp(false);
+              }, 3000);
+            }
+          })
+          .catch((err) => {
+            console.log(err, "error");
+          });
+      } else if (userData.role === "doctor") {
+        dispatch(signupDoctor(userData))
+          .then((res) => {
+            console.log("🚀 ~ .then ~ res----------------------:", res);
+
+            if (res.type.endsWith("fulfilled")) {
+              navigate("/doctor/doctorHome");
+              console.log("heree");
+            }
+            if (res.type.endsWith("rejected")) {
+              setValidOtp(true);
+              setTimeout(() => {
+                setValidOtp(false);
+              }, 3000);
+            }
+          })
+          .catch((err) => {
+            console.log(err, "error");
+          });
+      }
     } catch (error) {
       if (error) {
         setValidOtp(!validOtp);
@@ -61,6 +89,32 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
       console.error("Error:", error);
     }
   };
+
+  const handleResendOTP = async () => {
+    setCountDown(30);
+    console.log("ivide ethittund sanam",userData);
+    userData.otp = "";
+    if (userData && (userData.role === "user" || userData.role === "doctor")) {
+      if (userData.role === "user") {
+        dispatch(signupUser(userData))
+          .then((res) => {
+            console.log("🚀 ~ dispatch ~ res:", res);
+          })
+          .catch((err) => {
+            console.log("🚀 ~ dispatch ~ err:", err);
+          });
+      } else {
+        dispatch(signupDoctor(userData))
+          .then((res) => {
+            console.log("🚀 ~ dispatch ~ res:", res);
+          })
+          .catch((err) => {
+            console.log("🚀 ~ dispatch ~ err:", err);
+          });
+      }
+    }
+  };
+
   const handleChange = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>
@@ -122,7 +176,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
         </h1>
       </div>
       <div className="h-[5vh] bg-gray-700"></div>
-      <div className="flex justify-center items-start h-[50vh] bg-gray-700">
+      <div className="flex justify-center items-start h-[15vh] bg-gray-700">
         {otp.map((value, index) => (
           <input
             key={index}
@@ -137,6 +191,20 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
             className="w-[50px] h-[50px] border-2 border-gray-500 rounded-lg m-1 text-center text-[25px] font-semibold"
           />
         ))}
+      </div>
+      <div className="flex justify-center bg-gray-700 h-[35vh]">
+        {countDown === 0 ? (
+          <button
+            onClick={handleResendOTP}
+            className="bg-red-500 text-white px-4 py-2 h-[40px] rounded-md"
+          >
+            Resend OTP
+          </button>
+        ) : (
+          <p className="text-white font-semibold">
+            Resend OTP in {countDown} seconds
+          </p>
+        )}
       </div>
     </div>
   );

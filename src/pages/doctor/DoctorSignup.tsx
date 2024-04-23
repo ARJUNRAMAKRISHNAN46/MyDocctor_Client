@@ -1,9 +1,9 @@
-import React from 'react'
+import DoctorSignupComp from '../../components/DoctorSignupComp'
 
 function DoctorSignup() {
   return (
     <div>
-      
+      <DoctorSignupComp/>
     </div>
   )
 }

@@ -1,39 +1,41 @@
-export interface UserData {
-  confirmPassword: string;
-  name: string;
-  email: string;
-  password: string;
-  mobileNumber: string;
-  role: string;
-  profile: {
-    avatar: {
-      type: string;
-    };
-    dob: {
-      type: string;
-    };
-    gender: {
-      type: string;
-      enum: ["male", "female", "other"];
-    };
-  };
-  isBlocked: boolean;
-  otp: string;
-  favouriteDoctor: string[];
-  address: {
-    street: string;
-    city: string;
-    state: string;
-    country: string;
-    pincode: string;
-  }[];
-  appointments: string[];
+enum Gender {
+  male = 'male',
+  female = 'female',
+  other = 'other'
 }
 
+export interface UserData {
+  confirmPassword?: string;
+  name: string,
+  email: string,
+  password?: string,
+  mobileNumber?: string,
+  role?: string,
+  isBlocked?: boolean,
+  otp: string;
+  dob?: string,
+  favouriteDoctor: object[],
+  address:object[],
+  appointments: object[],
+  expertise?: string;
+  education?: string;
+  dateOfBirth?: string;
+  languagesKnown?: string[];
+  currentWorkingHospital?: string;
+  gender?: Gender,
+  yearsOfExperience?: number;
+  workingDays?: string[];
+  medicalLisenceNumber?: string;
+  avatar?: string,
+  isVerified?: boolean,
+  createdAt?: Date;
+  updatedAt?: Date;
+  isActive?: boolean,
+}
 export type Login = {
   email: string;
   password: string;
-  role: "user" | "admin" | "doctor";
+  role: string
 };
 
 export type Signup = {
@@ -43,3 +45,8 @@ export type Signup = {
   password: string;
   confirmPassword?: string;
 };
+
+export type UpdatePassword = {
+  email: string,
+  password: string
+}

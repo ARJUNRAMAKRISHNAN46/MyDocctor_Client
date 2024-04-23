@@ -1,9 +1,9 @@
-import PatientSignup from '../../components/SignupComp'
+import SignupComp from '../../components/SignupComp'
 
 function Signup() {
   return (
     <div>
-      <PatientSignup/>
+      <SignupComp/>
     </div>
   )
 }

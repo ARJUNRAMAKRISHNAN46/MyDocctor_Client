@@ -5,6 +5,7 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { LuMessagesSquare } from "react-icons/lu";
 import { BiMessageAltCheck } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
 import { DataItem } from '../../types/doctorSidebar';
 import DoctorOverview from '../../components/DoctorOverview';
 import { useState } from 'react';
@@ -13,6 +14,7 @@ import DoctorPatients from '../../components/DoctorPatients';
 import DoctorCommunityChat from '../../components/DoctorCommunityChat';
 import DoctorMessages from '../../components/DoctorMessages';
 import DoctorSlots from '../../components/DoctorSlots';
+import DoctorProfile from '../../components/DoctorProfile';
 
 function DoctorHome() {
 
@@ -46,6 +48,10 @@ function DoctorHome() {
     logo: <BiMessageAltCheck />,
     value: 'Slots',
     component: <DoctorSlots/>
+  },{
+    logo: <CgProfile />,
+    value: 'Profile',
+    component: <DoctorProfile/>
   }
 ];
 
