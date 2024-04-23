@@ -27,13 +27,7 @@ function ForgotPassword() {
       const res = await dispatch(updatePassword(values));
       console.log("🚀 ~ handleSubmit ~ res:", res);
 
-      if (res.payload.data.role === "user") {
-        navigate("/userHome");
-      } else if (res.payload.data.role === "doctor") {
-        navigate("/doctor/doctorHome");
-      } else {
-        navigate("/admin/adminHome");
-      }
+        navigate("/login");
     } catch (error) {
       console.error("Error updating password:", error);
       setLogError(true);
@@ -44,7 +38,7 @@ function ForgotPassword() {
     <div>
       {logError && (
         <div className="bg-red-500 text-white text-center py-2">
-          Invalid email or password
+          User not found
         </div>
       )}
       <div className="md:flex grid-flow-row">
@@ -61,7 +55,7 @@ function ForgotPassword() {
             </h1>
           </div>
           <div className="text-center mt-4 text-white font-semibold">
-            <h1 className="md:text-2xl font-bold">LOGIN HERE</h1>
+            <h1 className="md:text-2xl font-bold">Change Password</h1>
           </div>
           <Formik
             initialValues={initialValues}
@@ -122,9 +116,9 @@ function ForgotPassword() {
                 <div className="flex justify-center mt-4">
                   <button
                     type="submit"
-                    className="text-white font-bold mb-10 bg-red-600 px-10 py-2 border-none rounded-md"
+                    className="text-white font-semibold mb-10 bg-red-600 px-8 mt-8 py-2 border-none rounded-md"
                   >
-                    LOGIN
+                    UPDATE PASSWORD
                   </button>
                 </div>
               </Form>

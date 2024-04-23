@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import ForgotPassword from "./ForgotPassword";
 
 const initialValues = {
   email: "",
@@ -32,18 +31,16 @@ function LoginComp() {
       dispatch(googleLogin(values))
         .then((res) => {
           console.log("🚀 ~ dispatch ~ res:", res);
-          if(res.type.endsWith("fulfilled")) {
-            
-            if(res.payload.data.role === 'user') {
-              navigate('/userHome');
-            } else if(res.payload.data.role === 'doctor') {
-              navigate('/doctor/doctorHome');
-            } else{
-              navigate('/admin/adminHome');
+          if (res.type.endsWith("fulfilled")) {
+            if (res.payload.data.role === "user") {
+              navigate("/userHome");
+            } else if (res.payload.data.role === "doctor") {
+              navigate("/doctor/doctorHome");
+            } else {
+              navigate("/admin/adminHome");
             }
-            
           }
-          
+
           if (res.type.endsWith("rejected")) {
             setLogError(true);
           }
@@ -56,6 +53,10 @@ function LoginComp() {
         });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      setLogError(true);
+      setTimeout(() => {
+        setLogError(false);
+      }, 3000);
       console.log("🚀 ~ signupWithGoogle ~ error:", error);
       if (error?.response && error?.response.status === 409) {
         console.log("Error:", error);
@@ -69,20 +70,18 @@ function LoginComp() {
       dispatch(LoginUser(values))
         .then((res) => {
           console.log("🚀 ~ dispatch ~ res:", res);
-          console.log(res.payload.data.role,'pppppppppppppppppppppppppppppp');
+          console.log(res.payload.data.role, "pppppppppppppppppppppppppppppp");
 
-          if(res.type.endsWith("fulfilled")) {
-            if(res.payload.data.role === 'user') {
-              navigate('/userHome');
-            } else if(res.payload.data.role === 'doctor') {
-              navigate('/doctor/doctorHome');
-            } else{
-              navigate('/admin/adminHome');
+          if (res.type.endsWith("fulfilled")) {
+            if (res.payload.data.role === "user") {
+              navigate("/userHome");
+            } else if (res.payload.data.role === "doctor") {
+              navigate("/doctor/doctorHome");
+            } else {
+              navigate("/admin/adminHome");
             }
-            
           }
           if (res.type.endsWith("rejected")) {
-            
             setLogError(true);
           }
           setTimeout(() => {
@@ -101,11 +100,12 @@ function LoginComp() {
 
   const handlePassword = () => {
     try {
-      setPage(true);
+      navigate("/forgotPassword");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error?.message);
     }
-  }
+  };
 
   return (
     <div>
@@ -114,8 +114,7 @@ function LoginComp() {
           Invalid email or password
         </div>
       )}
-      {(!page ? (
-        <div className="md:flex grid-flow-row">
+      <div className="md:flex grid-flow-row">
         <div className="md:w-[50%] mt-16 flex items-center hidden md:block">
           <img src="../../src/assets/patient-login.jpg" alt="login-image" />
         </div>
@@ -208,32 +207,25 @@ function LoginComp() {
             )}
           </Formik>
           <div className="px-16 flex justify-center">
-              <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  const decodeToken = jwtDecode(credentialResponse?.credential);
-                  console.log(
-                    "🚀 ~ loginComp ~ decodeToken:",
-                    decodeToken
-                  );
-                  const values = {
-                    email: decodeToken?.email,
-                    password: "User@123",
-                    role: "doctor",
-                  };
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                const decodeToken = jwtDecode(credentialResponse?.credential);
+                console.log("🚀 ~ loginComp ~ decodeToken:", decodeToken);
+                const values = {
+                  email: decodeToken?.email,
+                  password: "User@123",
+                  role: "doctor",
+                };
 
-                  googleSubmit(values);
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              />
-            </div>
+                googleSubmit(values);
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+          </div>
         </div>
       </div>
-      ) : (
-        <ForgotPassword/>
-      ))}
-      
     </div>
   );
 }
