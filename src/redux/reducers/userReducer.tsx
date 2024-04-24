@@ -10,6 +10,7 @@ import {
   userGoogle,
   googleLogin,
   updatePassword,
+  forgotPassword,
 } from "../actions/UserActions";
 import toast from "react-hot-toast";
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
@@ -69,6 +70,27 @@ const userReducer = createSlice({
         });
       })
       .addCase(signupDoctor.rejected, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(forgotPassword.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ .addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload.message;
+        toast.success("An OTP has been sent to user email", {
+          className: "text-center",
+        });
+      })
+      .addCase(forgotPassword.rejected, (state, { payload }) => {
         console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;

@@ -12,18 +12,18 @@ import { jwtDecode } from "jwt-decode";
 const initialValues = {
   email: "",
   password: "",
+  role: "",
 };
 
 interface FormValues {
   email: string;
   password: string;
-  role: "user" | "doctor" | "admin";
+  role: string;
 }
 
 function LoginComp() {
   const navigate = useNavigate();
   const [logError, setLogError] = useState(false);
-  const [page, setPage] = useState(false);
   const dispatch: AppDispatch = useDispatch();
 
   const googleSubmit = async (values: FormValues) => {
@@ -31,6 +31,7 @@ function LoginComp() {
       dispatch(googleLogin(values))
         .then((res) => {
           console.log("🚀 ~ dispatch ~ res:", res);
+
           if (res.type.endsWith("fulfilled")) {
             if (res.payload.data.role === "user") {
               navigate("/userHome");
@@ -70,8 +71,6 @@ function LoginComp() {
       dispatch(LoginUser(values))
         .then((res) => {
           console.log("🚀 ~ dispatch ~ res:", res);
-          console.log(res.payload.data.role, "pppppppppppppppppppppppppppppp");
-
           if (res.type.endsWith("fulfilled")) {
             if (res.payload.data.role === "user") {
               navigate("/userHome");

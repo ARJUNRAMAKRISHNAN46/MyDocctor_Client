@@ -61,7 +61,7 @@ function Speciality() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center md:mt-6 md:mb-6">
         <button className="bg-gray-700 text-white md:text-xl font-semibold md:px-6 md:py-2 md:rounded-lg text-[6px] px-1 py-0.5 mb-1 border rounded-sm">
           Find More
         </button>

@@ -13,7 +13,6 @@ function Home() {
       <Speciality/>
       <Banner/>
       <Reviews/>
-      <Reviews/>
       <Footer/>
     </div>
   )

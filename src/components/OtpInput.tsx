@@ -123,17 +123,14 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
     if (isNaN(Number(value))) return;
 
     const newOtp = [...otp];
-    // allow only one input
     newOtp[index] = value.substring(value.length - 1);
     setOtp(newOtp);
 
-    // submit trigger
     const combinedOtp = newOtp.join("");
     if (combinedOtp.length === length) {
       onOtpSubmit(combinedOtp);
     }
 
-    // Move to next input if current field is filled
     if (value && index < length - 1 && inputRefs.current[index + 1]) {
       inputRefs.current[index + 1].focus();
     }
@@ -142,7 +139,6 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
   const handleClick = (index: number) => {
     inputRefs.current[index].setSelectionRange(1, 1);
 
-    // optional
     if (index > 0 && !otp[index - 1]) {
       inputRefs.current[otp.indexOf("")].focus();
     }

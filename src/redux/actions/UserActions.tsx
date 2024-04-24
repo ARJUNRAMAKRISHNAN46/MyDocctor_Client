@@ -22,6 +22,19 @@ export const signupUser = createAsyncThunk(
   }
 );
 
+export const forgotPassword = createAsyncThunk(
+  'forgot/password', async (email: string, { rejectWithValue }) => {
+    try {
+      const { data } = await AuthAxios.post('/forgotPassword', {email});
+      console.log("🚀 ~ 'forgot/password', ~ data:", data)
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+)
+
 export const signupDoctor = createAsyncThunk(
   "doctor/doctorSignup",
   async (userData: Signup, { rejectWithValue }) => {
