@@ -12,7 +12,6 @@ import { jwtDecode } from "jwt-decode";
 const initialValues = {
   email: "",
   password: "",
-  role: "",
 };
 
 interface FormValues {
@@ -27,6 +26,7 @@ function LoginComp() {
   const dispatch: AppDispatch = useDispatch();
 
   const googleSubmit = async (values: FormValues) => {
+    console.log("🚀 ~ googleSubmit ~ values:", values)
     try {
       dispatch(googleLogin(values))
         .then((res) => {

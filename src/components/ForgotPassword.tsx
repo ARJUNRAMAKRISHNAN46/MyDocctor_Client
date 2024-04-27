@@ -17,16 +17,16 @@ const initialValues = {
 function ForgotPassword() {
   const dispatch: AppDispatch = useDispatch();
   const [logError, setLogError] = useState(false);
-  const navigate = useNavigate();
+  const [message, setMessage] = useState(false);
 
   const handleSubmit = (values: FormValues) => {
     try {
-      console.log("🚀 ~ handleSubmit ~ email:", values);
-      dispatch(forgotPassword(values.email))
+      console.log("🚀 ~ handleSubmit ~ email:", values?.email);
+      dispatch(forgotPassword(values?.email))
         .then((res) => {
           if (res.type.endsWith("fulfilled")) {
             console.log("fulfilled=============================>");
-            navigate('/resetPassword')
+            setMessage(true)
           }
           if (res.type.endsWith("rejected")) {
             setLogError(true);
@@ -46,6 +46,11 @@ function ForgotPassword() {
       {logError && (
         <div className="bg-red-500 text-white text-center py-2">
           Invalid email or password
+        </div>
+      )}
+      {message && (
+        <div className="bg-green-500 text-white text-center py-2">
+          A link share to your email
         </div>
       )}
       <div className="pt-64">
@@ -68,7 +73,7 @@ function ForgotPassword() {
                     paddingLeft: "10px",
                     outline: "none",
                   }}
-                  type="text"
+                  type="email"
                   name="email"
                   placeholder="Enter your email"
                 ></Field>

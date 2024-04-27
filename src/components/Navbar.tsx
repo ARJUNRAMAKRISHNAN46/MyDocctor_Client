@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { LogoutUser } from "../redux/actions/UserActions";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const userData = useSelector((data: RootState) => data.userData);
   console.log(userData, "userdata is here");
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     try {
@@ -18,20 +20,18 @@ function Navbar() {
         .catch((err) => {
           console.log("🚀 ~ logout ~ dispatch ~ err:", err);
         });
-      // const response = await axios.get(
-      //   `http://localhost:8080/auth/logout`,
-      //   { withCredentials: true }
-      // );
-
-      // if (response.status === 200) {
-      //   dispatch({ type: 'SET_USER_DATA',payload: ''});
-      //   console.log("routing to home page----------------->", response.status);
-      //   navigate('/login');
-      // }
-
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(error?.message);
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      navigate("/login");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log("🚀 ~ handleLogin ~ error:", error);
     }
   };
 
@@ -49,7 +49,7 @@ function Navbar() {
           type="text"
           placeholder="Search Specialists, Doctors, Hospitals, Clinics, Labs"
         />
-        {userData ? (
+        {userData.user ? (
           <button
             onClick={handleClick}
             className="bg-gray-700 border-0 md:text-xl text-[8px] px-2 py-1 rounded-full md:px-8 md:py-2 md:h-14 text-gray-300 md:font-bold"
@@ -57,7 +57,10 @@ function Navbar() {
             Logout
           </button>
         ) : (
-          <button className="bg-gray-700 border-0 md:text-xl text-[8px] px-2 py-1 rounded-full md:px-8 md:py-2 md:h-14 text-gray-300 md:font-bold">
+          <button
+            onClick={handleLogin}
+            className="bg-gray-700 border-0 md:text-xl text-[8px] px-2 py-1 rounded-full md:px-8 md:py-2 md:h-14 text-gray-300 md:font-bold"
+          >
             Login / Signup
           </button>
         )}

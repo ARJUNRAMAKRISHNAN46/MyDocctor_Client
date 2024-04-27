@@ -18,6 +18,7 @@ import DoctorHome from "../pages/doctor/DoctorHome";
 import AdminHome from "../pages/admin/AdminHome";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import LandingPage from "../pages/LandingPage";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -47,8 +48,8 @@ function Router() {
           <Route path="/doctor/doctorHome" element={!userData ? <Login /> : <DoctorHome/>} />
           <Route path="/admin/adminHome" element={!userData ? <Login /> : <AdminHome/>} />
           <Route path="/forgotPassword" element={<ForgotPassword/>} />
-          <Route path="/resetPassword" element={<ResetPassword/>} />
-          <Route path="/" element={<Navigate to={'/login'}/>} />
+          <Route path="/forgotPassword-post" element={<ResetPassword/>} />
+          <Route path="/" element={<LandingPage/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </>

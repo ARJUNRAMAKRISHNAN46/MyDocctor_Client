@@ -175,7 +175,7 @@ const userReducer = createSlice({
         state.user = payload?.data;
       })
       .addCase(LoginUser.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
+        console.log("🚀 ~ .addCase error ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;

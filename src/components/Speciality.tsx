@@ -7,7 +7,7 @@ function Speciality() {
         </h1>
         <div className="md:flex grid grid-cols-1">
           <div className="ml-[1.5%] border rounded-sm md:rounded-md h-[340px] md:h-[400px] bg-white w-[98vw] md:w-[23%] shadow-2xl pb-1">
-            <div className="bg-green-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105">
+            <div className="bg-green-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105 flex justify-center items-center">
               <img src="../../src/assets/ortho.png" alt="" />
             </div>
             <h1 className="leading-none ml-1 text-[18px] mt-2 md:ml-8 md:mt-3 font-bold md:text-xl">
@@ -20,7 +20,7 @@ function Speciality() {
           </div>
 
           <div className="ml-[1.5%] border rounded-sm md:rounded-md h-[340px] md:h-[400px] bg-white w-[98vw] md:w-[23%] shadow-2xl">
-            <div className="bg-red-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105">
+            <div className="bg-red-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105 flex justify-center items-center">
               <img src="../../src/assets/cardio.png" alt="" />
             </div>
             <h1 className="leading-none ml-1 text-[18px] mt-2 md:ml-8 md:mt-3 font-bold md:text-xl">
@@ -34,7 +34,7 @@ function Speciality() {
           </div>
 
           <div className="ml-[1.5%] border rounded-sm md:rounded-md h-[340px] md:h-[400px] bg-white w-[98vw] md:w-[23%] shadow-2xl">
-            <div className="bg-blue-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105">
+            <div className="bg-blue-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105 flex justify-center items-center">
               <img src="../../src/assets/nuorology.png" alt="" />
             </div>
             <h1 className="leading-none ml-1 text-[18px] mt-2 md:ml-8 md:mt-3 font-bold md:text-xl">
@@ -47,7 +47,7 @@ function Speciality() {
           </div>
 
           <div className="ml-[1.5%] border rounded-sm md:rounded-md h-[340px] md:h-[400px] bg-white w-[98vw] md:w-[23%] shadow-2xl">
-            <div className="bg-orange-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105">
+            <div className="bg-orange-500 h-[240px] border rounded-t-sm md:rounded-t-md md:h-64 transition-all duration-300 transform hover:scale-105 flex justify-center items-center">
               <img src="../../src/assets/urologist.png" alt="" />
             </div>
             <h1 className="leading-none ml-1 text-[18px] mt-2 md:ml-8 md:mt-3 font-bold md:text-xl">
