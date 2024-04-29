@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UserData } from "../types/userData";
-import { signupDoctor, signupUser } from "../redux/actions/UserActions";
-import { AppDispatch } from "../redux/store";
+import { UserData } from "../../types/userData";
+import { signupDoctor, signupUser } from "../../redux/actions/UserActions";
+import { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 

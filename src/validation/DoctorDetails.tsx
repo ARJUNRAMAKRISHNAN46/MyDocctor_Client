@@ -24,9 +24,13 @@ export const DoctorDetails = Yup.object({
   medicalLicense: Yup.string()
     .matches(/^MD-\d{10}$/, "Please enter a valid medical license number")
     .required("Please enter medical license number"),
-  pincode: Yup.string().matches(/^\d{5}(-\d{4})?$/, "Enter a valid pincode").required("Enter your pincode"),
-  expertise: ,
-  yearsOfExperience: ,
-  collageName: ,
-  currentWorkingHospital: ,
+  pincode: Yup.string()
+    .matches(/^\d{5}(-\d{4})?$/, "Enter a valid pincode")
+    .required("Enter your pincode"),
+  expertise: Yup.string().required("Please enter expertise"),
+  yearsOfExperience: Yup.number().required("Enter your year of experience"),
+  collageName: Yup.string().required("Please enter your collage name"),
+  currentWorkingHospital: Yup.string().required(
+    "Please enter the current working hospital name"
+  ),
 });

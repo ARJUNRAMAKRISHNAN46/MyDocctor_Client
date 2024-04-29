@@ -1,14 +1,12 @@
 import "./App.css";
-import Loading from "./components/Loading";
 import Router from './components/Router'
-import ProfileUpdation from "./pages/doctor/ProfileUpdation";
+import Test from "./pages/Test";
 
 function App() {
   return (
     <>
       {/* <Router/> */}
-      <ProfileUpdation/>
-      {/* <Loading/> */}
+      <Test/>
     </>
   );
 }

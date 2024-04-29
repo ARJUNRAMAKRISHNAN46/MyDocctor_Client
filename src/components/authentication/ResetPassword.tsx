@@ -1,8 +1,8 @@
 import { Formik, Form, Field, FormikProps } from "formik";
-import { UserPassword } from "../validation/UserPassword";
-import { AppDispatch } from "../redux/store";
+import { UserPassword } from "../../validation/UserPassword";
+import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { updatePassword } from "../redux/actions/UserActions";
+import { updatePassword } from "../../redux/actions/UserActions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

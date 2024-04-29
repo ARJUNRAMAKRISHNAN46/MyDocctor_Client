@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SidePanel from "../../components/SidePanel";
+import SidePanel from "../../components/common/SidePanel";
 import { DataItem } from "../../types/doctorSidebar";
 import { RxDashboard } from "react-icons/rx";
 import { BiUser } from "react-icons/bi";
@@ -8,11 +8,11 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { IoIosPeople } from "react-icons/io";
 import { MdFolderSpecial } from "react-icons/md";
 import { LuMessagesSquare } from "react-icons/lu";
-import AdminDashboard from "../../components/AdminDashboard";
-import AdminDoctors from "../../components/AdminDoctors";
-import AdminPatients from "../../components/AdminPatients";
-import AdminBookings from "../../components/AdminBookings";
-import AdminSpecialities from "../../components/AdminSpecialities";
+import AdminDashboard from "../../components/admin/AdminDashboard";
+import AdminDoctors from "../../components/admin/AdminDoctors";
+import AdminPatients from "../../components/admin/AdminPatients";
+import AdminBookings from "../../components/admin/AdminBookings";
+import AdminSpecialities from "../../components/admin/AdminSpecialities";
 
 function AdminHome() {
   const [selectedComponent, setSelectedComponent] = useState("");

@@ -1,4 +1,4 @@
-import SidePanel from '../../components/SidePanel'
+import SidePanel from '../../components/common/SidePanel'
 import { RxDashboard } from "react-icons/rx";
 import { BiUser } from "react-icons/bi";
 import { MdOutlineDateRange } from "react-icons/md";
@@ -7,14 +7,14 @@ import { LuMessagesSquare } from "react-icons/lu";
 import { BiMessageAltCheck } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { DataItem } from '../../types/doctorSidebar';
-import DoctorOverview from '../../components/DoctorOverview';
+import DoctorOverview from '../../components/doctor/DoctorOverview';
 import { useState } from 'react';
-import DoctorAppoitnments from '../../components/DoctorAppoitnments';
-import DoctorPatients from '../../components/DoctorPatients';
-import DoctorCommunityChat from '../../components/DoctorCommunityChat';
-import DoctorMessages from '../../components/DoctorMessages';
-import DoctorSlots from '../../components/DoctorSlots';
-import DoctorProfile from '../../components/DoctorProfile';
+import DoctorAppoitnments from '../../components/doctor/DoctorAppoitnments';
+import DoctorPatients from '../../components/doctor/DoctorPatients';
+import DoctorCommunityChat from '../../components/doctor/DoctorCommunityChat';
+import DoctorMessages from '../../components/doctor/DoctorMessages';
+import DoctorSlots from '../../components/doctor/DoctorSlots';
+import DoctorProfile from '../../components/doctor/DoctorProfile';
 
 function DoctorHome() {
 

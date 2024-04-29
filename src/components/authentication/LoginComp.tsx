@@ -1,9 +1,9 @@
 import { Formik, Form, Field } from "formik";
-import { UserLoginValidation } from "../validation/UserLogin";
+import { UserLoginValidation } from "../../validation/UserLogin";
 import { useDispatch } from "react-redux";
 import { FormikProps } from "formik";
-import { LoginUser, googleLogin } from "../redux/actions/UserActions";
-import { AppDispatch } from "../redux/store";
+import { LoginUser, googleLogin } from "../../redux/actions/UserActions";
+import { AppDispatch } from "../../redux/store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";

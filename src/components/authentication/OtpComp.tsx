@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { UserData } from "../types/userData";
+import { UserData } from "../../types/userData";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";

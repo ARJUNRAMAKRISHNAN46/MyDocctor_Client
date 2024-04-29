@@ -7,18 +7,18 @@ import Home from "../pages/user/Home";
 import { AppDispatch, RootState } from "../redux/store";
 import { getUser } from "../redux/actions/UserActions";
 import DoctorSignup from "../pages/doctor/DoctorSignup";
-import DoctorOverview from "./DoctorOverview";
-import DoctorAppoitnments from "./DoctorAppoitnments";
-import DoctorPatients from "./DoctorPatients";
-import DoctorCommunityChat from "./DoctorCommunityChat";
-import DoctorMessages from "./DoctorMessages";
-import DoctorSlots from "./DoctorSlots";
-import PageNotFound from "./PageNotFound";
+import DoctorOverview from "./doctor/DoctorOverview";
+import DoctorAppoitnments from "./doctor/DoctorAppoitnments";
+import DoctorPatients from "./doctor/DoctorPatients";
+import DoctorCommunityChat from "./doctor/DoctorCommunityChat";
+import DoctorMessages from "./doctor/DoctorMessages";
+import DoctorSlots from "./doctor/DoctorSlots";
+import PageNotFound from "./common/PageNotFound";
 import DoctorHome from "../pages/doctor/DoctorHome";
 import AdminHome from "../pages/admin/AdminHome";
-import ForgotPassword from "./ForgotPassword";
-import ResetPassword from "./ResetPassword";
-import LandingPage from "../pages/LandingPage";
+import ForgotPassword from "./authentication/ForgotPassword";
+import ResetPassword from "./authentication/ResetPassword";
+import LandingPage from "../pages/common/LandingPage";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();

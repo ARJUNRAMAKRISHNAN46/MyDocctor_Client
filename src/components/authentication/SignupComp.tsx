@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { UserSignupValidation } from "../validation/UserSignup";
+import { UserSignupValidation } from "../../validation/UserSignup";
 import { FormikProps } from "formik";
 import OtpInput from "./OtpInput";
-import { AppDispatch } from "../redux/store";
+import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { signupUser, userGoogle } from "../redux/actions/UserActions";
+import { signupUser, userGoogle } from "../../redux/actions/UserActions";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 

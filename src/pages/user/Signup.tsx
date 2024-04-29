@@ -1,4 +1,4 @@
-import SignupComp from '../../components/SignupComp'
+import SignupComp from '../../components/authentication/SignupComp'
 
 function Signup() {
   return (

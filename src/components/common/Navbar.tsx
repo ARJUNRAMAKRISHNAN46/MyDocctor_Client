@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../redux/store";
-import { LogoutUser } from "../redux/actions/UserActions";
+import { AppDispatch, RootState } from "../../redux/store";
+import { LogoutUser } from "../../redux/actions/UserActions";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {

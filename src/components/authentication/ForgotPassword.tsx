@@ -1,9 +1,9 @@
 import { Formik, Form, Field, FormikProps } from "formik";
-import { UserEmail } from "../validation/UserEmail";
+import { UserEmail } from "../../validation/UserEmail";
 import { useState } from "react";
-import { AppDispatch } from "../redux/store";
+import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { forgotPassword } from "../redux/actions/UserActions";
+import { forgotPassword } from "../../redux/actions/UserActions";
 import { useNavigate } from "react-router-dom";
 
 interface FormValues {

@@ -4,6 +4,7 @@ import { FormikProps } from "formik";
 import { Country, State, City } from "country-state-city";
 import { useState } from "react";
 import Select from "react-select";
+import { Specialities } from "../../util/Specialities";
 
 const initialValues = {
   name: "",
@@ -14,6 +15,12 @@ const initialValues = {
   country: "",
   state: "",
   city: "",
+  medicalLicense: "",
+  pincode: "",
+  expertise: "",
+  yearsOfExperience: "",
+  collageName: "",
+  currentWorkingHospital: "",
 };
 const genderOptions = ["Male", "Female", "Other"];
 interface profileValues {
@@ -25,6 +32,12 @@ interface profileValues {
   country: string;
   state: string;
   city: string;
+  medicalLicense: string;
+  pincode: string;
+  expertise: string;
+  yearsOfExperience: string;
+  collageName: string;
+  currentWorkingHospital: string;
 }
 function ProfileUpdation() {
   const [stateVisible, setStateVisible] = useState(false);
@@ -288,6 +301,38 @@ function ProfileUpdation() {
                 {formikProps.errors.city && formikProps.touched.city && (
                   <small className="text-red-600 text-center">
                     {formikProps.errors.city}
+                  </small>
+                )}
+              </div>
+              <div className="mt-4">
+                <Field
+                  style={{
+                    backgroundColor: "#1F2937",
+                    border: "1px solid #8ca1be",
+                    borderRadius: "5px",
+                    width: "350px",
+                    height: "40px",
+                    color: "white",
+                    paddingLeft: "10px",
+                    outline: "none",
+                  }}
+                  as="select"
+                  type="text"
+                  name="speciality"
+                  placeholder="Enter your speciality"
+                >
+                  <option value="">Select Gender</option>
+                  {Specialities.map((spl, index) => (
+                    <option key={index} value={spl.toLowerCase()}>
+                      {spl}
+                    </option>
+                  ))}
+                </Field>
+              </div>
+              <div className="md:ml-48">
+                {formikProps.errors.gender && formikProps.touched.gender && (
+                  <small className="text-red-600 text-center">
+                    {formikProps.errors.gender}
                   </small>
                 )}
               </div>

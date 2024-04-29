@@ -1,4 +1,4 @@
-import DoctorSignupComp from '../../components/DoctorSignupComp'
+import DoctorSignupComp from '../../components/authentication/DoctorSignupComp'
 
 function DoctorSignup() {
   return (

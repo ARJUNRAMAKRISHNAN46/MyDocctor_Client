@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { SidePanelProps } from "../types/doctorSidebar";
-import DoctorOverview from "./DoctorOverview";
+import { SidePanelProps } from "../../types/doctorSidebar";
+import DoctorOverview from "../doctor/DoctorOverview";
 import { useDispatch, useSelector } from "react-redux";
-import { LogoutUser } from "../redux/actions/UserActions";
-import { AppDispatch } from "../redux/store";
+import { LogoutUser } from "../../redux/actions/UserActions";
+import { AppDispatch } from "../../redux/store";
 import { RootState } from "@reduxjs/toolkit/query";
 
 const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
@@ -13,7 +13,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
 
   useEffect(() => {
     setClickedIndex(0);
-    onItemClick(<DoctorOverview/>)
+    onItemClick(data[0].component)
 
   }, []);
 
@@ -34,13 +34,13 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
   };
 
   return (
-    <div className="w-[220px] h-[100vh] bg-white">
+    <div className="w-[250px] h-[100vh] bg-gray-800">
       <div className="flex justify-center pt-2">
         <div>
           <span className="text-red-600 font-bold text-[10px] md:text-[30px]">
             My
           </span>
-          <span className="text-gray-950 font-bold text-[10px] md:text-[30px]">
+          <span className="text-white font-bold text-[10px] md:text-[30px]">
             Doctor
           </span>
         </div>
@@ -54,15 +54,15 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
         />
       </div>
       <div className="text-center mb-2">
-        <h1 className="font-bold text-[20px]">Dr.{userData?.name}</h1>
-        <h1 className="text-[14px] font-semibold">{userData?.qualification}</h1>
-        <h1 className="text-[14px] font-semibold">{userData?.specialization}</h1>
+        <h1 className="text-white font-bold text-[20px]">{userData?.name}</h1>
+        <h1 className="text-white text-[14px] font-semibold">{userData?.qualification}</h1>
+        <h1 className="text-white text-[14px] font-semibold">{userData?.specialization}</h1>
       </div>
       {data.map((item, index) => (
         <div
           key={index}
           className={`flex items-center font-semibold px-4 rounded-md py-1.5 m-1 ${
-            clickedIndex === index ? "bg-gray-600 text-white" : "bg-gray-200"
+            clickedIndex === index ? "bg-blue-600 text-white" : "bg-gray-700 text-white"
           }`}
           onClick={() => {
             handleClick(index);
@@ -71,15 +71,15 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
         >
           {item?.logo}
           <span
-            className={`ml-2 text-gray-800 font-semibold${
-              clickedIndex === index ? "bg-gray-600 text-white" : ""
+            className={`ml-2 font-semibold${
+              clickedIndex === index ? "bg-gray-600 text-white" : "text-gray-200"
             }`}
           >
             {item.value}
           </span>
         </div>
       ))}
-      <div onClick={handleLogout} className={`mt-32 text-gray-800 bg-gray-200 font-semibold text-center py-1.5 m-1 rounded-md`}>
+      <div onClick={handleLogout} className={`text-gray-200 bg-gray-700 font-semibold pl-10 py-1.5 m-1 rounded-md`}>
         <span>Logout</span>
       </div>
     </div>
