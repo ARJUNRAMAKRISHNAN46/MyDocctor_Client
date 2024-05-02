@@ -1,96 +1,59 @@
 import { TiStarFullOutline } from "react-icons/ti";
 import { TiStarOutline } from "react-icons/ti";
 
+const review = [
+  {
+    name: "Abhijith Palakkal",
+    profile: "../../../src/assets/feyz.jpeg",
+    rating: [0, 0, 0, 0, 0],
+    description:
+      'The standard chunk of Lorem Ipsum used since the 1and 1.10.33 from "de Finibus Bonorum et Malorum" by Ci in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+  },
+  {
+    name: "Faiz Ibrahim",
+    profile: "../../../src/assets/feyz.jpeg",
+    rating: [0, 0, 0, 0],
+    description:
+      'Lorem Ipsum used since the 1500s is reproduced below  from "de Finibus Bonorum et Malorum" by Cicero are also reproducediginal form, accompanied by English versions from the 1914 translation by H. Rackham.',
+  },
+  {
+    name: "Muhammed Nabeel",
+    profile: "../../../src/assets/feyz.jpeg",
+    rating: [0, 0, 0, 0],
+    description:
+      'The standard chunk of Lorem Ipsum used since the 1 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
+  },
+  {
+    name: "Anirudh Jagath",
+    profile: "../../../src/assets/feyz.jpeg",
+    rating: [0, 0, 0],
+    description:
+      'Lorem Ipsum used since the 1500s is reproccompanied by English versions from the 1914 translation by H. Rackham.',
+  },
+];
+
 function Reviews() {
   return (
-    <div>
+    <div className="md:px-36">
       <div className="mb-1 md:mb-6 md:p-8">
         <h1 className="text-[12px] md:text-[24px] font-bold ml-1">Reviews</h1>
-        <div className="md:flex">
-          <div className="mb-1 md:w-[30%] bg-red-100 h-[180px] border rounded-lg flex p-2 m-2">
-            <div className="w-[320px] ">
-              <img
-                className=" border rounded-full md:h-[70px] md:w-[70px]"
-                // width={60}
-                src="../../src/assets/yash.jpeg"
-                alt=""
-              />
-            </div>
-            <div className="ml-0.5 md:ml-4">
-              <h1 className="text-[10px] md:text-[20px] font-bold">
-                Rithick Gauda
-              </h1>
-              <div className="flex">
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
+        <div className="grid grid-cols-4">
+          {review.map((rev) => (
+            <div className="bg-red-100 rounded-[3px] grid grid-cols-4 p-1 m-1">
+              <div>
+                <img className="w-[300px] rounded-full" src={`${rev.profile}`} alt="" />
               </div>
-              <p className="text-[8px] md:text-[16px] leading-none">
-                Excellent app. It is of a great help as going to the hospitals
-                are risky nowadays. Easy to use app. The patient care department
-                is top- notch. The app has a great number doctors. Would
-                definitely share this app among friends.
-              </p>
-            </div>
-          </div>
-          <div className="mb-1 md:w-[30%] bg-red-100 h-[180px] border rounded-lg flex p-2 m-2">
-            <div className="w-[320px] ">
-              <img
-                className=" border rounded-full md:h-[70px] md:w-[70px]"
-                // width={60}
-                src="../../src/assets/dhanush.jpeg"
-                alt=""
-              />
-            </div>
-            <div className="ml-0.5 md:ml-4">
-              <h1 className="text-[10px] md:text-[20px] font-bold">
-                Hareesh Kumar
-              </h1>
-              <div className="flex">
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarOutline className="md:mb-4 text-yellow-500" />
-                <TiStarOutline className="md:mb-4 text-yellow-500" />
+              <div className="ml-2 col-span-3">
+                <h1 className="font-semibold">{rev.name}</h1>
+                <div className="flex">
+                  {rev.rating.map(() => (
+                    <TiStarFullOutline className="text-yellow-500" />
+                  ))}
+                </div>
+                <h1 className="text-[12px]">{rev.description}</h1>
               </div>
-              <p className="text-[8px] md:text-[16px] leading-none">
-                Excellent app. It is of a great help as going to the hospitals
-                are risky nowadays. Easy to use app. The patient care department
-                is top- notch. The app has a great number doctors. Would
-                definitely share this app among friends.
-              </p>
             </div>
-          </div>
-          <div className="mb-1 md:w-[30%] bg-red-100 h-[180px] border rounded-lg flex p-2 m-2">
-            <div className="w-[320px] ">
-              <img
-                className=" border rounded-full md:h-[70px] md:w-[70px]"
-                // width={60}
-                src="../../src/assets/vijay.jpeg"
-                alt=""
-              />
-            </div>
-            <div className="ml-0.5 md:ml-4">
-              <h1 className="text-[10px] md:text-[20px] font-bold">
-                Dhurga
-              </h1>
-              <div className="flex">
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarFullOutline className="md:mb-4 text-yellow-500" />
-                <TiStarOutline className="md:mb-4 text-yellow-500" />
-              </div>
-              <p className="text-[8px] md:text-[16px] leading-none">
-                Excellent app. It is of a great help as going to the hospitals
-                are risky nowadays. Easy to use app. The patient care department
-                is top- notch. The app has a great number doctors. Would
-                definitely share this app among friends.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

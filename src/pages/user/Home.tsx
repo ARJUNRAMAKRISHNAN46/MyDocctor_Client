@@ -1,15 +1,15 @@
 import Navbar from '../../components/common/Navbar'
-import AppAdd from '../../components/common/AppAdd'
 import Footer from '../../components/common/Footer'
 import Banner from '../../components/common/Banner'
 import Speciality from '../../components/common/Speciality'
 import Reviews from '../../components/common/Reviews'
+import AppBanner from '../../components/common/AppBanner'
 
 function Home() {
   return (
     <div>
       <Navbar/>
-      <AppAdd/>
+      <AppBanner/>
       <Speciality/>
       <Banner/>
       <Reviews/>
