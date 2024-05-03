@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { SidePanelProps } from "../../types/doctorSidebar";
-import DoctorOverview from "../doctor/DoctorOverview";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../redux/actions/UserActions";
 import { AppDispatch } from "../../redux/store";

@@ -1,6 +1,6 @@
 export const doctors = [
     {
-      doctorName: "Faiz Ibrahim",
+      doctorName: "Feyz Ibrahim",
       qualification: "MBBS MD",
       speciality: "Diabetology",
       profile: "../../../src/assets/feyz.jpeg",

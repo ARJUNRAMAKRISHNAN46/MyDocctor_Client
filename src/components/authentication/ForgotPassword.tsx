@@ -4,7 +4,6 @@ import { useState } from "react";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { forgotPassword } from "../../redux/actions/UserActions";
-import { useNavigate } from "react-router-dom";
 
 interface FormValues {
   email: string;

@@ -1,16 +1,10 @@
 import "./App.css";
-import Router from './components/Router'
-import DoctorProfileOnUserSide from "./pages/user/DoctorProfileOnUserSide";
-import Doctors from "./pages/user/Doctors";
-import Home from "./pages/user/Home";
+import SlotBooking from "./pages/user/SlotBooking";
 
 function App() {
   return (
-    <>
-      {/* <Router/> */}
-      {/* <Doctors/> */}
-      <DoctorProfileOnUserSide/>
-      {/* <Home/> */}
+    <> 
+      <SlotBooking/>   
     </>
   );
 }

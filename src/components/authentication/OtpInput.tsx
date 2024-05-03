@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 interface OtpInputProps {
   length?: number;
-  userData: UserData;
+  userData: UserData | null;
 }
 
 const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {

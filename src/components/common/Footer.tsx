@@ -1,5 +1,3 @@
-import React from "react";
-
 function Footer() {
   return (
     <div className="bg-gray-800 md:flex md:justify-between px-4 py-4 md:p-12 md:h-[300px] grid grid-col">

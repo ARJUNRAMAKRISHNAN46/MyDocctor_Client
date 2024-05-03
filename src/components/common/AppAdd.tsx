@@ -1,5 +1,3 @@
-import React from "react";
-
 function AppAdd() {
   return (
     <div className="flex">

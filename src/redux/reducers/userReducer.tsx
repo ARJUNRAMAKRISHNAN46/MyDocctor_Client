@@ -1,8 +1,6 @@
 import {
-  //   getUser,
   signupUser,
   LoginUser,
-  //   changePassword,
   LogoutUser,
   getUser,
   signupDoctor,

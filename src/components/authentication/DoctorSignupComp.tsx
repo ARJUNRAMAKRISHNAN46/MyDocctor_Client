@@ -9,6 +9,10 @@ import { doctorGoogle, signupDoctor } from "../../redux/actions/UserActions";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
+interface UserData {
+  // Define the properties of UserData here
+}
+
 const initialValues = {
   name: "",
   email: "",
@@ -262,7 +266,7 @@ function DoctorSignupComp() {
             <div className="px-16 flex justify-center">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
-                  const decodeToken = jwtDecode(credentialResponse?.credential);
+                  const decodeToken:{name:string, email:string} = jwtDecode(String(credentialResponse?.credential));
                   console.log(
                     "🚀 ~ DoctorSignupComp ~ decodeToken:",
                     decodeToken
@@ -272,6 +276,8 @@ function DoctorSignupComp() {
                     email: decodeToken?.email,
                     mobileNumber: "9876543210",
                     password: "User@123",
+                    confirmPassword: "User@123",
+                    otp:"",
                     role: "doctor",
                   };
 
@@ -285,7 +291,7 @@ function DoctorSignupComp() {
           </div>
         </div>
       ) : (
-        <OtpInput length={4} userData={data} />
+        <OtpInput length={4} userData={data || null} />
       )}
     </>
   );
