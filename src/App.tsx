@@ -1,10 +1,10 @@
+import Router from "./components/Router";
 import "./App.css";
-import SlotBooking from "./pages/user/SlotBooking";
 
 function App() {
   return (
     <> 
-      <SlotBooking/>   
+       <Router/> 
     </>
   );
 }

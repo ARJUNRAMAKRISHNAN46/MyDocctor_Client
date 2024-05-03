@@ -19,6 +19,7 @@ import AdminHome from "../pages/admin/AdminHome";
 import ForgotPassword from "./authentication/ForgotPassword";
 import ResetPassword from "./authentication/ResetPassword";
 import LandingPage from "../pages/common/LandingPage";
+import SlotBooking from "../pages/user/SlotBooking";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -65,6 +66,7 @@ function Router() {
           <Route path="/signup" element={!userData ? <Signup/> : <Navigate to={'/userHome'}/> } />
           <Route path="/userHome" element={userData ? <Home/> : <Navigate to={'/login'} /> } />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/selectSlot" element={<SlotBooking />} />
         </Routes>
       </>
     )
