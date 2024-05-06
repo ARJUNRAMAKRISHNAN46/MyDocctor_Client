@@ -5,6 +5,8 @@ import { Country, State, City } from "country-state-city";
 import { useState } from "react";
 import Select from "react-select";
 import { Specialities } from "../../util/Specialities";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const initialValues = {
   name: "",
@@ -15,7 +17,7 @@ const initialValues = {
   country: "",
   state: "",
   city: "",
-  medicalLicense: "",
+  medicalLicenseNumber: "",
   pincode: "",
   expertise: "",
   yearsOfExperience: "",
@@ -32,9 +34,9 @@ interface profileValues {
   country: string;
   state: string;
   city: string;
-  medicalLicense: string;
-  pincode: string;
   expertise: string;
+  pincode: string;
+  medicalLicenseNumber: string;
   yearsOfExperience: string;
   collageName: string;
   currentWorkingHospital: string;
@@ -73,7 +75,7 @@ function ProfileUpdation() {
           </h1>
         </div>
       </div>
-      <div>
+      <div className="">
         <Formik
           initialValues={initialValues}
           validationSchema={DoctorDetails}
@@ -81,260 +83,327 @@ function ProfileUpdation() {
         >
           {(formikProps: FormikProps<profileValues>) => (
             <Form>
-              <div>
-                <Field
-                  style={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #8ca1be",
-                    borderRadius: "5px",
-                    width: "350px",
-                    height: "40px",
-                    color: "white",
-                    paddingLeft: "10px",
-                    outline: "none",
-                  }}
-                  type="text"
-                  name="name"
-                  placeholder="Enter your name"
-                ></Field>
-              </div>
-              <div className="md:ml-48">
-                {formikProps.errors.name && formikProps.touched.name && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.name}
-                  </small>
-                )}
-              </div>
-              <div className="mt-4">
-                <Field
-                  style={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #8ca1be",
-                    borderRadius: "5px",
-                    width: "350px",
-                    height: "40px",
-                    color: "white",
-                    paddingLeft: "10px",
-                    outline: "none",
-                  }}
-                  as="select"
-                  type="text"
-                  name="gender"
-                  placeholder="Enter your gender"
-                >
-                  <option value="">Select Gender</option>
-                  {genderOptions.map((gender, index) => (
-                    <option key={index} value={gender.toLowerCase()}>
-                      {gender}
-                    </option>
-                  ))}
-                </Field>
-              </div>
-              <div className="md:ml-48">
-                {formikProps.errors.gender && formikProps.touched.gender && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.gender}
-                  </small>
-                )}
-              </div>
-              <div className="mt-4">
-                <Field
-                  style={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #8ca1be",
-                    borderRadius: "5px",
-                    width: "350px",
-                    height: "40px",
-                    color: "white",
-                    paddingLeft: "10px",
-                    outline: "none",
-                  }}
-                  type="text"
-                  name="email"
-                  placeholder="Enter your email"
-                ></Field>
-              </div>
-              <div className="md:ml-48">
-                {formikProps.errors.email && formikProps.touched.email && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.email}
-                  </small>
-                )}
-              </div>
-              <div className="mt-4">
-                <Field
-                  style={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #8ca1be",
-                    borderRadius: "5px",
-                    width: "350px",
-                    height: "40px",
-                    color: "white",
-                    paddingLeft: "10px",
-                    outline: "none",
-                  }}
-                  type="text"
-                  name="dob"
-                  placeholder="Enter your DOB"
-                ></Field>
-              </div>
-              <div className="md:ml-48">
-                {formikProps.errors.dob && formikProps.touched.dob && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.dob}
-                  </small>
-                )}
-              </div>
-              <div className="mt-4">
-                <Field
-                  style={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #8ca1be",
-                    borderRadius: "5px",
-                    width: "350px",
-                    height: "40px",
-                    color: "white",
-                    paddingLeft: "10px",
-                    outline: "none",
-                  }}
-                  type="text"
-                  name="mobileNumber"
-                  placeholder="Enter your mobile"
-                ></Field>
-              </div>
-              <div className="md:ml-48">
-                {formikProps.errors.mobileNumber &&
-                  formikProps.touched.mobileNumber && (
-                    <small className="text-red-600 text-center">
-                      {formikProps.errors.mobileNumber}
-                    </small>
-                  )}
-              </div>
-              {/* --------------------------------------------------------------------------------------------------------------------------------------- */}
-              <div className="w-[350px] mt-4">
-                <Select
-                  options={Country.getAllCountries().map((country) => ({
-                    value: country.isoCode,
-                    label: country.name,
-                  }))}
-                  name="country"
-                  placeholder="Select Country"
-                  onChange={(option: any) => {
-                    formikProps.setFieldValue("country", option.label);
-                    handleCountry(option.value);
-                  }}
-                  onBlur={() => formikProps.setFieldTouched("country", true)}
-                  isSearchable
-                />
-                {formikProps.errors.country && formikProps.touched.country && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.country}
-                  </small>
-                )}
-              </div>
-              <div className="md:ml-48">
-                {formikProps.errors.country && formikProps.touched.country && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.country}
-                  </small>
-                )}
-              </div>
-              {stateVisible && (
-                <div className="w-[350px] mt-4">
-                  <Select
-                    options={State.getStatesOfCountry(countryCode)?.map(
-                      (state) => ({
-                        value: state.isoCode,
-                        label: state.name,
-                      })
-                    )}
-                    name="state"
-                    placeholder="Select state"
-                    onChange={(option: any) => {
-                      console.log("option inside the select method", option);
-                      formikProps.setFieldValue("state", option.label);
-                      handleState(option.value);
+              <div className="grid grid-cols-3 md:px-28">
+                <div>
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
                     }}
-                    onBlur={() => formikProps.setFieldTouched("state", true)}
-                    isSearchable
-                  />
-                  {formikProps.errors.state && formikProps.touched.state && (
+                    type="text"
+                    name="name"
+                    placeholder="John Adam"
+                  ></Field>
+                  {formikProps.errors.name && formikProps.touched.name && (
                     <small className="text-red-600 text-center">
-                      {formikProps.errors.state}
+                      {formikProps.errors.name}
                     </small>
                   )}
                 </div>
-              )}
-              <div className="md:ml-48">
-                {formikProps.errors.state && formikProps.touched.state && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.state}
-                  </small>
-                )}
-              </div>
-              {cityVisible && (
+                <div className="">
+                </div>
+                <div className="mt-4">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
+                    }}
+                    as="select"
+                    type="text"
+                    name="gender"
+                    placeholder="Enter your gender"
+                  >
+                    <option value="">Select Gender</option>
+                    {genderOptions.map((gender, index) => (
+                      <option key={index} value={gender.toLowerCase()}>
+                        {gender}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.gender && formikProps.touched.gender && (
+                    <small className="text-red-600 text-center">
+                      {formikProps.errors.gender}
+                    </small>
+                  )}
+                </div>
+                <div className="">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
+                    }}
+                    type="text"
+                    name="email"
+                    placeholder="johnadam@gmail.com"
+                  ></Field>
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.email && formikProps.touched.email && (
+                    <small className="text-red-600 text-center">
+                      {formikProps.errors.email}
+                    </small>
+                  )}
+                </div>
+                <div className="mt-4">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
+                    }}
+                    type="text"
+                    name="dob"
+                    placeholder="12-06-2005"
+                  ></Field>
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.dob && formikProps.touched.dob && (
+                    <small className="text-red-600 text-center">
+                      {formikProps.errors.dob}
+                    </small>
+                  )}
+                </div>
+                <div className="mt-4">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
+                    }}
+                    type="text"
+                    name="mobileNumber"
+                    placeholder="9876543210"
+                  ></Field>
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.mobileNumber &&
+                    formikProps.touched.mobileNumber && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.mobileNumber}
+                      </small>
+                    )}
+                </div>
+                {/* --------------------------------------------------------------------------------------------------------------------------------------- */}
                 <div className="w-[350px] mt-4">
                   <Select
-                    options={City.getCitiesOfState(countryCode, stateCode)?.map(
-                      (city) => ({
+                    options={Country.getAllCountries().map((country) => ({
+                      value: country.isoCode,
+                      label: country.name,
+                    }))}
+                    name="country"
+                    placeholder="Select Country"
+                    onChange={(option: any) => {
+                      formikProps.setFieldValue("country", option.label);
+                      handleCountry(option.value);
+                    }}
+                    onBlur={() => formikProps.setFieldTouched("country", true)}
+                    isSearchable
+                  />
+                  {formikProps.errors.country &&
+                    formikProps.touched.country && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.country}
+                      </small>
+                    )}
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.country &&
+                    formikProps.touched.country && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.country}
+                      </small>
+                    )}
+                </div>
+                {stateVisible && (
+                  <div className="w-[350px] mt-4">
+                    <Select
+                      options={State.getStatesOfCountry(countryCode)?.map(
+                        (state) => ({
+                          value: state.isoCode,
+                          label: state.name,
+                        })
+                      )}
+                      name="state"
+                      placeholder="Select state"
+                      onChange={(option: any) => {
+                        console.log("option inside the select method", option);
+                        formikProps.setFieldValue("state", option.label);
+                        handleState(option.value);
+                      }}
+                      onBlur={() => formikProps.setFieldTouched("state", true)}
+                      isSearchable
+                    />
+                    {formikProps.errors.state && formikProps.touched.state && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.state}
+                      </small>
+                    )}
+                  </div>
+                )}
+                {cityVisible && (
+                  <div className="w-[350px] mt-4">
+                    <Select
+                      options={City.getCitiesOfState(
+                        countryCode,
+                        stateCode
+                      )?.map((city) => ({
                         value: city.isoCode,
                         label: city.name,
-                      })
+                      }))}
+                      name="city"
+                      placeholder="Select city"
+                      onChange={(option: any) => {
+                        console.log("option inside the select method", option);
+                        formikProps.setFieldValue("city", option.label);
+                      }}
+                      onBlur={() => formikProps.setFieldTouched("state", true)}
+                      isSearchable
+                    />
+                    {formikProps.errors.state && formikProps.touched.state && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.state}
+                      </small>
                     )}
-                    name="city"
-                    placeholder="Select city"
-                    onChange={(option: any) => {
-                      console.log("option inside the select method", option);
-                      formikProps.setFieldValue("city", option.label);
+                  </div>
+                )}
+                <div className="mt-4">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
                     }}
-                    onBlur={() => formikProps.setFieldTouched("state", true)}
-                    isSearchable
+                    type="text"
+                    name="pincode"
+                    placeholder="pincode"
                   />
-                  {formikProps.errors.state && formikProps.touched.state && (
-                    <small className="text-red-600 text-center">
-                      {formikProps.errors.state}
-                    </small>
-                  )}
                 </div>
-              )}
-              <div className="md:ml-48">
-                {formikProps.errors.city && formikProps.touched.city && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.city}
-                  </small>
-                )}
-              </div>
-              <div className="mt-4">
-                <Field
-                  style={{
-                    backgroundColor: "#1F2937",
-                    border: "1px solid #8ca1be",
-                    borderRadius: "5px",
-                    width: "350px",
-                    height: "40px",
-                    color: "white",
-                    paddingLeft: "10px",
-                    outline: "none",
-                  }}
-                  as="select"
-                  type="text"
-                  name="speciality"
-                  placeholder="Enter your speciality"
-                >
-                  <option value="">Select Gender</option>
-                  {Specialities.map((spl, index) => (
-                    <option key={index} value={spl.toLowerCase()}>
-                      {spl}
-                    </option>
-                  ))}
-                </Field>
-              </div>
-              <div className="md:ml-48">
-                {formikProps.errors.gender && formikProps.touched.gender && (
-                  <small className="text-red-600 text-center">
-                    {formikProps.errors.gender}
-                  </small>
-                )}
+                <div className="md:ml-48">
+                  {formikProps.errors.pincode &&
+                    formikProps.touched.pincode && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.pincode}
+                      </small>
+                    )}
+                </div>
+                <div className="mt-4">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
+                    }}
+                    as="select"
+                    type="text"
+                    name="expertise"
+                    placeholder="Select your expertise"
+                  >
+                    <option value="">Select Expertise</option>
+                    {Specialities.map((spl, index) => (
+                      <option key={index} value={spl.toLowerCase()}>
+                        {spl}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.expertise &&
+                    formikProps.touched.expertise && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.expertise}
+                      </small>
+                    )}
+                </div>
+                <div className="mt-4">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
+                    }}
+                    type="text"
+                    name="medicalLicenseNumber"
+                    placeholder="MD-1234567890"
+                  />
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.medicalLicenseNumber &&
+                    formikProps.touched.medicalLicenseNumber && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.medicalLicenseNumber}
+                      </small>
+                    )}
+                </div>
+                <div className="mt-4">
+                  <Field
+                    style={{
+                      backgroundColor: "#1F2937",
+                      border: "1px solid #8ca1be",
+                      borderRadius: "5px",
+                      width: "350px",
+                      height: "40px",
+                      color: "white",
+                      paddingLeft: "10px",
+                      outline: "none",
+                    }}
+                    type="number"
+                    name="yearsOfExperience"
+                    placeholder="Years of experience"
+                  />
+                </div>
+                <div className="md:ml-48">
+                  {formikProps.errors.yearsOfExperience &&
+                    formikProps.touched.yearsOfExperience && (
+                      <small className="text-red-600 text-center">
+                        {formikProps.errors.yearsOfExperience}
+                      </small>
+                    )}
+                </div>
               </div>
               <div className="mt-6 flex justify-center">
                 <button

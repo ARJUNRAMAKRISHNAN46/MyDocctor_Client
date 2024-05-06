@@ -5,6 +5,6 @@ export interface DataItem<P = any> {
 }
 
 export interface SidePanelProps {
-  data: DataItem[];
-  onItemClick: (item: DataItem) => void;
+  data: DataItem<any>[]; 
+  onItemClick: (item: DataItem<any>) => void;
 }

@@ -20,6 +20,7 @@ import ForgotPassword from "./authentication/ForgotPassword";
 import ResetPassword from "./authentication/ResetPassword";
 import LandingPage from "../pages/common/LandingPage";
 import SlotBooking from "../pages/user/SlotBooking";
+import ProfileUpdation from "../pages/doctor/ProfileUpdation";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -73,23 +74,42 @@ function Router() {
   }
 
   if(userData?.role === 'doctor') {
-    return (
-    <>
-      <Routes>
-        <Route path="/" element={<Navigate to={'/doctor/doctorHome'} />} />
-        <Route path="/login" element={<Navigate to={'/doctor/doctorHome'} /> } />
-        <Route path="/doctor/signup" element={<Navigate to={'/doctor/doctorHome'} /> } />
-        <Route path="/doctor/doctorHome" element={<DoctorHome/> } />
-        <Route path="/doctor/doctorOverview" element={<DoctorOverview/> } />
-        <Route path="/doctor/appointment" element={<DoctorAppoitnments />} />
-        <Route path="/doctor/patients" element={<DoctorPatients />} />
-        <Route path="/doctor/communityChat" element={<DoctorCommunityChat />} />
-        <Route path="/doctor/messages" element={<DoctorMessages />} />
-        <Route path="/doctor/slots" element={<DoctorSlots />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </>
-    )
+console.log(userData,'--------------------------------------->');
+
+    if(userData?.isVerified === false) {
+      console.log('isVerified === false');
+      
+      return (
+        <>
+          <Routes>
+            <Route path="/" element={<Navigate to={'/doctor/updateDetails'} />} />
+            <Route path="/login" element={<Navigate to={'/doctor/updateDetails'} /> } />
+            <Route path="/doctor/signup" element={<Navigate to={'/doctor/updateDetails'} /> } />
+            <Route path="/doctor/updateDetails" element={<ProfileUpdation/> } />
+            <Route path="/doctor/doctorHome" element={<Navigate to={'/doctor/updateDetails'}/>} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </>
+        )
+    } else {
+      return (
+      <>
+        <Routes>
+          <Route path="/" element={<Navigate to={'/doctor/doctorHome'} />} />
+          <Route path="/login" element={<Navigate to={'/doctor/doctorHome'} /> } />
+          <Route path="/doctor/signup" element={<Navigate to={'/doctor/doctorHome'} /> } />
+          <Route path="/doctor/doctorHome" element={<DoctorHome/> } />
+          <Route path="/doctor/doctorOverview" element={<DoctorOverview/> } />
+          <Route path="/doctor/appointment" element={<DoctorAppoitnments />} />
+          <Route path="/doctor/patients" element={<DoctorPatients />} />
+          <Route path="/doctor/communityChat" element={<DoctorCommunityChat />} />
+          <Route path="/doctor/messages" element={<DoctorMessages />} />
+          <Route path="/doctor/slots" element={<DoctorSlots />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </>
+      )
+    }
   }
 
   if(userData?.role === 'admin') {

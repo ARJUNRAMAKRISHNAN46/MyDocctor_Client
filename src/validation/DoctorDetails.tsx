@@ -12,22 +12,19 @@ export const DoctorDetails = Yup.object({
     .matches(/^[0-9]{10}$/, "Invalid mobile number")
     .required("Please enter your mobile number"),
   dob: Yup.string()
-    .matches(
-      /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/,
-      "Invalid date fomat"
-    )
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format")
     .required("Please enter your date of birth"),
   gender: Yup.string().required("Select your gender"),
   country: Yup.string().required("Please select a country"),
   state: Yup.string().required("Please select a state"),
   city: Yup.string().required("Please select a city"),
-  medicalLicense: Yup.string()
+  pincode: Yup.string()
+  .matches(/^\d{6}(-\d{4})?$/, "Enter a valid pincode")
+  .required("Enter your pincode"),
+  expertise: Yup.string().required("Please select expertise"),
+  medicalLicenseNumber: Yup.string()
     .matches(/^MD-\d{10}$/, "Please enter a valid medical license number")
     .required("Please enter medical license number"),
-  pincode: Yup.string()
-    .matches(/^\d{5}(-\d{4})?$/, "Enter a valid pincode")
-    .required("Enter your pincode"),
-  expertise: Yup.string().required("Please enter expertise"),
   yearsOfExperience: Yup.number().required("Enter your year of experience"),
   collageName: Yup.string().required("Please enter your collage name"),
   currentWorkingHospital: Yup.string().required(
