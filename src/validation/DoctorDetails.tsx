@@ -1,13 +1,6 @@
 import * as Yup from "yup";
 
 export const DoctorDetails = Yup.object({
-  name: Yup.string()
-    .min(4, "Name must be greater than 3 characters")
-    .required("Please enter your name"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Please enter your email")
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format"),
   mobileNumber: Yup.string()
     .matches(/^[0-9]{10}$/, "Invalid mobile number")
     .required("Please enter your mobile number"),
@@ -19,15 +12,20 @@ export const DoctorDetails = Yup.object({
   state: Yup.string().required("Please select a state"),
   city: Yup.string().required("Please select a city"),
   pincode: Yup.string()
-  .matches(/^\d{6}(-\d{4})?$/, "Enter a valid pincode")
-  .required("Enter your pincode"),
+    .matches(/^\d{6}(-\d{4})?$/, "Enter a valid pincode")
+    .required("Enter your pincode"),
   expertise: Yup.string().required("Please select expertise"),
   medicalLicenseNumber: Yup.string()
     .matches(/^MD-\d{10}$/, "Please enter a valid medical license number")
     .required("Please enter medical license number"),
   yearsOfExperience: Yup.number().required("Enter your year of experience"),
-  collageName: Yup.string().required("Please enter your collage name"),
-  currentWorkingHospital: Yup.string().required(
-    "Please enter the current working hospital name"
+  collegeName: Yup.string().min(10).required("Please enter your collage name"),
+  currentWorkingHospital: Yup.string()
+    .min(10)
+    .required("Please enter the current working hospital name"),
+  profilePhoto: Yup.mixed().required("Please upload your profile photo"),
+  experienceCertificate: Yup.mixed().required(
+    "Please upload your experience certificate"
   ),
+  medicalLicense: Yup.mixed().required("Please upload your medical license"),
 });

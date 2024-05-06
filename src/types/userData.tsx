@@ -14,23 +14,29 @@ export interface UserData {
   isBlocked?: boolean,
   otp: string;
   dob?: string,
-  favouriteDoctor: object[],
-  address:object[],
-  appointments: object[],
+  favouriteDoctor?: object[],
+  country?: string;
+  state?: string;
+  city?: string;
+  pincode?: string;
+  appointments?: object[],
   expertise?: string;
   education?: string;
   dateOfBirth?: string;
   languagesKnown?: string[];
   currentWorkingHospital?: string;
-  gender?: Gender,
+  gender?: Gender;
+  collegeName?: string;
   yearsOfExperience?: number;
   workingDays?: string[];
-  medicalLisenceNumber?: string;
-  avatar?: string,
-  isVerified?: boolean,
+  medicalLicenseNumber?: string;
+  experienceCertificate: string;
+  profilePhoto?: string;
+  medicalLicense: string;
+  isVerified?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  isActive?: boolean,
+  isActive?: boolean;
 }
 export type Login = {
   email: string;
