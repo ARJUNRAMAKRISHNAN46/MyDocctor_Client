@@ -1,16 +1,22 @@
-import { Formik, Form, Field } from "formik";
+import { updateDoctorProfile } from "../../redux/actions/DoctorActions";
 import { DoctorDetails } from "../../validation/DoctorDetails";
-import { FormikProps } from "formik";
 import { Country, State, City } from "country-state-city";
-import { useState } from "react";
-import Select from "react-select";
 import { Specialities } from "../../util/Specialities";
 import "react-datepicker/dist/react-datepicker.css";
+import { UserData } from "../../types/userData";
+import { AppDispatch } from "../../redux/store";
+import { Formik, Form, Field } from "formik";
+import { useDispatch } from "react-redux";
+import { FormikProps } from "formik";
+import Select from "react-select";
+import { useState } from "react";
+import { imageUpload } from "../../util/UploadImage";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   gender: "",
   dob: "",
-  mobileNumber: "",
+  email: "",
   country: "",
   state: "",
   city: "",
@@ -28,7 +34,7 @@ const genderOptions = ["Male", "Female", "Other"];
 interface profileValues {
   gender: string;
   dob: string;
-  mobileNumber: string;
+  email: string;
   country: string;
   state: string;
   city: string;
@@ -47,6 +53,8 @@ function ProfileUpdation() {
   const [cityVisible, setCityVisible] = useState(false);
   const [countryCode, setCountryCode] = useState("");
   const [stateCode, setStateCode] = useState("");
+  const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleCountry = (value: string) => {
     console.log("country : ", value);
@@ -61,31 +69,56 @@ function ProfileUpdation() {
     setStateCode(value);
   };
 
-  const handleSubmit = (values: profileValues) => {
-    console.log("🚀 ~ handleSubmit ~ values:", values);
+  const handleSubmit = async (values: UserData) => {
+    console.log("🚀 ~ handleSubmit ~ values:", values)
+    try {
+      const experienceCertificate = await imageUpload(
+        values.experienceCertificate
+      );
+      const profilePhoto = await imageUpload(values.profilePhoto);
+      const medicalLicense = await imageUpload(values.medicalLicense);
+      values.experienceCertificate = experienceCertificate;
+      values.profilePhoto = profilePhoto;
+      values.medicalLicense = medicalLicense;
+
+      dispatch(updateDoctorProfile(values))
+        .then((res) => {
+          console.log("🚀 ~ dispatch ~ res:", res);
+          if(res.type.endsWith('fulfilled')) {
+            navigate('/doctor/wait-for-verification')
+          }
+        })
+        .catch((err) => {
+          console.log("🚀 ~ dispatch ~ res:", err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const showPreview = (previewId, file) => {
+  const showPreview = (previewId: string, file: Blob) => {
     const reader = new FileReader();
 
     reader.onloadend = () => {
       const preview = document.getElementById(previewId);
       if (preview instanceof HTMLElement) {
-        preview.innerHTML = ""; // Clear previous preview, if any
+        preview.innerHTML = "";
         const img = document.createElement("img");
-        img.src = reader.result;
-        img.className = "w-20 h-20 rounded-full"; // Adjust image size and styling as needed
+
+        img.src = String(reader.result);
+        img.className = "w-20 h-20 rounded-full";
         preview.appendChild(img);
       }
     };
 
     if (file) {
+      console.log("🚀 ~ showPreview ~ file:", typeof reader.readAsDataURL);
       reader.readAsDataURL(file);
     }
   };
 
   return (
-    <div className="bg-gray-100 w-[100vw] h-[100vw]">
+    <div className="bg-gray-100 w-[100vw] h-[100vh]">
       <div>
         <div className="flex justify-center pt-8">
           <h1 className="text-red-600 font-bold text-[28px] md:text-[40px]">
@@ -174,17 +207,16 @@ function ProfileUpdation() {
                         paddingLeft: "10px",
                         outline: "none",
                       }}
-                      type="text"
-                      name="mobileNumber"
-                      placeholder="9876543210"
+                      type="email"
+                      name="email"
+                      placeholder="registered email"
                     ></Field>
                   </div>
-                  {formikProps.errors.mobileNumber &&
-                    formikProps.touched.mobileNumber && (
-                      <small className="text-red-600 text-center">
-                        {formikProps.errors.mobileNumber}
-                      </small>
-                    )}
+                  {formikProps.errors.email && formikProps.touched.email && (
+                    <small className="text-red-600 text-center">
+                      {formikProps.errors.email}
+                    </small>
+                  )}
                 </div>
                 <div className="p-4">
                   <div className="w-[350px]">
@@ -256,7 +288,7 @@ function ProfileUpdation() {
                           countryCode,
                           stateCode
                         )?.map((city) => ({
-                          value: city.isoCode,
+                          value: city?.isoCode,
                           label: city.name,
                         }))}
                         name="city"
@@ -528,9 +560,7 @@ function ProfileUpdation() {
                       </small>
                     )}
                 </div>
-                <div className="mt-6 flex justify-center">
-                  
-                </div>
+                <div className="mt-6 flex justify-center"></div>
                 <div className="mt-6 flex justify-center">
                   <button
                     className="bg-red-600 px-6 py-1 rounded-[5px] text-white font-semibold"

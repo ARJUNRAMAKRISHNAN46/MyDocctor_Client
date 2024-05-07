@@ -1,9 +1,10 @@
 import * as Yup from "yup";
 
 export const DoctorDetails = Yup.object({
-  mobileNumber: Yup.string()
-    .matches(/^[0-9]{10}$/, "Invalid mobile number")
-    .required("Please enter your mobile number"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Please enter your email")
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format"),
   dob: Yup.string()
     .matches(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format")
     .required("Please enter your date of birth"),

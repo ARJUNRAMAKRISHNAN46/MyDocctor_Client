@@ -32,7 +32,6 @@ interface FormValues {
 function SignupComp() {
   const [status, setStatus] = useState<boolean>(false);
   const [data, setData] = useState<FormValues | null>(null);
-  const [emailExists, setEmailExists] = useState<boolean>(false);
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -49,7 +48,6 @@ function SignupComp() {
     } catch (error: any) {
       console.log("🚀 ~ signupWithGoogle ~ error:", error);
       if (error?.response && error?.response.status === 409) {
-        setEmailExists(true);
         console.log("Error:", error);
       }
     }
@@ -68,11 +66,7 @@ function SignupComp() {
             setStatus(true);
           }
           if (res.type.endsWith("rejected")) {
-            setEmailExists(true);
           }
-          setTimeout(() => {
-            setEmailExists(false);
-          }, 3000);
         })
         .catch((err) => {
           console.log(err, " 909o0");
@@ -81,7 +75,6 @@ function SignupComp() {
     } catch (error: any) {
       console.log("🚀 ~ handleSubmit ~ error:", error);
       if (error?.response && error?.response.status === 409) {
-        setEmailExists(true);
         console.log("Error:", error);
       }
     }
@@ -89,18 +82,12 @@ function SignupComp() {
 
   return (
     <>
-      {emailExists && (
-        <div className="bg-red-500 text-white text-center py-2">
-          Email already exists
-        </div>
-      )}
-      {console.log(status, "--------------------------------status")}
       {!status ? (
         <div className="md:flex grid-flow-row">
           <div className="md:w-[50%] mt-16 bg-white items-center hidden md:block">
             <img src="../../src/assets/patient-login.jpg" alt="login-image" />
           </div>
-          <div className=" md:w-[50%] p-3 md:p-0 bg-gray-800">
+          <div className=" md:w-[50%] p-3 md:p-0 bg-white">
             <div
               className="flex justify-center pt-8
               "
@@ -108,159 +95,165 @@ function SignupComp() {
               <h1 className="text-red-600 font-bold text-[28px] md:text-[40px]">
                 My
               </h1>
-              <h1 className="text-white font-bold text-[28px] md:text-[40px]">
+              <h1 className="text-gray-800 font-bold text-[28px] md:text-[40px]">
                 Doctor
               </h1>
             </div>
-            <div className="text-center mt-4 text-white font-semibold">
-              <h1 className="md:text-2xl font-bold">REGISTER HERE</h1>
+            <div className="text-center mt-4 text-gray-800 font-semibold">
+              <h1 className="md:text-xl font-bold">REGISTER HERE</h1>
             </div>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={UserSignupValidation}
-              onSubmit={handleSubmit}
-            >
-              {(formikProps: FormikProps<FormValues>) => (
-                <Form>
-                  <div className="flex justify-center mt-12 md:mt-8">
-                    <Field
-                      style={{
-                        backgroundColor: "#1F2937",
-                        border: "1px solid #8ca1be",
-                        borderRadius: "5px",
-                        width: "350px",
-                        height: "40px",
-                        color: "white",
-                        paddingLeft: "10px",
-                        outline: "none",
-                      }}
-                      type="text"
-                      name="name"
-                      placeholder="Enter your first name"
-                    ></Field>
-                  </div>
-                  <div className="md:ml-48">
-                    {formikProps.errors.name && formikProps.touched.name && (
-                      <small className="text-red-600 text-center">
-                        {formikProps.errors.name}
-                      </small>
-                    )}
-                  </div>
-                  <div className="flex justify-center mt-4">
-                    <Field
-                      style={{
-                        backgroundColor: "#1F2937",
-                        border: "1px solid #8ca1be",
-                        borderRadius: "5px",
-                        width: "350px",
-                        height: "40px",
-                        color: "white",
-                        paddingLeft: "10px",
-                        outline: "none",
-                      }}
-                      type="text"
-                      name="email"
-                      placeholder="Enter your email"
-                    ></Field>
-                  </div>
-                  <div className="md:ml-48">
-                    {formikProps.errors.email && formikProps.touched.email && (
-                      <small className="text-red-600 text-center">
-                        {formikProps.errors.email}
-                      </small>
-                    )}
-                  </div>
-                  <div className="flex justify-center mt-4">
-                    <Field
-                      style={{
-                        backgroundColor: "#1F2937",
-                        border: "1px solid #8ca1be",
-                        borderRadius: "5px",
-                        width: "350px",
-                        height: "40px",
-                        color: "white",
-                        paddingLeft: "10px",
-                        outline: "none",
-                      }}
-                      type="tel"
-                      name="mobileNumber"
-                      placeholder="Enter your mobile number"
-                    ></Field>
-                  </div>
-                  <div className="md:ml-48">
-                    {formikProps.errors.mobileNumber &&
-                      formikProps.touched.mobileNumber && (
-                        <small className="text-red-600 text-center">
-                          {formikProps.errors.mobileNumber}
-                        </small>
-                      )}
-                  </div>
-                  <div className="flex justify-center mt-4 ">
-                    <Field
-                      style={{
-                        backgroundColor: "#1F2937",
-                        border: "1px solid #8ca1be",
-                        borderRadius: "5px",
-                        width: "350px",
-                        height: "40px",
-                        color: "white",
-                        paddingLeft: "10px",
-                        outline: "none",
-                      }}
-                      type="password"
-                      name="password"
-                      placeholder="Enter your password"
-                    ></Field>
-                  </div>
-                  <div className="md:ml-48">
-                    {formikProps.errors.password &&
-                      formikProps.touched.password && (
-                        <small className="text-red-600 text-center">
-                          {formikProps.errors.password}
-                        </small>
-                      )}
-                  </div>
-                  <div className="flex justify-center mt-4">
-                    <Field
-                      style={{
-                        backgroundColor: "#1F2937",
-                        border: "1px solid #8ca1be",
-                        borderRadius: "5px",
-                        width: "350px",
-                        height: "40px",
-                        color: "white",
-                        paddingLeft: "10px",
-                        outline: "none",
-                      }}
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="Re-Enter your password"
-                    ></Field>
-                  </div>
-                  <div className="md:ml-48">
-                    {formikProps.errors.confirmPassword &&
-                      formikProps.touched.confirmPassword && (
-                        <small className="text-red-600 text-center">
-                          {formikProps.errors.confirmPassword}
-                        </small>
-                      )}
-                  </div>
-                  <Field type="hidden" name="otp" />
-                  <Field type="hidden" name="role" value="user" />
-                  <div className="text-gray-300 text-[10px] md:text-[15px] text-center mt-16 md:mt-8">
-                    <a href="/login">Already a member ? Login now</a>
-                  </div>
-                  <div className="flex justify-center mt-4">
-                    <button
-                      type="submit"
-                      className="text-white font-bold mb-8 bg-red-600 px-10 py-2 border-none rounded-md"
-                    >
-                      SIGN UP
-                    </button>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+            <div className="flex justify-center">
+              <div>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={UserSignupValidation}
+                  onSubmit={handleSubmit}
+                >
+                  {(formikProps: FormikProps<FormValues>) => (
+                    <Form>
+                      <div className="">
+                        <div className="flex justify-center mt-12 md:mt-8">
+                          <Field
+                            style={{
+                              backgroundColor: "#ffff",
+                              border: "1px solid #1F2937",
+                              borderRadius: "5px",
+                              width: "350px",
+                              height: "40px",
+                              color: "gray",
+                              paddingLeft: "10px",
+                              outline: "none",
+                            }}
+                            type="text"
+                            name="name"
+                            placeholder="John Adams"
+                          ></Field>
+                        </div>
+                        {formikProps.errors.name &&
+                          formikProps.touched.name && (
+                            <small className="text-red-600 text-center">
+                              {formikProps.errors.name}
+                            </small>
+                          )}
+                      </div>
+                      <div>
+                        <div className="flex justify-center mt-4">
+                          <Field
+                            style={{
+                              backgroundColor: "#ffff",
+                              border: "1px solid #1F2937",
+                              borderRadius: "5px",
+                              width: "350px",
+                              height: "40px",
+                              color: "gray",
+                              paddingLeft: "10px",
+                              outline: "none",
+                            }}
+                            type="text"
+                            name="email"
+                            placeholder="johnadams@gmail.com"
+                          ></Field>
+                        </div>
+                        {formikProps.errors.email &&
+                          formikProps.touched.email && (
+                            <small className="text-red-600 text-center">
+                              {formikProps.errors.email}
+                            </small>
+                          )}
+                      </div>
+                      <div>
+                        <div className="flex justify-center mt-4">
+                          <Field
+                            style={{
+                              backgroundColor: "#ffff",
+                              border: "1px solid #1F2937",
+                              borderRadius: "5px",
+                              width: "350px",
+                              height: "40px",
+                              color: "gray",
+                              paddingLeft: "10px",
+                              outline: "none",
+                            }}
+                            type="tel"
+                            name="mobileNumber"
+                            placeholder="9874561230"
+                          ></Field>
+                        </div>
+                        {formikProps.errors.mobileNumber &&
+                          formikProps.touched.mobileNumber && (
+                            <small className="text-red-600 text-center">
+                              {formikProps.errors.mobileNumber}
+                            </small>
+                          )}
+                      </div>
+                      <div>
+                        <div className="flex justify-center mt-4 ">
+                          <Field
+                            style={{
+                              backgroundColor: "#ffff",
+                              border: "1px solid #1F2937",
+                              borderRadius: "5px",
+                              width: "350px",
+                              height: "40px",
+                              color: "gray",
+                              paddingLeft: "10px",
+                              outline: "none",
+                            }}
+                            type="password"
+                            name="password"
+                            placeholder="John@123"
+                          ></Field>
+                        </div>
+                        {formikProps.errors.password &&
+                          formikProps.touched.password && (
+                            <small className="text-red-600 text-center">
+                              {formikProps.errors.password}
+                            </small>
+                          )}
+                      </div>
+                      <div>
+                        <div className="flex justify-center mt-4">
+                          <Field
+                            style={{
+                              backgroundColor: "#ffff",
+                              border: "1px solid #1F2937",
+                              borderRadius: "5px",
+                              width: "350px",
+                              height: "40px",
+                              color: "gray",
+                              paddingLeft: "10px",
+                              outline: "none",
+                            }}
+                            type="password"
+                            name="confirmPassword"
+                            placeholder="John@123"
+                          ></Field>
+                        </div>
+                        {formikProps.errors.confirmPassword &&
+                          formikProps.touched.confirmPassword && (
+                            <small className="text-red-600 text-center">
+                              {formikProps.errors.confirmPassword}
+                            </small>
+                          )}
+                      </div>
+                      <Field type="hidden" name="otp" />
+                      <Field type="hidden" name="role" value="user" />
+                      <div className="text-gray-900 text-[10px] md:text-[15px] font-semibold text-center mt-16 md:mt-8">
+                        <a href="/login">Already a member ? Login now</a>
+                      </div>
+                      <div className="flex justify-center mt-4">
+                        <button
+                          type="submit"
+                          className="text-white font-bold mb-8 bg-red-600 px-10 py-2 border-none rounded-md"
+                        >
+                          SIGN UP
+                        </button>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </div>
             <div className="px-16 flex justify-center mb-16">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
@@ -295,4 +288,3 @@ function SignupComp() {
 }
 
 export default SignupComp;
-

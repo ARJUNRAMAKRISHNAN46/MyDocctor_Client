@@ -8,7 +8,7 @@ export const updateDoctorProfile = createAsyncThunk(
   async (userData: UserData, { rejectWithValue }) => {
     console.log("🚀 ~ userData:", userData);
     try {
-      const { data } = await DoctorAxios.post("/update-profile", {
+      const { data } = await DoctorAxios.put("/doctors/update-profile", {
         ...userData,
         role: "doctor",
       });

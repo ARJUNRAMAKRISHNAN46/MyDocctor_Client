@@ -41,7 +41,7 @@ export interface UserData {
 export type Login = {
   email: string;
   password: string;
-  role: string
+  // role: string
 };
 
 export type Signup = {

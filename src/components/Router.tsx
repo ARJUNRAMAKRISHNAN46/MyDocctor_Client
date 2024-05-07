@@ -21,6 +21,7 @@ import ResetPassword from "./authentication/ResetPassword";
 import LandingPage from "../pages/common/LandingPage";
 import SlotBooking from "../pages/user/SlotBooking";
 import ProfileUpdation from "../pages/doctor/ProfileUpdation";
+import DoctorWaiting from "../pages/doctor/DoctorWaiting";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -48,9 +49,22 @@ function Router() {
           <Route path="/doctor/signup" element={<DoctorSignup/>} />
           <Route path="/userHome" element={!userData ? <Login/> : <Navigate to={'/userHome'} />} />
           <Route path="/doctor/doctorHome" element={!userData ? <Login /> : <DoctorHome/>} />
+          <Route path="/doctor/updateDetails" element={<Navigate to={'/login'} />} />
+          <Route path="/selectSlot" element={<Navigate to={'/login'} />} />
           <Route path="/admin/adminHome" element={!userData ? <Login /> : <AdminHome/>} />
           <Route path="/forgotPassword" element={<ForgotPassword/>} />
           <Route path="/forgotPassword-post" element={<ResetPassword/>} />
+          <Route path="/doctor/updateDetails" element={<ProfileUpdation/> } />
+          <Route path="/doctor/doctorHome" element={<Navigate to={'/login'} />} />
+          <Route path="/doctor/wait-for-verification" element={<Navigate to={'/login'} />} />
+          <Route path="/doctor/doctorHome" element={ <Navigate to={'/login'} />} />
+          <Route path="/doctor/doctorOverview" element={ <Navigate to={'/login'} />} />
+          <Route path="/doctor/appointment" element={ <Navigate to={'/login'} />} />
+          <Route path="/doctor/patients" element={ <Navigate to={'/login'} />} />
+          <Route path="/doctor/communityChat" element={ <Navigate to={'/login'} />} />
+          <Route path="/doctor/messages" element={ <Navigate to={'/login'} />} />
+          <Route path="/doctor/slots" element={ <Navigate to={'/login'} />} />
+          <Route path="/admin/adminHome" element={<Navigate to={'/login'} />}/>
           <Route path="/" element={<LandingPage/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
@@ -74,23 +88,41 @@ function Router() {
   }
 
   if(userData?.role === 'doctor') {
-console.log(userData,'--------------------------------------->');
 
     if(userData?.isVerified === false) {
-      console.log('isVerified === false');
       
-      return (
-        <>
-          <Routes>
-            <Route path="/" element={<Navigate to={'/doctor/updateDetails'} />} />
-            <Route path="/login" element={<Navigate to={'/doctor/updateDetails'} /> } />
-            <Route path="/doctor/signup" element={<Navigate to={'/doctor/updateDetails'} /> } />
-            <Route path="/doctor/updateDetails" element={<ProfileUpdation/> } />
-            <Route path="/doctor/doctorHome" element={<Navigate to={'/doctor/updateDetails'}/>} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </>
-        )
+      
+      if(userData?.isProfile === true) {
+        return (
+          <>
+            <Routes>
+              <Route path="/" element={<Navigate to={'/doctor/wait-for-verification'} />} />
+              <Route path="/doctor/wait-for-verification" element={<DoctorWaiting/>} />
+              <Route path="/login" element={<Navigate to={'/doctor/wait-for-verification'} /> } />
+              <Route path="/doctor/signup" element={<Navigate to={'/doctor/wait-for-verification'} /> } />
+              <Route path="/doctor/updateDetails" element={<Navigate to={'/doctor/wait-for-verification'} /> }/>
+              <Route path="/doctor/doctorHome" element={<Navigate to={'/doctor/wait-for-verification'}/>} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </>
+          )
+        }else {
+          return (
+            <>
+              <Routes>
+                <Route path="/" element={<Navigate to={'/doctor/updateDetails'} />} />
+                <Route path="/doctor" element={<Navigate to={'/doctor/updateDetails'} />} />
+                <Route path="/login" element={<Navigate to={'/doctor/updateDetails'} /> } />
+                <Route path="/doctor/signup" element={<Navigate to={'/doctor/updateDetails'} /> } />
+                <Route path="/doctor/updateDetails" element={<ProfileUpdation/> } />
+                <Route path="/doctor/doctorHome" element={<Navigate to={'/doctor/updateDetails'}/>} />
+                <Route path="/doctor/wait-for-verification" element={<DoctorWaiting/>} />
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </>
+            )
+      }
+      
     } else {
       return (
       <>
