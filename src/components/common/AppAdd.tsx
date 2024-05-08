@@ -1,7 +1,7 @@
 function AppAdd() {
   return (
     <div className="flex">
-      <div className="md:w-[40%] w-[40%] md:h-[500px] hidden md:block">
+      {/* <div className="md:w-[40%] w-[40%] md:h-[500px] hidden md:block">
         <img
           width={1000}
           src="../../src/assets/addImage.png"
@@ -34,6 +34,9 @@ function AppAdd() {
         <p className="text-gray-500 font-semibold text-[14px] leading-none md:text-[20px] mb-4">
           about their health
         </p>
+      </div> */}
+      <div className="flex justify-center w-[100vw]">
+        <img src="../../../src/assets/appBanner.png" alt="" />
       </div>
     </div>
   );

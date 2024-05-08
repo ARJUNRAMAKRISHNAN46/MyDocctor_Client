@@ -1,6 +1,6 @@
 export const availableShift = [
   {
-    date: "2024-05-03",
+    date: "2024-05-08",
     methods: [
       { method: "In-Person Consultancy", status: false },
       { method: "Phone Consultancy", status: true },
@@ -49,7 +49,7 @@ export const availableShift = [
     ],
   },
   {
-    date: "2024-05-04",
+    date: "2024-05-09",
     methods: [
       { method: "In-Person Consultancy", status: true },
       { method: "Phone Consultancy", status: true },
@@ -98,7 +98,7 @@ export const availableShift = [
     ],
   },
   {
-    date: "2024-05-05",
+    date: "2024-05-10",
     methods: [
       { method: "In-Person Consultancy", status: true },
       { method: "Phone Consultancy", status: true },

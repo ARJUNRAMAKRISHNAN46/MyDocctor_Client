@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Signup from "../pages/user/Signup";
 import Login from "../pages/user/Login";
 import { useEffect } from "react";
@@ -26,6 +26,7 @@ import DoctorWaiting from "../pages/doctor/DoctorWaiting";
 function Router() {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userData.user);
+  const navigate = useNavigate()
   console.log("🚀 ~ Router ~ userData:", userData)
 
   useEffect(() => {
@@ -36,6 +37,7 @@ function Router() {
       .catch((err) => {
         console.log("🚀 ~ dispatch ~ res:", err);
       });
+
   }, [dispatch]);
   
 
@@ -49,22 +51,22 @@ function Router() {
           <Route path="/doctor/signup" element={<DoctorSignup/>} />
           <Route path="/userHome" element={!userData ? <Login/> : <Navigate to={'/userHome'} />} />
           <Route path="/doctor/doctorHome" element={!userData ? <Login /> : <DoctorHome/>} />
-          <Route path="/doctor/updateDetails" element={<Navigate to={'/login'} />} />
-          <Route path="/selectSlot" element={<Navigate to={'/login'} />} />
+          <Route path="/doctor/updateDetails" element={<Navigate to={'/'} />} />
+          <Route path="/selectSlot" element={<Navigate to={'/'} />} />
           <Route path="/admin/adminHome" element={!userData ? <Login /> : <AdminHome/>} />
           <Route path="/forgotPassword" element={<ForgotPassword/>} />
           <Route path="/forgotPassword-post" element={<ResetPassword/>} />
           <Route path="/doctor/updateDetails" element={<ProfileUpdation/> } />
-          <Route path="/doctor/doctorHome" element={<Navigate to={'/login'} />} />
-          <Route path="/doctor/wait-for-verification" element={<Navigate to={'/login'} />} />
-          <Route path="/doctor/doctorHome" element={ <Navigate to={'/login'} />} />
-          <Route path="/doctor/doctorOverview" element={ <Navigate to={'/login'} />} />
-          <Route path="/doctor/appointment" element={ <Navigate to={'/login'} />} />
-          <Route path="/doctor/patients" element={ <Navigate to={'/login'} />} />
-          <Route path="/doctor/communityChat" element={ <Navigate to={'/login'} />} />
-          <Route path="/doctor/messages" element={ <Navigate to={'/login'} />} />
-          <Route path="/doctor/slots" element={ <Navigate to={'/login'} />} />
-          <Route path="/admin/adminHome" element={<Navigate to={'/login'} />}/>
+          <Route path="/doctor/doctorHome" element={<Navigate to={'/'} />} />
+          <Route path="/doctor/wait-for-verification" element={<Navigate to={'/'} />} />
+          <Route path="/doctor/doctorHome" element={ <Navigate to={'/'} />} />
+          <Route path="/doctor/doctorOverview" element={ <Navigate to={'/'} />} />
+          <Route path="/doctor/appointment" element={ <Navigate to={'/'} />} />
+          <Route path="/doctor/patients" element={ <Navigate to={'/'} />} />
+          <Route path="/doctor/communityChat" element={ <Navigate to={'/'} />} />
+          <Route path="/doctor/messages" element={ <Navigate to={'/'} />} />
+          <Route path="/doctor/slots" element={ <Navigate to={'/'} />} />
+          <Route path="/admin/adminHome" element={<Navigate to={'/'} />}/>
           <Route path="/" element={<LandingPage/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
@@ -80,8 +82,8 @@ function Router() {
           <Route path="/login" element={!userData ? <Login/> : <Navigate to={'/userHome'} />} />
           <Route path="/signup" element={!userData ? <Signup/> : <Navigate to={'/userHome'}/> } />
           <Route path="/userHome" element={userData ? <Home/> : <Navigate to={'/login'} /> } />
-          <Route path="*" element={<PageNotFound />} />
           <Route path="/selectSlot" element={<SlotBooking />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </>
     )

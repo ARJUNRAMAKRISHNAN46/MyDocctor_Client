@@ -31,6 +31,12 @@ function Navbar() {
     }
   };
 
+  const handleselectSlot = () => {
+    console.log('clicked');
+    
+    navigate('/selectSlot');
+  }
+
   const handleLogin = async () => {
     try {
       navigate("/login");
@@ -50,7 +56,7 @@ function Navbar() {
           </h1>
         </div>
         <div className="w-full h-full flex justify-end items-center">
-          <button className="border border-red-700 md:p-2 text-[15px] md:block hidden md:rounded-[5px] md:mr-6 text-red-700 font-semibold">
+          <button onClick={handleselectSlot} className="border border-red-700 md:p-2 text-[15px] md:block hidden md:rounded-[5px] md:mr-6 text-red-700 font-semibold">
             <div className="flex items-center">
             <SlCalender className="mr-2"/>
             <h1>Book Appointment</h1>
@@ -76,8 +82,8 @@ function Navbar() {
         </div>
       </div>
       <div className="md:hidden block flex justify-end px-2">
-        <button className="border border-red-700 md:p-2 text-[15px] md:rounded-[5px] md:mr-6 text-red-700 font-semibold">
-          Book Free Appointment
+        <button onClick={handleselectSlot} className="border border-red-700 md:p-2 text-[15px] md:rounded-[5px] md:mr-6 text-red-700 font-semibold">
+          Book Appointment
         </button>
       </div>
       <div className=" hidden md:block">
