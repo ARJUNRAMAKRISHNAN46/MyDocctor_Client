@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { availableShift } from "../../util/SlotDatas";
-import { doctors } from "./ListDoctors";
+import { useParams } from "react-router-dom";
 import { review } from "./Reviews";
 import { TiStarFullOutline } from "react-icons/ti";
 import { HiOutlineStar } from "react-icons/hi";
+import axios from "axios";
 
 interface ConsultancyMethod {
   method: string;
@@ -17,8 +18,20 @@ function SelectSlot() {
   const [consultancyMethods, setConsultancyMethods] =
     useState<ConsultancyMethod[]>();
   const [cType, setCType] = useState<string>("");
-
+  let { doctorId } = useParams();
   const today = new Date().toISOString().split("T")[0];
+  const [doctor, setDoctor] = useState()
+
+  useEffect(() => {
+    const doctorData = axios
+      .get(``)
+      .then((res) => {
+        console.log("🚀 ~ doctorData ~ res:", res);
+      })
+      .catch((err) => {
+        console.log("🚀 ~ doctorData ~ err:", err);
+      });
+  }, []);
 
   const availableDates = availableShift
     .filter((shift) => shift.date >= today)
@@ -66,7 +79,7 @@ function SelectSlot() {
           <img src="../../../src/assets/feyz.jpeg" alt="" />
         </div>
         <div>
-          <h1 className="font-bold text-center mt-2 text-[14px] text-gray-700">
+          {/* <h1 className="font-bold text-center mt-2 text-[14px] text-gray-700">
             {doctors[0].speciality.toUpperCase()}
           </h1>
           <h1 className="font-bold text-center text-red-500 text-[20px]">
@@ -74,7 +87,7 @@ function SelectSlot() {
           </h1>
           <h1 className="font-bold text-center text-gray-500 text-[14px]">
             {doctors[0].qualification}
-          </h1>
+          </h1> */}
           <div className="flex items-center justify-center">
             {review[0].rating.map((rev, index) =>
               rev === 1 ? (

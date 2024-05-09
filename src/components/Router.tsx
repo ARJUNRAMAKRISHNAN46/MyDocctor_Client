@@ -22,11 +22,12 @@ import LandingPage from "../pages/common/LandingPage";
 import SlotBooking from "../pages/user/SlotBooking";
 import ProfileUpdation from "../pages/doctor/ProfileUpdation";
 import DoctorWaiting from "../pages/doctor/DoctorWaiting";
+import Doctors from "../pages/user/Doctors";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userData.user);
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   console.log("🚀 ~ Router ~ userData:", userData)
 
   useEffect(() => {
@@ -49,10 +50,11 @@ function Router() {
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route path="/doctor/signup" element={<DoctorSignup/>} />
-          <Route path="/userHome" element={!userData ? <Login/> : <Navigate to={'/userHome'} />} />
+          <Route path="/userHome" element={!userData ? <Navigate to={'/'}/> : <Navigate to={'/userHome'} />} />
           <Route path="/doctor/doctorHome" element={!userData ? <Login /> : <DoctorHome/>} />
           <Route path="/doctor/updateDetails" element={<Navigate to={'/'} />} />
-          <Route path="/selectSlot" element={<Navigate to={'/'} />} />
+          <Route path="/select-slot/:id" element={<SlotBooking />} />
+          <Route path="/list-doctors" element={<Doctors />} />
           <Route path="/admin/adminHome" element={!userData ? <Login /> : <AdminHome/>} />
           <Route path="/forgotPassword" element={<ForgotPassword/>} />
           <Route path="/forgotPassword-post" element={<ResetPassword/>} />
@@ -82,7 +84,8 @@ function Router() {
           <Route path="/login" element={!userData ? <Login/> : <Navigate to={'/userHome'} />} />
           <Route path="/signup" element={!userData ? <Signup/> : <Navigate to={'/userHome'}/> } />
           <Route path="/userHome" element={userData ? <Home/> : <Navigate to={'/login'} /> } />
-          <Route path="/selectSlot" element={<SlotBooking />} />
+          <Route path="/select-slot/:id" element={<SlotBooking />} />
+          <Route path="/list-doctors" element={<Doctors />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </>

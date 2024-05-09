@@ -89,12 +89,12 @@ function Navbar() {
       <div className=" hidden md:block">
         <div className="bg-gray-200 md:h-10 h-5 flex justify-center">
           <div className="flex items-center">
-            <div className="flex md:mx-10 items-center">
+            <a href="/list-doctors" className="flex md:mx-10 items-center">
             <RiShieldUserLine />
               <h1 className="text-black md:text-sm font-semibold text-[8px] md:mx-2">
                 Doctors
               </h1>
-            </div>
+            </a>
             <div className="flex md:mx-10 items-center">
               <MdOutlineLocalHospital />
               <h1 className="text-black md:text-sm font-semibold text-[8px] mx-2 md:mx-2">

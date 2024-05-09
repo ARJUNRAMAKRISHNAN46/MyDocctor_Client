@@ -1,5 +1,7 @@
+import axios from "axios";
 import SpecialityModal from "../modal/SpecialityModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Card from "../common/Card";
 
 function AdminSpecialities() {
   const [showBtn, setShowBtn] = useState(false);
@@ -29,31 +31,11 @@ function AdminSpecialities() {
             />
           )}
         </div>
+        {/* <div className="text-white">{doctors.map((data) => (
+          <Card}/>
+        ))}</div> */}
       </div>
     </div>
-    // <div className="h-[100vh] bg-gray-800 w-[83.5vw]">
-    //   <div className="m-1">
-    //     <div className="flex justify-end">
-    //       <button
-    //         onClick={handleBtnClick}
-    //         className="bg-blue-600 m-6 text-white font-semibold px-4 py-1 rounded-[5px]"
-    //       >
-    //         Add Speciality
-    //       </button>
-    //     </div>
-    //     <div>
-    //       {showBtn && (
-    //         <SpecialityModal
-    //           isOpen={true}
-    //           onClose={() => {
-    //             setShowBtn(false);
-    //           }}
-    //         />
-    //       )}
-    //     </div>
-    //     <div>{}</div>
-    //   </div>
-    // </div>
   );
 }
 

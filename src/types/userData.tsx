@@ -1,25 +1,25 @@
 enum Gender {
-  male = 'male',
-  female = 'female',
-  other = 'other'
+  male = "male",
+  female = "female",
+  other = "other",
 }
 
 export interface UserData {
   confirmPassword?: string;
-  name: string,
-  email: string,
-  password?: string,
-  mobileNumber?: string,
-  role?: string,
-  isBlocked?: boolean,
+  name: string;
+  email: string;
+  password?: string;
+  mobileNumber?: string;
+  role?: string;
+  isBlocked?: boolean;
   otp: string;
-  dob?: string,
-  favouriteDoctor?: object[],
+  dob?: string;
+  favouriteDoctor?: object[];
   country?: string;
   state?: string;
   city?: string;
   pincode?: string;
-  appointments?: object[],
+  appointments?: object[];
   expertise?: string;
   education?: string;
   dateOfBirth?: string;
@@ -37,6 +37,7 @@ export interface UserData {
   createdAt?: Date;
   updatedAt?: Date;
   isActive?: boolean;
+  qualification?: string;
 }
 export type Login = {
   email: string;
@@ -53,6 +54,12 @@ export type Signup = {
 };
 
 export type UpdatePassword = {
-  email: string,
-  password: string
-}
+  email: string;
+  password: string;
+};
+
+export type AddSpeciality = {
+  specialtyName: string;
+  specialtyImage: string;
+  specialtyDescription: string;
+};
