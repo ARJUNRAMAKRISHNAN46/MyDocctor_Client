@@ -238,6 +238,9 @@ function SignupComp() {
                       </div>
                       <Field type="hidden" name="otp" />
                       <Field type="hidden" name="role" value="user" />
+                      <div className="mt-2">
+                        <a href="/doctor/signup" className="text-gray-500 font-semibold text-sm">are you a doctor ?</a>
+                      </div>
                       <div className="text-gray-900 text-[10px] md:text-[15px] font-semibold text-center mt-16 md:mt-8">
                         <a href="/login">Already a member ? Login now</a>
                       </div>

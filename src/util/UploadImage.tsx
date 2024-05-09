@@ -13,8 +13,6 @@ export const imageUpload = async (image: any) => {
       }
     );
     const urlData = await res.json();
-    console.log(urlData, "urlData here");
-    console.log(urlData.url, "urlData url here");
     if (urlData.format === "jpg" || urlData.format === "png" || urlData.format === 'jpeg') {
       return urlData.url;
     } else {

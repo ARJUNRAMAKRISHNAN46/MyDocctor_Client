@@ -34,7 +34,7 @@ function Navbar() {
   const handleselectSlot = () => {
     console.log('clicked');
     
-    navigate('/selectSlot');
+    navigate('/select-slot');
   }
 
   const handleLogin = async () => {
