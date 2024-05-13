@@ -1,10 +1,10 @@
-export interface DataItem<P = any> {
+export interface DataItem {
   logo: React.ReactNode;
   value: string;
-  component: React.ComponentType<P>;
+  component: JSX.Element;
 }
 
 export interface SidePanelProps {
-  data: DataItem<any>[]; 
-  onItemClick: (item: DataItem<any>) => void;
+  data: DataItem[]; 
+  onItemClick: (item: JSX.Element) => void;
 }

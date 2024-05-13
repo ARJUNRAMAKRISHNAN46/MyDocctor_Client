@@ -35,6 +35,7 @@ export interface UserData {
   medicalLicense: string;
   isVerified?: boolean;
   createdAt?: Date;
+  isProfile?: boolean;
   updatedAt?: Date;
   isActive?: boolean;
   qualification?: string;

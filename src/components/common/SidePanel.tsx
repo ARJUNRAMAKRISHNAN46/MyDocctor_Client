@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { SidePanelProps } from "../../types/doctorSidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../redux/actions/UserActions";
-import { AppDispatch } from "../../redux/store";
-import { RootState } from "@reduxjs/toolkit/query";
+import { AppDispatch, RootState } from "../../redux/store";
+
 
 const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
@@ -13,7 +13,6 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
   useEffect(() => {
     setClickedIndex(0);
     onItemClick(data[0].component)
-
   }, []);
 
   const handleLogout = () => {

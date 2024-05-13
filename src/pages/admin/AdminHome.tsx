@@ -13,7 +13,7 @@ import AdminBookings from "../../components/admin/AdminBookings";
 import AdminSpecialities from "../../components/admin/AdminSpecialities";
 
 function AdminHome() {
-  const [selectedComponent, setSelectedComponent] = useState("");
+  const [selectedComponent, setSelectedComponent] = useState<JSX.Element>();
 
   const data: DataItem[] = [
     {
@@ -43,7 +43,7 @@ function AdminHome() {
     },
   ];
 
-  const handleItemClick = (component: string) => {
+  const handleItemClick = (component: JSX.Element) => {
     setSelectedComponent(component);
   };
 

@@ -1,28 +1,32 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import Signup from "../pages/user/Signup";
-import Login from "../pages/user/Login";
-import { useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useEffect, lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Home from "../pages/user/Home";
 import { AppDispatch, RootState } from "../redux/store";
 import { getUser } from "../redux/actions/UserActions";
-import DoctorSignup from "../pages/doctor/DoctorSignup";
-import DoctorOverview from "./doctor/DoctorOverview";
-import DoctorAppoitnments from "./doctor/DoctorAppoitnments";
-import DoctorPatients from "./doctor/DoctorPatients";
-import DoctorCommunityChat from "./doctor/DoctorCommunityChat";
-import DoctorMessages from "./doctor/DoctorMessages";
-import DoctorSlots from "./doctor/DoctorSlots";
-import PageNotFound from "./common/PageNotFound";
-import DoctorHome from "../pages/doctor/DoctorHome";
-import AdminHome from "../pages/admin/AdminHome";
-import ForgotPassword from "./authentication/ForgotPassword";
-import ResetPassword from "./authentication/ResetPassword";
-import LandingPage from "../pages/common/LandingPage";
-import SlotBooking from "../pages/user/SlotBooking";
-import ProfileUpdation from "../pages/doctor/ProfileUpdation";
-import DoctorWaiting from "../pages/doctor/DoctorWaiting";
-import Doctors from "../pages/user/Doctors";
+
+const Signup = lazy(() => import("../pages/user/Signup"));
+const Login = lazy(() => import("../pages/user/Login"));
+const Home = lazy(() => import("../pages/user/Home"))
+const DoctorSignup = lazy(() => import("../pages/doctor/DoctorSignup"));
+const DoctorOverview = lazy(() => import("./doctor/DoctorOverview"))
+const DoctorAppoitnments = lazy(() => import("./doctor/DoctorAppoitnments"))
+const DoctorPatients = lazy(() => import("./doctor/DoctorPatients"))
+const DoctorCommunityChat = lazy(() => import("./doctor/DoctorCommunityChat"))
+const DoctorMessages = lazy(() => import("./doctor/DoctorMessages"))
+const DoctorSlots = lazy(() => import("./doctor/DoctorSlots"))
+const PageNotFound = lazy(() => import("./common/PageNotFound"))
+const DoctorHome = lazy(() => import("../pages/doctor/DoctorHome"))
+const AdminHome = lazy(() => import("../pages/admin/AdminHome"))
+const ForgotPassword = lazy(() => import("./authentication/ForgotPassword"))
+const ResetPassword = lazy(() => import("./authentication/ResetPassword"))
+const LandingPage = lazy(() => import("../pages/common/LandingPage"))
+const SlotBooking = lazy(() => import("../pages/user/SlotBooking"))
+const ProfileUpdation = lazy(() => import("../pages/doctor/ProfileUpdation"))
+const DoctorWaiting = lazy(() => import("../pages/doctor/DoctorWaiting"))
+const Doctors = lazy(() => import("../pages/user/Doctors"))
+
+//======= loading component
+import Loader from './common/Loader';
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -45,7 +49,7 @@ function Router() {
   if(userData === null || userData === undefined) {
     
     return (
-      <>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/login" element={<Login/>} />
           <Route path="/signup" element={<Signup/>} />
@@ -72,13 +76,13 @@ function Router() {
           <Route path="/" element={<LandingPage/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </>
+      </Suspense>
     )
   }
 
   if(userData?.role === 'user') {
     return (
-      <>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Navigate to={'/userHome'} />} />
           <Route path="/login" element={!userData ? <Login/> : <Navigate to={'/userHome'} />} />
@@ -88,7 +92,7 @@ function Router() {
           <Route path="/list-doctors" element={<Doctors />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </>
+      </Suspense>
     )
   }
 
@@ -99,7 +103,7 @@ function Router() {
       
       if(userData?.isProfile === true) {
         return (
-          <>
+          <Suspense fallback={<Loader />}>
             <Routes>
               <Route path="/" element={<Navigate to={'/doctor/wait-for-verification'} />} />
               <Route path="/doctor/wait-for-verification" element={<DoctorWaiting/>} />
@@ -109,11 +113,11 @@ function Router() {
               <Route path="/doctor/doctorHome" element={<Navigate to={'/doctor/wait-for-verification'}/>} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
-          </>
+          </Suspense>
           )
         }else {
           return (
-            <>
+            <Suspense fallback={<Loader />}>
               <Routes>
                 <Route path="/" element={<Navigate to={'/doctor/updateDetails'} />} />
                 <Route path="/doctor" element={<Navigate to={'/doctor/updateDetails'} />} />
@@ -124,13 +128,13 @@ function Router() {
                 <Route path="/doctor/wait-for-verification" element={<DoctorWaiting/>} />
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
-            </>
+            </Suspense>
             )
       }
       
     } else {
       return (
-      <>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Navigate to={'/doctor/doctorHome'} />} />
           <Route path="/login" element={<Navigate to={'/doctor/doctorHome'} /> } />
@@ -144,7 +148,7 @@ function Router() {
           <Route path="/doctor/slots" element={<DoctorSlots />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-      </>
+      </Suspense>
       )
     }
   }
@@ -152,13 +156,13 @@ function Router() {
   if(userData?.role === 'admin') {
     
     return (
-      <>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Navigate to={'/admin/adminHome'}/>}/>
           <Route path="/admin/adminHome" element={<AdminHome/>}/>
           <Route path="/login" element={<AdminHome/>}/>
         </Routes>
-      </>
+      </Suspense>
     )
   }
 }

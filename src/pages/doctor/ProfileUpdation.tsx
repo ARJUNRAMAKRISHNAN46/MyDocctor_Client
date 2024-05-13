@@ -80,6 +80,7 @@ function ProfileUpdation() {
       values.experienceCertificate = experienceCertificate;
       values.profilePhoto = profilePhoto;
       values.medicalLicense = medicalLicense;
+      values.isProfile = true;
 
       dispatch(updateDoctorProfile(values))
         .then((res) => {

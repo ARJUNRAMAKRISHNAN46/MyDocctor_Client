@@ -18,7 +18,7 @@ import DoctorProfile from '../../components/doctor/DoctorProfile';
 
 function DoctorHome() {
 
-  const [selectedComponent, setSelectedComponent] = useState('');
+  const [selectedComponent, setSelectedComponent] = useState<JSX.Element>();
 
   const data: DataItem[] = [{
     logo: <RxDashboard />,
@@ -55,7 +55,7 @@ function DoctorHome() {
   }
 ];
 
-const handleItemClick = (component: string) => {
+const handleItemClick = (component: JSX.Element) => {
   setSelectedComponent(component);
 };
 
