@@ -2,7 +2,7 @@ import { Formik, Form, Field } from "formik";
 import { UserLoginValidation } from "../../validation/UserLogin";
 import { useDispatch } from "react-redux";
 import { FormikProps } from "formik";
-import { LoginUser, googleLogin } from "../../redux/actions/UserActions";
+import { LoginUser, googleLogin } from "../../redux/actions/AuthActions";
 import { AppDispatch } from "../../redux/store";
 // import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -33,9 +33,9 @@ function LoginComp() {
             if (res.payload.data.role === "user") {
               navigate("/userHome");
             } else if (res.payload.data.role === "doctor") {
-              navigate("/doctor/doctorHome");
+              navigate("/doctor/updateDetails");
             } else {
-              navigate("/admin/adminHome");
+              navigate("/admin/dashboard");
             }
           }
 
@@ -63,7 +63,7 @@ function LoginComp() {
             if (res.payload.data.role === "user") {
               navigate("/userHome");
             } else if (res.payload.data.role === "doctor") {
-              navigate("/doctor/doctorHome");
+              navigate("/doctor/updateDetails");
             } else {
               navigate("/admin/adminHome");
             }

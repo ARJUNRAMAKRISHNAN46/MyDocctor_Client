@@ -1,4 +1,4 @@
-import { updateDoctorProfile } from "../actions/DoctorActions";
+import { blockUser, findDoctorById, listDoctor, updateDoctorProfile, verifyDoctor } from "../actions/DoctorActions";
 import toast from "react-hot-toast";
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
@@ -42,7 +42,91 @@ const doctorReducer = createSlice({
         state.err = errorPayload.message;
         toast.error(errorPayload.message);
         state.user = null;
-      });
+      })
+      .addCase(verifyDoctor.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(verifyDoctor.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+        toast.success("doctor profile updated successfully", {
+          className: "text-center",
+        });
+      })
+      .addCase(verifyDoctor.rejected, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(listDoctor.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(listDoctor.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+        toast.success("doctor profile updated successfully", {
+          className: "text-center",
+        });
+      })
+      .addCase(listDoctor.rejected, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(findDoctorById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(findDoctorById.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+        toast.success("doctor profile updated successfully", {
+          className: "text-center",
+        });
+      })
+      .addCase(findDoctorById.rejected, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(blockUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(blockUser.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+        toast.success("doctor profile updated successfully", {
+          className: "text-center",
+        });
+      })
+      .addCase(blockUser.rejected, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
   },
 });
 

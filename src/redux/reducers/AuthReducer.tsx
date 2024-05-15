@@ -9,7 +9,7 @@ import {
   googleLogin,
   updatePassword,
   forgotPassword,
-} from "../actions/UserActions";
+} from "../actions/AuthActions";
 import toast from "react-hot-toast";
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";

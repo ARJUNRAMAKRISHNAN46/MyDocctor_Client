@@ -1,8 +1,10 @@
 function DoctorSlots() {
   return (
-    <div className="w-[1300px] h-[95vh] bg-white flex justify-center items-center m-4">
-      <h1 className="font-bold text-[30px]">Slots</h1>
+    <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">
+    <div className=" bg-gray-800 w-[82vw] h-[96vh] flex justify-center items-center">
+    <h1 className="font-bold text-[30px] text-white">Slots</h1>
     </div>
+  </div>
   );
 }
 

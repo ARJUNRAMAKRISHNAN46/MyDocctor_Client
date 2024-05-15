@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { UserData } from "../../types/userData";
-import { signupDoctor, signupUser } from "../../redux/actions/UserActions";
+import { signupDoctor, signupUser } from "../../redux/actions/AuthActions";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -65,7 +65,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
             console.log("🚀 ~ .then ~ res----------------------:", res);
 
             if (res.type.endsWith("fulfilled")) {
-              navigate("/doctor/doctorHome");
+              navigate("/doctor/updateDetails");
               console.log("heree");
             }
             if (res.type.endsWith("rejected")) {

@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { getUser } from "../redux/actions/UserActions";
+import { getUser } from "../redux/actions/AuthActions";
 
 const Signup = lazy(() => import("../pages/user/Signup"));
 const Login = lazy(() => import("../pages/user/Login"));
@@ -27,6 +27,7 @@ const Doctors = lazy(() => import("../pages/user/Doctors"))
 
 //======= loading component
 import Loader from './common/Loader';
+import VerifyDoctor from "../pages/admin/VerifyDoctor";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -73,8 +74,9 @@ function Router() {
           <Route path="/doctor/messages" element={ <Navigate to={'/'} />} />
           <Route path="/doctor/slots" element={ <Navigate to={'/'} />} />
           <Route path="/admin/adminHome" element={<Navigate to={'/'} />}/>
+          <Route path="/admin/verifyDoctor/:id" element={<Navigate to={'/'} />}/>
           <Route path="/" element={<LandingPage/>} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<Loader />} />
         </Routes>
       </Suspense>
     )
@@ -97,10 +99,7 @@ function Router() {
   }
 
   if(userData?.role === 'doctor') {
-
     if(userData?.isVerified === false) {
-      
-      
       if(userData?.isProfile === true) {
         return (
           <Suspense fallback={<Loader />}>
@@ -139,6 +138,7 @@ function Router() {
           <Route path="/" element={<Navigate to={'/doctor/doctorHome'} />} />
           <Route path="/login" element={<Navigate to={'/doctor/doctorHome'} /> } />
           <Route path="/doctor/signup" element={<Navigate to={'/doctor/doctorHome'} /> } />
+          <Route path="/doctor/updateDetails" element={<Navigate to={'/doctor/doctorHome'} /> } />
           <Route path="/doctor/doctorHome" element={<DoctorHome/> } />
           <Route path="/doctor/doctorOverview" element={<DoctorOverview/> } />
           <Route path="/doctor/appointment" element={<DoctorAppoitnments />} />
@@ -161,6 +161,7 @@ function Router() {
           <Route path="/" element={<Navigate to={'/admin/adminHome'}/>}/>
           <Route path="/admin/adminHome" element={<AdminHome/>}/>
           <Route path="/login" element={<AdminHome/>}/>
+          <Route path="/admin/verifyDoctor/:id" element={<VerifyDoctor/>}/>
         </Routes>
       </Suspense>
     )

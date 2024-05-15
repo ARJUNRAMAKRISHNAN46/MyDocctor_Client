@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SidePanelProps } from "../../types/doctorSidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { LogoutUser } from "../../redux/actions/UserActions";
+import { LogoutUser } from "../../redux/actions/AuthActions";
 import { AppDispatch, RootState } from "../../redux/store";
 
 
@@ -33,7 +33,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
 
   return (
     <div className="w-[250px] h-[100vh] bg-gray-800">
-      <div className="flex justify-center pt-2">
+      <div className="flex justify-center pt-2 mb-6">
         <div>
           <span className="text-red-600 font-bold text-[10px] md:text-[30px]">
             My
@@ -42,19 +42,6 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
             Doctor
           </span>
         </div>
-      </div>
-      <div className="flex justify-center rounded-full w-full h-[100px] my-2">
-        <img
-          src={!userData?.avatar ? '../../src/assets/demoimage.png' : userData?.avatar}
-          // src='../../src/assets/demoimage.png'
-          className="rounded-full"
-          alt="profile image"
-        />
-      </div>
-      <div className="text-center mb-2">
-        <h1 className="text-white font-bold text-[20px]">{userData?.name}</h1>
-        <h1 className="text-white text-[14px] font-semibold">{userData?.qualification}</h1>
-        <h1 className="text-white text-[14px] font-semibold">{userData?.specialization}</h1>
       </div>
       {data.map((item, index) => (
         <div

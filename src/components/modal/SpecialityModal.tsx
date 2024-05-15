@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage, FormikProps } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { AppDispatch } from "../../redux/store";
-import { addSpeciality } from "../../redux/actions/AdminActions";
+import { addSpeciality } from "../../redux/actions/UserActions";
 import { imageUpload } from "../../util/UploadImage";
 import { AddSpeciality } from "../../types/userData";
 

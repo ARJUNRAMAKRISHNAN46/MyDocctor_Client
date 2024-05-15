@@ -5,7 +5,7 @@ import { FormikProps } from "formik";
 import OtpInput from "./OtpInput";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { doctorGoogle, signupDoctor } from "../../redux/actions/UserActions";
+import { doctorGoogle, signupDoctor } from "../../redux/actions/AuthActions";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 

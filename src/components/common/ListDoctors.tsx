@@ -1,26 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AppDispatch } from "../../redux/store";
+import { listDoctor } from "../../redux/actions/DoctorActions";
 
 function ListDoctors() {
   const [doctors, setDoctors] = useState<never[]>([]);
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          "http://localhost:8080/doctor/api/doctors/list-doctors"
-        );
-        console.log("🚀 ~ doctors ~ res:", res);
-        setDoctors(res.data);
-      } catch (err) {
-        console.log("🚀 ~ doctors ~ err:", err);
-      }
-    };
-
-    fetchData();
-  }, []);
+    dispatch(listDoctor())
+      .then((res) => {
+        setDoctors(res.payload.data)
+        console.log("🚀 ~ dispatch ~ doctor ~ res:", res.payload.data);
+      })
+      .catch((err) => {
+        console.log("🚀 ~ dispatch ~ err:", err);
+      });
+  }, [dispatch]);
 
   const viewProfile = (doctorId: string) => {
     navigate(`/select-slot/${doctorId}`);
@@ -40,13 +39,13 @@ function ListDoctors() {
               }`}
               alt="doctor profile"
             />
-            <h1 className="text-[12px] text-center font-bold md:text-[25px]">
+            <h1 className="text-[10px] text-center font-bold md:text-[15px]">
               Dr.{doctor?.name}
             </h1>
-            <h1 className="text-[12px] text-center font-semibold md:text-[20px]">
+            <h1 className="text-[10px] text-center font-semibold md:text-[15px]">
               {`MBBS, MD`}
             </h1>
-            <h1 className="text-[12px] text-center font-semibold md:text-[20px]">
+            <h1 className="text-[10px] text-center font-semibold md:text-[15px]">
               {doctor?.expertise || "General"}
             </h1>
             <button

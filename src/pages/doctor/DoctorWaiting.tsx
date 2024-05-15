@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { LogoutUser } from "../../redux/actions/UserActions";
+import { LogoutUser } from "../../redux/actions/AuthActions";
 
 function DoctorWaiting() {
   const dispatch: AppDispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { LogoutUser } from "../../redux/actions/UserActions";
+import { LogoutUser } from "../../redux/actions/AuthActions";
 import { useNavigate } from "react-router-dom";
 import { SlCalender } from "react-icons/sl";
 import { MdOutlineLocalHospital } from "react-icons/md";

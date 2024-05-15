@@ -3,7 +3,7 @@ import { UserEmail } from "../../validation/UserEmail";
 import { useState } from "react";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
-import { forgotPassword } from "../../redux/actions/UserActions";
+import { forgotPassword } from "../../redux/actions/AuthActions";
 
 interface FormValues {
   email: string;
