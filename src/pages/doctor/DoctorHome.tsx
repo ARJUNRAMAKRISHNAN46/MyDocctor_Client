@@ -23,35 +23,35 @@ function DoctorHome() {
   const data: DataItem[] = [{
     logo: <RxDashboard />,
     value: 'Overview',
-    component: <DoctorOverview/>
+    component: "/overview"
   },
   {
     logo: <MdOutlineDateRange />,
     value: 'Appoitnment',
-    component: <DoctorAppoitnments/>
+    component: "/appointments"
   },
   {
     logo: <BiUser />,
-    value: 'User',
-    component: <DoctorPatients/>
+    value: 'Patients',
+    component: "/patients"
   },
   {
     logo: <IoIosPeople />,
     value: 'Community Chat',
-    component: <DoctorCommunityChat/>
+    component: "/community-chat"
   },
   {
     logo: <LuMessagesSquare />,
     value: 'Messages',
-    component: <DoctorMessages/>
+    component: "/messages"
   }, {
     logo: <BiMessageAltCheck />,
     value: 'Slots',
-    component: <DoctorSlots/>
+    component: "/slots"
   },{
     logo: <CgProfile />,
     value: 'Profile',
-    component: <DoctorProfile/>
+    component: "/profile"
   }
 ];
 

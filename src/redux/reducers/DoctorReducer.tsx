@@ -52,7 +52,7 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        toast.success("doctor profile updated successfully", {
+        toast.success("doctor verified successfully", {
           className: "text-center",
         });
       })
@@ -73,9 +73,9 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        toast.success("doctor profile updated successfully", {
-          className: "text-center",
-        });
+        // toast.success("listing doctor successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(listDoctor.rejected, (state, { payload }) => {
         console.log("🚀 ~ builder.addCase ~ payload:", payload);
@@ -94,9 +94,9 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        toast.success("doctor profile updated successfully", {
-          className: "text-center",
-        });
+        // toast.success("doctor data fetched successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(findDoctorById.rejected, (state, { payload }) => {
         console.log("🚀 ~ builder.addCase ~ payload:", payload);
@@ -115,9 +115,9 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        toast.success("doctor profile updated successfully", {
-          className: "text-center",
-        });
+        // toast.success("doctor profile updated successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(blockUser.rejected, (state, { payload }) => {
         console.log("🚀 ~ builder.addCase ~ payload:", payload);

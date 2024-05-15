@@ -20,7 +20,7 @@ export const DoctorDetails = Yup.object({
     .matches(/^MD-\d{10}$/, "Please enter a valid medical license number")
     .required("Please enter medical license number"),
   yearsOfExperience: Yup.number().required("Enter your year of experience"),
-  collegeName: Yup.string().min(10).required("Please enter your collage name"),
+  education: Yup.string().min(10).required("Please enter your collage name"),
   currentWorkingHospital: Yup.string()
     .min(10)
     .required("Please enter the current working hospital name"),

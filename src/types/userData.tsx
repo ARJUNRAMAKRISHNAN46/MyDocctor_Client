@@ -5,6 +5,7 @@ enum Gender {
 }
 
 export interface UserData {
+  _id: string,
   confirmPassword?: string;
   name: string;
   email: string;
@@ -22,7 +23,6 @@ export interface UserData {
   appointments?: object[];
   expertise?: string;
   education?: string;
-  dateOfBirth?: string;
   languagesKnown?: string[];
   currentWorkingHospital?: string;
   gender?: Gender;

@@ -22,35 +22,35 @@ export default function DoctorLayout() {
   const data: DataItem[] = [{
     logo: <RxDashboard />,
     value: 'Overview',
-    component: <DoctorOverview/>
+    component: "/doctor/overview"
   },
   {
     logo: <MdOutlineDateRange />,
     value: 'Appoitnment',
-    component: <DoctorAppoitnments/>
+    component: "/doctor/appointments"
   },
   {
     logo: <BiUser />,
-    value: 'User',
-    component: <DoctorPatients/>
+    value: 'Patients',
+    component: "/doctor/patients"
   },
   {
     logo: <IoIosPeople />,
     value: 'Community Chat',
-    component: <DoctorCommunityChat/>
+    component: "/doctor/community-chat"
   },
   {
     logo: <LuMessagesSquare />,
     value: 'Messages',
-    component: <DoctorMessages/>
+    component: "/doctor/messages"
   }, {
     logo: <BiMessageAltCheck />,
     value: 'Slots',
-    component: <DoctorSlots />
+    component: "/doctor/slots"
   },{
     logo: <CgProfile />,
     value: 'Profile',
-    component: <DoctorProfile/>
+    component: "/doctor/profile"
   }
 ];
   const handleItemClick = (component:  JSX.Element) => {
@@ -59,10 +59,10 @@ export default function DoctorLayout() {
 
   return (
     <div className="flex">
-      <div style={{ width: "10vw" }}>
+      <div className="w-1/6">
         <SidePanel data={data} onItemClick={handleItemClick} />
       </div>
-      <div style={{ width: "90vw" }}>
+      <div>
         <Outlet />
       </div>
     </div>

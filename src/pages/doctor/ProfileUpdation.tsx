@@ -24,7 +24,7 @@ const initialValues = {
   pincode: "",
   expertise: "",
   yearsOfExperience: "",
-  collegeName: "",
+  education: "",
   currentWorkingHospital: "",
   profilePhoto: "",
   experienceCertificate: "",
@@ -42,7 +42,7 @@ interface profileValues {
   pincode: string;
   medicalLicenseNumber: string;
   yearsOfExperience: string;
-  collegeName: string;
+  education: string;
   currentWorkingHospital: string;
   profilePhoto: string;
   experienceCertificate: string;
@@ -442,10 +442,10 @@ function ProfileUpdation() {
                       placeholder="Graduate college name"
                     />
                   </div>
-                  {formikProps.errors.collegeName &&
-                    formikProps.touched.collegeName && (
+                  {formikProps.errors.education &&
+                    formikProps.touched.education && (
                       <small className="text-red-600 text-center">
-                        {formikProps.errors.collegeName}
+                        {formikProps.errors.education}
                       </small>
                     )}
                 </div>

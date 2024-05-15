@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom";
 import { review } from "./Reviews";
 import { TiStarFullOutline } from "react-icons/ti";
 import { HiOutlineStar } from "react-icons/hi";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { findDoctorById } from "../../redux/actions/DoctorActions";
+import { UserData } from "../../types/userData";
 
 interface ConsultancyMethod {
   method: string;
@@ -18,18 +21,19 @@ function SelectSlot() {
   const [consultancyMethods, setConsultancyMethods] =
     useState<ConsultancyMethod[]>();
   const [cType, setCType] = useState<string>("");
-  let { doctorId } = useParams();
+  let { id } = useParams();
   const today = new Date().toISOString().split("T")[0];
-  const [doctor, setDoctor] = useState()
+  const [doctor, setDoctor] = useState<UserData>();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    const doctorData = axios
-      .get(``)
+    dispatch(findDoctorById(String(id)))
       .then((res) => {
-        console.log("🚀 ~ doctorData ~ res:", res);
+        setDoctor(res.payload.data);
+        console.log("🚀 ~ dispatch ~ doctor ~ res:", res.payload.data);
       })
       .catch((err) => {
-        console.log("🚀 ~ doctorData ~ err:", err);
+        console.log("🚀 ~ dispatch ~ err:", err);
       });
   }, []);
 
@@ -72,22 +76,23 @@ function SelectSlot() {
   const handleShiftSelect = (shift: string) => {
     setSelectedShift(shift);
   };
+  
   return (
     <div className="md:flex md:px-24 justify-between md:my-8">
-      <div className="md:w-[20%] h-[500px]  shadow-2xl cursor-pointer  transition-all duration-200 rounded-[10px]">
+      <div className="md:w-[20%] h-[700px]  shadow-2xl cursor-pointer  transition-all duration-200 rounded-[10px]">
         <div className="flex justify-center mt-6">
           <img src="../../../src/assets/feyz.jpeg" alt="" />
         </div>
         <div>
-          {/* <h1 className="font-bold text-center mt-2 text-[14px] text-gray-700">
-            {doctors[0].speciality.toUpperCase()}
+          <h1 className="font-bold text-center mt-2 text-[18px] text-gray-700">
+            {doctor?.name.toUpperCase()}
           </h1>
-          <h1 className="font-bold text-center text-red-500 text-[20px]">
-            {doctors[0].doctorName.toUpperCase()}
+          <h1 className="font-bold text-center text-red-500 text-[14px]">
+            {doctor?.expertise.toUpperCase()}
           </h1>
           <h1 className="font-bold text-center text-gray-500 text-[14px]">
-            {doctors[0].qualification}
-          </h1> */}
+            {doctor?.qualification}
+          </h1>
           <div className="flex items-center justify-center">
             {review[0].rating.map((rev, index) =>
               rev === 1 ? (
@@ -101,11 +106,29 @@ function SelectSlot() {
         </div>
         <div className="md:px-4 md:mt-4">
           <h1 className="font-bold text-gray-700 text-[15px]">ADDRESS</h1>
-          <p className="font-semibold text-gray-500">
-            Thazhath Veedu, Nadakkavu, <br />
-            Kozhikode, Kerala
-            <br /> PIN: 632424
+          <p className="font-semibold text-sm text-gray-600">
+            {doctor?.city}, <br />
+            {doctor?.state},
+            {doctor?.country}, <br />
+            <h1 className="text-sm">PIN : {doctor?.pincode}</h1> <br />
+            
           </p>
+        </div>
+        <div className="md:px-4">
+          <h1 className="font-bold text-gray-700 text-[15px]">CURRENT WORKING</h1>
+          <p className="text-sm font-semibold text-gray-600">{doctor?.currentWorkingHospital}</p>
+        </div>
+        <div className="md:px-4 md:mt-4">
+          <h1 className="font-bold text-gray-700 text-[15px]">EDUCATION</h1>
+          <p className="text-sm font-semibold text-gray-600">{doctor?.education || "##############"}</p>
+        </div>
+        <div className="md:px-4 md:mt-4">
+          <h1 className="font-bold text-gray-700 text-[15px]">EXPERIENCE</h1>
+          <p className="text-sm font-semibold text-gray-600">{doctor?.yearsOfExperience} years</p>
+        </div>
+        <div className="md:px-4 md:mt-4">
+          <h1 className="font-bold text-gray-700 text-[15px]">DATE OF BIRTH</h1>
+          <p className="text-sm font-semibold text-gray-600">{doctor?.dob || "##-##-####"}</p>
         </div>
       </div>
       <div className="md:w-[78%] h-[650px] bg-white rounded-[5px] shadow-2xl">

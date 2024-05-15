@@ -459,10 +459,10 @@ function DoctorProfile() {
                       readOnly={isEditable}
                     />
                   </div>
-                  {formikProps.errors.collegeName &&
-                    formikProps.touched.collegeName && (
+                  {formikProps.errors.education &&
+                    formikProps.touched.education && (
                       <small className="text-red-600 text-center">
-                        {formikProps.errors.collegeName}
+                        {formikProps.errors.education}
                       </small>
                     )}
                 </div>

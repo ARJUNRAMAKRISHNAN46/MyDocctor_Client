@@ -35,13 +35,18 @@ import AdminLayout from "./admin/AdminLayout";
 import AdminDoctors from "./admin/AdminDoctors";
 import AdminPatients from "./admin/AdminPatients";
 import AdminSpecialities from "./admin/AdminSpecialities";
+import DoctorProfile from "./doctor/DoctorProfile";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userData.user);
+  const loading = useSelector((state: RootState) => state.userData.loading);
+  console.log("🚀 ~ Router ~ loading:", loading)
   // const navigate = useNavigate()
   console.log("🚀 ~ Router ~ userData:", userData);
-
+if(loading === true) {
+  <Loader/>
+}
   useEffect(() => {
     dispatch(getUser())
       .then((res) => {
@@ -84,7 +89,7 @@ function Router() {
             path="/doctor/wait-for-verification"
             element={<Navigate to={"/"} />}
           />
-          <Route path="/doctor/doctorHome" element={<Navigate to={"/"} />} />
+          <Route path="/doctor/overview" element={<Navigate to={"/"} />} />
           <Route
             path="/doctor/doctorOverview"
             element={<Navigate to={"/"} />}
@@ -99,6 +104,13 @@ function Router() {
             path="/admin/verifyDoctor/:id"
             element={<Navigate to={"/"} />}
           />
+          {/* <Route path="/" element={<Navigate to={"/admin/adminHome"} />} /> */}
+          <Route path="/admin/adminHome" element={<Navigate to={"/"} />} />
+          <Route path="/admin/dashboard" element={<Navigate to={"/"} />} />
+          <Route path="/admin/doctors" element={<Navigate to={"/"} />} />
+          <Route path="/admin/bookings" element={<Navigate to={"/"} />} />
+          <Route path="/admin/patients" element={<Navigate to={"/"} />} />
+          <Route path="/admin/specialities" element={<Navigate to={"/"} />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="*" element={<Loader />} />
         </Routes>
@@ -206,7 +218,7 @@ function Router() {
       return (
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path="/" element={<Navigate to={"/doctor/doctorHome"} />} />
+            <Route path="" element={<Navigate to={"/doctor/doctorHome"} />} />
             <Route
               path="/login"
               element={<Navigate to={"/doctor/doctorHome"} />}
@@ -219,19 +231,25 @@ function Router() {
               path="/doctor/updateDetails"
               element={<Navigate to={"/doctor/doctorHome"} />}
             />
-            <Route path="/doctor/doctorHome" element={<DoctorHome />} />
-            <Route path="/doctor/doctorOverview" element={<DoctorOverview />} />
-            <Route
-              path="/doctor/appointment"
-              element={<DoctorAppoitnments />}
-            />
-            <Route path="/doctor/patients" element={<DoctorPatients />} />
-            <Route
-              path="/doctor/communityChat"
-              element={<DoctorCommunityChat />}
-            />
-            <Route path="/doctor/messages" element={<DoctorMessages />} />
-            <Route path="/doctor/slots" element={<DoctorSlots />} />
+            <Route path="doctor" element={<DoctorLayout />}>
+              <Route path="doctorHome" element={<DoctorOverview />} />
+              <Route
+                path="overview"
+                element={<DoctorOverview />}
+              />
+              <Route
+                path="appointments"
+                element={<DoctorAppoitnments />}
+              />
+              <Route path="patients" element={<DoctorPatients />} />
+              <Route
+                path="community-chat"
+                element={<DoctorCommunityChat />}
+              />
+              <Route path="messages" element={<DoctorMessages />} />
+              <Route path="slots" element={<DoctorSlots />} />
+              <Route path="profile" element={<DoctorProfile />} />
+            </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Suspense>
@@ -244,9 +262,9 @@ function Router() {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<AdminDashboard />} />
-            <Route path="/admin/verifyDoctor/:id" element={<VerifyDoctor />} />
+          <Route path="/admin/verifyDoctor/:id" element={<VerifyDoctor />} />
           <Route path="admin" element={<AdminLayout />}>
-            <Route path="" element={<Navigate to={'/admin/adminHome'}/>}/>
+            <Route path="" element={<Navigate to={"/admin/adminHome"} />} />
             <Route path="adminHome" element={<AdminDashboard />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="doctors" element={<AdminDoctors />} />
