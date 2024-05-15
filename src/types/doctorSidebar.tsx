@@ -1,7 +1,8 @@
 export interface DataItem {
   logo: React.ReactNode;
   value: string;
-  component: JSX.Element;
+  component: string;
+  // component: JSX.Element;
 }
 
 export interface SidePanelProps {

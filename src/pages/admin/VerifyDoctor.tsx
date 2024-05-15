@@ -38,7 +38,7 @@ function VerifyDoctor() {
 
   return (
     <div className="md:flex md:px-24 justify-center md:my-8">
-      <div className="md:w-[78%] bg-white rounded-[5px] shadow-2xl p-20">
+      <div className=" bg-white rounded-[5px] shadow-2xl p-20">
         <div className="bg-red-600">
           <h1 className="font-bold text-white text-center">DOCTOR PROFILE</h1>
         </div>

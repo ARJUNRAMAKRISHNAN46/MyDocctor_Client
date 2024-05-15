@@ -1,4 +1,3 @@
-import axios from "axios";
 import SpecialityModal from "../modal/SpecialityModal";
 import { useEffect, useState } from "react";
 import Card from "../common/Card";

@@ -10,7 +10,7 @@ function AdminPatients() {
   const [users, setUsers] = useState<never[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  // const [btnStatus, setBtnStatus] = useState<boolean>()
+  const [status, setStatus] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(listUsers())
@@ -21,7 +21,7 @@ function AdminPatients() {
       .catch((err) => {
         console.log("🚀 ~ dispatch ~ err:", err);
       });
-  }, [dispatch]);
+  }, [dispatch, status]);
 
   const handleNavigate = (doctor_id: any) => {
     console.log("clicked", doctor_id);
@@ -32,6 +32,7 @@ function AdminPatients() {
     dispatch(blockUser(id))
       .then((res) => {
         console.log("🚀 ~ dispatch ~ res:", res);
+        setStatus(!status);
       })
       .catch((err) => {
         console.log("🚀 ~ dispatch ~ err:", err);
@@ -83,9 +84,11 @@ function AdminPatients() {
             <div className="border w-[10%] border-gray-500 text-center py-2">
               <button
                 onClick={() => handleAction(data?._id)}
-                className={`${data?.isActive === true ? "bg-green-600" : "bg-red-600"} text-white bg-blue-600 px-6 rounded-[5px]`}
-                >
-              {data?.isActive === true ? "Active" : "Blocked"}
+                className={`${
+                  data?.isActive === true ? "bg-green-600" : "bg-red-600"
+                } text-white bg-blue-600 px-6 rounded-[5px]`}
+              >
+                {data?.isActive === true ? "Active" : "Blocked"}
               </button>
             </div>
             <div className="border w-[10%] border-gray-500 text-center py-2">

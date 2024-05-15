@@ -19,27 +19,27 @@ export default function AdminLayout() {
     {
       logo: <RxDashboard />,
       value: "Dashboard",
-      component: <AdminDashboard />,
+      component: "/admin/dashboard",
     },
     {
       logo: <FaUserDoctor />,
       value: "Doctors",
-      component: <AdminDoctors />,
+      component: "/admin/doctors",
     },
     {
       logo: <IoIosPeople />,
       value: "Patients",
-      component: <AdminPatients />,
+      component: "/admin/patients",
     },
     {
       logo: <MdOutlineDateRange />,
       value: "Bookings",
-      component: <AdminBookings />,
+      component: "/admin/bookings",
     },
     {
       logo: <MdFolderSpecial />,
       value: "Specialities",
-      component: <AdminSpecialities />,
+      component: "/admin/specialities",
     },
   ];
   const handleItemClick = (component:  JSX.Element) => {
@@ -48,10 +48,10 @@ export default function AdminLayout() {
 
   return (
     <div className="flex">
-      <div style={{ width: "10vw" }}>
+      <div className="w-1/6">
         <SidePanel data={data} onItemClick={handleItemClick} />
       </div>
-      <div style={{ width: "90vw" }}>
+      <div className="">
         <Outlet />
       </div>
     </div>

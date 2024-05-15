@@ -9,6 +9,7 @@ function AdminDoctors() {
   const [doctors, setDoctors] = useState<never[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const [status, setStatus] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(listDoctor())
@@ -19,7 +20,7 @@ function AdminDoctors() {
       .catch((err) => {
         console.log("🚀 ~ dispatch ~ err:", err);
       });
-  }, [dispatch]);
+  }, [dispatch, status]);
 
   const handleNavigate = (doctor_id: any) => {
     console.log("clicked", doctor_id);
@@ -30,6 +31,7 @@ function AdminDoctors() {
     dispatch(blockUser(id))
       .then((res) => {
         console.log("🚀 ~ dispatch ~ res:", res);
+        setStatus(!status)
       })
       .catch((err) => {
         console.log("🚀 ~ dispatch ~ err:", err);
