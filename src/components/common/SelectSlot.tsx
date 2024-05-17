@@ -81,7 +81,7 @@ function SelectSlot() {
     <div className="md:flex md:px-24 justify-between md:my-8">
       <div className="md:w-[20%] h-[700px]  shadow-2xl cursor-pointer  transition-all duration-200 rounded-[10px]">
         <div className="flex justify-center mt-6">
-          <img src="../../../src/assets/feyz.jpeg" alt="" />
+          <img src={doctor?.profilePhoto} alt="" />
         </div>
         <div>
           <h1 className="font-bold text-center mt-2 text-[18px] text-gray-700">

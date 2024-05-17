@@ -32,7 +32,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
   };
 
   return (
-    <div className="w-full h-[100vh] bg-gray-800">
+    <div className="w-full h-[150vh] bg-gray-800">
       <div className="flex justify-center pt-2 mb-6">
         <div>
           <span className="text-red-600 font-bold text-[10px] md:text-[30px]">

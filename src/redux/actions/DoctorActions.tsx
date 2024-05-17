@@ -2,6 +2,7 @@ import { DoctorAxios } from "../../constants/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleErrors } from "../../util/handleErrors";
 import { UserData } from "../../types/userData";
+import { AvailableShift } from "../../types/slotBooking";
 
 export const updateDoctorProfile = createAsyncThunk(
   "doctor/updateProfile",
@@ -56,6 +57,19 @@ export const findDoctorById = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       const { data } = await DoctorAxios.get(`/find-doctor/${id}`);
+      console.log("🚀 ~ async ~ data:", data);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const updateBooking = createAsyncThunk(
+  "doctor/updateBooking",
+  async (availableShift: AvailableShift, { rejectWithValue }) => {
+    try {
+      const { data } = await DoctorAxios.put(`/update-booking/${availableShift?.doctorId}`, availableShift);
       console.log("🚀 ~ async ~ data:", data);
       return data;
     } catch (error: any) {

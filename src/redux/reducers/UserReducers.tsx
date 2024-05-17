@@ -1,4 +1,4 @@
-import { addSpeciality, listUsers } from "../actions/UserActions";
+import { addSpeciality, listSpeciality, listUsers } from "../actions/UserActions";
 import toast from "react-hot-toast";
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
@@ -49,11 +49,30 @@ const userReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload.message;
-        toast.success("Speciality added successfully", {
+        toast.success("user listed successfully", {
           className: "text-center",
         });
       })
       .addCase(listUsers.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(listSpeciality.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(listSpeciality.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload.message;
+        toast.success("speciality listed successfully", {
+          className: "text-center",
+        });
+      })
+      .addCase(listSpeciality.rejected, (state, { payload }) => {
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;

@@ -24,6 +24,7 @@ const SlotBooking = lazy(() => import("../pages/user/SlotBooking"));
 const ProfileUpdation = lazy(() => import("../pages/doctor/ProfileUpdation"));
 const DoctorWaiting = lazy(() => import("../pages/doctor/DoctorWaiting"));
 const Doctors = lazy(() => import("../pages/user/Doctors"));
+const UserProfile = lazy(() => import("../pages/user/UserProfile"));
 
 //======= loading component
 import Loader from "./common/Loader";
@@ -36,13 +37,15 @@ import AdminDoctors from "./admin/AdminDoctors";
 import AdminPatients from "./admin/AdminPatients";
 import AdminSpecialities from "./admin/AdminSpecialities";
 import DoctorProfile from "./doctor/DoctorProfile";
+import UserBookings from "./common/UserBookings";
+import FavouriteDoctors from "./common/FavouriteDoctors";
+import UserPrescriptions from "./common/UserPrescriptions";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userData.user);
   const loading = useSelector((state: RootState) => state.userData.loading);
   console.log("🚀 ~ Router ~ loading:", loading)
-  // const navigate = useNavigate()
   console.log("🚀 ~ Router ~ userData:", userData);
 if(loading === true) {
   <Loader/>
@@ -50,11 +53,8 @@ if(loading === true) {
   useEffect(() => {
     dispatch(getUser())
       .then((res) => {
-        console.log("🚀 ~ dispatch ~ res:", res);
+        console.log("🚀 ~ dispatch ~~ res:", res);
       })
-      .catch((err) => {
-        console.log("🚀 ~ dispatch ~ res:", err);
-      });
   }, [dispatch]);
 
   if (userData === null || userData === undefined) {
@@ -64,6 +64,7 @@ if(loading === true) {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/doctor/signup" element={<DoctorSignup />} />
+          <Route path="/list-doctors" element={<Doctors />} />
           <Route
             path="/userHome"
             element={
@@ -76,7 +77,6 @@ if(loading === true) {
           />
           <Route path="/doctor/updateDetails" element={<Navigate to={"/"} />} />
           <Route path="/select-slot/:id" element={<SlotBooking />} />
-          <Route path="/list-doctors" element={<Doctors />} />
           <Route
             path="/admin/adminHome"
             element={!userData ? <Login /> : <AdminHome />}
@@ -85,6 +85,7 @@ if(loading === true) {
           <Route path="/forgotPassword-post" element={<ResetPassword />} />
           <Route path="/doctor/updateDetails" element={<ProfileUpdation />} />
           <Route path="/doctor/doctorHome" element={<Navigate to={"/"} />} />
+          <Route path="/show-Profile" element={<UserProfile/>} />
           <Route
             path="/doctor/wait-for-verification"
             element={<Navigate to={"/"} />}
@@ -99,6 +100,7 @@ if(loading === true) {
           <Route path="/doctor/communityChat" element={<Navigate to={"/"} />} />
           <Route path="/doctor/messages" element={<Navigate to={"/"} />} />
           <Route path="/doctor/slots" element={<Navigate to={"/"} />} />
+          <Route path="/doctor/profile" element={<Navigate to={"/"} />} />
           <Route path="/admin/adminHome" element={<Navigate to={"/"} />} />
           <Route
             path="/admin/verifyDoctor/:id"
@@ -137,6 +139,10 @@ if(loading === true) {
           />
           <Route path="/select-slot/:id" element={<SlotBooking />} />
           <Route path="/list-doctors" element={<Doctors />} />
+          <Route path="/show-Profile" element={<UserProfile/>} />
+          <Route path="/list-bookings" element={<UserBookings/>} />
+          <Route path="/favourite-doctors" element={<FavouriteDoctors/>} />
+          <Route path="/prescriptions" element={<UserPrescriptions/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
@@ -258,10 +264,12 @@ if(loading === true) {
   }
 
   if (userData?.role === "admin") {
+    console.log("hertei sit a")
     return (
+      
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<AdminDashboard />} />
+          <Route path="/" element={<Navigate to={"/admin/dashboard"}/> } />
           <Route path="/admin/verifyDoctor/:id" element={<VerifyDoctor />} />
           <Route path="admin" element={<AdminLayout />}>
             <Route path="" element={<Navigate to={"/admin/adminHome"} />} />

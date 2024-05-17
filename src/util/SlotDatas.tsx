@@ -6,7 +6,8 @@ const date_3 = getFutureDate(2)
 
 export const availableShift = [
   {
-    date: String(date_1),
+    doctorId: "",
+    date: date_1,
     methods: [
       { method: "In-Person Consultancy", status: true },
       { method: "Phone Consultancy", status: true },

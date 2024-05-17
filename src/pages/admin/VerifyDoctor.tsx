@@ -43,7 +43,7 @@ function VerifyDoctor() {
           <h1 className="font-bold text-white text-center">DOCTOR PROFILE</h1>
         </div>
         <div className="flex justify-center my-4">
-          <img className="rounded-full" src={doctor?.profilePhoto} alt="" />
+          <img className="rounded-full w-[300px] h-[300px]" src={doctor?.profilePhoto} alt="" />
         </div>
         <div className="flex">
           <h1 className="font-semibold">Doctor Name :</h1>
@@ -91,13 +91,13 @@ function VerifyDoctor() {
         </div>
         <div className="">
           <h1 className="font-semibold">Medical License :</h1>
-          <div>
+          <div className="border-2 border-red-500">
             <img src={doctor?.medicalLicense} alt="medicalLicense" />
           </div>
         </div>
         <div className="mt-2">
           <h1 className="font-semibold">Experience Certificate :</h1>
-          <div>
+          <div className="border-2 border-red-500">
             <img
               src={doctor?.experienceCertificate}
               alt="experienceCertificate"

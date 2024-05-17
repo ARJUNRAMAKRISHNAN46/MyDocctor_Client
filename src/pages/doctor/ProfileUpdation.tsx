@@ -438,7 +438,7 @@ function ProfileUpdation() {
                         outline: "none",
                       }}
                       type="text"
-                      name="collegeName"
+                      name="education"
                       placeholder="Graduate college name"
                     />
                   </div>

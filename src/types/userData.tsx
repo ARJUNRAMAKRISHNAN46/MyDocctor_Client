@@ -24,6 +24,7 @@ export interface UserData {
   expertise?: string;
   education?: string;
   languagesKnown?: string[];
+  availableShifts?: object[];
   currentWorkingHospital?: string;
   gender?: Gender;
   collegeName?: string;
@@ -60,6 +61,7 @@ export type UpdatePassword = {
 };
 
 export type AddSpeciality = {
+  _id: string,
   specialtyName: string;
   specialtyImage: string;
   specialtyDescription: string;

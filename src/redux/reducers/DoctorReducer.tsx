@@ -1,4 +1,4 @@
-import { blockUser, findDoctorById, listDoctor, updateDoctorProfile, verifyDoctor } from "../actions/DoctorActions";
+import { blockUser, findDoctorById, listDoctor, updateBooking, updateDoctorProfile, verifyDoctor } from "../actions/DoctorActions";
 import toast from "react-hot-toast";
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
@@ -73,9 +73,6 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        // toast.success("listing doctor successfully", {
-        //   className: "text-center",
-        // });
       })
       .addCase(listDoctor.rejected, (state, { payload }) => {
         console.log("🚀 ~ builder.addCase ~ payload:", payload);
@@ -94,9 +91,6 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        // toast.success("doctor data fetched successfully", {
-        //   className: "text-center",
-        // });
       })
       .addCase(findDoctorById.rejected, (state, { payload }) => {
         console.log("🚀 ~ builder.addCase ~ payload:", payload);
@@ -115,11 +109,26 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        // toast.success("doctor profile updated successfully", {
-        //   className: "text-center",
-        // });
       })
       .addCase(blockUser.rejected, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(updateBooking.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateBooking.fulfilled, (state, { payload }) => {
+        console.log("🚀 ~ builder.addCase ~ payload:", payload);
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(updateBooking.rejected, (state, { payload }) => {
         console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;

@@ -22,10 +22,24 @@ export const addSpeciality = createAsyncThunk(
 );
 
 export const listUsers = createAsyncThunk(
-  "user/listDoctors",
+  "user/listUsers",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await UserAxios.get("/list-users");
+      console.log("🚀 ~ async ~ data:", data);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const listSpeciality = createAsyncThunk(
+  "admin/listSpeciality",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await UserAxios.get("/list-speciality");
       console.log("🚀 ~ async ~ data:", data);
 
       return data;

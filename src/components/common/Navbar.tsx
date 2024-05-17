@@ -7,6 +7,7 @@ import { MdOutlineLocalHospital } from "react-icons/md";
 import { TiMessages } from "react-icons/ti";
 import { BiMessageSquareError } from "react-icons/bi";
 import { RiShieldUserLine } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
 
 function Navbar() {
   const userData = useSelector((data: RootState) => data.userData);
@@ -32,10 +33,10 @@ function Navbar() {
   };
 
   const handleselectSlot = () => {
-    console.log('clicked');
-    
-    navigate('/select-slot');
-  }
+    console.log("clicked");
+
+    navigate("/list-doctors");
+  };
 
   const handleLogin = async () => {
     try {
@@ -46,23 +47,30 @@ function Navbar() {
     }
   };
 
+  const toHome = () => {
+    navigate("/userHome");
+  };
+
   return (
     <div>
       <div className="bg-white flex md:h-14 h-10 px-2 items-center md:px-24 justify-between">
-        <div className="flex">
+        <div onClick={toHome} className="flex">
           <h1 className="text-red-600 font-bold text-[10px] md:text-2xl">My</h1>
           <h1 className="text-gray-800 font-bold text-[10px] md:text-2xl">
             Docctor
           </h1>
         </div>
         <div className="w-full h-full flex justify-end items-center">
-          <button onClick={handleselectSlot} className="border border-red-700 md:p-2 text-[15px] md:block hidden md:rounded-[5px] md:mr-6 text-red-700 font-semibold">
+          <button
+            onClick={handleselectSlot}
+            className="border border-red-700 md:p-2 text-[15px] md:block hidden md:rounded-[5px] md:mr-6 text-red-700 font-semibold"
+          >
             <div className="flex items-center">
-            <SlCalender className="mr-2"/>
-            <h1>Book Appointment</h1>
+              <SlCalender className="mr-2" />
+              <h1>Book Appointment</h1>
             </div>
           </button>
-        </div> 
+        </div>
         <div className="">
           {userData.user ? (
             <button
@@ -82,7 +90,10 @@ function Navbar() {
         </div>
       </div>
       <div className="md:hidden block flex justify-end px-2">
-        <button onClick={handleselectSlot} className="border border-red-700 md:p-2 text-[15px] md:rounded-[5px] md:mr-6 text-red-700 font-semibold">
+        <button
+          onClick={handleselectSlot}
+          className="border border-red-700 md:p-2 text-[15px] md:rounded-[5px] md:mr-6 text-red-700 font-semibold"
+        >
           Book Appointment
         </button>
       </div>
@@ -90,7 +101,7 @@ function Navbar() {
         <div className="bg-gray-200 md:h-10 h-5 flex justify-center">
           <div className="flex items-center">
             <a href="/list-doctors" className="flex md:mx-10 items-center">
-            <RiShieldUserLine />
+              <RiShieldUserLine />
               <h1 className="text-black md:text-sm font-semibold text-[8px] md:mx-2">
                 Doctors
               </h1>
@@ -113,6 +124,12 @@ function Navbar() {
                 About Us
               </h1>
             </div>
+            <a href="/show-profile" className="flex md:mx-10 items-center">
+            <CgProfile />
+              <h1 className="text-black md:text-sm font-semibold text-[8px] md:mx-2">
+                Profile
+              </h1>
+            </a>
           </div>
         </div>
       </div>
