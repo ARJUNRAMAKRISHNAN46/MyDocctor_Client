@@ -3,10 +3,9 @@ export interface UserProfileData {
   name: string;
   email: string;
   mobileNumber: string;
-  dob: string;
+  profilePhoto: string;
   country: string;
   state: string;
   city: string;
   pincode: string;
-  profilePhoto: string;
 }

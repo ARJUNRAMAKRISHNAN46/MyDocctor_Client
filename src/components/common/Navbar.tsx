@@ -1,28 +1,26 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const userData = useSelector((data: RootState) => data.userData);
-  console.log(userData.user, "userdata is here");
-
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState('');
 
-  const handleLinkClick = (link: any) => {
+  const handleLinkClick = (link: string) => {
     setActiveLink(link);
+    navigate(link);
   };
 
   const toHome = () => {
     navigate("/userHome");
   };
 
-
   return (
     <div className="h-16 w-full flex justify-between">
       <div onClick={toHome}>
-        <img onClick={() => handleLinkClick('home')} className="object-contain w-60 h-16" src="../../../src/assets/MyDocctorLogo.png" alt="Logo" />
+        <img onClick={() => handleLinkClick('/userHome')} className="object-contain w-60 h-16" src="../../../src/assets/MyDocctorLogo.png" alt="Logo" />
       </div>
       <div className="flex items-center mr-10">
         {[
@@ -34,19 +32,17 @@ function Navbar() {
           userData.user ? { name: 'Profile', link: '/view/profile' } : { name: 'Login', link: '/login' },
           { name: 'Make an Appointment', link: '', special: true },
         ].map((item) => (
-          <a
+          <div
             key={item.name}
-            className={`text-sm md:mr-4 ${activeLink === item.name ? 'underline' : ''} ${item.special ? 'bg-blue-500 px-4 py-1 rounded-full text-white' : ''}`}
-            href={item.link}
-            onClick={() => handleLinkClick(item.name)}
+            className={`text-sm md:mr-4 cursor-pointer ${activeLink === item.name ? 'underline' : ''} ${item.special ? 'bg-blue-500 px-4 py-1 rounded-full text-white' : ''}`}
+            onClick={() => handleLinkClick(item.link)}
           >
             {item.name}
-          </a>
+          </div>
         ))}
       </div>
     </div>
   )
-        
 }
 
 export default Navbar;

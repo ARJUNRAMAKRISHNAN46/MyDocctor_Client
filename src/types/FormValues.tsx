@@ -7,3 +7,11 @@ export interface FormValues {
   otp: string;
   role: string;
 }
+
+export interface GoogleValues {
+  name: string;
+  email: string;
+  mobileNumber: string;
+  password: string;
+  role: string;
+}

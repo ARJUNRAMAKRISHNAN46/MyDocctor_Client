@@ -5,7 +5,7 @@ enum Gender {
 }
 
 export interface UserData {
-  _id: string,
+  _id?: string,
   confirmPassword?: string;
   name: string;
   email: string;
@@ -31,9 +31,9 @@ export interface UserData {
   yearsOfExperience?: number;
   workingDays?: string[];
   medicalLicenseNumber?: string;
-  experienceCertificate: string;
+  experienceCertificate?: string;
   profilePhoto?: string;
-  medicalLicense: string;
+  medicalLicense?: string;
   isVerified?: boolean;
   createdAt?: Date;
   isProfile?: boolean;
@@ -54,6 +54,8 @@ export type Signup = {
   mobileNumber?: string;
   password: string;
   confirmPassword?: string;
+  otp?: string;
+  role?: string;
 };
 
 export type UpdatePassword = {

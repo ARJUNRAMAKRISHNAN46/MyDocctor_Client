@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { UserData } from "../../types/userData";
-import { RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../redux/store";
 import { imageUpload } from "../../util/UploadImage";
+import { updateProfile } from "../../redux/actions/UserActions";
+import { FaUpload } from "react-icons/fa6";
 
 function UserProfile() {
-  const userData: UserData = useSelector((state: RootState) => state.userData.user);
+  const userData: UserData = useSelector(
+    (state: RootState) => state.userData.user
+  );
+  const dispatch: AppDispatch = useDispatch();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [profileData, setProfileData] = useState({
     _id: userData?._id || "",
+    profilePhoto: userData?.profilePhoto || "",
     name: userData?.name || "",
     email: userData?.email || "",
     mobileNumber: userData?.mobileNumber || "",
@@ -18,7 +25,9 @@ function UserProfile() {
     pincode: userData?.pincode || "",
   });
 
-  const [profileImage, setProfileImage] = useState(userData?.profilePhoto || "");
+  const [profileImage, setProfileImage] = useState(
+    userData?.profilePhoto || ""
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,10 +37,16 @@ function UserProfile() {
     });
   };
 
-  const handleImageChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     const image = await imageUpload(file);
-    console.log("🚀 ~ handleImageChange ~ image:", image)
+    console.log("🚀 ~ handleImageChange ~ image:", image);
     if (image) {
       setProfileImage(image);
     }
@@ -39,6 +54,11 @@ function UserProfile() {
 
   const handleSubmit = () => {
     console.log("Profile Data Submitted: ", { ...profileData, profileImage });
+    profileData.profilePhoto = profileImage;
+
+    dispatch(updateProfile(profileData)).then((res) => {
+      console.log("🚀 ~ dispatch ~ res:", res);
+    });
   };
 
   return (
@@ -54,11 +74,18 @@ function UserProfile() {
           alt="Profile"
         />
         <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="mt-3"
-        />
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="hidden"
+        ref={fileInputRef}
+      />
+      <button
+          className="bg-gray-200 p-2 rounded-full hover:bg-gray-300 focus:outline-none"
+          onClick={handleButtonClick}
+        >
+          <FaUpload className="w-32  bg-white rounded-full" size={20} />
+        </button>
         <span className="font-bold mt-3">{profileData.name}</span>
         <span className="text-gray-600">{profileData.email}</span>
       </div>
@@ -86,6 +113,7 @@ function UserProfile() {
                 placeholder="Enter email id"
                 value={profileData.email}
                 onChange={handleChange}
+                readOnly={true}
               />
             </div>
             <div className="col-span-2">

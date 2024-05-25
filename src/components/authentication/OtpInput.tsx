@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UserData } from "../../types/userData";
+import { Signup, UserData } from "../../types/userData";
 import { signupDoctor, signupUser } from "../../redux/actions/AuthActions";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 interface OtpInputProps {
   length?: number;
-  userData: UserData | null;
+  userData: Signup | null;
 }
 
 const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
@@ -36,48 +36,50 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
     try {
       console.log("otp : ", otp);
       console.log("userData :", userData);
-      userData.otp = otp;
-      delete userData.confirmPassword;
-      console.log("userData with otp :", userData);
+      if (userData) {
+        userData.otp = otp;
+        delete userData.confirmPassword;
+        console.log("userData with otp :", userData);
 
-      if (userData.role === "user") {
-        dispatch(signupUser(userData))
-          .then((res) => {
-            console.log("🚀 ~ .then ~ res----------------------:", res);
+        if (userData.role === "user") {
+          dispatch(signupUser(userData))
+            .then((res) => {
+              console.log("🚀 ~ .then ~ res----------------------:", res);
 
-            if (res.type.endsWith("fulfilled")) {
-              navigate("/userHome");
-              console.log("heree");
-            }
-            if (res.type.endsWith("rejected")) {
-              setValidOtp(true);
-              setTimeout(() => {
-                setValidOtp(false);
-              }, 3000);
-            }
-          })
-          .catch((err) => {
-            console.log(err, "error");
-          });
-      } else if (userData?.role === "doctor") {
-        dispatch(signupDoctor(userData))
-          .then((res) => {
-            console.log("🚀 ~ .then ~ res----------------------:", res);
+              if (res.type.endsWith("fulfilled")) {
+                navigate("/userHome");
+                console.log("heree");
+              }
+              if (res.type.endsWith("rejected")) {
+                setValidOtp(true);
+                setTimeout(() => {
+                  setValidOtp(false);
+                }, 3000);
+              }
+            })
+            .catch((err) => {
+              console.log(err, "error");
+            });
+        } else if (userData?.role === "doctor") {
+          dispatch(signupDoctor(userData))
+            .then((res) => {
+              console.log("🚀 ~ .then ~ res----------------------:", res);
 
-            if (res.type.endsWith("fulfilled")) {
-              navigate("/doctor/updateDetails");
-              console.log("heree");
-            }
-            if (res.type.endsWith("rejected")) {
-              setValidOtp(true);
-              setTimeout(() => {
-                setValidOtp(false);
-              }, 3000);
-            }
-          })
-          .catch((err) => {
-            console.log(err, "error");
-          });
+              if (res.type.endsWith("fulfilled")) {
+                navigate("/doctor/updateDetails");
+                console.log("heree");
+              }
+              if (res.type.endsWith("rejected")) {
+                setValidOtp(true);
+                setTimeout(() => {
+                  setValidOtp(false);
+                }, 3000);
+              }
+            })
+            .catch((err) => {
+              console.log(err, "error");
+            });
+        }
       }
     } catch (error) {
       if (error) {
@@ -92,7 +94,8 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
 
   const handleResendOTP = async () => {
     setCountDown(30);
-    console.log("ivide ethittund sanam",userData);
+    console.log("ivide ethittund sanam", userData);
+    if(userData) 
     userData.otp = "";
     if (userData && (userData.role === "user" || userData.role === "doctor")) {
       if (userData.role === "user") {
