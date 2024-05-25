@@ -37,9 +37,9 @@ import AdminDoctors from "./admin/AdminDoctors";
 import AdminPatients from "./admin/AdminPatients";
 import AdminSpecialities from "./admin/AdminSpecialities";
 import DoctorProfile from "./doctor/DoctorProfile";
-import UserBookings from "./common/UserBookings";
+import UserBookings from "./user/UserBookings";
 import FavouriteDoctors from "./common/FavouriteDoctors";
-import UserPrescriptions from "./common/UserPrescriptions";
+import UserPrescriptions from "./user/UserPrescriptions";
 import DoctorProfileOnUserSide from "../pages/user/DoctorProfileOnUserSide";
 
 function Router() {

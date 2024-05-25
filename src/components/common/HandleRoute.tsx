@@ -8,6 +8,10 @@ import SlotBooking from "../../pages/user/SlotBooking";
 import DoctorReview from "../user/DoctorReview";
 import UserProfile from "../../pages/user/UserProfile";
 import ProfileLayout from "../../pages/user/ProfileLayout";
+import FavouriteDoctors from "./FavouriteDoctors";
+import UserBookings from "../user/UserBookings";
+import UserPrescriptions from "../user/UserPrescriptions";
+import UserChats from "../user/UserChats";
 
 const Login = lazy(() => import("../../pages/user/Login"));
 const Signup = lazy(() => import("../../pages/user/Signup"));
@@ -46,9 +50,12 @@ function HandleRoute() {
         <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
         <Route path="/select-slot/:id" element={<SlotBooking />} />
         <Route path="/doctor-review" element={<DoctorReview />} />
-        <Route path="/profile" element={<UserProfile />} />
         <Route path="view" element={<ProfileLayout />}>
           <Route path="profile" element={<UserProfile />} />
+          <Route path="favourite-doctors" element={<FavouriteDoctors />} />
+          <Route path="prescriptions" element={<UserPrescriptions />} />
+          <Route path="chats" element={<UserChats />} />
+          <Route path="appointments" element={<UserBookings />} />
         </Route>
       </Routes>
     </Suspense>

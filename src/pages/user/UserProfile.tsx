@@ -1,18 +1,13 @@
 import { useSelector } from "react-redux";
 import { UserData } from "../../types/userData";
 import { RootState } from "../../redux/store";
-import Navbar from "../../components/common/Navbar";
-import Footer from "../../components/common/Footer";
-
 function UserProfile() {
   const userData: UserData = useSelector(
     (state: RootState) => state.userData.user
   );
   return (
     <div>
-      <Navbar />
-      <div className="h-72 bg-green-600">hello</div>
-      <Footer />
+      <div className="h-[100vh] bg-white">hello</div>
     </div>
   );
 }
