@@ -18,6 +18,7 @@ const AddSlotModal: React.FC<AddSlotModalProps> = ({ show, handleClose }) => {
   );
   console.log("🚀 ~ AddSlotModal ~ userData:", userData);
   const initialValues: AppointmentEntity = {
+    _id: "",
     date: "",
     consultationMethods: [],
     slots: [{ start: "", end: "", userId: "" }],
@@ -118,6 +119,7 @@ const AddSlotModal: React.FC<AddSlotModalProps> = ({ show, handleClose }) => {
                           key={index}
                           className="flex space-x-2 items-center mb-2"
                         >
+                          {slot}
                           <Field
                             name={`slots[${index}].start`}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"

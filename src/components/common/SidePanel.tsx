@@ -3,17 +3,17 @@ import { SidePanelProps } from "../../types/doctorSidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../redux/actions/AuthActions";
 import { AppDispatch, RootState } from "../../redux/store";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
+const SidePanel: React.FC<SidePanelProps> = ({ data }) => {
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userData.user);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  console.log("🚀 ~ clickedIndex:", clickedIndex, userData)
 
   useEffect(() => {
     setClickedIndex(0);
-    // onItemClick(data[0].component)
   }, []);
 
   const handleLogout = () => {
@@ -26,10 +26,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ data, onItemClick }) => {
       });
   };
 
-  const handleClick = (index: number, root: string) => {
-    navigate(root);
-    setClickedIndex(index);
-  };
+
 
   return (
     <div className="w-full h-[150vh] bg-gray-800">

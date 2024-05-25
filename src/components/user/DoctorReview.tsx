@@ -58,7 +58,7 @@ function DoctorReview() {
             <div className="ml-4">
               <h1 className="font-bold text-sm">{review?.name}</h1>
               <div className="flex mt-1">
-                {review?.rating.map((x, i) => (
+                {review?.rating.map((i) => (
                   <FaStar className="text-yellow-300 text-sm" key={i} />
                 ))}
               </div>

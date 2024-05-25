@@ -9,9 +9,6 @@ import { doctorGoogle, signupDoctor } from "../../redux/actions/AuthActions";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 
-interface UserData {
-  // Define the properties of UserData here
-}
 
 const initialValues = {
   name: "",

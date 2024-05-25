@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const initialValues = {
+  email: "",
   password: "",
   confirmPassword: "",
 };
@@ -29,7 +30,7 @@ function ResetPassword() {
 
   const handleSubmit = (values: FormValues) => {
     console.log(values, param);
-    values.email = param;
+    values.email = String(param);
     dispatch(updatePassword(values))
       .then((res) => {
         if (res.type.endsWith("fulfilled")) {

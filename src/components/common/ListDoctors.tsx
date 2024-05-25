@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/store";
 import { listDoctor } from "../../redux/actions/DoctorActions";
@@ -43,7 +43,7 @@ function ListDoctors() {
             <h1 className="text-sm font-semibold text-red-500 text-center">{doctor?.expertise?.toUpperCase()}</h1>
             <h1 className="text-sm text-center">{doctor?.city && doctor?.city.toUpperCase()}</h1>
             <div>
-              <button onClick={() => viewProfile(doctor?._id)} className="bg-blue-600 mt-4  text-white w-full py-1 rounded-[5px]">View Profile</button>
+              <button onClick={() => viewProfile(String(doctor?._id))} className="bg-blue-600 mt-4  text-white w-full py-1 rounded-[5px]">View Profile</button>
             </div>
           </div>
         ))}
@@ -60,7 +60,7 @@ function ListDoctors() {
             <h1 className="text-sm font-semibold text-red-500 text-center">{doctor?.expertise?.toUpperCase()}</h1>
             <h1 className="text-sm text-center">{doctor?.city && doctor?.city.toUpperCase()}</h1>
             <div>
-              <button onClick={() => viewProfile(doctor?._id)} className="bg-blue-600 mt-4  text-white w-full py-1 rounded-[5px]">View Profile</button>
+              <button onClick={() => viewProfile(String(doctor?._id))} className="bg-blue-600 mt-4  text-white w-full py-1 rounded-[5px]">View Profile</button>
             </div>
           </div>
         ))}
@@ -77,7 +77,7 @@ function ListDoctors() {
             <h1 className="text-sm font-semibold text-red-500 text-center">{doctor?.expertise?.toUpperCase()}</h1>
             <h1 className="text-sm text-center">{doctor?.city && doctor?.city.toUpperCase()}</h1>
             <div>
-              <button onClick={() => viewProfile(doctor?._id)} className="bg-blue-600 mt-4 text-white w-full py-1 rounded-[5px]">View Profile</button>
+              <button onClick={() => viewProfile(String(doctor?._id))} className="bg-blue-600 mt-4 text-white w-full py-1 rounded-[5px]">View Profile</button>
             </div>
           </div>
         ))}

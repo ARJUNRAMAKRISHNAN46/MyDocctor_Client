@@ -1,11 +1,5 @@
-enum Gender {
-  male = "male",
-  female = "female",
-  other = "other",
-}
-
 export interface UserData {
-  _id?: string,
+  _id?: string;
   confirmPassword?: string;
   name: string;
   email: string;
@@ -26,9 +20,9 @@ export interface UserData {
   languagesKnown?: string[];
   availableShifts?: object[];
   currentWorkingHospital?: string;
-  gender?: Gender;
+  gender?: string;
   collegeName?: string;
-  yearsOfExperience?: number;
+  yearsOfExperience?: string;
   workingDays?: string[];
   medicalLicenseNumber?: string;
   experienceCertificate?: string;
@@ -64,7 +58,7 @@ export type UpdatePassword = {
 };
 
 export type AddSpeciality = {
-  _id: string,
+  _id: string;
   specialtyName: string;
   specialtyImage: string;
   specialtyDescription: string;

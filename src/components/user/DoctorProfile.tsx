@@ -10,11 +10,11 @@ import { useDispatch } from "react-redux";
 import { UserData } from "../../types/userData";
 import { FaStar } from "react-icons/fa6";
 
-const consultationMethods = [
-  "In-person Consultancy",
-  "Phone Consultancy",
-  "Video Consultancy",
-];
+// const consultationMethods = [
+//   "In-person Consultancy",
+//   "Phone Consultancy",
+//   "Video Consultancy",
+// ];
 
 const star = [1, 2, 3, 4, 5];
 

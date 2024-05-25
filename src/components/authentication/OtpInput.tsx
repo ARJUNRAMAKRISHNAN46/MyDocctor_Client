@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Signup, UserData } from "../../types/userData";
+import { Signup } from "../../types/userData";
 import { signupDoctor, signupUser } from "../../redux/actions/AuthActions";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";

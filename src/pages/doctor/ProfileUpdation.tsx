@@ -14,6 +14,9 @@ import { imageUpload } from "../../util/UploadImage";
 import { useNavigate } from "react-router-dom";
 
 const initialValues = {
+  _id: "",
+  name: "",
+  otp: "",
   gender: "",
   dob: "",
   email: "",
@@ -32,6 +35,9 @@ const initialValues = {
 };
 const genderOptions = ["Male", "Female", "Other"];
 interface profileValues {
+  _id: string;
+  name: string;
+  otp: string;
   gender: string;
   dob: string;
   email: string;
@@ -289,7 +295,7 @@ function ProfileUpdation() {
                           countryCode,
                           stateCode
                         )?.map((city) => ({
-                          value: city?.isoCode,
+                          value: city?.name,
                           label: city.name,
                         }))}
                         name="city"

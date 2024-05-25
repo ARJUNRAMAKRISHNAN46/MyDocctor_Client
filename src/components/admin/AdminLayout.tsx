@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { FaUserDoctor } from "react-icons/fa6";
@@ -8,8 +7,6 @@ import { MdFolderSpecial, MdOutlineDateRange } from "react-icons/md";
 import SidePanel from "../common/SidePanel";
 
 export default function AdminLayout() {
-  const [selectedComponent, setSelectedComponent] = useState<JSX.Element>();
-
   const data: DataItem[] = [
     {
       logo: <RxDashboard />,
@@ -37,14 +34,11 @@ export default function AdminLayout() {
       component: "/admin/specialities",
     },
   ];
-  const handleItemClick = (component:  JSX.Element) => {
-    setSelectedComponent(component);
-  };
 
   return (
     <div className="flex">
       <div className="w-1/6">
-        <SidePanel data={data} onItemClick={handleItemClick} />
+        <SidePanel data={data} />
       </div>
       <div className="">
         <Outlet />
