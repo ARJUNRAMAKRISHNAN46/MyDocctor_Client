@@ -1,140 +1,52 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { LogoutUser } from "../../redux/actions/AuthActions";
 import { useNavigate } from "react-router-dom";
-import { SlCalender } from "react-icons/sl";
-import { MdOutlineLocalHospital } from "react-icons/md";
-import { TiMessages } from "react-icons/ti";
-import { BiMessageSquareError } from "react-icons/bi";
-import { RiShieldUserLine } from "react-icons/ri";
-import { CgProfile } from "react-icons/cg";
+import { useState } from "react";
 
 function Navbar() {
   const userData = useSelector((data: RootState) => data.userData);
-  console.log(userData, "userdata is here");
-  const dispatch: AppDispatch = useDispatch();
+  console.log(userData.user, "userdata is here");
+
   const navigate = useNavigate();
+  const [activeLink, setActiveLink] = useState('');
 
-  const handleClick = async () => {
-    try {
-      console.log("submitted");
-
-      dispatch(LogoutUser())
-        .then((res) => {
-          console.log("🚀 ~ logout ~ dispatch ~ res:", res);
-        })
-        .catch((err) => {
-          console.log("🚀 ~ logout ~ dispatch ~ err:", err);
-        });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      throw new Error(error?.message);
-    }
-  };
-
-  const handleselectSlot = () => {
-    console.log("clicked");
-
-    navigate("/list-doctors");
-  };
-
-  const handleLogin = async () => {
-    try {
-      navigate("/login");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log("🚀 ~ handleLogin ~ error:", error);
-    }
+  const handleLinkClick = (link: any) => {
+    setActiveLink(link);
   };
 
   const toHome = () => {
     navigate("/userHome");
   };
 
+
   return (
-    <div>
-      <div className="bg-white flex md:h-14 h-10 px-2 items-center md:px-24 justify-between">
-        <div onClick={toHome} className="flex">
-          <h1 className="text-red-600 font-bold text-[10px] md:text-2xl">My</h1>
-          <h1 className="text-gray-800 font-bold text-[10px] md:text-2xl">
-            Docctor
-          </h1>
-        </div>
-        <div className="w-full h-full flex justify-end items-center">
-          <button
-            onClick={handleselectSlot}
-            className="border border-red-700 md:p-2 text-[15px] md:block hidden md:rounded-[5px] md:mr-6 text-red-700 font-semibold"
+    <div className="h-16 w-full flex justify-between">
+      <div onClick={toHome}>
+        <img onClick={() => handleLinkClick('home')} className="object-contain w-60 h-16" src="../../../src/assets/MyDocctorLogo.png" alt="Logo" />
+      </div>
+      <div className="flex items-center mr-10">
+        {[
+          { name: 'Home', link: '/userHome' },
+          { name: 'About', link: '/about-us' },
+          { name: 'Service', link: '/our-service' },
+          { name: 'Doctors', link: '/list-doctors' },
+          { name: 'Contact', link: '/contact-us' },
+          userData.user ? { name: 'Profile', link: '/view/profile' } : { name: 'Login', link: '/login' },
+          { name: 'Make an Appointment', link: '', special: true },
+        ].map((item) => (
+          <a
+            key={item.name}
+            className={`text-sm md:mr-4 ${activeLink === item.name ? 'underline' : ''} ${item.special ? 'bg-blue-500 px-4 py-1 rounded-full text-white' : ''}`}
+            href={item.link}
+            onClick={() => handleLinkClick(item.name)}
           >
-            <div className="flex items-center">
-              <SlCalender className="mr-2" />
-              <h1>Book Appointment</h1>
-            </div>
-          </button>
-        </div>
-        <div className="">
-          {userData.user ? (
-            <button
-              onClick={handleClick}
-              className="w-[15%] text-[12px] md:text-[14px] md:ml-6"
-            >
-              Logout
-            </button>
-          ) : (
-            <button
-              onClick={handleLogin}
-              className="w-[15%] text-[12px] md:text-[14px] md:ml-6"
-            >
-              Login/Signup
-            </button>
-          )}
-        </div>
-      </div>
-      <div className="md:hidden block flex justify-end px-2">
-        <button
-          onClick={handleselectSlot}
-          className="border border-red-700 md:p-2 text-[15px] md:rounded-[5px] md:mr-6 text-red-700 font-semibold"
-        >
-          Book Appointment
-        </button>
-      </div>
-      <div className=" hidden md:block">
-        <div className="bg-gray-200 md:h-10 h-5 flex justify-center">
-          <div className="flex items-center">
-            <a href="/list-doctors" className="flex md:mx-10 items-center">
-              <RiShieldUserLine />
-              <h1 className="text-black md:text-sm font-semibold text-[8px] md:mx-2">
-                Doctors
-              </h1>
-            </a>
-            <div className="flex md:mx-10 items-center">
-              <MdOutlineLocalHospital />
-              <h1 className="text-black md:text-sm font-semibold text-[8px] mx-2 md:mx-2">
-                Treatments
-              </h1>
-            </div>
-            <div className="flex md:mx-10 items-center">
-              <TiMessages />
-              <h1 className="text-black md:text-sm font-semibold text-[8px] md:mx-2">
-                Ask a Question
-              </h1>
-            </div>
-            <div className="flex md:mx-10 items-center">
-              <BiMessageSquareError />
-              <h1 className="text-black md:text-sm font-semibold text-[8px] md:mx-2">
-                About Us
-              </h1>
-            </div>
-            <a href="/show-profile" className="flex md:mx-10 items-center">
-            <CgProfile />
-              <h1 className="text-black md:text-sm font-semibold text-[8px] md:mx-2">
-                Profile
-              </h1>
-            </a>
-          </div>
-        </div>
+            {item.name}
+          </a>
+        ))}
       </div>
     </div>
-  );
+  )
+        
 }
 
 export default Navbar;

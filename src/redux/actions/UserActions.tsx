@@ -2,6 +2,7 @@ import { UserAxios } from "../../constants/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleErrors } from "../../util/handleErrors";
 import { AddSpeciality } from "../../types/userData";
+import { UserProfileData } from "../../types/UserProfile";
 
 export const addSpeciality = createAsyncThunk(
   "admin/addSpeciality",
@@ -40,6 +41,20 @@ export const listSpeciality = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await UserAxios.get("/list-speciality");
+      console.log("🚀 ~ async ~ data:", data);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const updateProfile = createAsyncThunk(
+  "user/updateProfile",
+  async (userData: UserProfileData, { rejectWithValue }) => {
+    try {
+      const { data } = await UserAxios.post("/update-profile", { ...userData });
       console.log("🚀 ~ async ~ data:", data);
 
       return data;

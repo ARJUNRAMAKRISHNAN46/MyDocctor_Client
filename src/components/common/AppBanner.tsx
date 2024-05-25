@@ -1,17 +1,31 @@
 function AppBanner() {
   return (
-    <div className="w-full h-full bg-cover bg-no-repeat flex justify-center items-center" style={{ backgroundImage: `url('../../../src/assets/doctor_banner.jpg')` }}>
-      <div className="w-full px-4 py-8">
-        <h1 className="text-4xl font-bold text-white text-center mb-8">Stay at Home. Consult Doctors Online.</h1>
-        <div className="flex justify-center">
-          <input
-            type="text"
-            className="w-[700px] bg-gray-200 border border-gray-500 h-10 md:rounded-[5px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Search for any health keyword"
-          />
-          <button className="ml-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
+    <div
+      className="w-full md:h-[650px] bg-cover bg-no-repeat"
+      style={{ backgroundImage: `url('../../../src/assets/banners/hero-bg.jpg')` }}
+    >
+      <div className="flex justify-start items-end h-[400px] ml-32">
+        <div>
+          <h1 className="font-semibold">TOTAL HEALTH CARE SOLUTION</h1>
+          <h1 className="font-bold text-[50px] text-blue-900">
+            YOUR MOST TRUSTED
+          </h1>
+          <h1 className="font-bold text-[50px] text-blue-900">
+            HEALTH PARTNER
+          </h1>
+          <p className="font-semibold text-gray-700">
+            A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium
+            quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.
+          </p>
         </div>
-        <h2 className="text-2xl font-semibold text-white text-center mt-12">Trending Topics</h2>
+      </div>
+      <div className="ml-32 mt-10">
+        <button className="bg-blue-600 px-10 text-white py-2 text-sm rounded-full mx-4">
+          GET STARTED
+        </button>
+        <button className="bg-blue-600 px-10 text-white py-2 text-sm rounded-full mx-4">
+          TRACK APPOINTMENT
+        </button>
       </div>
     </div>
   );

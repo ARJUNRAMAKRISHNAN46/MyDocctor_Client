@@ -1,44 +1,95 @@
+import { RiArrowRightDoubleLine } from "react-icons/ri";
+import { IoLocationOutline } from "react-icons/io5";
+
 function Footer() {
   return (
-    <div className="bg-gray-800 md:flex md:justify-between px-4 py-4 md:p-12 md:h-[300px] grid grid-col">
-      <div>
-        <h1 className="text-gray-300 font-bold md:text-[40px] text-[24px] font-serif mb-1">
-          MyDocctor.online
-        </h1>
-        <p className="text-gray-300 md:text-[18px] text-[10px]">
-          A website for booking doctors appointnment and
-        </p>
-        <p className="text-gray-300 md:text-[18px] text-[10px]">
-          also search for specific services
-        </p>
+    <div className=" bg-blue-950 py-8 pb-4 px-6">
+      <div className="grid md:grid-cols-4">
+        <div>
+          <img
+            className="object-contain w-56"
+            src="../../../src/assets/MyDocctorLogo.png"
+            alt=""
+          />
+          <p className="text-white font-thin text-sm">
+            MyDocctor enables patients to book health consultations and
+            appointments with their preferred doctor. In addition, mydocctor
+            also helps: Doctors manage their appointments and consultations.
+            Schedule their availability for easier consultations.
+          </p>
+        </div>
+        <div className="ml-14">
+          <h1 className="text-xl font-semibold text-white mb-4">
+            For Patients
+          </h1>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Search for Doctors</a>
+          </div>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Login</a>
+          </div>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Register</a>
+          </div>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Booking</a>
+          </div>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Patient Dashboard</a>
+          </div>
+        </div>
+        <div className="ml-14">
+          <h1 className="text-xl font-semibold text-white mb-4">For Doctors</h1>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Appointments</a>
+          </div>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Login</a>
+          </div>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Register</a>
+          </div>
+          <div className="flex hover:scale-110">
+            <RiArrowRightDoubleLine className="text-white text-2xl" />
+            <a className="text-white text-sm font-thin"> Doctor Dashboard</a>
+          </div>
+        </div>
+        <div className="ml-14">
+          <h1 className="text-xl font-semibold text-white mb-4">Contact Us</h1>
+          <div className="flex">
+            <IoLocationOutline className="text-xl text-white" />
+            <div>
+              <h1 className="text-white text-sm font-thin">
+                4th Gate Avenue, Calicut,{" "}
+              </h1>
+              <h1 className="text-white text-sm font-thin">
+                Kozhikode, Kerala 654987
+              </h1>
+            </div>
+          </div>
+          <h1 className="text-white text-sm font-thin mt-4 ml-4">
+            +91 75 106 02681
+          </h1>
+          <h1 className="text-white text-sm font-thin mt-4 ml-4">
+            mydocctor@gmail.com
+          </h1>
+        </div>
       </div>
-      <div>
-        <h1 className="text-gray-300 md:text-[22px] text-[16px] mt-6 md:mt-6 font-bold">
-          Quick Links
-        </h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">Home</h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">Service</h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">Appointment</h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">Help</h1>
-      </div>
-      <div>
-        <h1 className="text-gray-300 md:text-[22px] text-[16px] mt-6 font-bold">
-          Contact us
-        </h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">Give us a call</h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">7510602681</h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">
-          Send us an email
-        </h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">
-          mydocctor@gmail.com
-        </h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">
-          Visit us in person
-        </h1>
-        <h1 className="text-gray-300 md:text-[18px] text-[10px]">
-          East Nadakkavu, Kozhikode
-        </h1>
+      <div className="border border-r-0 border-l-0 border-b-0 mt-6 pt-4 md:flex">
+        <div className="md:w-[50%]">
+          <h1 className="text-center text-white text-sm font-thin">Copyright 2024 All Rights Reserved</h1>
+        </div>
+        <div className="md:w-[50%]">
+          <h1 className="text-center text-white text-sm font-thin">Terms and Conditions Policy</h1>
+        </div>
       </div>
     </div>
   );

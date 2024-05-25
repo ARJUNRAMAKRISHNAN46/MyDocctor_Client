@@ -40,6 +40,7 @@ export interface UserData {
   updatedAt?: Date;
   isActive?: boolean;
   qualification?: string;
+  calendlyLink?: string;
 }
 export type Login = {
   email: string;

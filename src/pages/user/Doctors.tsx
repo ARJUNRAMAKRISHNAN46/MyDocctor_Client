@@ -1,21 +1,25 @@
-import DoctorsBanner from '../../components/common/DoctorsBanner'
-import Filter from '../../components/common/Filter'
-import Footer from '../../components/common/Footer'
-import ListDoctors from '../../components/common/ListDoctors'
-import Navbar from '../../components/common/Navbar'
-import PositiveThoughts from '../../components/common/PositiveThoughts'
+import Footer from "../../components/common/Footer";
+import ListDoctors from "../../components/common/ListDoctors";
+import Navbar from "../../components/common/Navbar";
+import DoctorLists from "../../components/user/DoctorLists";
+import Filter from "../../components/user/Filter";
 
 function Doctors() {
   return (
-    <div className='bg-gray-100'>
-      <Navbar/>
-      <Filter/>
-      <ListDoctors/>
-      <DoctorsBanner/>
-      <PositiveThoughts/>
-      <Footer/>
+    <div className="bg-gray-100">
+      <Navbar />
+      <DoctorLists />
+      <div className="flex">
+        <div>
+          <Filter />
+        </div>
+        <div>
+          <ListDoctors />
+        </div>
+      </div>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default Doctors
+export default Doctors;

@@ -19,7 +19,7 @@ const DoctorHome = lazy(() => import("../pages/doctor/DoctorHome"));
 const AdminHome = lazy(() => import("../pages/admin/AdminHome"));
 const ForgotPassword = lazy(() => import("./authentication/ForgotPassword"));
 const ResetPassword = lazy(() => import("./authentication/ResetPassword"));
-const LandingPage = lazy(() => import("../pages/common/LandingPage"));
+// const LandingPage = lazy(() => import("../pages/common/LandingPage"));
 const SlotBooking = lazy(() => import("../pages/user/SlotBooking"));
 const ProfileUpdation = lazy(() => import("../pages/doctor/ProfileUpdation"));
 const DoctorWaiting = lazy(() => import("../pages/doctor/DoctorWaiting"));
@@ -40,6 +40,7 @@ import DoctorProfile from "./doctor/DoctorProfile";
 import UserBookings from "./common/UserBookings";
 import FavouriteDoctors from "./common/FavouriteDoctors";
 import UserPrescriptions from "./common/UserPrescriptions";
+import DoctorProfileOnUserSide from "../pages/user/DoctorProfileOnUserSide";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -53,7 +54,7 @@ if(loading === true) {
   useEffect(() => {
     dispatch(getUser())
       .then((res) => {
-        console.log("🚀 ~ dispatch ~~ res:", res);
+        console.log("🚀 ~ dispatch ~ res:", res);
       })
   }, [dispatch]);
 
@@ -77,6 +78,7 @@ if(loading === true) {
           />
           <Route path="/doctor/updateDetails" element={<Navigate to={"/"} />} />
           <Route path="/select-slot/:id" element={<SlotBooking />} />
+          <Route path="/show-doctor/:id" element={<DoctorProfileOnUserSide />} />
           <Route
             path="/admin/adminHome"
             element={!userData ? <Login /> : <AdminHome />}
@@ -113,7 +115,7 @@ if(loading === true) {
           <Route path="/admin/bookings" element={<Navigate to={"/"} />} />
           <Route path="/admin/patients" element={<Navigate to={"/"} />} />
           <Route path="/admin/specialities" element={<Navigate to={"/"} />} />
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<Home />} />
           <Route path="*" element={<Loader />} />
         </Routes>
       </Suspense>
@@ -143,6 +145,7 @@ if(loading === true) {
           <Route path="/list-bookings" element={<UserBookings/>} />
           <Route path="/favourite-doctors" element={<FavouriteDoctors/>} />
           <Route path="/prescriptions" element={<UserPrescriptions/>} />
+          <Route path="/show-doctor/:id" element={<DoctorProfileOnUserSide />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>

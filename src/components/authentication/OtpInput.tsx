@@ -59,7 +59,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ length = 4, userData }) => {
           .catch((err) => {
             console.log(err, "error");
           });
-      } else if (userData.role === "doctor") {
+      } else if (userData?.role === "doctor") {
         dispatch(signupDoctor(userData))
           .then((res) => {
             console.log("🚀 ~ .then ~ res----------------------:", res);

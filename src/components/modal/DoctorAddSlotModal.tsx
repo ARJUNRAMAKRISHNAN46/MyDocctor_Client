@@ -1,174 +1,185 @@
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, FieldArray, ErrorMessage } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
+import { AppDispatch, RootState } from "../../redux/store";
+import { addAppointment } from "../../redux/actions/AppointmentActions";
+import { AppointmentEntity } from "../../types/AddAppoinment";
+import { UserData } from "../../types/userData";
 
-export const DoctorAddSlotModal = (closeModal: any) => {
-  console.log("🚀 ~ DoctorAddSlotModal ~ closeModal:", closeModal)
-  const initialValues = {
-    selectedDate: "",
-    selectedSlot: "",
-    selectedMethod: "",
-    startTime: "",
+interface AddSlotModalProps {
+  show: boolean;
+  handleClose: () => void;
+}
+
+const AddSlotModal: React.FC<AddSlotModalProps> = ({ show, handleClose }) => {
+  const dispatch: AppDispatch = useDispatch();
+  const userData: UserData = useSelector(
+    (state: RootState) => state.userData.user?._id
+  );
+  console.log("🚀 ~ AddSlotModal ~ userData:", userData);
+  const initialValues: AppointmentEntity = {
+    date: "",
+    consultationMethods: [],
+    slots: [{ start: "", end: "", userId: "" }],
+    doctorId: String(userData),
   };
 
-  const validationSchema = Yup.object().shape({
-    selectedDate: Yup.date()
-      .required("Date is required")
-      .min(new Date(), "Please select a future date"),
-    selectedSlot: Yup.string().required("Slot is required"),
-    startTime: Yup.string().required("Start time is required"),
-    selectedMethod: Yup.string().required("Method is required"),
+  const validationSchema = Yup.object({
+    date: Yup.string()
+      .matches(/^\d{2}-\d{2}-\d{4}$/, "Date must be in DD-MM-YYYY format")
+      .required("Date is required"),
+    consultationMethods: Yup.array().min(1, "At least one method is required"),
+    slots: Yup.array().of(
+      Yup.object({
+        start: Yup.string().required("Start time is required"),
+        end: Yup.string().required("End time is required"),
+      })
+    ),
   });
 
-  const getAvailableTimes = (selectedSlot: any) => {
-    switch (selectedSlot) {
-      case "morning":
-        return { startTime: "09:00"};
-      case "afternoon":
-        return { startTime: "12:00"};
-      case "evening":
-        return { startTime: "15:00"};
-      default:
-        return { startTime: ""};
-    }
-  };
-
-  const convertTo12HourFormat = (time: any) => {
-    const [hours, minutes] = time.split(":");
-    let period = "AM";
-    let hour = parseInt(hours, 10);
-    if (hour > 12) {
-      hour -= 12;
-      period = "PM";
-    }
-    return `${hour}:${minutes} ${period}`;
-  };
-
   return (
-    <div className="max-w-md mx-auto my-8 p-8 bg-white rounded-lg shadow-lg">
-      <div className="flex justify-between">
-        <h2 className="text-2xl font-bold mb-4">Select Doctor Availability</h2>
-        <h2 onClick={closeModal?.close} className="text-2xl font-bold mb-4">X</h2>
-      </div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            values.startTime = convertTo12HourFormat(values.startTime);
-           
-            console.log(values.startTime);
+    <div
+      className={`fixed z-10 inset-0 overflow-y-auto ${show ? "" : "hidden"}`}
+    >
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg w-full p-6">
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              console.log(values, "values");
+              dispatch(addAppointment(values));
+              handleClose();
+            }}
+          >
+            {({ values, handleSubmit }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label className="block text-gray-700">Date</label>
+                  <Field
+                    name="date"
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                    placeholder="DD-MM-YYYY"
+                  />
+                  <ErrorMessage
+                    name="date"
+                    component="div"
+                    className="text-red-600 text-sm"
+                  />
+                </div>
 
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({ isSubmitting, setFieldValue, values }) => (
-          <Form>
-            <div className="mb-4">
-              <label
-                htmlFor="selectedDate"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Select Date:
-              </label>
-              <Field
-                type="date"
-                name="selectedDate"
-                id="selectedDate"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
-              />
-              <ErrorMessage
-                name="selectedDate"
-                component="div"
-                className="text-red-600 text-sm mt-1"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="selectedSlot"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Select Slot:
-              </label>
-              <Field
-                as="select"
-                name="selectedSlot"
-                id="selectedSlot"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
-                onChange={(e:any) => {
-                  setFieldValue("selectedSlot", e.target.value);
-                  const { startTime} = getAvailableTimes(
-                    e.target.value
-                  );
-                  setFieldValue("startTime", startTime);
-                }}
-              >
-                <option value="">Select Slot</option>
-                <option value="morning">Morning</option>
-                <option value="afternoon">Afternoon</option>
-                <option value="evening">Evening</option>
-              </Field>
-              <ErrorMessage
-                name="selectedSlot"
-                component="div"
-                className="text-red-600 text-sm mt-1"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="startTime"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Start Time:
-              </label>
-              <Field
-                type="time"
-                name="startTime"
-                id="startTime"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
-              />
-              <ErrorMessage
-                name="startTime"
-                component="div"
-                className="text-red-600 text-sm mt-1"
-              />
-            </div>
-            
-            <div className="mb-4">
-              <label
-                htmlFor="selectedMethod"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Select Method:
-              </label>
-              <Field
-                as="select"
-                name="selectedMethod"
-                id="selectedMethod"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200"
-              >
-                <option value="">Select Method</option>
-                <option value="in-person">In-person</option>
-                <option value="phone">Phone</option>
-                <option value="video">Video</option>
-              </Field>
-              <ErrorMessage
-                name="selectedMethod"
-                component="div"
-                className="text-red-600 text-sm mt-1"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-            >
-              {isSubmitting ? "Submitting..." : "Submit"}
-            </button>
-          </Form>
-        )}
-      </Formik>
+                <div className="mb-4">
+                  <label className="block text-gray-700">
+                    Consultation Methods
+                  </label>
+                  <div className="flex space-x-4">
+                    <label>
+                      <Field
+                        type="checkbox"
+                        name="consultationMethods"
+                        value="in-person"
+                      />
+                      In-person
+                    </label>
+                    <label>
+                      <Field
+                        type="checkbox"
+                        name="consultationMethods"
+                        value="phone"
+                      />
+                      Phone
+                    </label>
+                    <label>
+                      <Field
+                        type="checkbox"
+                        name="consultationMethods"
+                        value="video"
+                      />
+                      Video
+                    </label>
+                  </div>
+                  <ErrorMessage
+                    name="consultationMethods"
+                    component="div"
+                    className="text-red-600 text-sm"
+                  />
+                </div>
+                <Field
+                  type="text"
+                  name="doctorId"
+                  value={userData}
+                />
+                <FieldArray name="slots">
+                  {({ push, remove }) => (
+                    <div>
+                      <label className="block text-gray-700">Slots</label>
+                      {values.slots.map((slot: any, index: any) => (
+                        <div
+                          key={index}
+                          className="flex space-x-2 items-center mb-2"
+                        >
+                          <Field
+                            name={`slots[${index}].start`}
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            placeholder="Start Time"
+                          />
+                          <Field
+                            name={`slots[${index}].end`}
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                            placeholder="End Time"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => remove(index)}
+                            className="text-red-600"
+                          >
+                            Remove
+                          </button>
+                          <ErrorMessage
+                            name={`slots[${index}].start`}
+                            component="div"
+                            className="text-red-600 text-sm"
+                          />
+                          <ErrorMessage
+                            name={`slots[${index}].end`}
+                            component="div"
+                            className="text-red-600 text-sm"
+                          />
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => push({ start: "", end: "" })}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                      >
+                        Add Slot
+                      </button>
+                    </div>
+                  )}
+                </FieldArray>
+
+                <div className="mt-6">
+                  <button
+                    type="submit"
+                    className="bg-green-500 text-white px-4 py-2 rounded-md"
+                  >
+                    Add Slot
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="bg-gray-500 text-white px-4 py-2 rounded-md ml-2"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+          </Formik>
+        </div>
+      </div>
     </div>
   );
 };
+
+export default AddSlotModal;

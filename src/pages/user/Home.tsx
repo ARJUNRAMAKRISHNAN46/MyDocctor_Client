@@ -1,18 +1,18 @@
 import Navbar from '../../components/common/Navbar'
 import Footer from '../../components/common/Footer'
-import Banner from '../../components/common/Banner'
-import Speciality from '../../components/common/Speciality'
-import Reviews from '../../components/common/Reviews'
 import AppBanner from '../../components/common/AppBanner'
+import WhyChooseUs from '../../components/common/WhyChooseUs'
+import Service from '../../components/common/Servieces'
+import ClinicAndSpecialities from '../../components/common/ClinicsAndSpecialities'
 
 function Home() {
   return (
     <div>
       <Navbar/>
       <AppBanner/>
-      <Speciality/>
-      <Banner/>
-      <Reviews/>
+      <WhyChooseUs/>
+      <Service/>
+      <ClinicAndSpecialities/>
       <Footer/>
     </div>
   )

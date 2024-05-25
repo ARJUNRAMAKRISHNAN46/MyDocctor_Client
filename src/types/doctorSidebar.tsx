@@ -9,3 +9,7 @@ export interface SidePanelProps {
   data: DataItem[]; 
   onItemClick: (item: JSX.Element) => void;
 }
+
+export interface Data {
+  data: DataItem[];
+}

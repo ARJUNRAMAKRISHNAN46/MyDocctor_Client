@@ -5,6 +5,7 @@ export const authbaseUrl = String(
 export const doctorbaseUrl = String(import.meta.env.VITE_DOCTOR_SERVICE_URI);
 export const userbaseUrl = String(import.meta.env.VITE_USER_SERVICE_URI);
 export const adminbaseUrl = String(import.meta.env.VITE_ADMIN_SERVICE_URI);
+export const appointmentUrl = String(import.meta.env.VITE_APPOINTMENT_SERVICE_URI);
 
 export const AuthAxios = axios.create({
   baseURL: authbaseUrl,
@@ -23,5 +24,10 @@ export const UserAxios = axios.create({
 
 export const AdminAxios = axios.create({
   baseURL: adminbaseUrl,
+  withCredentials: true,
+})
+
+export const AppointmentAxios = axios.create({
+  baseURL: appointmentUrl,
   withCredentials: true,
 })

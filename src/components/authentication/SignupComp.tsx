@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { signupUser, userGoogle } from "../../redux/actions/AuthActions";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { FormValues } from "../../types/FormValues";
 
 const initialValues = {
   name: "",
@@ -18,16 +19,6 @@ const initialValues = {
   otp: "",
   role: "",
 };
-
-interface FormValues {
-  name: string;
-  email: string;
-  mobileNumber: string;
-  password: string;
-  confirmPassword: string;
-  otp: string;
-  role: string;
-}
 
 function SignupComp() {
   const [status, setStatus] = useState<boolean>(false);

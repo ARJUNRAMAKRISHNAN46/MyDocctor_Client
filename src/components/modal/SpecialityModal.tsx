@@ -6,9 +6,15 @@ import { addSpeciality } from "../../redux/actions/UserActions";
 import { imageUpload } from "../../util/UploadImage";
 import { AddSpeciality } from "../../types/userData";
 
-function SpecialityModal({ isOpen, onClose }) {
+interface SpecialityModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const SpecialityModal: React.FC<SpecialityModalProps> = ({ isOpen, onClose }) => {
   const dispatch: AppDispatch = useDispatch();
-  const initialValues = {
+  const initialValues: AddSpeciality = {
+    _id: "",
     specialtyName: "",
     specialtyImage: "",
     specialtyDescription: "",
@@ -17,9 +23,7 @@ function SpecialityModal({ isOpen, onClose }) {
   const validationSchema = Yup.object().shape({
     specialtyName: Yup.string().required("Please add a speciality"),
     specialtyImage: Yup.mixed().required("Please add speciality image"),
-    specialtyDescription: Yup.string().required(
-      "Please add speciality description"
-    ),
+    specialtyDescription: Yup.string().required("Please add speciality description"),
   });
 
   const showPreview = (previewId: string, file: Blob) => {
@@ -38,15 +42,12 @@ function SpecialityModal({ isOpen, onClose }) {
     };
 
     if (file) {
-      console.log("🚀 ~ showPreview ~ file:", typeof reader.readAsDataURL);
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSubmit = async(values: any, { setSubmitting }) => {
-    console.log(values);
+  const handleSubmit = async (values: AddSpeciality, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     const specImage = await imageUpload(values.specialtyImage);
-    console.log("🚀 ~ handleSubmit ~ specImage:", specImage)
     values.specialtyImage = specImage;
     dispatch(addSpeciality(values))
       .then((res) => {
@@ -64,23 +65,12 @@ function SpecialityModal({ isOpen, onClose }) {
   };
 
   return (
-    <div
-      className={`fixed inset-0 flex items-center justify-center ${
-        isOpen ? "" : "hidden"
-      }`}
-    >
+    <div className={`fixed inset-0 flex items-center justify-center ${isOpen ? "" : "hidden"}`}>
       <div className="fixed inset-0 bg-black opacity-50"></div>
       <div className="bg-gray-800 p-8 z-10 rounded-[5px]">
         <div className="flex justify-between">
-          <h2 className="text-xl text-white font-semibold mb-4">
-            Add Specialty
-          </h2>
-          <h1
-            onClick={handleModalClose}
-            className="text-white text-xl font-semibold cursor-pointer"
-          >
-            X
-          </h1>
+          <h2 className="text-xl text-white font-semibold mb-4">Add Specialty</h2>
+          <h1 onClick={handleModalClose} className="text-white text-xl font-semibold cursor-pointer">X</h1>
         </div>
         <Formik
           initialValues={initialValues}
@@ -90,74 +80,45 @@ function SpecialityModal({ isOpen, onClose }) {
           {(formikProps: FormikProps<AddSpeciality>) => (
             <Form>
               <div className="mb-4">
-                <label className="block text-gray-400 mb-2">
-                  Specialty Name:
-                </label>
+                <label className="block text-gray-400 mb-2">Specialty Name:</label>
                 <Field
                   type="text"
                   name="specialtyName"
                   className="border border-gray-300 rounded w-full py-2 px-3 bg-gray-800 text-gray-300"
                 />
-                <ErrorMessage
-                  name="specialtyName"
-                  component="div"
-                  className="text-red-500"
-                />
+                <ErrorMessage name="specialtyName" component="div" className="text-red-500" />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-400 mb-2">
-                  Specialty Image:
-                </label>
+                <label className="block text-gray-400 mb-2">Specialty Image:</label>
                 <input
                   type="file"
                   name="specialtyImage"
                   onChange={(event) => {
                     if (event.currentTarget.files) {
-                      formikProps.setFieldValue(
-                        "specialtyImage",
-                        event.currentTarget.files[0]
-                      );
-                      showPreview(
-                        "specialtyImage",
-                        event.currentTarget.files[0]
-                      );
+                      formikProps.setFieldValue("specialtyImage", event.currentTarget.files[0]);
+                      showPreview("specialtyImage", event.currentTarget.files[0]);
                     }
                   }}
                   className="border border-gray-300 rounded w-full py-2 px-3 bg-gray-800 text-gray-300"
                 />
-                <ErrorMessage
-                  name="specialtyImage"
-                  component="div"
-                  className="text-red-500"
-                />
+                <ErrorMessage name="specialtyImage" component="div" className="text-red-500" />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-400 mb-2">
-                  Specialty Description:
-                </label>
+                <label className="block text-gray-400 mb-2">Specialty Description:</label>
                 <Field
                   as="textarea"
                   name="specialtyDescription"
                   className="border border-gray-300 rounded w-full py-2 px-3 bg-gray-800 text-gray-300"
                 />
-                <ErrorMessage
-                  name="specialtyDescription"
-                  component="div"
-                  className="text-red-500"
-                />
+                <ErrorMessage name="specialtyDescription" component="div" className="text-red-500" />
               </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-800"
-              >
-                Add Specialty
-              </button>
+              <button type="submit" className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-800">Add Specialty</button>
             </Form>
           )}
         </Formik>
       </div>
     </div>
   );
-}
+};
 
 export default SpecialityModal;

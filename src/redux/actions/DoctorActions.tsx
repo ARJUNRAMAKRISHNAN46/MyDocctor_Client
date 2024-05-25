@@ -55,6 +55,7 @@ export const listDoctor = createAsyncThunk(
 export const findDoctorById = createAsyncThunk(
   "doctor/findDoctorById",
   async (id: string, { rejectWithValue }) => {
+    console.log("🚀 ~ id:", id)
     try {
       const { data } = await DoctorAxios.get(`/find-doctor/${id}`);
       console.log("🚀 ~ async ~ data:", data);
@@ -86,6 +87,20 @@ export const blockUser = createAsyncThunk(
       console.log("🚀 ~ async ~ data:", data);
 
       return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const addAppointmentLink = createAsyncThunk(
+  'doctor/addLink',
+  async (linkData: { id: string, link: string }, { rejectWithValue }) => {
+    try {
+      const response = await DoctorAxios.post(`/add-link/${linkData.id}`, { link: linkData.link });
+      console.log('🚀 ~ async ~ response:', response.data);
+
+      return response.data;
     } catch (error: any) {
       return rejectWithValue(handleErrors(error));
     }
