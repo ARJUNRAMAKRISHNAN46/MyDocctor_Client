@@ -1,13 +1,13 @@
+import Router from "./components/Router";
 import "./App.css";
-import HandleRoute from "./components/common/HandleRoute";
 
 function App() {
   return (
     <>
-      {/* <Router /> */}
-      <HandleRoute/>
+      <Router />
     </>
   );
 }
 
 export default App;
+  

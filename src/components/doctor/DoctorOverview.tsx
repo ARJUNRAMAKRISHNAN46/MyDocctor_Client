@@ -1,8 +1,18 @@
+import BarChart from "../Dashboard/BarChart";
+import HeaderStats from "../Dashboard/HeaderStats";
+import LineChart from "../Dashboard/LineChart";
+import ListPatients from "../Dashboard/ListPatients";
+
 function DoctorOverview() {
   return (
-    <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">
-      <div className=" bg-gray-800 w-[82vw] h-[96vh] flex justify-center items-center">
-      <h1 className="font-bold text-[30px] text-white">Dashboard</h1>
+    <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
+      <div className=" bg-gray-800 w-[82vw] h-[146vh] px-8">
+        <HeaderStats />
+        <div className="flex justify-between mt-5">
+          <LineChart />
+          <BarChart />
+        </div>
+        <ListPatients/>
       </div>
     </div>
   );

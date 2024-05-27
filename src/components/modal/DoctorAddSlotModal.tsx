@@ -1,100 +1,138 @@
-import { Formik, Field, FieldArray, ErrorMessage } from "formik";
-import { useDispatch, useSelector } from "react-redux";
+// DoctorAppointmentScheduler.tsx
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { AppDispatch, RootState } from "../../redux/store";
-import { addAppointment } from "../../redux/actions/AppointmentActions";
-import { AppointmentEntity } from "../../types/AddAppoinment";
-import { UserData } from "../../types/userData";
 
 interface AddSlotModalProps {
   show: boolean;
   handleClose: () => void;
 }
 
-const AddSlotModal: React.FC<AddSlotModalProps> = ({ show, handleClose }) => {
-  const dispatch: AppDispatch = useDispatch();
-  const userData: UserData = useSelector(
-    (state: RootState) => state.userData.user?._id
-  );
-  console.log("🚀 ~ AddSlotModal ~ userData:", userData);
-  const initialValues: AppointmentEntity = {
-    _id: "",
-    date: "",
-    consultationMethods: [],
-    slots: [{ start: "", end: "", userId: "" }],
-    doctorId: String(userData),
-  };
+const DoctorAddSlotModal: React.FC<AddSlotModalProps> = ({
+  show,
+  handleClose,
+}) => {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
-  const validationSchema = Yup.object({
-    date: Yup.string()
-      .matches(/^\d{2}-\d{2}-\d{4}$/, "Date must be in DD-MM-YYYY format")
-      .required("Date is required"),
-    consultationMethods: Yup.array().min(1, "At least one method is required"),
-    slots: Yup.array().of(
-      Yup.object({
-        start: Yup.string().required("Start time is required"),
-        end: Yup.string().required("End time is required"),
-      })
+  const validationSchema = Yup.object().shape({
+    date: Yup.date().required("Date is required"),
+    consultationMethods: Yup.array().min(
+      1,
+      "At least one consultation method is required"
     ),
+    times: Yup.array().min(1, "At least one time slot is required"),
   });
 
+  const generateTimeOptions = () => {
+    const timeOptions = [];
+    for (let hour = 9; hour < 17; hour++) {
+      for (let min = 0; min < 60; min += 30) {
+        const startTime = `${hour.toString().padStart(2, "0")}:${min
+          .toString()
+          .padStart(2, "0")}`;
+        const endTime = `${(hour + (min === 30 ? 1 : 0))
+          .toString()
+          .padStart(2, "0")}:${min === 30 ? "00" : "30"}`;
+        const displayTime = `${formatTime(startTime)} - ${formatTime(endTime)}`;
+        timeOptions.push(
+          <label
+            key={startTime}
+            className="flex items-center font-semibold text-sm italic"
+          >
+            <Field
+              type="checkbox"
+              name="times"
+              value={`${startTime}-${endTime}`}
+              className="mr-2"
+            />
+            {displayTime}
+          </label>
+        );
+      }
+    }
+    return timeOptions;
+  };
+
+  const formatTime = (time: string) => {
+    const [hour, minute] = time.split(":");
+    const parsedHour = parseInt(hour);
+    const amOrPm = parsedHour >= 12 ? "PM" : "AM";
+    const formattedHour =
+      parsedHour % 12 === 0 ? "12" : (parsedHour % 12).toString();
+    return `${formattedHour}:${minute} ${amOrPm}`;
+  };
+
   return (
-    <div
-      className={`fixed z-10 inset-0 overflow-y-auto ${show ? "" : "hidden"}`}
-    >
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg w-full p-6">
+    <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
+      <div className="bg-gray-800 w-[82vw] flex justify-center items-center h-[146vh]">
+        <div className="container mx-auto py-2 bg-white rounded-[15px] w-[400px]">
+          {/* <h1 className="text-xl font-bold text-center text-blue-700 mb-4">Doctor Appointment Scheduler</h1> */}
           <Formik
-            initialValues={initialValues}
+            initialValues={{ date: "", consultationMethods: [], times: [] }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-              console.log(values, "values");
-              dispatch(addAppointment(values));
               handleClose();
+              // Handle form submission here (e.g., save to database)
+              console.log(values);
             }}
           >
-            {({ values, handleSubmit }) => (
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label className="block text-gray-700">Date</label>
+            {({ errors, touched }) => (
+              <Form>
+                <div className="mb-2">
+                  <div className="flex justify-between">
+                  <label
+                    htmlFor="date"
+                    className="block font-bold"
+                  >
+                    Date:
+                  </label>
+                  <span onClick={() => handleClose()} className="text-xl font-semibold">X</span>
+                  </div>
                   <Field
+                    type="date"
+                    id="date"
                     name="date"
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                    placeholder="DD-MM-YYYY"
+                    min={tomorrow.toISOString().split("T")[0]}
+                    className={`mt-1 p-2 block italic font-semibold text-sm w-full border-2 border-gray-300 rounded-[5px] focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${
+                      errors.date && touched.date ? "border-red-500" : ""
+                    }`}
                   />
                   <ErrorMessage
                     name="date"
                     component="div"
-                    className="text-red-600 text-sm"
+                    className="text-red-500 text-sm mt-1"
                   />
                 </div>
-
-                <div className="mb-4">
-                  <label className="block text-gray-700">
-                    Consultation Methods
+                <div className="mb-2">
+                  <label className="block font-bold">
+                    Consultation Methods:
                   </label>
-                  <div className="flex space-x-4">
-                    <label>
+                  <div className="flex items-center border-2 py-2 px-3 border-gray-300 mt-2 font-semibold text-sm italic">
+                    <label className="mr-4">
                       <Field
                         type="checkbox"
                         name="consultationMethods"
-                        value="in-person"
+                        value="inPerson"
+                        className="mr-2"
                       />
-                      In-person
+                      In-Person
                     </label>
-                    <label>
+                    <label className="mr-4">
                       <Field
                         type="checkbox"
                         name="consultationMethods"
-                        value="phone"
+                        value="phoneCall"
+                        className="mr-2"
                       />
-                      Phone
+                      Phone Call
                     </label>
                     <label>
                       <Field
                         type="checkbox"
                         name="consultationMethods"
                         value="video"
+                        className="mr-2"
                       />
                       Video
                     </label>
@@ -102,80 +140,34 @@ const AddSlotModal: React.FC<AddSlotModalProps> = ({ show, handleClose }) => {
                   <ErrorMessage
                     name="consultationMethods"
                     component="div"
-                    className="text-red-600 text-sm"
+                    className="text-red-500 text-sm mt-1"
                   />
                 </div>
-                <Field
-                  type="text"
-                  name="doctorId"
-                  value={userData}
-                />
-                <FieldArray name="slots">
-                  {({ push, remove }) => (
-                    <div>
-                      <label className="block text-gray-700">Slots</label>
-                      {values.slots.map((slot: any, index: any) => (
-                        <div
-                          key={index}
-                          className="flex space-x-2 items-center mb-2"
-                        >
-                          {slot}
-                          <Field
-                            name={`slots[${index}].start`}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            placeholder="Start Time"
-                          />
-                          <Field
-                            name={`slots[${index}].end`}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            placeholder="End Time"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => remove(index)}
-                            className="text-red-600"
-                          >
-                            Remove
-                          </button>
-                          <ErrorMessage
-                            name={`slots[${index}].start`}
-                            component="div"
-                            className="text-red-600 text-sm"
-                          />
-                          <ErrorMessage
-                            name={`slots[${index}].end`}
-                            component="div"
-                            className="text-red-600 text-sm"
-                          />
-                        </div>
-                      ))}
-                      <button
-                        type="button"
-                        onClick={() => push({ start: "", end: "" })}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                      >
-                        Add Slot
-                      </button>
-                    </div>
-                  )}
-                </FieldArray>
-
-                <div className="mt-6">
+                <div className="mb-4">
+                  <label
+                    htmlFor="times"
+                    className="block font-bold mb-2"
+                  >
+                    Time Slots:
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {generateTimeOptions()}
+                  </div>
+                  <ErrorMessage
+                    name="times"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+                <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="bg-green-500 text-white px-4 py-2 rounded-md"
+                    className="bg-blue-500 text-white px-14 py-2 rounded-full hover:bg-blue-600"
                   >
-                    Add Slot
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleClose}
-                    className="bg-gray-500 text-white px-4 py-2 rounded-md ml-2"
-                  >
-                    Cancel
+                    Submit
                   </button>
                 </div>
-              </form>
+              </Form>
             )}
           </Formik>
         </div>
@@ -184,4 +176,4 @@ const AddSlotModal: React.FC<AddSlotModalProps> = ({ show, handleClose }) => {
   );
 };
 
-export default AddSlotModal;
+export default DoctorAddSlotModal;

@@ -100,9 +100,9 @@ function LoginComp() {
   return (
     <div>
       <div className="md:flex grid-flow-row">
-        <div className="md:w-[60%] h-[100vh] flex items-center hidden md:block">
+        <div className="md:w-[50%] h-[100vh] flex items-center hidden md:block">
           {/* <img src="../../src/assets/patient-login.jpg" alt="login-image" /> */}
-          <div className="bg-violet-700 h-full rounded-br-[600px] flex justify-center items-center">
+          <div className="bg-violet-500 h-full rounded-br-[600px] flex justify-center items-center">
             <div>
               <h1 className="text-[40px] font-semibold  text-white text-center">
                 New Here ?
@@ -121,8 +121,8 @@ function LoginComp() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center md:w-[40%] h-[100vh]">
-          <div className="bg-white w-[450px] h-[600px] border-4 shadow-2xl rounded-[20px]">
+        <div className="flex justify-center items-center md:w-[50%] h-[100vh]">
+          <div className="bg-white w-[450px] border-4 shadow-2xl rounded-[20px]">
             <div
               className="flex justify-center
             "
@@ -134,7 +134,7 @@ function LoginComp() {
               />
             </div>
             <div className="text-center text-black font-semibold">
-              <h1 className="md:text-2xl text-blue-800 font-bold">
+              <h1 className="md:text-2xl text-violet-500 font-bold">
                 LOGIN HERE
               </h1>
             </div>
@@ -206,7 +206,7 @@ function LoginComp() {
                       <div className="flex justify-center mt-4">
                         <button
                           type="submit"
-                          className="text-white font-bold mb-6 bg-violet-600 px-16 py-2 border-none rounded-full hover:bg-gradient-to-r from-violet-500 via-violet-700 to-violet-500"
+                          className="text-white text-sm font-semibold mb-6 bg-violet-500 px-16 py-3 border-none rounded-full hover:bg-gradient-to-r from-violet-500 via-violet-700 to-violet-500"
                         >
                           LOGIN
                         </button>
@@ -216,7 +216,7 @@ function LoginComp() {
                 </Formik>
               </div>
             </div>
-            <div className="px-16 flex justify-center">
+            <div className="px-16 flex justify-center mb-8">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
                   const decodeToken:GoogleValues = jwtDecode(

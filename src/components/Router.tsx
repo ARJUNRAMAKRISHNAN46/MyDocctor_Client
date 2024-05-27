@@ -39,28 +39,33 @@ import DoctorProfile from "./doctor/DoctorProfile";
 import UserBookings from "./user/UserBookings";
 import FavouriteDoctors from "./common/FavouriteDoctors";
 import UserPrescriptions from "./user/UserPrescriptions";
+import UserChats from "./user/UserChats";
+import ProfileLayout from "../pages/user/ProfileLayout";
+import ViewDoctor from "../pages/user/ViewDoctor";
+import DoctorReview from "./user/DoctorReview";
+import Services from "../pages/user/Services";
+import About from "../pages/user/About";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userData.user);
   const loading = useSelector((state: RootState) => state.userData.loading);
-  console.log("🚀 ~ Router ~ loading:", loading)
+  console.log("🚀 ~ Router ~ loading:", loading);
   console.log("🚀 ~ Router ~ userData:", userData);
-if(loading === true) {
-  <Loader/>
-}
+  if (loading === true) {
+    <Loader />;
+  }
   useEffect(() => {
-    dispatch(getUser())
-      .then((res) => {
-        console.log("🚀 ~ dispatch ~ res:", res);
-      })
+    dispatch(getUser()).then((res) => {
+      console.log("🚀 ~ dispatch ~ res:", res);
+    });
   }, [dispatch]);
 
   if (userData === null || userData === undefined) {
     return (
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/doctor/signup" element={<DoctorSignup />} />
           <Route path="/list-doctors" element={<Doctors />} />
@@ -106,14 +111,38 @@ if(loading === true) {
             element={<Navigate to={"/"} />}
           />
           {/* <Route path="/" element={<Navigate to={"/admin/adminHome"} />} /> */}
-          <Route path="/admin/adminHome" element={<Navigate to={"/"} />} />
+          {/* <Route path="/admin/adminHome" element={<Navigate to={"/"} />} />
           <Route path="/admin/dashboard" element={<Navigate to={"/"} />} />
           <Route path="/admin/doctors" element={<Navigate to={"/"} />} />
           <Route path="/admin/bookings" element={<Navigate to={"/"} />} />
           <Route path="/admin/patients" element={<Navigate to={"/"} />} />
           <Route path="/admin/specialities" element={<Navigate to={"/"} />} />
           <Route path="/" element={<Home />} />
-          <Route path="*" element={<Loader />} />
+          <Route path="*" element={<Loader />} />  */}
+
+          {/* authentication routes */}
+        <Route path="/login" element={userData ? <Home /> : <Login />} />
+        <Route path="/signup" element={userData ? <Home /> : <Signup />} />
+
+          {/* general Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/list-doctors" element={<Doctors />} />
+          <Route path="/userHome" element={<Home />} />
+          <Route path="/about-us" element={<About />} />
+          <Route path="/our-service" element={<Services />} />
+          <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
+          <Route path="/select-slot/:id" element={<SlotBooking />} />
+          <Route path="/doctor-review" element={<DoctorReview />} />
+          {/* userprofile routes*/}
+          <Route path="view" element={<ProfileLayout />}>
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="favourite-doctors" element={<FavouriteDoctors />} />
+            <Route path="prescriptions" element={<UserPrescriptions />} />
+            <Route path="chats" element={<UserChats />} />
+            <Route path="appointments" element={<UserBookings />} />
+          </Route>
+          {/* PageNotFound route*/}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
     );
@@ -138,10 +167,10 @@ if(loading === true) {
           />
           <Route path="/select-slot/:id" element={<SlotBooking />} />
           <Route path="/list-doctors" element={<Doctors />} />
-          <Route path="/show-Profile" element={<UserProfile/>} />
-          <Route path="/list-bookings" element={<UserBookings/>} />
-          <Route path="/favourite-doctors" element={<FavouriteDoctors/>} />
-          <Route path="/prescriptions" element={<UserPrescriptions/>} />
+          <Route path="/show-Profile" element={<UserProfile />} />
+          <Route path="/list-bookings" element={<UserBookings />} />
+          <Route path="/favourite-doctors" element={<FavouriteDoctors />} />
+          <Route path="/prescriptions" element={<UserPrescriptions />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
@@ -238,19 +267,10 @@ if(loading === true) {
             />
             <Route path="doctor" element={<DoctorLayout />}>
               <Route path="doctorHome" element={<DoctorOverview />} />
-              <Route
-                path="overview"
-                element={<DoctorOverview />}
-              />
-              <Route
-                path="appointments"
-                element={<DoctorAppoitnments />}
-              />
+              <Route path="overview" element={<DoctorOverview />} />
+              <Route path="appointments" element={<DoctorAppoitnments />} />
               <Route path="patients" element={<DoctorPatients />} />
-              <Route
-                path="community-chat"
-                element={<DoctorCommunityChat />}
-              />
+              <Route path="community-chat" element={<DoctorCommunityChat />} />
               <Route path="messages" element={<DoctorMessages />} />
               <Route path="slots" element={<DoctorSlots />} />
               <Route path="profile" element={<DoctorProfile />} />
@@ -263,12 +283,10 @@ if(loading === true) {
   }
 
   if (userData?.role === "admin") {
-    console.log("hertei sit a")
     return (
-      
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<Navigate to={"/admin/dashboard"}/> } />
+          <Route path="/" element={<Navigate to={"/admin/dashboard"} />} />
           <Route path="/admin/verifyDoctor/:id" element={<VerifyDoctor />} />
           <Route path="admin" element={<AdminLayout />}>
             <Route path="" element={<Navigate to={"/admin/adminHome"} />} />

@@ -6,7 +6,7 @@ import { UserData } from "../../types/userData";
 import { listDoctorSlots } from "../../redux/actions/AppointmentActions";
 import { AppointmentEntity } from "../../types/AddAppoinment";
 
-const App = () => {
+const DoctorSlots = () => {
   const [showModal, setShowModal] = useState(false);
   const [slots, setSlots] = useState<AppointmentEntity[]>([]);
 
@@ -24,7 +24,15 @@ const App = () => {
   }, [dispatch, userData]);
 
   return (
-    <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
+    <div>
+      {showModal ? (
+      <AddSlotModal
+      show={showModal}
+      handleClose={() => setShowModal(false)}
+      />
+    ) : ( 
+      
+      <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
       <div className="bg-gray-800 w-[82vw] h-[146vh]">
         <div className="flex justify-end m-6">
           <button
@@ -34,23 +42,24 @@ const App = () => {
             Add Doctor Slot
           </button>
         </div>
-        <AddSlotModal
-          show={showModal}
-          handleClose={() => setShowModal(false)}
-        />
         <div className="mt-20">
           {slots.map((appointment, index) => (
             <div
               key={appointment?._id}
               className="appointment-card w-[300px] bg-white py-6 rounded-[5px] m-4 px-2"
             >
-              <h1 className="font-bold text-xl text-white text-center bg-blue-700">SLOTS {index + 1}</h1>
+              <h1 className="font-bold text-xl text-white text-center bg-blue-700">
+                SLOTS {index + 1}
+              </h1>
               <h2 className="font-bold">Date:</h2>
               <h1 className="px-4">{appointment.date}</h1>
               <h4 className="font-bold">Consultation Methods:</h4>
               <div className="flex">
                 {appointment.consultationMethods.map((method, index) => (
-                  <div className="bg-white px-4 border border-gray-400" key={index}>
+                  <div
+                    className="bg-white px-4 border border-gray-400"
+                    key={index}
+                  >
                     {method}
                   </div>
                 ))}
@@ -81,7 +90,9 @@ const App = () => {
         </div>
       </div>
     </div>
+      )}
+    </div>
   );
 };
 
-export default App;
+export default DoctorSlots;

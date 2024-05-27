@@ -14,9 +14,7 @@ import { imageUpload } from "../../util/UploadImage";
 import { useNavigate } from "react-router-dom";
 
 const initialValues = {
-  _id: "",
-  name: "",
-  otp: "",
+  isProfile: true,
   gender: "",
   dob: "",
   email: "",
@@ -34,10 +32,8 @@ const initialValues = {
   medicalLicense: "",
 };
 const genderOptions = ["Male", "Female", "Other"];
-interface profileValues {
-  _id: string;
-  name: string;
-  otp: string;
+export interface profileValues {
+  isProfile: boolean;
   gender: string;
   dob: string;
   email: string;
@@ -75,7 +71,7 @@ function ProfileUpdation() {
     setStateCode(value);
   };
 
-  const handleSubmit = async (values: UserData) => {
+  const handleSubmit = async (values: profileValues) => {
     console.log("🚀 ~ handleSubmit ~ values:", values)
     try {
       const experienceCertificate = await imageUpload(
@@ -86,7 +82,6 @@ function ProfileUpdation() {
       values.experienceCertificate = experienceCertificate;
       values.profilePhoto = profilePhoto;
       values.medicalLicense = medicalLicense;
-      values.isProfile = true;
 
       dispatch(updateDoctorProfile(values))
         .then((res) => {
@@ -126,15 +121,8 @@ function ProfileUpdation() {
 
   return (
     <div className="bg-gray-100 w-[100vw] h-[100vh]">
-      <div>
-        <div className="flex justify-center pt-8">
-          <h1 className="text-red-600 font-bold text-[28px] md:text-[40px]">
-            My
-          </h1>
-          <h1 className="text-gray-800 font-bold text-[28px] md:text-[40px]">
-            Doctor
-          </h1>
-        </div>
+      <div className="flex justify-center">
+        <img className="w-[300px]" src="../../../src/assets/MyDocctorLogo.png" alt="" />
       </div>
       <div className="flex justify-center mt-10">
         <div>
@@ -150,7 +138,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -182,7 +170,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -206,7 +194,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -234,7 +222,7 @@ function ProfileUpdation() {
                       }))}
                       name="country"
                       placeholder="Select Country"
-                      className="border border-gray-600 rounded-[5px]"
+                      className="border border-gray-400 rounded-[5px]"
                       onChange={(option: any) => {
                         formikProps.setFieldValue("country", option.label);
                         handleCountry(option.value);
@@ -264,7 +252,7 @@ function ProfileUpdation() {
                         )}
                         name="state"
                         placeholder="Select state"
-                        className="border border-gray-600 rounded-[5px]"
+                        className="border border-gray-400 rounded-[5px]"
                         onChange={(option: any) => {
                           console.log(
                             "option inside the select method",
@@ -300,7 +288,7 @@ function ProfileUpdation() {
                         }))}
                         name="city"
                         placeholder="Select city"
-                        className="border border-gray-600 rounded-[5px]"
+                        className="border border-gray-400 rounded-[5px]"
                         onChange={(option: any) => {
                           console.log(
                             "option inside the select method",
@@ -327,7 +315,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -352,7 +340,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -385,7 +373,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -410,7 +398,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -435,7 +423,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -460,7 +448,7 @@ function ProfileUpdation() {
                     <Field
                       style={{
                         backgroundColor: "#ffff",
-                        border: "1px solid #1F2937",
+                        border: "1px solid gray",
                         borderRadius: "5px",
                         width: "350px",
                         height: "40px",
@@ -570,7 +558,7 @@ function ProfileUpdation() {
                 <div className="mt-6 flex justify-center"></div>
                 <div className="mt-6 flex justify-center">
                   <button
-                    className="bg-red-600 px-6 py-1 rounded-[5px] text-white font-semibold"
+                    className="bg-violet-600 px-14 py-2 rounded-full text-white font-semibold"
                     type="submit"
                   >
                     submit

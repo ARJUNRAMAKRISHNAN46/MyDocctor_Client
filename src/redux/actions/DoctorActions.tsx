@@ -1,12 +1,12 @@
 import { DoctorAxios } from "../../constants/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleErrors } from "../../util/handleErrors";
-import { UserData } from "../../types/userData";
 import { AvailableShift } from "../../types/slotBooking";
+import { profileValues } from "../../pages/doctor/ProfileUpdation";
 
 export const updateDoctorProfile = createAsyncThunk(
   "doctor/updateProfile",
-  async (userData: UserData, { rejectWithValue }) => {
+  async (userData: profileValues, { rejectWithValue }) => {
     console.log("🚀 ~ userData:", userData);
     try {
       const { data } = await DoctorAxios.post("/update-profile", {

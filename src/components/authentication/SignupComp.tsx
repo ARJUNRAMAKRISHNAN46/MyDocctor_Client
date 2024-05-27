@@ -79,19 +79,22 @@ function SignupComp() {
   };
 
   const handleSignup = () => {
-    navigate("/signup");
+    navigate("/login");
   };
+
+  const handleRoute = () => {
+    navigate("/doctor/signup");
+  }
 
   return (
     <>
       {!status ? (
         <div className="md:flex grid-flow-row">
-          <div className="md:w-[60%] h-[100vh] flex items-center hidden md:block">
-            {/* <img src="../../src/assets/patient-login.jpg" alt="login-image" /> */}
-            <div className="bg-violet-700 h-full rounded-br-[600px] flex justify-center items-center">
+          <div className="md:w-[50%] h-[100vh] flex items-center hidden md:block">
+            <div className="bg-violet-500 h-full rounded-br-[600px] flex justify-center items-center">
               <div>
                 <h1 className="text-[40px] font-semibold  text-white text-center">
-                  New Here ?
+                  Already a Member ?
                 </h1>
                 <h1 className="font-thin text-white text-center">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
@@ -104,16 +107,19 @@ function SignupComp() {
                     onClick={handleSignup}
                     className="border-2 text-white px-10 py-2 rounded-full hover:bg-violet-600"
                   >
-                    SIGN UP
+                    LOG IN
                   </button>
+                </div>
+                <div className="flex justify-center mt-8">
+                  <h1 onClick={handleRoute} className="text-white hover:border border-white px-6 py-1">Register as a Doctor</h1>
                 </div>
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center md:w-[40%] h-[100vh]">
-            <div className="bg-white w-[450px] h-[600px] border-4 shadow-2xl rounded-[20px]">
+          <div className="flex justify-center items-center md:w-[50%] h-[100vh]">
+            <div className="bg-white w-[450px] border-4 shadow-2xl rounded-[20px]">
               <div
-                className="flex justify-center
+                className="flex justify-center md:hidden block
             "
               >
                 <img
@@ -123,8 +129,8 @@ function SignupComp() {
                 />
               </div>
               <div className="text-center text-black font-semibold">
-                <h1 className="md:text-2xl text-blue-800 font-bold">
-                  LOGIN HERE
+                <h1 className="md:text-2xl mt-4 text-violet-500 font-bold">
+                  REGISTER HERE
                 </h1>
               </div>
               <div className="flex justify-center">
@@ -141,7 +147,7 @@ function SignupComp() {
                             <Field
                               style={{
                                 backgroundColor: "#ffff",
-                                border: "1px solid #1F2937",
+                                border: "1px solid lightgray",
                                 borderRadius: "5px",
                                 width: "350px",
                                 height: "40px",
@@ -162,11 +168,11 @@ function SignupComp() {
                             )}
                         </div>
                         <div>
-                          <div className="flex justify-center mt-4">
+                          <div className="flex justify-center mt-2">
                             <Field
                               style={{
                                 backgroundColor: "#ffff",
-                                border: "1px solid #1F2937",
+                                border: "1px solid lightgray",
                                 borderRadius: "5px",
                                 width: "350px",
                                 height: "40px",
@@ -187,11 +193,11 @@ function SignupComp() {
                             )}
                         </div>
                         <div>
-                          <div className="flex justify-center mt-4">
+                          <div className="flex justify-center mt-2">
                             <Field
                               style={{
                                 backgroundColor: "#ffff",
-                                border: "1px solid #1F2937",
+                                border: "1px solid lightgray",
                                 borderRadius: "5px",
                                 width: "350px",
                                 height: "40px",
@@ -212,11 +218,11 @@ function SignupComp() {
                             )}
                         </div>
                         <div>
-                          <div className="flex justify-center mt-4 ">
+                          <div className="flex justify-center mt-2">
                             <Field
                               style={{
                                 backgroundColor: "#ffff",
-                                border: "1px solid #1F2937",
+                                border: "1px solid lightgray",
                                 borderRadius: "5px",
                                 width: "350px",
                                 height: "40px",
@@ -237,11 +243,11 @@ function SignupComp() {
                             )}
                         </div>
                         <div>
-                          <div className="flex justify-center mt-4">
+                          <div className="flex justify-center mt-2">
                             <Field
                               style={{
                                 backgroundColor: "#ffff",
-                                border: "1px solid #1F2937",
+                                border: "1px solid lightgray",
                                 borderRadius: "5px",
                                 width: "350px",
                                 height: "40px",
@@ -263,7 +269,7 @@ function SignupComp() {
                         </div>
                         <Field type="hidden" name="otp" />
                         <Field type="hidden" name="role" value="user" />
-                        <div className="mt-2">
+                        <div className="mt-2 md:hidden block">
                           <a
                             href="/doctor/signup"
                             className="text-gray-500 font-semibold text-sm"
@@ -271,13 +277,13 @@ function SignupComp() {
                             are you a doctor ?
                           </a>
                         </div>
-                        <div className="text-gray-900 text-[10px] md:text-[15px] font-semibold text-center mt-16 md:mt-8">
+                        <div className="text-gray-900 md:hidden block text-[10px] md:text-[15px] font-semibold text-center mt-16 md:mt-8">
                           <a href="/login">Already a member ? Login now</a>
                         </div>
                         <div className="flex justify-center mt-4">
                           <button
                             type="submit"
-                            className="text-white font-bold mb-8 bg-red-600 px-10 py-2 border-none rounded-md"
+                            className="text-white text-sm font-semibold mb-8 bg-violet-500 px-14 py-3 border-none rounded-full hover:bg-gradient-to-r from-violet-500 via-violet-700 to-violet-500"
                           >
                             SIGN UP
                           </button>
@@ -287,7 +293,7 @@ function SignupComp() {
                   </Formik>
                 </div>
               </div>
-              <div className="px-16 flex justify-center mb-16">
+              <div className="px-16 flex justify-center mb-6">
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     const decodeToken: Tokendata = jwtDecode(

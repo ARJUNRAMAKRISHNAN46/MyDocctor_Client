@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
 import { Suspense, lazy, useEffect } from "react";
 import { getUser } from "../../redux/actions/AuthActions";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import SlotBooking from "../../pages/user/SlotBooking";
 import DoctorReview from "../user/DoctorReview";
 import UserProfile from "../../pages/user/UserProfile";
@@ -12,6 +12,18 @@ import FavouriteDoctors from "./FavouriteDoctors";
 import UserBookings from "../user/UserBookings";
 import UserPrescriptions from "../user/UserPrescriptions";
 import UserChats from "../user/UserChats";
+import DoctorLayout from "../doctor/DoctorLayout";
+import PageNotFound from "./PageNotFound";
+import DoctorOverview from "../doctor/DoctorOverview";
+import DoctorAppoitnments from "../doctor/DoctorAppoitnments";
+import DoctorPatients from "../doctor/DoctorPatients";
+import DoctorCommunityChat from "../doctor/DoctorCommunityChat";
+import DoctorMessages from "../doctor/DoctorMessages";
+import DoctorProfile from "../user/DoctorProfile";
+import DoctorSlots from "../doctor/DoctorSlots";
+import DoctorSignup from "../../pages/doctor/DoctorSignup";
+import ProfileUpdation from "../../pages/doctor/ProfileUpdation";
+import DoctorWaiting from "../../pages/doctor/DoctorWaiting";
 
 const Login = lazy(() => import("../../pages/user/Login"));
 const Signup = lazy(() => import("../../pages/user/Signup"));
@@ -37,12 +49,70 @@ function HandleRoute() {
     });
   }, [dispatch]);
 
+  {
+    /* doctorprofile routes*/
+  }
+  if (userData?.role === "doctor") {
+    if (userData?.isVerified === true && userData?.isProfile === true) {
+      return (
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="doctor" element={<DoctorLayout />}>
+              <Route path="signup" element={<DoctorOverview />} />
+              <Route path="overview" element={<DoctorOverview />} />
+              <Route path="appointments" element={<DoctorAppoitnments />} />
+              <Route path="patients" element={<DoctorPatients />} />
+              <Route path="community-chat" element={<DoctorCommunityChat />} />
+              <Route path="messages" element={<DoctorMessages />} />
+              <Route path="slots" element={<DoctorSlots />} />
+              <Route path="profile" element={<DoctorProfile />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      );
+    } else if (userData?.isProfile === true) {
+      return (
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/doctor/signup" element={<Navigate to={"/doctor/wait-for-verification"} />} />
+            <Route
+              path="/doctor/wait-for-verification"
+              element={<DoctorWaiting />}
+            />
+          </Routes>
+        </Suspense>
+      );
+    } else {
+      return (
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/doctor/signup" element={<Navigate to={"/doctor/updateDetails"}/>} />
+            <Route path="/doctor/updateDetails" element={<ProfileUpdation />} />
+          </Routes>
+        </Suspense>
+      );
+    }
+  }
+
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* authentication routes */}
         <Route path="/login" element={userData ? <Home /> : <Login />} />
         <Route path="/signup" element={userData ? <Home /> : <Signup />} />
+        <Route
+          path="/doctor/signup"
+          element={
+            userData?.role === "doctor" && userData?.isVerified === true ? (
+              <DoctorOverview />
+            ) : (
+              <DoctorSignup />
+            )
+          }
+        />
+
+        {/* general Routes */}
+        <Route path="/" element={<Home />} />
         <Route path="/list-doctors" element={<Doctors />} />
         <Route path="/userHome" element={<Home />} />
         <Route path="/about-us" element={<About />} />
@@ -50,6 +120,7 @@ function HandleRoute() {
         <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
         <Route path="/select-slot/:id" element={<SlotBooking />} />
         <Route path="/doctor-review" element={<DoctorReview />} />
+        {/* userprofile routes*/}
         <Route path="view" element={<ProfileLayout />}>
           <Route path="profile" element={<UserProfile />} />
           <Route path="favourite-doctors" element={<FavouriteDoctors />} />
@@ -57,6 +128,8 @@ function HandleRoute() {
           <Route path="chats" element={<UserChats />} />
           <Route path="appointments" element={<UserBookings />} />
         </Route>
+        {/* PageNotFound route*/}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
   );
