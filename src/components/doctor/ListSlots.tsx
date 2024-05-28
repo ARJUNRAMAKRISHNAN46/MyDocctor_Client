@@ -23,11 +23,11 @@ function ListSlots() {
     
   return (
     <div>
-      <div className="mt-20">
+      <div className="grid grid-cols-3">
           {slots.map((appointment, index) => (
             <div
               key={appointment?._id}
-              className="appointment-card bg-gray-700 border-white border w-[300px] py-6 rounded-[5px] m-4 px-2"
+              className="appointment-card bg-gray-700 py-6 rounded-[5px] m-4 px-2"
             >
               <h1 className="font-bold text-xl text-white text-center bg-blue-700">
                 SLOTS {index + 1}

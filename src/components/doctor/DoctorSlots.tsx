@@ -1,6 +1,7 @@
 import AddSlotModal from "../modal/DoctorAddSlotModal";
 import { useState } from "react";
 import ListSlots from "./ListSlots";
+import DatePicker from "../Slots/DateListing";
 
 const DoctorSlots = () => {
   const [showModal, setShowModal] = useState(false);
@@ -23,6 +24,7 @@ const DoctorSlots = () => {
                 Add Doctor Slot
               </button>
             </div>
+            <DatePicker/>
             <ListSlots/>
           </div>
         </div>
