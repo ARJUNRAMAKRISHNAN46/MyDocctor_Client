@@ -13,9 +13,7 @@ function Doctors() {
         <div>
           <Filter />
         </div>
-        <div>
-          <ListDoctors />
-        </div>
+        
       </div>
       <Footer />
     </div>

@@ -61,68 +61,13 @@ function Router() {
     });
   }, [dispatch]);
 
-  if (userData === null || userData === undefined) {
+  if (userData === null || userData === undefined || userData?.role === "user") {
     return (
       <Suspense fallback={<Loader />}>
         <Routes>
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/doctor/signup" element={<DoctorSignup />} />
-          <Route path="/list-doctors" element={<Doctors />} />
-          <Route
-            path="/userHome"
-            element={
-              !userData ? <Navigate to={"/"} /> : <Navigate to={"/userHome"} />
-            }
-          />
-          <Route
-            path="/doctor/doctorHome"
-            element={!userData ? <Login /> : <DoctorHome />}
-          />
-          <Route path="/doctor/updateDetails" element={<Navigate to={"/"} />} />
-          <Route path="/select-slot/:id" element={<SlotBooking />} />
-          <Route
-            path="/admin/adminHome"
-            element={!userData ? <Login /> : <AdminHome />}
-          />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/forgotPassword-post" element={<ResetPassword />} />
-          <Route path="/doctor/updateDetails" element={<ProfileUpdation />} />
-          <Route path="/doctor/doctorHome" element={<Navigate to={"/"} />} />
-          <Route path="/show-Profile" element={<UserProfile/>} />
-          <Route
-            path="/doctor/wait-for-verification"
-            element={<Navigate to={"/"} />}
-          />
-          <Route path="/doctor/overview" element={<Navigate to={"/"} />} />
-          <Route
-            path="/doctor/doctorOverview"
-            element={<Navigate to={"/"} />}
-          />
-          <Route path="/doctor/appointment" element={<Navigate to={"/"} />} />
-          <Route path="/doctor/patients" element={<Navigate to={"/"} />} />
-          <Route path="/doctor/communityChat" element={<Navigate to={"/"} />} />
-          <Route path="/doctor/messages" element={<Navigate to={"/"} />} />
-          <Route path="/doctor/slots" element={<Navigate to={"/"} />} />
-          <Route path="/doctor/profile" element={<Navigate to={"/"} />} />
-          <Route path="/admin/adminHome" element={<Navigate to={"/"} />} />
-          <Route
-            path="/admin/verifyDoctor/:id"
-            element={<Navigate to={"/"} />}
-          />
-          {/* <Route path="/" element={<Navigate to={"/admin/adminHome"} />} /> */}
-          {/* <Route path="/admin/adminHome" element={<Navigate to={"/"} />} />
-          <Route path="/admin/dashboard" element={<Navigate to={"/"} />} />
-          <Route path="/admin/doctors" element={<Navigate to={"/"} />} />
-          <Route path="/admin/bookings" element={<Navigate to={"/"} />} />
-          <Route path="/admin/patients" element={<Navigate to={"/"} />} />
-          <Route path="/admin/specialities" element={<Navigate to={"/"} />} />
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<Loader />} />  */}
-
           {/* authentication routes */}
-        <Route path="/login" element={userData ? <Home /> : <Login />} />
-        <Route path="/signup" element={userData ? <Home /> : <Signup />} />
+          <Route path="/login" element={userData ? <Home /> : <Login />} />
+          <Route path="/signup" element={userData ? <Home /> : <Signup />} />
 
           {/* general Routes */}
           <Route path="/" element={<Home />} />
@@ -140,6 +85,16 @@ function Router() {
             <Route path="prescriptions" element={<UserPrescriptions />} />
             <Route path="chats" element={<UserChats />} />
             <Route path="appointments" element={<UserBookings />} />
+          </Route>
+          {/* doctor routers */}
+          <Route path="doctor">
+            <Route path="doctorHome" element={<Navigate to={"/"} />} />
+            <Route path="appointments" element={<Navigate to={"/"} />} />
+            <Route path="patients" element={<Navigate to={"/"} />} />
+            <Route path="community-chat" element={<Navigate to={"/"} />} />
+            <Route path="messages" element={<Navigate to={"/"} />} />
+            <Route path="slots" element={<Navigate to={"/"} />} />
+            <Route path="profile" element={<Navigate to={"/"} />} />
           </Route>
           {/* PageNotFound route*/}
           <Route path="*" element={<PageNotFound />} />

@@ -1,0 +1,78 @@
+.doctor-search-container {
+    display: flex;
+    padding: 20px;
+}
+
+.filter-section {
+    width: 300px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.filter-section h3 {
+    margin-bottom: 20px;
+}
+
+.filter-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.sort-section, .consultation-type-section {
+    margin-bottom: 10px;
+}
+
+.sort-section label, .consultation-type-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.sort-section button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sort-section button:hover {
+    background-color: #0056b3;
+}
+
+.consultation-type-section input {
+    margin-right: 5px;
+}
+
+.doctors-list-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.doctors-list-section h3 {
+    margin-bottom: 20px;
+}
+
+.doctors-list-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.doctors-list-section li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.doctors-list-section li:last-child {
+    border-bottom: none;
+}
