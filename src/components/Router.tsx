@@ -45,6 +45,7 @@ import ViewDoctor from "../pages/user/ViewDoctor";
 import DoctorReview from "./user/DoctorReview";
 import Services from "../pages/user/Services";
 import About from "../pages/user/About";
+import Contact from "../pages/user/Contact";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -75,6 +76,7 @@ function Router() {
           <Route path="/userHome" element={<Home />} />
           <Route path="/about-us" element={<About />} />
           <Route path="/our-service" element={<Services />} />
+          <Route path="/contact-us" element={<Contact />} />
           <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
           <Route path="/select-slot/:id" element={<SlotBooking />} />
           <Route path="/doctor-review" element={<DoctorReview />} />

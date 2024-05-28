@@ -13,7 +13,6 @@ function Doctors() {
         <div>
           <Filter />
         </div>
-        
       </div>
       <Footer />
     </div>

@@ -8,11 +8,11 @@ function DoctorOverview() {
     <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
       <div className=" bg-gray-800 w-[82vw] h-[146vh] px-8">
         <HeaderStats />
-        <div className="flex justify-between mt-5">
+        <div className="md:flex md:justify-between md:mt-5 grid">
           <LineChart />
           <BarChart />
         </div>
-        <ListPatients/>
+        <ListPatients/>4
       </div>
     </div>
   );

@@ -69,7 +69,7 @@ const BarChart: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-700 w-[38%] p-4 rounded shadow">
+    <div className="bg-gray-700 mt-6 md:mt-0 md:w-[38%] p-4 rounded shadow">
       <h2 className="text-xl mb-4 text-gray-300">Profit this week</h2>
       <Bar data={data} options={options} />
     </div>

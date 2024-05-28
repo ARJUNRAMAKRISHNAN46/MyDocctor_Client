@@ -28,35 +28,41 @@ function ListDoctors({ doctors }: { doctors: UserData[] }) {
 
   return (
     <div>
-      <div className="grid md:grid-cols-4 grid-cols-2 shadow-xl">
-      {doctors.map((doctor: UserData) => (
-          <div className="border-2 m-4 p-4 w-[280px]">
-            <div className="flex justify-center py-6">
-              <img
-                className="w-[200px] h-[200px] object-cover image-fluid "
-                src={doctor?.profilePhoto}
-                alt=""
-              />
-            </div>
-            <h1 className="font-semibold text-center">
-              {doctor?.name.toUpperCase()}
-            </h1>
-            <h1 className="text-sm font-semibold text-red-500 text-center">
-              {doctor?.expertise?.toUpperCase()}
-            </h1>
-            <h1 className="text-sm text-center">
-              {doctor?.city && doctor?.city.toUpperCase()}
-            </h1>
-            <div>
-              <button
-                onClick={() => viewProfile(String(doctor?._id))}
-                className="bg-blue-600 mt-4  text-white w-full py-1 rounded-[5px]"
-              >
-                View Profile
-              </button>
-            </div>
+      <div className="grid md:grid-cols-4 grid-cols-2 shadow-xl min-w-[1100px]">
+        {doctors.length === 0 ? (
+          <div className="w-[1120px] flex justify-center items-center h-96">
+            <h1 className="text-red-400 text-xl font-semibold">No Doctor Found</h1>
           </div>
-        ))}
+        ) : (
+          doctors.map((doctor: UserData) => (
+            <div key={doctor._id} className="border-2 m-4 p-4 w-[280px]">
+              <div className="flex justify-center py-6">
+                <img
+                  className="w-[200px] h-[200px] object-cover image-fluid"
+                  src={doctor.profilePhoto}
+                  alt={doctor.name}
+                />
+              </div>
+              <h1 className="font-semibold text-center">
+                {doctor.name.toUpperCase()}
+              </h1>
+              <h1 className="text-sm font-semibold text-red-500 text-center">
+                {doctor.expertise?.toUpperCase()}
+              </h1>
+              <h1 className="text-sm text-center">
+                {doctor.city && doctor.city.toUpperCase()}
+              </h1>
+              <div>
+                <button
+                  onClick={() => viewProfile(String(doctor._id))}
+                  className="bg-blue-600 mt-4 text-white w-full py-1 rounded-[5px]"
+                >
+                  View Profile
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
       <div className="flex justify-center mt-4">
         <button
@@ -66,7 +72,9 @@ function ListDoctors({ doctors }: { doctors: UserData[] }) {
         >
           Previous
         </button>
-        <span className="px-4 text-center bg-blue-500 mr-2 text-white flex items-center rounded">{pagination?.currentPage}</span>
+        <span className="px-4 text-center bg-blue-500 mr-2 text-white flex items-center rounded">
+          {pagination.currentPage}
+        </span>
         <button
           onClick={() => handlePageChange(pagination.currentPage + 1)}
           disabled={doctors.length < pagination.pageSize}

@@ -81,7 +81,7 @@ const LineChart: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-700 w-[60%] p-4 rounded shadow">
+    <div className="bg-gray-700 md:w-[60%] p-4 mt-6 md:mt-0 rounded shadow">
       <h2 className="text-xl mb-4 text-gray-300">
         Total Revenue & Total Sales
       </h2>
