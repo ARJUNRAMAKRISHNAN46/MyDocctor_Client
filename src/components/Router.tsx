@@ -90,7 +90,7 @@ function Router() {
           </Route>
           {/* doctor routers */}
           <Route path="doctor">
-            <Route path="doctorHome" element={<Navigate to={"/"} />} />
+            {/* <Route path="doctorHome" element={<Navigate to={"/"} />} /> */}
             <Route path="appointments" element={<Navigate to={"/"} />} />
             <Route path="patients" element={<Navigate to={"/"} />} />
             <Route path="community-chat" element={<Navigate to={"/"} />} />
@@ -209,18 +209,17 @@ function Router() {
       return (
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path="" element={<Navigate to={"/doctor/doctorHome"} />} />
             <Route
               path="/login"
-              element={<Navigate to={"/doctor/doctorHome"} />}
+              element={<Navigate to={"/doctor/overview"} />}
             />
             <Route
               path="/doctor/signup"
-              element={<Navigate to={"/doctor/doctorHome"} />}
+              element={<Navigate to={"/doctor/overview"} />}
             />
             <Route
               path="/doctor/updateDetails"
-              element={<Navigate to={"/doctor/doctorHome"} />}
+              element={<Navigate to={"/doctor/overview"} />}
             />
             <Route path="doctor" element={<DoctorLayout />}>
               <Route path="doctorHome" element={<DoctorOverview />} />
@@ -233,6 +232,7 @@ function Router() {
               <Route path="profile" element={<DoctorProfile />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
+            <Route path="" element={<Navigate to={"/doctor/overview"} />} />
           </Routes>
         </Suspense>
       );

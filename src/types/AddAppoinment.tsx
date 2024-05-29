@@ -4,8 +4,8 @@ export interface AppointmentEntity {
   consultationMethods: string[];
   slots: {
     start: string;
-    end: string;
     userId: string;
   }[];
   doctorId: string;
 }
+

@@ -21,9 +21,11 @@ export const addAppointment = createAsyncThunk(
 
 export const listDoctorSlots = createAsyncThunk(
   "doctor/listDoctorSlots",
-  async (id: string, { rejectWithValue }) => {
+  async ({ id, selectedDate }: { id: string, selectedDate: string }, { rejectWithValue }) => {
     try {
-      const { data } = await AppointmentAxios.get(`/list-doctor-slots/${id}`);
+      const { data } = await AppointmentAxios.get(`/list-doctor-slots/${id}`, {
+        params: { date: selectedDate }
+      });
       console.log("🚀 ~ async ~ response:", data);
 
       return data;

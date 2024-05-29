@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { availableShift } from "../../util/SlotDatas";
 import { useParams } from "react-router-dom";
 import { review } from "./Reviews";
 import { TiStarFullOutline } from "react-icons/ti";
@@ -8,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { findDoctorById } from "../../redux/actions/DoctorActions";
 import { UserData } from "../../types/userData";
+import SlotListing from "../Slots/SlotListing";
 
 function SelectSlot() {
   let { id } = useParams();
@@ -69,16 +69,6 @@ function SelectSlot() {
           </h1>
         </div>
         <div className="flex justify-center mt-10">
-          {doctor?.calendlyLink ? (
-            <a
-              href={`${doctor?.calendlyLink || "#"}`}
-              className="bg-blue-700 px-6 py-1 rounded-[4px] text-white"
-            >
-              Select Slot
-            </a>
-          ) : (
-            <h1 className="text-red-600 font-bold text-xl">No Slots Available</h1>
-          )}
         </div>
       </div>
     </div>
