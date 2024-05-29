@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { findDoctorById } from "../../redux/actions/DoctorActions";
 import { UserData } from "../../types/userData";
-import SlotListing from "../Slots/SlotListing";
+import SlotListing from "../doctor/Slots/SlotListing";
+import ListDate from "../user/slots/ListDate";
 
 function SelectSlot() {
   let { id } = useParams();
@@ -62,13 +63,14 @@ function SelectSlot() {
           </p>
         </div>
       </div>
-      <div className="md:w-[78%] h-[450px] bg-white rounded-[5px] shadow-2xl">
+      <div className="md:w-[78%]  bg-white rounded-[5px] shadow-2xl">
         <div className="h-8 bg-blue-600 flex items-center justify-center rounded-t-[5px] md:mb-4">
           <h1 className="text-white font-semibold text-[15px]">
             SELECT YOUR DATE AND SOUND
           </h1>
         </div>
         <div className="flex justify-center mt-10">
+          <ListDate/>
         </div>
       </div>
     </div>

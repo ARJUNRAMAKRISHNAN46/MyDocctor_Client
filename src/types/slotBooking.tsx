@@ -1,3 +1,5 @@
+import { AppointmentEntity } from "./AddAppoinment";
+
 export interface AvailableShift {
   doctorId: string,
   date: string;
@@ -7,3 +9,10 @@ export interface AvailableShift {
     slots: { time: string; status: boolean }[];
   }[];
 }
+
+
+
+export type ListSlotsProps = {
+  slots: AppointmentEntity[];
+  selectedDate: string;
+};

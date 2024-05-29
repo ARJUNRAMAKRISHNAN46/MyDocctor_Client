@@ -22,6 +22,7 @@ export const addAppointment = createAsyncThunk(
 export const listDoctorSlots = createAsyncThunk(
   "doctor/listDoctorSlots",
   async ({ id, selectedDate }: { id: string, selectedDate: string }, { rejectWithValue }) => {
+    console.log("🚀 ~ id:", id)
     try {
       const { data } = await AppointmentAxios.get(`/list-doctor-slots/${id}`, {
         params: { date: selectedDate }

@@ -1,6 +1,6 @@
 import AddSlotModal from "../modal/DoctorAddSlotModal";
 import { useState } from "react";
-import DatePicker from "../Slots/DateListing";
+import DatePicker from "./Slots/DateListing";
 
 const DoctorSlots = () => {
   const [showModal, setShowModal] = useState(false);

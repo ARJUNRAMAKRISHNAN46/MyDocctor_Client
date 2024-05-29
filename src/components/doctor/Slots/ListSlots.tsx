@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AppointmentEntity } from "../../types/AddAppoinment";
-import dayjs from "dayjs";
-import DoctorAddSlotModal from "../modal/DoctorAddSlotModal";
+import DoctorAddSlotModal from "../../modal/DoctorAddSlotModal";
+import { ListSlotsProps } from "../../../types/slotBooking";
 
-type ListSlotsProps = {
-  slots: AppointmentEntity[];
-  selectedDate: string;
-};
 
 const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
-  console.log("🚀 ~ selectedDate=======:", selectedDate)
   const [showSlot, setShowSlot] = useState<boolean>(false);
-  const currentDate = dayjs().format("DD-MM-YYYY");
-  const isPastDate = currentDate < selectedDate;
-  console.log("🚀 ~ isPastDate:", isPastDate);
 
   const closeSlotAddModal = () => {
     setShowSlot(false);
