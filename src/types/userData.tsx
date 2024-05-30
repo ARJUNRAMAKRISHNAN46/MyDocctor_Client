@@ -63,3 +63,10 @@ export type AddSpeciality = {
   specialtyImage: string;
   specialtyDescription: string;
 };
+
+export type AddService = {
+  _id?: string;
+  serviceName: string;
+  serviceImage: string;
+  serviceDescription: string;
+};

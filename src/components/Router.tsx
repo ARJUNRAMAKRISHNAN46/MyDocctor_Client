@@ -46,6 +46,7 @@ import DoctorReview from "./user/DoctorReview";
 import Services from "../pages/user/Services";
 import About from "../pages/user/About";
 import Contact from "../pages/user/Contact";
+import AdminServices from "./admin/AdminServices";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -104,6 +105,7 @@ function Router() {
             <Route path="bookings" element={<Navigate to={"/"} />} />
             <Route path="patients" element={<Navigate to={"/"} />} />
             <Route path="specialities" element={<Navigate to={"/"} />} />
+            <Route path="services" element={<Navigate to={"/"} />} />
           </Route>
           {/* PageNotFound route*/}
           <Route path="*" element={<PageNotFound />} />
@@ -258,6 +260,7 @@ function Router() {
             <Route path="bookings" element={<AdminBookings />} />
             <Route path="patients" element={<AdminPatients />} />
             <Route path="specialities" element={<AdminSpecialities />} />
+            <Route path="services" element={<AdminServices />} />
           </Route>
         </Routes>
       </Suspense>

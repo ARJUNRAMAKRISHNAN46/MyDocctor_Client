@@ -16,10 +16,10 @@ function Card(props: {
   }
   return (
     <div>
-      <div className="w-[300px] h-[350px] m-3 rounded-[10px] bg-gray-700 shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="w-[300px] m-3 rounded-[10px] bg-gray-700 shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#" className="flex justify-center">
           <img
-            className="rounded-t-lg w-[250px] h-[150px]"
+            className="rounded-t-lg w-[250px] h-[200px]"
             src={props.specialtyImage}
             alt=""
           />

@@ -1,4 +1,19 @@
+import { useEffect, useState } from "react";
+import { listService } from "../../redux/actions/UserActions";
+import { AppDispatch } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { AddService } from "../../types/userData";
+
 function Service() {
+  const dispatch: AppDispatch = useDispatch();
+  const [service, setService] = useState<AddService[]>();
+
+  useEffect(() => {
+    dispatch(listService()).then((res) => {
+      setService(res.payload?.data);
+    });
+  }, [dispatch]);
+
   return (
     <div>
       <div
@@ -24,60 +39,17 @@ function Service() {
         </div>
       </div>
       <div className="px-20 grid md:grid-cols-3">
-        <div className="m-4 h-72">
-          <img
-            className="object-contain image-fluid"
-            src="../../../src/assets/features/baby.png"
-            alt=""
-          />
-          <h1 className="text-xl font-semibold">Child care</h1>
-          <p className="text-sm text-gray-600">Saepe nulla praesentium eaque omnis perferendis a doloremque.</p>
-        </div>
-        <div className="m-4">
-          <img
-            className="object-contain image-fluid"
-            src="../../../src/assets/features/feature-01.jpg"
-            alt=""
-          />
-          <h1 className="text-xl font-semibold">Casuality</h1>
-          <p className="text-sm text-gray-600">Saepe nulla praesentium eaque omnis perferendis a doloremque.</p>
-        </div>
-        <div className="m-4">
-          <img
-            className="object-contain image-fluid"
-            src="../../../src/assets/features/feature-02.jpg"
-            alt=""
-          />
-         <h1 className="text-xl font-semibold">Heart care</h1>
-          <p className="text-sm text-gray-600">Saepe nulla praesentium eaque omnis perferendis a doloremque.</p>
-        </div>
-        <div className="m-4 h-72">
-          <img
-            className="object-contain image-fluid"
-            src="../../../src/assets/features/feature-03.jpg"
-            alt=""
-          />
-          <h1 className="text-xl font-semibold">Checkups</h1>
-          <p className="text-sm text-gray-600">Saepe nulla praesentium eaque omnis perferendis a doloremque.</p>
-        </div>
-        <div className="m-4">
-          <img
-            className="object-contain image-fluid"
-            src="../../../src/assets/features/feature-05.jpg"
-            alt=""
-          />
-          <h1 className="text-xl font-semibold">Surgeries</h1>
-          <p className="text-sm text-gray-600">Saepe nulla praesentium eaque omnis perferendis a doloremque.</p>
-        </div>
-        <div className="m-4">
-          <img
-            className="object-contain image-fluid"
-            src="../../../src/assets/features/feature-06.jpg"
-            alt=""
-          />
-          <h1 className="text-xl font-semibold">Medicines</h1>
-          <p className="text-sm text-gray-600">Saepe nulla praesentium eaque omnis perferendis a doloremque.</p>
-        </div>
+        {service?.map((svc) => (
+          <div className="m-2 p-2 rounded shadow-md">
+            <img
+              className="object-contain image-fluid"
+              src={svc?.serviceImage}
+              alt=""
+            />
+            <h1 className="font-semibold">{svc?.serviceName}</h1>
+            <p className="text-sm text-gray-600">{svc?.serviceDescription}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

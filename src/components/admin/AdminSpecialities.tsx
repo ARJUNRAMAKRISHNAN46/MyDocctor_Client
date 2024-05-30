@@ -24,8 +24,8 @@ function AdminSpecialities() {
   console.log(speciality, "=specifdsdsfhdsfiugdsifufdsgbfiuygsf");
 
   return (
-    <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
-      <div className=" bg-gray-800 w-[82vw] h-[146vh]">
+    <div className="w-[84vw] min-h-[150vh] bg-gray-700 flex justify-center items-center">
+      <div className=" bg-gray-800 w-[82vw] min-h-[146vh]">
         <div className="flex justify-between">
           <div className="flex items-center py-4 ml-6">
             <h1 className="text-white font-bold">ADMIN</h1>
