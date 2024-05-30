@@ -1,16 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserData } from "../../types/userData";
 import { AppDispatch, RootState } from "../../redux/store";
 import { imageUpload } from "../../util/UploadImage";
 import { updateProfile } from "../../redux/actions/UserActions";
 import { FaUpload } from "react-icons/fa6";
+import Loader from "../../components/common/Loader";
+import { useNavigate } from "react-router-dom";
+import { getUser } from "../../redux/actions/AuthActions";
 
 function UserProfile() {
   const userData: UserData = useSelector(
     (state: RootState) => state.userData.user
   );
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [profileData, setProfileData] = useState({
@@ -24,6 +29,12 @@ function UserProfile() {
     country: userData?.country || "",
     pincode: userData?.pincode || "",
   });
+
+  useEffect(() => {
+    dispatch(getUser()).then((res) => {
+      console.log("🚀 ~ dispatch ~ res:", res);
+    });
+  },[loading, dispatch]);
 
   const [profileImage, setProfileImage] = useState(
     userData?.profilePhoto || ""
@@ -44,6 +55,10 @@ function UserProfile() {
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000);
     const file = e.target.files?.[0];
     const image = await imageUpload(file);
     console.log("🚀 ~ handleImageChange ~ image:", image);
@@ -53,16 +68,24 @@ function UserProfile() {
   };
 
   const handleSubmit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000);
     console.log("Profile Data Submitted: ", { ...profileData, profileImage });
     profileData.profilePhoto = profileImage;
 
     dispatch(updateProfile(profileData)).then((res) => {
       console.log("🚀 ~ dispatch ~ res:", res);
+      navigate("/view/profile")
     });
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:space-x-6 p-5">
+    <div>
+      {loading ? <Loader/> :
+    (
+        <div className="flex flex-col md:flex-row md:space-x-6 p-5">
       <div className="flex flex-col items-center md:w-1/3 p-5 border-b md:border-b-0 md:border-r">
         <img
           className="rounded-full w-32 h-32 mt-5"
@@ -181,7 +204,8 @@ function UserProfile() {
             </button>
           </div>
         </div>
-      </div>
+        </div>
+      </div>)}
     </div>
   );
 }

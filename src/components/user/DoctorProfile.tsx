@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-// import { GiGraduateCap } from "react-icons/gi";
-// import { IoHome } from "react-icons/io5";
-// import { MdOutlineHealthAndSafety } from "react-icons/md";
-// import { VscSymbolMethod } from "react-icons/vsc";
 import { findDoctorById } from "../../redux/actions/DoctorActions";
 import { AppDispatch } from "../../redux/store";
 import { useNavigate, useParams } from "react-router-dom";
@@ -10,11 +6,6 @@ import { useDispatch } from "react-redux";
 import { UserData } from "../../types/userData";
 import { FaStar } from "react-icons/fa6";
 
-// const consultationMethods = [
-//   "In-person Consultancy",
-//   "Phone Consultancy",
-//   "Video Consultancy",
-// ];
 
 const star = [1, 2, 3, 4, 5];
 
@@ -115,106 +106,3 @@ function DoctorProfile() {
 }
 
 export default DoctorProfile;
-
-//   <div className="mt-4 p-2 md:p-0">
-//     <div className="bg-blue-400 md:mx-36 md:h-52 h-40 flex">
-//       <div className="md:w-52 w-40 md:h-52 h-40 object-cover">
-//         <img
-//           className="md:w-52 w-40 md:h-52 h-40 object-cover"
-//           src={`${doctor?.profilePhoto}`}
-//           alt=""
-//         />
-//       </div>
-//       <div className="md:ml-20 ml-3 mt-4 md:pt-6">
-//         <h1 className="text-white font-bold md:text-[35px] text-[20px]">
-//           Dr.{doctor?.name}
-//         </h1>
-//         <h1 className="text-white font-semibold md:text-[20px] text-[14px]">
-//           {doctor?.expertise?.toLocaleUpperCase()}
-//         </h1>
-//         <h1 className="text-white font-semibold md:text-[20px] text-[14px]">
-//           {doctor?.email}
-//         </h1>
-//         <h1 className="text-white font-semibold md:text-[20px] text-[14px]">
-//           {doctor?.yearsOfExperience} Years of Exp.
-//         </h1>
-//       </div>
-//     </div>
-//     <div className="md:mt-10">
-//       <div className="md:px-36">
-//         <h1 className="font-semibold underline md:text-[20px]">ABOUT</h1>
-//         <p className="font-thin mt-2">
-//           Lorem Ipsum is simply dummy text of the printing and typesetting
-//           industry. Lorem Ipsum has been the industry's standard dummy text
-//           ever since the 1500s, when an unknown printer took a galley of type
-//           and scrambled it to make a type specimen book. It has survived not
-//           only five centuries, but also the leap into electronic typesetting,
-//           remaining essentially unchanged. It was popularised in the 1960s
-//           with the release of Letraset sheets containing Lorem Ipsum passages,
-//           and more recently with desktop publishing software like Aldus
-//           PageMaker including versions of Lorem Ipsum.
-//         </p>
-//       </div>
-//     </div>
-//     <div className="md:px-36 md:my-4">
-//       <div>
-//         <h1 className="underline md:text-[20px]">Education</h1>
-//         <div className="my-4 flex">
-//           <GiGraduateCap className="text-3xl" />
-//           <div>
-//             <h1 className="ml-6 font-thin">
-//               {doctor?.expertise?.toLocaleUpperCase()}
-//             </h1>
-//             <h1 className="ml-6 font-semibold text-gray-500">
-//               {doctor?.education}
-//             </h1>
-//           </div>
-//         </div>
-//       </div>
-//       <div>
-//         <h1 className="underline md:text-[20px]">Experience</h1>
-//         <div className="my-4 flex">
-//           <MdOutlineHealthAndSafety className="text-3xl" />
-//           <div>
-//             <h1 className="ml-6 font-thin">
-//               {doctor?.expertise?.toLocaleUpperCase()}
-//             </h1>
-//             <h1 className="ml-6 font-thin">
-//               {doctor?.currentWorkingHospital}
-//             </h1>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div>
-//         <h1 className="underline md:text-[20px]">Address</h1>
-//         <div className="my-4 flex">
-//           <IoHome className="text-2xl" />
-//           <div>
-//             <h1 className="ml-6 font-thin">{doctor?.city}</h1>
-//             <h1 className="ml-6 font-thin">{doctor?.state}</h1>
-//             <h1 className="ml-6 font-thin">{doctor?.country}</h1>
-//           </div>
-//         </div>
-//       </div>
-//       <div>
-//         <h1 className="underline md:text-[20px]">Methods</h1>
-//         <div className="my-4 flex">
-//           <VscSymbolMethod className="text-3xl" />
-//           <div>
-//             {consultationMethods.map((method: string) => (
-//               <h1 className="ml-6 font-thin">{method}</h1>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//       <div className="flex justify-center">
-//         <button
-//           onClick={() => handleNavigate(String(doctor?._id))}
-//           className="bg-red-500 px-4 py-1 text-white rounded-[5px]"
-//         >
-//           Select a Date
-//         </button>
-//       </div>
-//     </div>
-//   </div>
