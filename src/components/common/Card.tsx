@@ -16,7 +16,7 @@ function Card(props: {
   }
   return (
     <div>
-      <div className="w-[300px] h-[350px] m-3 rounded-[10px] bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="w-[300px] h-[350px] m-3 rounded-[10px] bg-gray-700 shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#" className="flex justify-center">
           <img
             className="rounded-t-lg w-[250px] h-[150px]"
@@ -25,10 +25,10 @@ function Card(props: {
           />
         </a>
         <div className="p-5">
-          <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="mb-2 text-xl font-bold tracking-tight text-white dark:text-white">
             {props.specialtyName}
           </h5>
-          <p className="mb-3 font-semibold text-sm text-gray-700 dark:text-gray-400">
+          <p className="mb-3 font-semibold text-sm text-white dark:text-gray-400">
             {props.specialtyDescription}
           </p>
         </div>

@@ -44,14 +44,14 @@ const BarChart: React.FC = () => {
     plugins: {
       legend: {
         labels: {
-          color: "rgba(255, 255, 255, 0.8)", // Change legend text color
+          color: "rgba(255, 255, 255, 0.8)",
         },
       },
     },
     scales: {
       x: {
         ticks: {
-          color: "rgba(255, 255, 255, 0.8)", // Change X-axis tick color
+          color: "rgba(255, 255, 255, 0.8)",
         },
         grid: {
           color: "rgba(255, 255, 255, 0.1)",

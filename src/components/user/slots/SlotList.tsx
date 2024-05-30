@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
+import Checkout, { makePayment } from "../../payment/Checkout";
 
 interface ListSlotsProps {
   slots: Array<any>;
@@ -35,6 +36,10 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   const SelectSlot = (time: string) => {
     setStatus(time);
   };
+
+  const handleChange = () => {
+    <Checkout/>
+  }
 
   console.log(booked, "booked ~ ");
 
@@ -78,12 +83,13 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
               ))}
             </div>
             <div className="flex justify-center mt-4">
-              <button
+              {/* <button
                 onClick={handleClick}
                 className="bg-blue-600 text-white px-14 rounded text-sm py-1"
               >
                 CONFIRM
-              </button>
+              </button> */}
+              <button onClick={handleChange}>Pay Now</button>
             </div>
           </div>
         ))}

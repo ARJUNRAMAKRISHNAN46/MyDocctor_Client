@@ -64,7 +64,7 @@ function LoginComp() {
             } else if (res.payload.data.role === "doctor") {
               navigate("/doctor/updateDetails");
             } else {
-              navigate("/admin/adminHome");
+              navigate("/admin/dashboard");
             }
           }
           if (res.type.endsWith("rejected")) {

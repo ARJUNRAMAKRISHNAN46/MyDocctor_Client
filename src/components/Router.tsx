@@ -90,13 +90,20 @@ function Router() {
           </Route>
           {/* doctor routers */}
           <Route path="doctor">
-            {/* <Route path="doctorHome" element={<Navigate to={"/"} />} /> */}
             <Route path="appointments" element={<Navigate to={"/"} />} />
             <Route path="patients" element={<Navigate to={"/"} />} />
             <Route path="community-chat" element={<Navigate to={"/"} />} />
             <Route path="messages" element={<Navigate to={"/"} />} />
             <Route path="slots" element={<Navigate to={"/"} />} />
             <Route path="profile" element={<Navigate to={"/"} />} />
+          </Route>
+          {/* doctor routers */}
+          <Route path="admin">
+            <Route path="dashboard" element={<Navigate to={"/"} />} />
+            <Route path="doctors" element={<Navigate to={"/"} />} />
+            <Route path="bookings" element={<Navigate to={"/"} />} />
+            <Route path="patients" element={<Navigate to={"/"} />} />
+            <Route path="specialities" element={<Navigate to={"/"} />} />
           </Route>
           {/* PageNotFound route*/}
           <Route path="*" element={<PageNotFound />} />
@@ -246,8 +253,6 @@ function Router() {
           <Route path="/" element={<Navigate to={"/admin/dashboard"} />} />
           <Route path="/admin/verifyDoctor/:id" element={<VerifyDoctor />} />
           <Route path="admin" element={<AdminLayout />}>
-            <Route path="" element={<Navigate to={"/admin/adminHome"} />} />
-            <Route path="adminHome" element={<AdminDashboard />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="doctors" element={<AdminDoctors />} />
             <Route path="bookings" element={<AdminBookings />} />
