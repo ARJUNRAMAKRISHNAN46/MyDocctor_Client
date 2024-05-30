@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { findDoctorById } from "../../redux/actions/DoctorActions";
 import { UserData } from "../../types/userData";
-import SlotListing from "../doctor/Slots/SlotListing";
 import ListDate from "../user/slots/ListDate";
 
 function SelectSlot() {
@@ -56,7 +55,7 @@ function SelectSlot() {
 
         <div className="md:px-4 mt-4">
           <h1 className="font-bold text-gray-700 text-[15px]">
-            CURRENT WORKING
+           WORKING
           </h1>
           <p className="text-sm font-semibold text-gray-600">
             {doctor?.currentWorkingHospital}

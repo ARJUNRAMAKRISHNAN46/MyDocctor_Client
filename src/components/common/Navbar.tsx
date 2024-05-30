@@ -30,7 +30,7 @@ function Navbar() {
           { name: 'Doctors', link: '/list-doctors' },
           { name: 'Contact', link: '/contact-us' },
           userData.user ? { name: 'Profile', link: '/view/profile' } : { name: 'Login', link: '/login' },
-          { name: 'Make an Appointment', link: '', special: true },
+          { name: 'Make an Appointment', link: '/list-doctors', special: true },
         ].map((item) => (
           <div
             key={item.name}

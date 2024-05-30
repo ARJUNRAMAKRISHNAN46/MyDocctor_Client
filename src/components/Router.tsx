@@ -79,7 +79,7 @@ function Router() {
           <Route path="/our-service" element={<Services />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
-          <Route path="/select-slot/:id" element={<SlotBooking />} />
+          <Route path="/select-slot/:id" element={userData?.role === "user" ? <SlotBooking /> : <Navigate to={"/login"}/>} />
           <Route path="/doctor-review" element={<DoctorReview />} />
           {/* userprofile routes*/}
           <Route path="view" element={<ProfileLayout />}>

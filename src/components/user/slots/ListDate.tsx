@@ -16,7 +16,6 @@ function ListDate() {
     
     useEffect(() => {
         const currentDateFormatted = dayjs().format("DD-MM-YYYY");
-        console.log("🚀 ~ ListDate ~ id-----------------:", id)
       setSelectedDate(currentDateFormatted);
       dispatch(
         listDoctorSlots({ id: String(id), selectedDate: currentDateFormatted })

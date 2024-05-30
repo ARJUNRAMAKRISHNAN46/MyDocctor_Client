@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
-import Checkout, { makePayment } from "../../payment/Checkout";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
 
 interface ListSlotsProps {
   slots: Array<any>;
@@ -10,26 +11,41 @@ interface ListSlotsProps {
 }
 
 const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
-    const userData = useSelector((state: RootState) => state.userData.user);
+  const userData = useSelector((state: RootState) => state.userData.user);
   const [booked, setBooked] = useState("");
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
-  const { id: doctorId } = useParams(); 
+  const { id: doctorId } = useParams();
 
   useEffect(() => {}, [selectedDate]);
 
-  const handleClick = () => {
-    const userId = userData?._id; 
+  const makePayment = async () => {
+    setBooked(status);
+    const stripe = await loadStripe(
+      import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+    );
+
+    const userId = userData?._id;
     const bookingData = {
       doctor_id: doctorId,
       user_id: userId,
       date: selectedDate,
       slot: status,
+      fees: 400,
     };
 
     localStorage.setItem("bookingData", JSON.stringify(bookingData));
-    
-    setBooked(status);
+    const response: any = await axios.post(
+      "http://localhost:4006/api/create-checkout-session",
+      bookingData
+    );
+    console.log("🚀 ~ handleClick ~ response:", response);
+
+    const result = stripe?.redirectToCheckout({
+      sessionId: response?.data?.id,
+    });
+    console.log(result);
+
     navigate("/show-payment");
   };
 
@@ -37,15 +53,18 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     setStatus(time);
   };
 
-  const handleChange = () => {
-    <Checkout/>
-  }
-
   console.log(booked, "booked ~ ");
 
   return (
     <div>
       <div className="md:px-32">
+        {slots.length === 0 && (
+          <div>
+            <div className="text-center md:mt-16">
+              <h1 className="text-xl font-semibold text-red-600">No Available Slots!!!</h1>
+            </div>
+          </div>
+        )}
         {slots.map((appointment) => (
           <div
             key={appointment?._id}
@@ -83,13 +102,12 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
               ))}
             </div>
             <div className="flex justify-center mt-4">
-              {/* <button
-                onClick={handleClick}
-                className="bg-blue-600 text-white px-14 rounded text-sm py-1"
+              <button
+                className="text-sm bg-green-600 text-white px-10 py-1.5 rounded-full font-semibold hover:bg-green-500"
+                onClick={makePayment}
               >
                 CONFIRM
-              </button> */}
-              <button onClick={handleChange}>Pay Now</button>
+              </button>
             </div>
           </div>
         ))}
