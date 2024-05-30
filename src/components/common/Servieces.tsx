@@ -1,4 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 const Service = () => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("/our-service")
+  }
+
   return (
     <section className="mt-20">
       <div className="mb-5 section-title text-center">
@@ -13,7 +20,7 @@ const Service = () => {
         </p>
       </div>
       <div className="container">
-        <div className="grid grid-cols-3">
+        <div className="grid md:grid-cols-3">
           <div className=" md:p-2">
             <div>
               <img
@@ -39,10 +46,10 @@ const Service = () => {
           </div>
           <div className="md:p-2 flex items-center">
             <div className="m-6">
-              <h1 className="font-bold text-blue-900 text-[50px]">
+              <h1 className="font-bold text-blue-900 md:text-[50px] text-2xl">
                 Personal care
               </h1>
-              <h1 className="font-bold text-blue-900 text-[50px]">
+              <h1 className="font-bold text-blue-900 md:text-[50px] text-2xl">
                 healthy living
               </h1>
               <p className="text-sm font-light">
@@ -50,7 +57,7 @@ const Service = () => {
                 deleniti ipsum officia dolores repellat laudantium obcaecati
                 neque.
               </p>
-              <button className="bg-blue-600 px-10 text-white text-sm font-semibold mt-10 py-2 rounded-full">
+              <button onClick={handleNavigate} className="bg-blue-600 px-10 text-white text-sm font-semibold mt-10 py-2 rounded-full hover:bg-blue-500">
                 SERVICES
               </button>
             </div>

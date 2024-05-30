@@ -38,7 +38,7 @@ function Service() {
           </div>
         </div>
       </div>
-      <div className="px-20 grid md:grid-cols-3">
+      <div className="md:px-20 grid md:grid-cols-3">
         {service?.map((svc) => (
           <div className="m-2 p-2 rounded shadow-md">
             <img

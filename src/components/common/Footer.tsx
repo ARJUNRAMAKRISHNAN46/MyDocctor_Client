@@ -18,7 +18,7 @@ function Footer() {
             Schedule their availability for easier consultations.
           </p>
         </div>
-        <div className="ml-14">
+        <div className="md:ml-14">
           <h1 className="text-xl font-semibold text-white mb-4">
             For Patients
           </h1>
@@ -43,7 +43,7 @@ function Footer() {
             <a className="text-white text-sm font-thin"> Patient Dashboard</a>
           </div>
         </div>
-        <div className="ml-14">
+        <div className="md:ml-14">
           <h1 className="text-xl font-semibold text-white mb-4">For Doctors</h1>
           <div className="flex hover:scale-110">
             <RiArrowRightDoubleLine className="text-white text-2xl" />
@@ -62,7 +62,7 @@ function Footer() {
             <a className="text-white text-sm font-thin"> Doctor Dashboard</a>
           </div>
         </div>
-        <div className="ml-14">
+        <div className="md:ml-14">
           <h1 className="text-xl font-semibold text-white mb-4">Contact Us</h1>
           <div className="flex">
             <IoLocationOutline className="text-xl text-white" />

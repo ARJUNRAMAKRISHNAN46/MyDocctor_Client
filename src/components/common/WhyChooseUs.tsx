@@ -1,7 +1,7 @@
 function WhyChooseUs() {
   return (
     <div>
-      <div className="grid grid-cols-4 md:px-20">
+      <div className="grid md:grid-cols-4 md:px-20">
         <div className="bg-white shadow-2xl m-4 p-4">
           <h1 className="text-blue-900 font-bold text-2xl">Why Choose Us?</h1>
           <p className="text-gray-600 text-sm">

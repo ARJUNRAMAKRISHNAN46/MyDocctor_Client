@@ -23,8 +23,8 @@ function Achievements() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center p-8">
-        <div className="w-[40%] px-24 mt-20">
+      <div className="grid md:grid-cols-2 md:p-8">
+        <div className=" md:px-24 mt-20">
           <h1 className="text-[40px] text-blue-950 text-center font-bold">
             OUR DOCTORS
           </h1>
@@ -46,9 +46,9 @@ function Achievements() {
             dignissimos, libero delectus.
           </p>
         </div>
-        <div className="w-[60%] p-8">
+        <div className="md:p-8 flex justify-center">
           <img
-            className="w-[90%] h-[90%]"
+            className="h-[90%]"
             src="../../../src/assets/consultations/doctor 5.jpg"
             alt=""
           />

@@ -1,5 +1,4 @@
 import Footer from "../../components/common/Footer";
-import ListDoctors from "../../components/common/ListDoctors";
 import Navbar from "../../components/common/Navbar";
 import DoctorLists from "../../components/user/DoctorLists";
 import Filter from "../../components/user/Filter";

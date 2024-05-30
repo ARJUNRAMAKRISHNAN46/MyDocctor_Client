@@ -1,9 +1,9 @@
 function WhatDoctorsDay() {
   return (
-    <div className="flex">
-      <div className=" p-8">
+    <div className="grid md:grid-cols-2">
+      <div className="md:p-8 flex justify-center">
         <img
-          className=""
+          className="w-[90%]"
           src="../../../src/assets/consultations/doc4.jpg"
           alt=""
         />
@@ -18,7 +18,7 @@ function WhatDoctorsDay() {
         <p className="text-sm font-thin text-center">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, ipsum!
         </p>
-        <h1 className="font-semibold text-xl md:pl-10 mt-14">Amazing service!</h1>
+        <h1 className="font-semibold text-xl pl-10 mt-14">Amazing service!</h1>
         <h1 className="pl-10">John Partho</h1>
         <p className="text-sm mx-10 font-thin">
           They provide great service facilty consectetur adipisicing elit.

@@ -15,8 +15,6 @@ const DoctorCommunityChat = lazy(() => import("./doctor/DoctorCommunityChat"));
 const DoctorMessages = lazy(() => import("./doctor/DoctorMessages"));
 const DoctorSlots = lazy(() => import("./doctor/DoctorSlots"));
 const PageNotFound = lazy(() => import("./common/PageNotFound"));
-const DoctorHome = lazy(() => import("../pages/doctor/DoctorHome"));
-const AdminHome = lazy(() => import("../pages/admin/AdminHome"));
 const ForgotPassword = lazy(() => import("./authentication/ForgotPassword"));
 const ResetPassword = lazy(() => import("./authentication/ResetPassword"));
 const SlotBooking = lazy(() => import("../pages/user/SlotBooking"));
@@ -70,6 +68,7 @@ function Router() {
           {/* authentication routes */}
           <Route path="/login" element={userData ? <Home /> : <Login />} />
           <Route path="/signup" element={userData ? <Home /> : <Signup />} />
+          <Route path="/doctor/signup" element={userData ? <DoctorOverview /> : <DoctorSignup />} />
 
           {/* general Routes */}
           <Route path="/" element={<Home />} />
@@ -81,14 +80,6 @@ function Router() {
           <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
           <Route path="/select-slot/:id" element={userData?.role === "user" ? <SlotBooking /> : <Navigate to={"/login"}/>} />
           <Route path="/doctor-review" element={<DoctorReview />} />
-          {/* userprofile routes*/}
-          <Route path="view" element={<ProfileLayout />}>
-            <Route path="profile" element={<UserProfile />} />
-            <Route path="favourite-doctors" element={<FavouriteDoctors />} />
-            <Route path="prescriptions" element={<UserPrescriptions />} />
-            <Route path="chats" element={<UserChats />} />
-            <Route path="appointments" element={<UserBookings />} />
-          </Route>
           {/* doctor routers */}
           <Route path="doctor">
             <Route path="appointments" element={<Navigate to={"/"} />} />
@@ -106,6 +97,14 @@ function Router() {
             <Route path="patients" element={<Navigate to={"/"} />} />
             <Route path="specialities" element={<Navigate to={"/"} />} />
             <Route path="services" element={<Navigate to={"/"} />} />
+          </Route>
+          {/* userprofile routes*/}
+          <Route path="view" element={<ProfileLayout />}>
+            <Route path="profile" element={<Navigate to={"/login"}/>} />
+            <Route path="favourite-doctors" element={<Navigate to={"/login"}/>} />
+            <Route path="prescriptions" element={<Navigate to={"/login"}/>} />
+            <Route path="chats" element={<Navigate to={"/login"}/>} />
+            <Route path="appointments" element={<Navigate to={"/login"}/>} />
           </Route>
           {/* PageNotFound route*/}
           <Route path="*" element={<PageNotFound />} />
@@ -138,6 +137,13 @@ function Router() {
           <Route path="/favourite-doctors" element={<FavouriteDoctors />} />
           <Route path="/prescriptions" element={<UserPrescriptions />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="view" element={<ProfileLayout />}>
+            <Route path="profile" element={<UserProfile />} />
+            <Route path="favourite-doctors" element={<FavouriteDoctors />} />
+            <Route path="prescriptions" element={<UserPrescriptions />} />
+            <Route path="chats" element={<UserChats />} />
+            <Route path="appointments" element={<UserBookings />} />
+          </Route>
         </Routes>
       </Suspense>
     );
