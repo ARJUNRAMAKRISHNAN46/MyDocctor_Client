@@ -45,6 +45,12 @@ function NavbarDropDown() {
           >
             <h1>Profile</h1>
           </div>
+          <div
+            className="text-center border border-white py-0.5"
+            onClick={() => handleLinkClick("/login")}
+          >
+            <h1>Login</h1>
+          </div>
         </div>
       </div>
     </div>

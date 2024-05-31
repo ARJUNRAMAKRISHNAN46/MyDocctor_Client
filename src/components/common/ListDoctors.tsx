@@ -1,18 +1,68 @@
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../../types/userData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import axios from "axios";
 
 interface Pagination {
   currentPage: number;
   pageSize: number;
 }
 
-function ListDoctors({ doctors }: { doctors: UserData[] }) {
+// function ListDoctors({ doctors }: { doctors: UserData[] }) {
+function ListDoctors() {
   const navigate = useNavigate();
+  const [show, setShow] = useState<boolean>(false);
+  const [doctors, setDoctors] = useState<UserData[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
     currentPage: 1,
-    pageSize: 10, // Change this to your desired page size
+    pageSize: 10,
   });
+  const [filters, setFilters] = useState({
+    name: "",
+    country: "",
+    expertise: "",
+    sort: "",
+    consultationType: [],
+  });
+
+  
+  useEffect(() => {
+    fetchDoctors();
+    const queryString = new URLSearchParams(filters).toString();
+    navigate(`?${queryString}`);
+}, [filters, navigate]);
+  
+  const fetchDoctors = async () => {
+    const response = await axios.get(
+      "http://localhost:8080/doctor/api/filter-doctors",
+      {
+        params: {
+          name: filters.name,
+          country: filters.country,
+          expertise: filters.expertise,
+          sort: filters.sort,
+          consultationType: filters.consultationType.join(","),
+        },
+      }
+    );
+    console.log("🚀 ~ fetchDoctors ~ response:", response);
+    setDoctors(response.data?.data);
+  };
+
+  const handleFilterChange = (e: any) => {
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setFilters({
+        ...filters,
+        consultationType: checked
+          ? [...filters.consultationType, value]
+          : filters.consultationType.filter((type) => type !== value),
+      });
+    } else {
+      setFilters({ ...filters, [name]: value });
+    }
+  };
 
   const viewProfile = (doctorId: string) => {
     navigate(`/view-doctor-profile/${doctorId}`);
@@ -26,19 +76,72 @@ function ListDoctors({ doctors }: { doctors: UserData[] }) {
     navigate(`?page=${page}`);
   };
 
+  const openDropDown = () => {
+    console.log("fdshfgiuhdwsfgihdsiuo")
+    setShow(!show);
+  };
+
   return (
-    <div>
-      <div className="grid md:grid-cols-4 grid-cols-2 shadow-xl min-w-[1100px]">
+    <div className="">
+      <div className="block md:hidden">
+        <div className="flex items-center bg-gray-300">
+          <GiHamburgerMenu onClick={openDropDown} className="text-4xl" />
+          <h1>FILTER DOCTOR</h1>
+        </div>
+        {show ? (
+          <div className="filter-section h-80 shadow-xl hidden md:block">
+            <h3>Filter Doctors</h3>
+            <input
+              name="name"
+              placeholder="Enter doctor name"
+              onChange={handleFilterChange}
+            />
+            <input
+              name="country"
+              placeholder="Enter country name"
+              onChange={handleFilterChange}
+            />
+            <input
+              name="expertise"
+              placeholder="Enter speciality"
+              onChange={handleFilterChange}
+            />
+            <div className="sort-section">
+              <label>Sort with Name:</label>
+              <button
+                name="sort"
+                value="A-Z"
+                onClick={() => setFilters({ ...filters, sort: "A-Z" })}
+              >
+                A - Z
+              </button>
+              <button
+                name="sort"
+                value="Z-A"
+                onClick={() => setFilters({ ...filters, sort: "Z-A" })}
+              >
+                Z - A
+              </button>
+            </div>
+          </div>
+        ) : ""}
+      </div>
+      <div className="grid md:grid-cols-4 grid-cols-2 shadow-xl md:min-w-[1100px]">
         {doctors.length === 0 ? (
-          <div className="w-[1120px] flex justify-center items-center h-96">
-            <h1 className="text-red-400 text-xl font-semibold">No Doctor Found</h1>
+          <div className="md:w-[1120px] flex justify-center items-center h-96">
+            <h1 className="text-red-400 text-xl font-semibold">
+              No Doctor Found
+            </h1>
           </div>
         ) : (
           doctors.map((doctor: UserData) => (
-            <div key={doctor._id} className="border-2 m-4 p-4 w-[280px]">
+            <div
+              key={doctor._id}
+              className="border-2 md:m-4 m-1 md:p-4 md:w-[280px]"
+            >
               <div className="flex justify-center py-6">
                 <img
-                  className="w-[200px] h-[200px] object-cover image-fluid"
+                  className="md:w-[200px] w-36 h-36 md:h-[200px] object-cover image-fluid"
                   src={doctor.profilePhoto}
                   alt={doctor.name}
                 />
@@ -64,7 +167,7 @@ function ListDoctors({ doctors }: { doctors: UserData[] }) {
           ))
         )}
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center my-4">
         <button
           onClick={() => handlePageChange(pagination.currentPage - 1)}
           disabled={pagination.currentPage === 1}

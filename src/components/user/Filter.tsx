@@ -55,8 +55,8 @@ const DoctorSearch = () => {
   };
 
   return (
-    <div className="doctor-search-container">
-      <div className="filter-section h-80 shadow-xl">
+    <div className="md:flex">
+      <div className="filter-section h-80 shadow-xl hidden md:block">
         <h3>Filter Doctors</h3>
         <input
           name="name"
@@ -91,7 +91,7 @@ const DoctorSearch = () => {
           </button>
         </div>
       </div>
-      <div className="doctors-list-section">
+      <div className="">
         <ListDoctors doctors={doctors} />
       </div>
     </div>

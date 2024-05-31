@@ -37,7 +37,7 @@ const Service = () => {
               />
             </div>
           </div>
-          <div className="flex items-center md:p-2">
+          <div className="flex items-center md:p-2 md:mt-0 mt-4">
             <img
               className="image-fluid object-contain "
               src="../../../src/assets/consultations/doctor 5.jpg"
