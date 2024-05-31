@@ -97,7 +97,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
                         : "text-blue-600 border-blue-600"
                     } font-semibold m-4 py-1 border text-center rounded`}
                   >
-                    {!slot.userId && <h1>{slot.start}</h1>}
+                    <h1 className={`${slot.userId ? "text-red-700 text-sm py-0.5" : ""}`}>{!slot.userId ? <h1>{slot.start}</h1>: "Booked"}</h1>
                   </div>
                 </div>
               ))}

@@ -1,10 +1,31 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function PaymentSuccess() {
-    const navigate = useNavigate();
-    const goToHome = () => {
-        navigate("/");
-    }
+  const navigate = useNavigate();
+
+  const storedBookingData = localStorage.getItem("bookingData");
+
+  if (storedBookingData) {
+    const bookingData = JSON.parse(storedBookingData);
+    console.log(bookingData);
+    const response = axios.post(
+      "http://localhost:4006/api/save-payment",
+      bookingData
+    );
+
+    const update = axios.post(
+      "http://localhost:8080/appointment/api/update-appoinment",
+      bookingData
+    );
+    console.log("🚀 ~ PaymentSuccess ~ response:", response, update);
+  } else {
+    console.log("No booking data found in localStorage.");
+  }
+
+  const goToHome = () => {
+    navigate("/");
+  };
   return (
     <div>
       <div className="bg-gray-100 h-screen">
@@ -28,7 +49,7 @@ function PaymentSuccess() {
             <p> Have a great day! </p>
             <div className="py-10 text-center">
               <button
-              onClick={goToHome}
+                onClick={goToHome}
                 className="px-12 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 rounded-full"
               >
                 GO BACK
