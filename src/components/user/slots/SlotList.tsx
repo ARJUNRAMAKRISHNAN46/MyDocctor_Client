@@ -19,10 +19,11 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
 
   useEffect(() => {}, [selectedDate]);
 
+
   const makePayment = async () => {
     setBooked(status);
     const stripe = await loadStripe(
-      import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
+      "pk_test_51PIuj3SJ9OOYvlrHOauQWO17OdBdAuDQPghBjv7PupaNcGHw5kYsqw6Dfpgf4Xa3Y2K98W5k2CdS42waGYsaHbpp00L5J3ZxJA"
     );
 
     const userId = userData?._id;
@@ -39,7 +40,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
       "http://localhost:4006/api/create-checkout-session",
       bookingData
     );
-    console.log("🚀 ~ handleClick ~ response:", response);
+    // console.log("🚀 ~ handleClick ~ response:", response);
 
     const result = stripe?.redirectToCheckout({
       sessionId: response?.data?.id,
@@ -53,7 +54,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     setStatus(time);
   };
 
-  console.log(booked, "booked ~ ");
+  // console.log(booked, "booked ~ ");
 
   return (
     <div>

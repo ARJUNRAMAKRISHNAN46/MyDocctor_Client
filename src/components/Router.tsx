@@ -45,6 +45,7 @@ import Services from "../pages/user/Services";
 import About from "../pages/user/About";
 import Contact from "../pages/user/Contact";
 import AdminServices from "./admin/AdminServices";
+import PaymentSuccess from "./payment/PaymentSuccess";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -61,14 +62,21 @@ function Router() {
     });
   }, [dispatch]);
 
-  if (userData === null || userData === undefined || userData?.role === "user") {
+  if (
+    userData === null ||
+    userData === undefined ||
+    userData?.role === "user"
+  ) {
     return (
       <Suspense fallback={<Loader />}>
         <Routes>
           {/* authentication routes */}
           <Route path="/login" element={userData ? <Home /> : <Login />} />
           <Route path="/signup" element={userData ? <Home /> : <Signup />} />
-          <Route path="/doctor/signup" element={userData ? <DoctorOverview /> : <DoctorSignup />} />
+          <Route
+            path="/doctor/signup"
+            element={userData ? <DoctorOverview /> : <DoctorSignup />}
+          />
 
           {/* general Routes */}
           <Route path="/" element={<Home />} />
@@ -78,7 +86,16 @@ function Router() {
           <Route path="/our-service" element={<Services />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
-          <Route path="/select-slot/:id" element={userData?.role === "user" ? <SlotBooking /> : <Navigate to={"/login"}/>} />
+          <Route
+            path="/select-slot/:id"
+            element={
+              userData?.role === "user" ? (
+                <SlotBooking />
+              ) : (
+                <Navigate to={"/login"} />
+              )
+            }
+          />
           <Route path="/doctor-review" element={<DoctorReview />} />
           {/* doctor routers */}
           <Route path="doctor">
@@ -100,12 +117,16 @@ function Router() {
           </Route>
           {/* userprofile routes*/}
           <Route path="view" element={<ProfileLayout />}>
-            <Route path="profile" element={<Navigate to={"/login"}/>} />
-            <Route path="favourite-doctors" element={<Navigate to={"/login"}/>} />
-            <Route path="prescriptions" element={<Navigate to={"/login"}/>} />
-            <Route path="chats" element={<Navigate to={"/login"}/>} />
-            <Route path="appointments" element={<Navigate to={"/login"}/>} />
+            <Route path="profile" element={<UserProfile />} />
+            <Route
+              path="favourite-doctors"
+              element={<FavouriteDoctors />}
+            />
+            <Route path="prescriptions" element={<UserPrescriptions />} />
+            <Route path="chats" element={<UserChats />} />
+            <Route path="appointments" element={<UserBookings />} />
           </Route>
+          <Route path="/paymentSuccess" element={<PaymentSuccess />} />
           {/* PageNotFound route*/}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
