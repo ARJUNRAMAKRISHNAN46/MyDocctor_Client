@@ -1,6 +1,6 @@
 import { AuthAxios } from "../../constants/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { handleErrors } from "../../util/handleErrors";
+import { handleErrors } from "../../utils/handleErrors";
 import { Login, Signup, UpdatePassword } from "../../types/userData";
 
 export const signupUser = createAsyncThunk(

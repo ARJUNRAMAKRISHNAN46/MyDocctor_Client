@@ -1,7 +1,7 @@
 
 function ClinicsAndSpecialities() {
   return (
-    <div>
+    <div className="bg-white">
       <div>
         <h1 className="text-center text-blue-900 font-bold text-[30px]">
           Clinic and Specialities

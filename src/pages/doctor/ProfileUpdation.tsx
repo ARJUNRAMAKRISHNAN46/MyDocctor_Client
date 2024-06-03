@@ -1,7 +1,7 @@
 import { updateDoctorProfile } from "../../redux/actions/DoctorActions";
 import { DoctorDetails } from "../../validation/DoctorDetails";
 import { Country, State, City } from "country-state-city";
-import { Specialities } from "../../util/Specialities";
+import { Specialities } from "../../utils/Specialities";
 import "react-datepicker/dist/react-datepicker.css";
 import { UserData } from "../../types/userData";
 import { AppDispatch } from "../../redux/store";
@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { FormikProps } from "formik";
 import Select from "react-select";
 import { useState } from "react";
-import { imageUpload } from "../../util/UploadImage";
+import { imageUpload } from "../../utils/UploadImage";
 import { useNavigate } from "react-router-dom";
 
 const initialValues = {

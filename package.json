@@ -43,9 +43,11 @@
     "react-router-dom": "^6.23.1",
     "react-select": "^5.8.0",
     "redux": "^5.0.1",
+    "socket.io-client": "^4.7.5",
     "stripe": "^15.8.0",
     "tailwind-merge": "^2.3.0",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/chart.js": "^2.9.41",

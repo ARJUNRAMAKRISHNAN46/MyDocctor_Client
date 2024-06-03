@@ -61,7 +61,7 @@ function ListDate() {
     const dates = generateDates(currentStartDate, 8);
   
     return (
-      <div>
+      <div className="bg-white">
         <div className="flex items-center justify-center p-4">
           <button
             className="bg-gray-500 px-4 text-white text-2xl py-3 mx-2"

@@ -6,6 +6,8 @@ import store from "./redux/store.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router } from "react-router-dom";
+import { AuthContextProvider } from "./contexts/AuthContext.tsx";
+import { SockerContextProvider } from "./contexts/SocketContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -13,7 +15,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Provider store={store}>
         <Toaster position="top-center" />
         <Router>
-          <App />
+          <AuthContextProvider>
+            <SockerContextProvider>
+              <App />
+            </SockerContextProvider>
+          </AuthContextProvider>
         </Router>
       </Provider>
     </GoogleOAuthProvider>

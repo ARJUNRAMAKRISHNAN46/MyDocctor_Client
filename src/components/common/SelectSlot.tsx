@@ -26,7 +26,7 @@ function SelectSlot() {
   }, []);
 
   return (
-    <div className="md:flex md:px-24 justify-between md:my-8">
+    <div className="md:flex md:px-24 justify-between md:py-8 bg-white">
       <div className="md:w-[20%] h-[450px]  shadow-2xl cursor-pointer  transition-all duration-200 rounded-[10px]">
         <div className="flex justify-center mt-6 w-[230px] h-[230px] object-cover">
           <img src={doctor?.profilePhoto} alt="" />

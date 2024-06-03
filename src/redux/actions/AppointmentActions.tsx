@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AppointmentAxios } from "../../constants/axiosInstance";
-import { handleErrors } from "../../util/handleErrors";
+import { handleErrors } from "../../utils/handleErrors";
 import { AppointmentEntity } from "../../types/AddAppoinment";
 
 export const addAppointment = createAsyncThunk(
@@ -21,12 +21,30 @@ export const addAppointment = createAsyncThunk(
 
 export const listDoctorSlots = createAsyncThunk(
   "doctor/listDoctorSlots",
-  async ({ id, selectedDate }: { id: string, selectedDate: string }, { rejectWithValue }) => {
-    console.log("🚀 ~ id:", id)
+  async (
+    { id, selectedDate }: { id: string; selectedDate: string },
+    { rejectWithValue }
+  ) => {
+    console.log("🚀 ~ id:", id);
     try {
       const { data } = await AppointmentAxios.get(`/list-doctor-slots/${id}`, {
-        params: { date: selectedDate }
+        params: { date: selectedDate },
       });
+      console.log("🚀 ~ async ~ response:", data);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const listDoctorAppoinments = createAsyncThunk(
+  "doctor/listDoctorSlots",
+  async (id: string, { rejectWithValue }) => {
+    console.log("🚀 ~ id:", id);
+    try {
+      const { data } = await AppointmentAxios.get(`/list-slots/${id}`);
       console.log("🚀 ~ async ~ response:", data);
 
       return data;

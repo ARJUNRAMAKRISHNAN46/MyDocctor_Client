@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserData } from "../../types/userData";
 import { AppDispatch, RootState } from "../../redux/store";
-import { imageUpload } from "../../util/UploadImage";
+import { imageUpload } from "../../utils/UploadImage";
 import { updateProfile } from "../../redux/actions/UserActions";
 import { FaUpload } from "react-icons/fa6";
 import Loader from "../../components/common/Loader";

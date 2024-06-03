@@ -1,6 +1,6 @@
 function WhatDoctorsDay() {
   return (
-    <div className="grid md:grid-cols-2">
+    <div className="grid md:grid-cols-2 bg-white">
       <div className="md:p-8 flex justify-center">
         <img
           className="w-[90%]"

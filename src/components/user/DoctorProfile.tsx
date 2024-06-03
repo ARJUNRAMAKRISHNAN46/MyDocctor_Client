@@ -32,7 +32,7 @@ function DoctorProfile() {
     navigate(`/select-slot/${doctor_id}`);
   };
   return (
-    <div>
+    <div className="bg-white">
       <div
         className="h-72 "
         style={{

@@ -1,4 +1,4 @@
-import { availableShift } from "../../util/SlotDatas";
+import { availableShift } from "../../utils/SlotDatas";
 
 function UserSlotBooking() {
   return (

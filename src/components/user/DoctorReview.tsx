@@ -46,7 +46,7 @@ function DoctorReview() {
   };
   const displayedReviews = showAll ? reviews : reviews.slice(0, limit);
   return (
-    <div className="md:w-[40%] my-6 md:px-20">
+    <div className="md:w-[40%] py-6 md:px-20 bg-white">
       {displayedReviews.map((review, index) => (
         <div key={index} className="border-y-gray-600 border-x-0 p-4">
           <div className="flex">

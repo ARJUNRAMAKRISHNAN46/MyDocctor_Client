@@ -6,7 +6,7 @@ import Footer from '../../components/common/Footer'
 
 function ViewDoctor() {
   return (
-    <div>
+    <div className='bg-white'>
       <Navbar/>
       <DoctorProfile/>
       <DoctorReview/>

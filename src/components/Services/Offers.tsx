@@ -1,6 +1,6 @@
 function Offers() {
   return (
-    <div className="md:my-24">
+    <div className="md:py-24 bg-white">
       <div
         className=" object-contain md:px-10 md:h-96"
         style={{
@@ -8,7 +8,7 @@ function Offers() {
         }}
       >
         <div className="flex">
-          <div className="md:w-[50%] mt-20">
+          <div className="md:w-[50%] pt-20">
             <h1 className="text-center mb-4 font-bold text-[30px] text-blue-950">WE ARE PLEASED TO OFFER YOU THE BEST</h1>
             <div className="flex justify-center mt-2 mb-4">
               <div className="boder-2 h-1 w-20 bg-gray-300"></div>

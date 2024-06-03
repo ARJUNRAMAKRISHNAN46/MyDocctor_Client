@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { AppDispatch } from "../../redux/store";
 import { addSpeciality } from "../../redux/actions/UserActions";
-import { imageUpload } from "../../util/UploadImage";
+import { imageUpload } from "../../utils/UploadImage";
 import { AddSpeciality } from "../../types/userData";
 
 interface SpecialityModalProps {

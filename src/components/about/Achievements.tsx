@@ -1,6 +1,6 @@
 function Achievements() {
   return (
-    <div>
+    <div className="bg-white">
       <div
         className="h-72 "
         style={{

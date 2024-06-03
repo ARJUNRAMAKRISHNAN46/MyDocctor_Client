@@ -1,6 +1,6 @@
 import { DoctorAxios } from "../../constants/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { handleErrors } from "../../util/handleErrors";
+import { handleErrors } from "../../utils/handleErrors";
 import { AvailableShift } from "../../types/slotBooking";
 import { profileValues } from "../../pages/doctor/ProfileUpdation";
 

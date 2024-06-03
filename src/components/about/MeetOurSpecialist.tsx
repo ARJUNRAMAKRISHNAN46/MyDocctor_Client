@@ -1,6 +1,6 @@
 function MeetOurSpecialist() {
   return (
-    <div>
+    <div className="bg-white">
       <div className="grid md:grid-cols-2 md:p-8">
         <div className=" md:px-24 mt-20">
           <h1 className="text-[40px] text-blue-950 text-center font-bold">

@@ -1,4 +1,4 @@
-import { getFutureDate } from "../util/GetCurrentDateAndTIme";
+import { getFutureDate } from "./GetCurrentDateAndTIme";
 
 const date_1 = getFutureDate(0)
 const date_2 = getFutureDate(1)

@@ -89,7 +89,7 @@ function SignupComp() {
   return (
     <>
       {!status ? (
-        <div className="md:flex grid-flow-row">
+        <div className="md:flex grid-flow-row bg-white">
           <div className="md:w-[50%] h-[100vh] flex items-center hidden md:block">
             <div className="bg-violet-500 h-full rounded-br-[600px] flex justify-center items-center">
               <div>

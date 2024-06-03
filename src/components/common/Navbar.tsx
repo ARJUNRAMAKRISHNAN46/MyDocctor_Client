@@ -21,7 +21,7 @@ function Navbar() {
   };
 
   return (
-    <div>
+    <div className="bg-white">
       <div className=" hidden md:block">
         <div className="h-16 w-full flex justify-between">
           <div onClick={() => handleLinkClick("/userHome")}>
@@ -49,7 +49,7 @@ function Navbar() {
             ].map((item) => (
               <div
                 key={item.name}
-                className={`text-sm md:mr-4 cursor-pointer ${
+                className={`text-sm md:mr-4 text-gray-700 cursor-pointer ${
                   activeLink === item.name ? "underline" : ""
                 } ${
                   item.special

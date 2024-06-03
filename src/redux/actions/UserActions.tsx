@@ -1,6 +1,6 @@
 import { UserAxios } from "../../constants/axiosInstance";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { handleErrors } from "../../util/handleErrors";
+import { handleErrors } from "../../utils/handleErrors";
 import { AddService, AddSpeciality } from "../../types/userData";
 import { UserProfileData } from "../../types/UserProfile";
 

@@ -2,7 +2,7 @@
 
 function DoctorLists() {
   return (
-    <div>
+    <div className="bg-white">
       <div
         className="h-72 "
         style={{

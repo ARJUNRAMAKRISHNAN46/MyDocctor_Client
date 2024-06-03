@@ -98,7 +98,7 @@ function LoginComp() {
   }
 
   return (
-    <div>
+    <div className="bg-white">
       <div className="md:flex grid-flow-row">
         <div className="md:w-[50%] h-[100vh] flex items-center hidden md:block">
           {/* <img src="../../src/assets/patient-login.jpg" alt="login-image" /> */}
@@ -152,7 +152,7 @@ function LoginComp() {
                           <Field
                             style={{
                               backgroundColor: "#ffff",
-                              border: "1px solid #1F2937",
+                              border: "1px solid lightgray",
                               borderRadius: "5px",
                               width: "350px",
                               height: "40px",
@@ -177,7 +177,7 @@ function LoginComp() {
                           <Field
                             style={{
                               backgroundColor: "#ffff",
-                              border: "1px solid #1F2937",
+                              border: "1px solid lightgray",
                               borderRadius: "5px",
                               width: "350px",
                               height: "40px",

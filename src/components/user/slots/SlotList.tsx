@@ -40,7 +40,6 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
       "http://localhost:4006/api/create-checkout-session",
       bookingData
     );
-    // console.log("🚀 ~ handleClick ~ response:", response);
 
     const result = stripe?.redirectToCheckout({
       sessionId: response?.data?.id,
@@ -54,10 +53,8 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     setStatus(time);
   };
 
-  // console.log(booked, "booked ~ ");
-
   return (
-    <div>
+    <div className="bg-white">
       <div className="md:px-32">
         {slots.length === 0 && (
           <div>
@@ -88,7 +85,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
             <h4 className="font-bold text-sm mt-4">SLOTS</h4>
             <div className="bg-white px-4 grid grid-cols-6">
               {appointment.slots.map((slot: any, idx: any) => (
-                <div key={idx}>
+                !slot?.userId && <div key={idx}>
                   <div
                     onClick={() => SelectSlot(slot?.start)}
                     className={`${
@@ -97,7 +94,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
                         : "text-blue-600 border-blue-600"
                     } font-semibold m-4 py-1 border text-center rounded`}
                   >
-                    <h1 className={`${slot.userId ? "text-red-700 text-sm py-0.5" : ""}`}>{!slot.userId ? <h1>{slot.start}</h1>: "Booked"}</h1>
+                    {!slot.userId && <h1>{slot.start}</h1>}
                   </div>
                 </div>
               ))}
