@@ -27,6 +27,7 @@
     "cloudinary-core": "^2.13.1",
     "clsx": "^2.1.1",
     "country-state-city": "^3.2.1",
+    "daisyui": "^4.11.1",
     "dayjs": "^1.11.11",
     "formik": "^2.4.6",
     "input-otp": "^1.2.4",

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { GoogleValues } from "../../types/FormValues";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const initialValues = {
   email: "",
@@ -22,12 +23,14 @@ interface FormValues {
 function LoginComp() {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
+  const { setAuthUser } = useAuthContext();
 
   const googleSubmit = async (values: FormValues) => {
     console.log("🚀 ~ googleSubmit ~ values:", values);
     try {
       dispatch(googleLogin(values))
         .then((res) => {
+          setAuthUser(res.payload.data);
           if (res.type.endsWith("fulfilled")) {
             if (res.payload.data.role === "user") {
               navigate("/userHome");
@@ -57,6 +60,7 @@ function LoginComp() {
       console.log("submitted", values);
       dispatch(LoginUser(values))
         .then((res) => {
+          setAuthUser(res.payload.data);
           console.log("🚀 ~ dispatch ~ res:", res);
           if (res.type.endsWith("fulfilled")) {
             if (res.payload.data.role === "user") {
@@ -91,11 +95,11 @@ function LoginComp() {
 
   const handleSignup = () => {
     try {
-      navigate("/signup")
+      navigate("/signup");
     } catch (error: any) {
       console.log(error?.message);
     }
-  }
+  };
 
   return (
     <div className="bg-white">
@@ -114,7 +118,10 @@ function LoginComp() {
                 beatae quas magnam!
               </h1>
               <div className="flex justify-center mt-8">
-                <button onClick={handleSignup} className="border-2 text-white px-10 py-2 rounded-full hover:bg-violet-600">
+                <button
+                  onClick={handleSignup}
+                  className="border-2 text-white px-10 py-2 rounded-full hover:bg-violet-600"
+                >
                   SIGN UP
                 </button>
               </div>
@@ -219,7 +226,7 @@ function LoginComp() {
             <div className="px-16 flex justify-center mb-8">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
-                  const decodeToken:GoogleValues = jwtDecode(
+                  const decodeToken: GoogleValues = jwtDecode(
                     String(credentialResponse?.credential)
                   );
                   console.log("🚀 ~ loginComp ~ decodeToken:", decodeToken);

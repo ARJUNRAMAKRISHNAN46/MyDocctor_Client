@@ -11,19 +11,22 @@ interface MessageProps {
 
 function Message({ message }: MessageProps) {
   const { authUser } = useAuthContext();
+  console.log("🚀 ~ Message ~ authUser:", authUser)
   const { selectedConversation } = useConversation();
   const fromMe = message.senderId === authUser?._id;
+  console.log("🚀 ~ Message ~ fromMe:", fromMe)
   const chatClassName = fromMe ? "chat-end" : "chat-start";
-  const profilePhoto = fromMe
-    ? authUser?.profilePhoto
-    : selectedConversation?.profilePhoto;
+  // const profilePhoto = fromMe
+  //   ? authUser?.profilePhoto
+  //   : selectedConversation?.profilePhoto;
   const bubbleColor = fromMe ? "bg-blue-500" : "bg-gray-700";
   const shakeClass = message?.shouldShake ? "shake" : "";
+  console.log(message,"message coming here")
   return (
     <div className={`chat ${chatClassName}`}>
       <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-          <img src={profilePhoto} alt="" />
+        <div className="w-10 h-10 rounded-full">
+          {/* <img className="rounded-full w-10 h-10" src={profilePhoto || "../../../../src/assets/demoimage.jpg"} alt="profile" /> */}
         </div>
       </div>
       <div

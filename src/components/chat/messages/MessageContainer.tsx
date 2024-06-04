@@ -16,20 +16,23 @@ function MessageContainer() {
       {!selectedConversation ? (
         <NoChatSelected />
       ) : (
-        <>
+        <div className="flex-col flex justify-between h-[96vh]">
           <div className="bg-gray-700 px-4 py-2 mb-2 flex items-center">
             <img
-              className="w-12"
-              src={selectedConversation?.profilePhoto}
+              className="w-12 h-12 rounded-full object-contain"
+              src={selectedConversation?.profilePhoto || "../../../../src/assets/demoimage.jpg"}
               alt="profileImage"
             />
-            <span className="text-white font-bold ml-4">
-              {selectedConversation?.userName}
-            </span>
+            <div className="ml-4">
+              <span className="text-white font-bold">
+                {selectedConversation?.name}
+              </span>
+              <h1 className="text-sm font-thin">last seen 09:12 AM</h1>
+            </div>
           </div>
           <Messages />
           <MessageInput />
-        </>
+        </div>
       )}
     </div>
   );

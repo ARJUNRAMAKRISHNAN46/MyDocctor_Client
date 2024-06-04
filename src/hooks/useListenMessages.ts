@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import notificationSound from "../../assets/sounds/notification.mp3";
-import { useConversation } from "../../zustand/useConversation";
-import { useSocketContext } from "../../contexts/SocketContext";
+import notificationSound from "../assets/sounds/notification.mp3";
+import { useConversation } from "../zustand/useConversation";
+import { useSocketContext } from "../contexts/SocketContext";
 
 interface Message {
   _id: string;

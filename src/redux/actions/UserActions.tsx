@@ -59,7 +59,6 @@ export const listSpeciality = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await UserAxios.get("/list-speciality");
-      console.log("🚀 ~ async ~ data:", data);
 
       return data;
     } catch (error: any) {

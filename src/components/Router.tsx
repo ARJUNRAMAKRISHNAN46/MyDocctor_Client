@@ -105,6 +105,7 @@ function Router() {
             <Route path="messages" element={<Navigate to={"/"} />} />
             <Route path="slots" element={<Navigate to={"/"} />} />
             <Route path="profile" element={<Navigate to={"/"} />} />
+            <Route path="overview" element={<Navigate to={"/"} />} />
           </Route>
           {/* doctor routers */}
           <Route path="admin">

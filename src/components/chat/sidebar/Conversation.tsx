@@ -17,6 +17,7 @@ const Conversation: React.FC<ConversationProps> = ({ conversation, lastIdx, emoj
   const isSelected = selectedConversation?._id === conversation._id;
   const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
+console.log(conversation, "converstatiotej");
 
   return (
     <>
@@ -28,13 +29,12 @@ const Conversation: React.FC<ConversationProps> = ({ conversation, lastIdx, emoj
       >
         <div className={`avatar ${isOnline ? "online" : ""}`}>
           <div className="w-12 rounded-full">
-            <img src={conversation.profilePhoto} alt="user avatar" />
+            <img className='w-12 h-12 rounded-full' src={conversation.profilePhoto || "../../../../src/assets/demoimage.jpg"} alt="user avatar" />
           </div>
         </div>
         <div className="flex flex-col flex-1">
           <div className="flex gap-3 justify-between">
-            <p className="font-bold text-gray-200">{conversation.userName}</p>
-            <span className="text-xl">{emoji}</span>
+            <p className="font-bold text-gray-200">{conversation?.name}</p>
           </div>
         </div>
       </div>

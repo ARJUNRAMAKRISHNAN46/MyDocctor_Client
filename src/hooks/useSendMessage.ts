@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useConversation } from "../../zustand/useConversation";
+import { useConversation } from "../zustand/useConversation";
 
 interface Message {
   _id: string;
@@ -21,7 +21,9 @@ interface UseConversationReturn {
 
 const useSendMessage = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { messages, setMessages, selectedConversation } = useConversation() as UseConversationReturn;
+  const { messages, setMessages, selectedConversation } = useConversation() as any;
+  console.log("🚀 ~ useSendMessage ~ selectedConversation?.id:", selectedConversation?._id)
+  console.log("🚀 ~ useSendMessage ~ selectedConversation:", selectedConversation)
 
   const sendMessage = async (message: string) => {
     setLoading(true);
@@ -34,14 +36,17 @@ const useSendMessage = () => {
 
       const data: { error?: string; message?: Message } = await res.json();
       console.log("🚀 ~ sendMessage ~ data:", data);
+      console.log("🚀 ~ sendMessage ~ data:", data.message);
 
       if (data.error) {
         throw new Error(data.error);
       }
 
       if (data.message) {
-        setMessages([...messages, data.message]);
+        setMessages([...messages, data]);
       }
+        console.log("🚀 ~ sendMessage ~ messages:", messages)
+      
     } catch (error: any) {
       toast.error(error.message);
     } finally {

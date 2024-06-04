@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { UserData } from "../types/userData";
 
 interface Message {
   _id: string;
@@ -12,8 +13,8 @@ interface Conversation {
 }
 
 interface ConversationState {
-  selectedConversation: Conversation | null;
-  setSelectedConversation: (selectedConversation: Conversation | null) => void;
+  selectedConversation: UserData | null;
+  setSelectedConversation: (selectedConversation: UserData | null) => void;
   messages: Message[];
   setMessages: (messages: Message[]) => void;
 }

@@ -3,7 +3,6 @@ import { DoctorDetails } from "../../validation/DoctorDetails";
 import { Country, State, City } from "country-state-city";
 import { Specialities } from "../../utils/Specialities";
 import "react-datepicker/dist/react-datepicker.css";
-import { UserData } from "../../types/userData";
 import { AppDispatch } from "../../redux/store";
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";

@@ -6,8 +6,8 @@ interface AuthUser {
 }
 
 interface AuthContextProps {
-  authUser: AuthUser | null;
-  setAuthUser: (user: AuthUser | null) => void;
+  authUser: any | null;
+  setAuthUser: (user: any | null) => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);

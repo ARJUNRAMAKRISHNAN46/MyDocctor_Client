@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import MessageSkeleton from "../skeletons/MessageSkeleton";
 import Message from "./Message";
-import useListenMessages from "../../hooks/useListenMessages";
-import useGetMessages from "../../hooks/useGetMessages";
+import useListenMessages from "../../../hooks/useListenMessages";
+import useGetMessages from "../../../hooks/useGetMessages";
 
 function Messages() {
   const { messages, loading } = useGetMessages();
@@ -26,7 +26,7 @@ function Messages() {
         ))}
       {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
       {!loading && messages.length === 0 && (
-        <p>Send a message to start a conversation</p>
+        <p className="text-center">Send a message to start a conversation</p>
       )}
     </div>
   );

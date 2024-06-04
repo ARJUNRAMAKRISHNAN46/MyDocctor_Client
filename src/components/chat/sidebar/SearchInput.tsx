@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import toast from "react-hot-toast";
-import useGetConversations from "../../hooks/useGetConversations";
+import useGetConversations from "../../../hooks/useGetConversations";
 import { useConversation } from "../../../zustand/useConversation";
 
 function SearchInput() {

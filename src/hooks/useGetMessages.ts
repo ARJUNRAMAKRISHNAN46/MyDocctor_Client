@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useConversation } from "../../zustand/useConversation";
+import { useConversation } from "../zustand/useConversation";
 
 interface Message {
   _id: string;
@@ -26,7 +26,8 @@ interface ApiResponse {
 
 const useGetMessages = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { messages, setMessages, selectedConversation } = useConversation() as UseConversationReturn;
+  const { messages, setMessages, selectedConversation } =
+    useConversation() as UseConversationReturn;
 
   useEffect(() => {
     const getMessages = async () => {
@@ -34,14 +35,19 @@ const useGetMessages = () => {
       try {
         const res = await fetch(`/api/messages/${selectedConversation?._id}`);
 
-        const data: ApiResponse = await res.json();
+        console.log("🚀 ~ getMessages ~ res:", res)
+        const data: any = await res.json();
+        console.log("🚀 ~ getMessages ~ data:", data.data);
 
         if (data.error) {
           throw new Error(data.error);
         }
 
-        if (data.messages) {
-          setMessages(data.messages);
+        if (data.data) {
+          setMessages(data.data);
+        }
+        else{
+          setMessages([])
         }
       } catch (error: any) {
         toast.error(error.message);

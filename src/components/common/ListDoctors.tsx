@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { UserData } from "../../types/userData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import axios from "axios";
+// import axios from "axios";
 
 interface Pagination {
   currentPage: number;
   pageSize: number;
 }
 
-// function ListDoctors({ doctors }: { doctors: UserData[] }) {
-function ListDoctors() {
+function ListDoctors({ doctors }: { doctors: UserData[] }) {
+// function ListDoctors() {
   const navigate = useNavigate();
   const [show, setShow] = useState<boolean>(false);
-  const [doctors, setDoctors] = useState<UserData[]>([]);
+  // const [doctors, setDoctors] = useState<UserData[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
     currentPage: 1,
     pageSize: 10,
@@ -27,28 +27,27 @@ function ListDoctors() {
   });
 
   
-  useEffect(() => {
-    fetchDoctors();
-    const queryString = new URLSearchParams(filters).toString();
-    navigate(`?${queryString}`);
-}, [filters, navigate]);
+//   useEffect(() => {
+//     fetchDoctors();
+//     const queryString = new URLSearchParams(filters).toString();
+//     navigate(`?${queryString}`);
+// }, [filters, navigate]);
   
-  const fetchDoctors = async () => {
-    const response = await axios.get(
-      "http://localhost:8080/doctor/api/filter-doctors",
-      {
-        params: {
-          name: filters.name,
-          country: filters.country,
-          expertise: filters.expertise,
-          sort: filters.sort,
-          consultationType: filters.consultationType.join(","),
-        },
-      }
-    );
-    console.log("🚀 ~ fetchDoctors ~ response:", response);
-    setDoctors(response.data?.data);
-  };
+//   const fetchDoctors = async () => {
+//     const response = await axios.get(
+//       "http://localhost:8080/doctor/api/filter-doctors",
+//       {
+//         params: {
+//           name: filters.name,
+//           country: filters.country,
+//           expertise: filters.expertise,
+//           sort: filters.sort,
+//           consultationType: filters.consultationType.join(","),
+//         },
+//       }
+//     );
+//     // setDoctors(response.data?.data);
+//   };
 
   const handleFilterChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -77,7 +76,6 @@ function ListDoctors() {
   };
 
   const openDropDown = () => {
-    console.log("fdshfgiuhdwsfgihdsiuo")
     setShow(!show);
   };
 

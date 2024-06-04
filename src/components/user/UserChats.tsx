@@ -1,7 +1,17 @@
+import MessageContainer from "../chat/messages/MessageContainer";
+import Conversations from "../chat/sidebar/Conversations";
+
 function UserChats() {
   return (
-    <div className="bg-white h-[100vh] flex justify-center items-center">
-      <h1 className="text-red-600">No Chats Yet!</h1>
+    <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">
+      <div className=" bg-gray-800 w-[82vw] h-[96vh] flex">
+        <div className="w-[35%] h-[96vh]">
+          <Conversations />
+        </div>
+        <div className="w-[65%] h-[96vh]">
+          <MessageContainer />
+        </div>
+      </div>
     </div>
   );
 }
