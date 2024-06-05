@@ -46,6 +46,7 @@ import About from "../pages/user/About";
 import Contact from "../pages/user/Contact";
 import AdminServices from "./admin/AdminServices";
 import PaymentSuccess from "./payment/PaymentSuccess";
+import ViewPatient from "./doctor/subpages/ViewPatient";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -267,6 +268,7 @@ function Router() {
               <Route path="messages" element={<DoctorMessages />} />
               <Route path="slots" element={<DoctorSlots />} />
               <Route path="profile" element={<DoctorProfile />} />
+              <Route path="show-patient/:id" element={<ViewPatient />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
             <Route path="" element={<Navigate to={"/doctor/overview"} />} />

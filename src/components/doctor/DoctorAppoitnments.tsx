@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { listDoctorAppoinments } from "../../redux/actions/AppointmentActions";
 import { useEffect, useState } from "react";
-import { AppointmentEntity } from "../../types/AddAppoinment";
+// import { AppointmentEntity } from "../../types/AddAppoinment";
+import { useNavigate } from "react-router-dom";
 
 function DoctorAppointments() {
   const [slots, setSlots] = useState([]);
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.userData.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(listDoctorAppoinments(userData?._id)).then((res) => {
@@ -15,26 +17,31 @@ function DoctorAppointments() {
     });
   }, [dispatch, userData?._id]);
 
-  const listAppointmentsWithUserId = (appointments) => {
-    const result = [];
-    
-    appointments.forEach(appointment => {
-      appointment.slots.forEach(slot => {
+  const listAppointmentsWithUserId = (appointments: any) => {
+    const result: any = [];
+
+    appointments.forEach((appointment) => {
+      appointment.slots.forEach((slot) => {
         if (slot.userId) {
           result.push({
             appointmentId: appointment._id,
             userId: slot.userId,
             date: appointment.date,
-            time: slot.start
+            time: slot.start,
           });
         }
       });
     });
-    
+
     return result;
   };
-  
+
   const filteredAppointments = listAppointmentsWithUserId(slots);
+
+  const viewUsers = (userId: string) => {
+    console.log("🚀 ~ viewUsers ~ userId:", userId);
+    navigate(`/doctor/show-patient/${userId}`);
+  };
 
   return (
     <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">
@@ -60,8 +67,11 @@ function DoctorAppointments() {
             <h1 className="font-bold">Action</h1>
           </div>
         </div>
-        {filteredAppointments.map((appointment, id) => (
-          <div className="flex text-gray-300 text-sm" key={appointment.appointmentId + id}>
+        {filteredAppointments.map((appointment: any, id: string) => (
+          <div
+            className="flex text-gray-300 text-sm"
+            key={appointment.appointmentId + id}
+          >
             <div className="text-center text-sm italic border border-gray-400 py-3 w-[50px]">
               <h1 className="">{id + 1}</h1>
             </div>
@@ -78,7 +88,12 @@ function DoctorAppointments() {
               <h1 className="">{appointment.time}</h1>
             </div>
             <div className="text-center text-sm italic border border-gray-400 py-3 w-[200px]">
-              <button className="bg-blue-500 px-8 py-0.5 rounded">View</button>
+              <button
+                onClick={() => viewUsers(appointment.userId)}
+                className="bg-blue-500 px-8 py-0.5 rounded"
+              >
+                View
+              </button>
             </div>
           </div>
         ))}
@@ -89,7 +104,7 @@ function DoctorAppointments() {
 
 export default DoctorAppointments;
 
-
+//STARTUP CODE FOR DOCTOR APPOINTMENTS
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { AppDispatch, RootState } from "../../redux/store";
@@ -108,7 +123,6 @@ export default DoctorAppointments;
 //       setSlots(res.payload?.data);
 //     });
 //   }, [dispatch]);
-
 
 //   const filteredAppointments = filterAppointmentsWithUserId(slots);
 
