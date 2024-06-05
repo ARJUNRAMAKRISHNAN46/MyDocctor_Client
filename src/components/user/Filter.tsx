@@ -66,7 +66,7 @@ const DoctorSearch = () => {
 
   const handleCheckboxChange = (e: any) => {
     const { value, checked } = e.target;
-    setFilters((prevFilters) => ({
+    setFilters((prevFilters: any) => ({
       ...prevFilters,
       consultationType: checked
         ? [...prevFilters.consultationType, value]

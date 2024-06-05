@@ -1,16 +1,19 @@
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
 import { RiSearchLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import { IoArrowForwardSharp } from "react-icons/io5";
 
 interface Doctor {
   _id: string;
   name: string;
+  profilePhoto: string;
 }
 
 const SearchDoctors: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [doctors, setDoctors] = useState<Doctor[]>([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -30,9 +33,13 @@ const SearchDoctors: React.FC = () => {
     }
   };
 
-  const handleClick = async (name: string) => {
-   
+  const handleClick = async (id: string) => {
+    navigate(`/view-doctor-profile/${id}`);
   };
+
+  const goToDoctors = () => {
+    navigate("/list-doctors");
+  }
 
   return (
     <div className="md:ml-32 mt-10">
@@ -53,13 +60,19 @@ const SearchDoctors: React.FC = () => {
           <ul className="bg-white border border-gray-300 rounded-md mt-2 max-h-60 overflow-y-auto">
             {doctors.map((doctor) => (
               <li
-                onClick={() => handleClick(doctor.name)}
+                onClick={() => handleClick(String(doctor._id))}
                 key={doctor._id}
-                className="px-4 py-2 text-gray-800 text-sm font-semibold hover:bg-gray-100 cursor-pointer"
+                className="px-4 py-2 flex justify-between text-gray-800 text-sm font-semibold hover:bg-gray-100 cursor-pointer"
               >
                 {doctor.name}
+                <img className="w-4 h-4" src={doctor?.profilePhoto || "../../../src/assets/demoimage.jpg"} alt="" />
               </li>
             ))}
+            <div onClick={goToDoctors} className=" text-gray-600 flex items-center justify-center border-t border-gray-300">
+              <p>View all</p>
+
+              <IoArrowForwardSharp />
+            </div>
           </ul>
         )}
       </div>
