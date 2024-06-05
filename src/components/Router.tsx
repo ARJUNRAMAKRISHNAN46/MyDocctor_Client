@@ -11,7 +11,6 @@ const DoctorSignup = lazy(() => import("../pages/doctor/DoctorSignup"));
 const DoctorOverview = lazy(() => import("./doctor/DoctorOverview"));
 const DoctorAppoitnments = lazy(() => import("./doctor/DoctorAppoitnments"));
 const DoctorPatients = lazy(() => import("./doctor/DoctorPatients"));
-const DoctorCommunityChat = lazy(() => import("./doctor/DoctorCommunityChat"));
 const DoctorMessages = lazy(() => import("./doctor/DoctorMessages"));
 const DoctorSlots = lazy(() => import("./doctor/DoctorSlots"));
 const PageNotFound = lazy(() => import("./common/PageNotFound"));
@@ -47,6 +46,7 @@ import Contact from "../pages/user/Contact";
 import AdminServices from "./admin/AdminServices";
 import PaymentSuccess from "./payment/PaymentSuccess";
 import ViewPatient from "./doctor/subpages/ViewPatient";
+import DoctorPayments from "./doctor/DoctorPayments";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -264,7 +264,7 @@ function Router() {
               <Route path="overview" element={<DoctorOverview />} />
               <Route path="appointments" element={<DoctorAppoitnments />} />
               <Route path="patients" element={<DoctorPatients />} />
-              <Route path="community-chat" element={<DoctorCommunityChat />} />
+              <Route path="payments" element={<DoctorPayments />} />
               <Route path="messages" element={<DoctorMessages />} />
               <Route path="slots" element={<DoctorSlots />} />
               <Route path="profile" element={<DoctorProfile />} />

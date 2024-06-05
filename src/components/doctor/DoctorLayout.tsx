@@ -1,12 +1,12 @@
 import { CgProfile } from "react-icons/cg";
 import { Outlet } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
-import { IoIosPeople } from "react-icons/io";
 import { DataItem } from "../../types/doctorSidebar";
 import { MdOutlineDateRange } from "react-icons/md";
 import { BiMessageAltCheck, BiUser } from "react-icons/bi";
 import SidePanel from "../common/SidePanel";
 import { LuMessagesSquare } from "react-icons/lu";
+import { FaRegMoneyBill1 } from "react-icons/fa6";
 
 export default function DoctorLayout() {
 
@@ -26,9 +26,9 @@ export default function DoctorLayout() {
     component: "/doctor/patients"
   },
   {
-    logo: <IoIosPeople />,
-    value: 'Community Chat',
-    component: "/doctor/community-chat"
+    logo: <FaRegMoneyBill1 />,
+    value: 'Payments',
+    component: "/doctor/payments"
   },
   {
     logo: <LuMessagesSquare />,
