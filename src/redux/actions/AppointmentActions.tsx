@@ -68,3 +68,18 @@ export const listUserForSideBar = createAsyncThunk(
     }
   }
 );
+
+export const listDoctorsForSideBar = createAsyncThunk(
+  "user/listDoctorsForSideBar",
+  async (id: string, { rejectWithValue }) => {
+    console.log("🚀 ~ id:", id);
+    try {
+      const { data } = await AppointmentAxios.get(`/list-doctors/${id}`);
+      console.log("🚀 ~ async ~ response:", data);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
