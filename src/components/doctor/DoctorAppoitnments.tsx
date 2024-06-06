@@ -47,56 +47,60 @@ function DoctorAppointments() {
     <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">
       <div className=" bg-gray-800 w-[82vw] h-[96vh]">
         <h1 className="font-bold text-xl text-white">Appointments</h1>
-        <div className="flex text-gray-300 text-sm">
-          <div className="text-center italic border-2 border-gray-400 py-4 w-[50px]">
-            <h1 className="font-bold">Sl.No</h1>
-          </div>
-          <div className="text-center italic border-2 border-gray-400 py-4 w-[300px]">
-            <h1 className="font-bold">Appointment ID</h1>
-          </div>
-          <div className="text-center italic border-2 border-gray-400 py-4 w-[300px]">
-            <h1 className="font-bold">User ID</h1>
-          </div>
-          <div className="text-center italic border-2 border-gray-400 py-4 w-[200px]">
-            <h1 className="font-bold">Date</h1>
-          </div>
-          <div className="text-center italic border-2 border-gray-400 py-4 w-[200px]">
-            <h1 className="font-bold">Time</h1>
-          </div>
-          <div className="text-center italic border-2 border-gray-400 py-4 w-[200px]">
-            <h1 className="font-bold">Action</h1>
+        <div className="flex justify-center">
+          <div>
+            <div className="flex text-gray-300 text-sm mt-6">
+              <div className="text-center italic border-2 border-gray-400 py-4 w-[50px]">
+                <h1 className="font-bold">Sl.No</h1>
+              </div>
+              <div className="text-center italic border-2 border-gray-400 py-4 w-[300px]">
+                <h1 className="font-bold">Appointment ID</h1>
+              </div>
+              <div className="text-center italic border-2 border-gray-400 py-4 w-[300px]">
+                <h1 className="font-bold">User ID</h1>
+              </div>
+              <div className="text-center italic border-2 border-gray-400 py-4 w-[200px]">
+                <h1 className="font-bold">Date</h1>
+              </div>
+              <div className="text-center italic border-2 border-gray-400 py-4 w-[200px]">
+                <h1 className="font-bold">Time</h1>
+              </div>
+              <div className="text-center italic border-2 border-gray-400 py-4 w-[200px]">
+                <h1 className="font-bold">Action</h1>
+              </div>
+            </div>
+            {filteredAppointments.map((appointment: any, id: string) => (
+              <div
+                className="flex text-gray-300 text-sm"
+                key={appointment.appointmentId + id}
+              >
+                <div className="text-center text-sm italic border border-gray-400 py-3 w-[50px]">
+                  <h1 className="">{id + 1}</h1>
+                </div>
+                <div className="text-center text-sm italic border border-gray-400 py-3 w-[300px]">
+                  <h1 className="">{appointment.appointmentId}</h1>
+                </div>
+                <div className="text-center text-sm italic border border-gray-400 py-3 w-[300px]">
+                  <h1 className="">{appointment.userId}</h1>
+                </div>
+                <div className="text-center text-sm italic border border-gray-400 py-3 w-[200px]">
+                  <h1 className="">{appointment.date}</h1>
+                </div>
+                <div className="text-center text-sm italic border border-gray-400 py-3 w-[200px]">
+                  <h1 className="">{appointment.time}</h1>
+                </div>
+                <div className="text-center text-sm italic border border-gray-400 py-3 w-[200px]">
+                  <button
+                    onClick={() => viewUsers(appointment.userId)}
+                    className="bg-blue-500 px-8 py-0.5 rounded"
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        {filteredAppointments.map((appointment: any, id: string) => (
-          <div
-            className="flex text-gray-300 text-sm"
-            key={appointment.appointmentId + id}
-          >
-            <div className="text-center text-sm italic border border-gray-400 py-3 w-[50px]">
-              <h1 className="">{id + 1}</h1>
-            </div>
-            <div className="text-center text-sm italic border border-gray-400 py-3 w-[300px]">
-              <h1 className="">{appointment.appointmentId}</h1>
-            </div>
-            <div className="text-center text-sm italic border border-gray-400 py-3 w-[300px]">
-              <h1 className="">{appointment.userId}</h1>
-            </div>
-            <div className="text-center text-sm italic border border-gray-400 py-3 w-[200px]">
-              <h1 className="">{appointment.date}</h1>
-            </div>
-            <div className="text-center text-sm italic border border-gray-400 py-3 w-[200px]">
-              <h1 className="">{appointment.time}</h1>
-            </div>
-            <div className="text-center text-sm italic border border-gray-400 py-3 w-[200px]">
-              <button
-                onClick={() => viewUsers(appointment.userId)}
-                className="bg-blue-500 px-8 py-0.5 rounded"
-              >
-                View
-              </button>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );

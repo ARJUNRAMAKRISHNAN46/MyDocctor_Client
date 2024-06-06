@@ -3,24 +3,24 @@ function ContactForm() {
     <div className="p-10 bg-gray-100 rounded-[5px]">
       <input
         name="name"
-        className="w-full border border-gray-300 rounded-[5px] mb-2 px-4 py-2 outline-none"
+        className="w-full border border-gray-300 rounded-[5px] mb-2 px-4 py-2 outline-none bg-white"
         type="text"
         placeholder="Enter your name"
       />
       <input
         name="email"
-        className="w-full border border-gray-300 rounded-[5px] mb-2 px-4 py-2 outline-none"
+        className="w-full border border-gray-300 rounded-[5px] mb-2 px-4 py-2 outline-none bg-white"
         type="text"
         placeholder="Enter your email"
       />
       <input
         name="subject"
-        className="w-full border border-gray-300 rounded-[5px] mb-2 px-4 py-2 outline-none"
+        className="w-full border border-gray-300 rounded-[5px] mb-2 px-4 py-2 outline-none bg-white"
         type="text"
         placeholder="Enter your subject"
       />
       <textarea
-        className="w-full border px-4 border-gray-300 min-h-40 rounded-[5px] mb-2 py-2 outline-none"
+        className="w-full border px-4 border-gray-300 min-h-40 rounded-[5px] mb-2 py-2 outline-none bg-white"
         name="message"
         id=""
         placeholder="Enter your message"

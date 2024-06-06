@@ -25,9 +25,9 @@ function Message({ message }: MessageProps) {
   return (
     <div className={`chat ${chatClassName}`}>
       <div className="chat-image avatar">
-        <div className="w-10 h-10 rounded-full">
+        {/* <div className="w-10 h-10 rounded-full"> */}
           {/* <img className="rounded-full w-10 h-10" src={profilePhoto || "../../../../src/assets/demoimage.jpg"} alt="profile" /> */}
-        </div>
+        {/* </div> */}
       </div>
       <div
         className={`chat-bubble text-white ${bubbleColor} ${shakeClass} pb-2`}

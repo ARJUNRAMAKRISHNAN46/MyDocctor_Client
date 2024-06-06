@@ -1,10 +1,13 @@
 
 import Conversation from "./Conversation";
 import useGetConversations from "../../../hooks/useGetConversations";
-import { getRandomEmoji } from "../../../utils/emoji";
+// import { getRandomEmoji } from "../../../utils/emoji";
+interface ConversationsProps {
+  user: string;
+}
 
-function Conversations() {
-  const { loading, conversations } = useGetConversations();
+const Conversations: React.FC<ConversationsProps> = ({ user }) => {
+  const { loading, conversations } = useGetConversations(user);
   console.log("🚀 ~ Conversations ~ conversations:", conversations)
 
   return (
@@ -13,7 +16,7 @@ function Conversations() {
         <Conversation
           key={conversation?._id}
           conversation={conversation}
-          emoji={getRandomEmoji()}
+          // emoji={getRandomEmoji()}
           lastIdx={idx === conversations.length - 1}
         />
       ))}

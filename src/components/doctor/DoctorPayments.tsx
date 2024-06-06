@@ -18,15 +18,12 @@ const DoctorPayments = () => {
     });
   }, [dispatch]);
 
-  // Calculate the current page payments
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentPayments = payments.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Calculate total pages
   const totalPages = Math.ceil(payments.length / itemsPerPage);
 
-  // Function to handle page change
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -42,12 +39,27 @@ const DoctorPayments = () => {
         <h1 className="font-bold text-[30px] text-white px-5">Payments</h1>
         <div className="flex justify-center mt-4">
           <div className="flex">
-            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[60px]">Sl.No</h1>
-            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[350px]">User ID</h1>
-            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[150px]">Amount</h1>
-            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[250px]">Payment Date</h1>
-            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[250px]">Booking Date</h1>
-            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[150px]">Time Slot</h1>
+            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[60px]">
+              Sl.No
+            </h1>
+            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[300px]">
+              User ID
+            </h1>
+            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[300px]">
+              Payment ID
+            </h1>
+            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[100px]">
+              Amount
+            </h1>
+            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[200px]">
+              Payment Date
+            </h1>
+            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[200px]">
+              Booking Date
+            </h1>
+            <h1 className="text-center border-2 italic py-3 font-bold border-gray-500 w-[100px]">
+              Time Slot
+            </h1>
           </div>
         </div>
         <div className="flex justify-center">
@@ -57,19 +69,22 @@ const DoctorPayments = () => {
                 <div className="border border-gray-500 text-center italic py-2 w-[60px]">
                   {(currentPage - 1) * itemsPerPage + index + 1}
                 </div>
-                <div className="border border-gray-500 text-center italic py-2 w-[350px]">
+                <div className="border border-gray-500 text-center italic py-2 w-[300px]">
                   {payment.user_id}
                 </div>
-                <div className="border border-gray-500 text-center italic py-2 w-[150px]">
+                <div className="border border-gray-500 text-center italic py-2 w-[300px]">
+                  {payment.user_id}
+                </div>
+                <div className="border border-gray-500 text-center italic py-2 w-[100px]">
                   {payment.fees}
                 </div>
-                <div className="border border-gray-500 text-center italic py-2 w-[250px]">
+                <div className="border border-gray-500 text-center italic py-2 w-[200px]">
                   {formatDate(String(payment?.createdAt))}
                 </div>
-                <div className="border border-gray-500 text-center italic py-2 w-[250px]">
+                <div className="border border-gray-500 text-center italic py-2 w-[200px]">
                   {payment.date}
                 </div>
-                <div className="border border-gray-500 text-center italic py-2 w-[150px]">
+                <div className="border border-gray-500 text-center italic py-2 w-[100px]">
                   {payment.slot}
                 </div>
               </div>
