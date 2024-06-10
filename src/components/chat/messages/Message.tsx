@@ -34,9 +34,9 @@ function Message({ message }: MessageProps) {
       >
         {message.message}
       </div>
-      <div className="chat-footer opacity-50 text-sm flex gap-1 items-center">
+      {/* <div className="chat-footer opacity-50 text-sm flex gap-1 items-center">
         12:50
-      </div>
+      </div> */}
     </div>
   );
 }

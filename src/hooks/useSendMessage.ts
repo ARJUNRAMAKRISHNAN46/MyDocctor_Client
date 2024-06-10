@@ -22,8 +22,6 @@ interface UseConversationReturn {
 const useSendMessage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const { messages, setMessages, selectedConversation } = useConversation() as any;
-  console.log("🚀 ~ useSendMessage ~ selectedConversation?.id:", selectedConversation?._id)
-  console.log("🚀 ~ useSendMessage ~ selectedConversation:", selectedConversation)
 
   const sendMessage = async (message: string) => {
     setLoading(true);

@@ -121,7 +121,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="name"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 placeholder="Enter your name"
                 value={profileData.name}
                 onChange={handleChange}
@@ -132,7 +132,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="email"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 placeholder="Enter email id"
                 value={profileData.email}
                 onChange={handleChange}
@@ -144,7 +144,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="mobileNumber"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 placeholder="Enter phone number"
                 value={profileData.mobileNumber}
                 onChange={handleChange}
@@ -155,7 +155,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="city"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 placeholder="Enter city"
                 value={profileData.city}
                 onChange={handleChange}
@@ -166,7 +166,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="state"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 placeholder="Enter state"
                 value={profileData.state}
                 onChange={handleChange}
@@ -177,7 +177,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="country"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 placeholder="Enter country"
                 value={profileData.country}
                 onChange={handleChange}
@@ -188,7 +188,7 @@ function UserProfile() {
               <input
                 type="text"
                 name="pincode"
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-white"
                 placeholder="Enter pincode"
                 value={profileData.pincode}
                 onChange={handleChange}

@@ -27,7 +27,7 @@ function MessageContainer() {
               <span className="text-white font-bold">
                 {selectedConversation?.name}
               </span>
-              <h1 className="text-sm font-thin">last seen 09:12 AM</h1>
+              {/* <h1 className="text-sm font-thin">last seen 09:12 AM</h1> */}
             </div>
           </div>
           <Messages />

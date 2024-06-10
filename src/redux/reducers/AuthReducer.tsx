@@ -23,7 +23,7 @@ const initialState: userReducerInitial = {
   status: "",
 };
 
-const userReducer = createSlice({
+const authReducer = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -236,5 +236,5 @@ const userReducer = createSlice({
   },
 });
 
-export default userReducer.reducer;
-export const { resetMessage } = userReducer.actions;
+export default authReducer.reducer;
+export const { resetMessage } = authReducer.actions;

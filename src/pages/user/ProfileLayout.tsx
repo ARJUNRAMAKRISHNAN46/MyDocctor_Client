@@ -89,7 +89,7 @@ function ProfileLayout() {
           <Outlet />
         </div>
       </div>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }

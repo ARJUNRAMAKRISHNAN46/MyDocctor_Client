@@ -15,12 +15,13 @@ interface Socket {
 }
 
 const useListenMessages = () => {
+  
   const { socket } = useSocketContext() as { socket: Socket };
   const { messages, setMessages } = useConversation() as {
     messages: Message[];
     setMessages: (messages: Message[]) => void;
   };
-
+  
   useEffect(() => {
     const handleNewMessage = (newMessage: Message) => {
       newMessage.shouldShake = true;

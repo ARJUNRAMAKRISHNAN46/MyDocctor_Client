@@ -1,12 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './reducers/AuthReducer';
-import DoctorReducer from './reducers/DoctorReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./reducers/AuthReducer";
+import doctorReducer from "./reducers/DoctorReducer";
+import PaymentsReducer from "./reducers/PaymentsReducers";
+import AppointmentReducer from "./reducers/AppointmentReducers";
+import UserReducer from "./reducers/UserReducers";
 
 const store = configureStore({
-    reducer: {
-        userData: userReducer,
-        doctorData: DoctorReducer,
-    }
+  reducer: {
+    authData: authReducer,
+    doctorData: doctorReducer,
+    paymentData: PaymentsReducer,
+    appointmentData: AppointmentReducer,
+    userData: UserReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

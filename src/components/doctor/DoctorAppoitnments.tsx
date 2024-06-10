@@ -20,8 +20,8 @@ function DoctorAppointments() {
   const listAppointmentsWithUserId = (appointments: any) => {
     const result: any = [];
 
-    appointments.forEach((appointment) => {
-      appointment.slots.forEach((slot) => {
+    appointments.forEach((appointment: any) => {
+      appointment.slots.forEach((slot: any) => {
         if (slot.userId) {
           result.push({
             appointmentId: appointment._id,

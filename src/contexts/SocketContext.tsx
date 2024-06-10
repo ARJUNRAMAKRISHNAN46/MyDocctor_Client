@@ -33,7 +33,7 @@ export const SockerContextProvider = ({ children }: SockerContextProviderProps) 
 
   useEffect(() => {
     if (authUser) {
-      const socket = io("http://localhost:8080", {
+      const socket = io("http://localhost:4040", {
         query: {
           userId: authUser._id,
         },
