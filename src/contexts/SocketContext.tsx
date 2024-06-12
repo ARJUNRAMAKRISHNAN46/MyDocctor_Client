@@ -1,63 +1,84 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import io, { Socket } from "socket.io-client";
-import { useAuthContext } from "./AuthContext";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import io from "socket.io-client";
+import hotToast from "react-hot-toast";
+import { BiPhoneCall } from "react-icons/bi";
 
-interface AuthUser {
-  _id: string;
-  // Add other fields as necessary
+const SOCKET_URL = import.meta.env.VITE_REACT_APP_SOCKET_URL;
+
+interface SocketContextType {
+  socket: any | null;
+  messages: any[];
+  onlineUsers: any[];
 }
 
-interface SocketContextProps {
-  socket: Socket | null;
-  onlineUsers: string[];
-}
+const socketContext = createContext<SocketContextType>({
+  socket: null,
+  messages: [],
+  onlineUsers: [],
+});
 
-const SocketContext = createContext<SocketContextProps | undefined>(undefined);
-
-export const useSocketContext = (): SocketContextProps => {
-  const context = useContext(SocketContext);
-  if (!context) {
-    throw new Error("useSocketContext must be used within a SockerContextProvider");
-  }
-  return context;
+export const useSocketContext = (): SocketContextType => {
+  return useContext(socketContext);
 };
 
-interface SockerContextProviderProps {
-  children: ReactNode;
-}
+const SocketContext = ({ children }: any) => {
+  const [socket, setSocket] = useState<any | null>(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
-export const SockerContextProvider = ({ children }: SockerContextProviderProps) => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
-  const { authUser } = useAuthContext() as { authUser: AuthUser | null };
+  const userId = useSelector((state: RootState) => state.userData.user?._id);
 
   useEffect(() => {
-    if (authUser) {
-      const socket = io("http://localhost:4040", {
+    if (userId) {
+      console.log("This is the socket url: ", SOCKET_URL);
+      const newSocket = io(SOCKET_URL, {
         query: {
-          userId: authUser._id,
+          userId: userId,
         },
       });
-      setSocket(socket);
 
-      socket.on("getOnlineUsers", (users: string[]) => {
+      setSocket(newSocket);
+      console.log("socket: ", socket);
+
+      newSocket.on("getOnlineUsers", (users: any) => {
         setOnlineUsers(users);
+        console.log("users: ", users);
       });
 
-      return () => {
-        socket.close();
-      };
-    } else {
-      if (socket) {
-        socket.close();
-        setSocket(null);
-      }
+      newSocket.on("incomingCall", (data: any) => {
+        console.log("incoming data", data);
+
+        hotToast(
+          (t) => (
+            <div className="bg-green-100 h-10 flex justify-center items-center rounded-md gap-3">
+              <BiPhoneCall className="h-8 w-8 text-green-500 " />
+              <p className="font-medium"> from user</p>
+              <p className="text-blue-500">
+                <a href="/">join now</a>
+              </p>
+            </div>
+          ),
+          {
+            duration: 10000,
+            position: "top-center",
+          }
+        );
+      });
     }
-  }, [authUser]);
+  }, [userId]);
+
+  const contextValue: SocketContextType = {
+    socket,
+    onlineUsers,
+    messages: [],
+  };
 
   return (
-    <SocketContext.Provider value={{ socket, onlineUsers }}>
+    <socketContext.Provider value={contextValue}>
       {children}
-    </SocketContext.Provider>
+    </socketContext.Provider>
   );
 };
+
+export default SocketContext;
