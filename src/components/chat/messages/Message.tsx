@@ -1,5 +1,5 @@
 import { useAuthContext } from "../../../contexts/AuthContext";
-import { useConversation } from "../../../zustand/useConversation";
+
 
 interface MessageProps {
   message: {
@@ -12,7 +12,6 @@ interface MessageProps {
 function Message({ message }: MessageProps) {
   const { authUser } = useAuthContext();
   console.log("🚀 ~ Message ~ authUser:", authUser)
-  const { selectedConversation } = useConversation();
   const fromMe = message.senderId === authUser?._id;
   console.log("🚀 ~ Message ~ fromMe:", fromMe)
   const chatClassName = fromMe ? "chat-end" : "chat-start";

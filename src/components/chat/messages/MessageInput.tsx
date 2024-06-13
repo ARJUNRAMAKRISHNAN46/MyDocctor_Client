@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { BsSend } from "react-icons/bs";
-import useSendMessage from "../../../hooks/useSendMessage";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import axios from "axios";
 
 function MessageInput() {
   const [message, setMessage] = useState<string>("");
-  const { loading, sendMessage } = useSendMessage();
+  const userData = useSelector((state: RootState) => state.userData.user);
+  console.log("🚀 ~ MessageInput ~ userData:", userData);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,7 +17,26 @@ function MessageInput() {
       return;
     }
 
-    await sendMessage(message);
+    if (message.trim() === "") {
+      toast.error("Message is empty");
+      return;
+    }
+
+    const messageData = {
+      recieverId: "664605618a6679a8b418ac0e",
+      message: message,
+    };
+
+    await axios
+      .post(`http://localhost:8080/chat/api/send-message/${userData?._id}`,{
+        messageData
+      })
+      .then((res) => {
+        console.log("🚀 ~ awaitaxios.post ~ res:", res);
+      })
+      .catch((err) => {
+        console.log("🚀 ~ awaitaxios.post ~ err:", err);
+      });
 
     setMessage("");
   };
@@ -32,11 +55,7 @@ function MessageInput() {
           type="submit"
           className="absolute inset-y-0 end-0 flex items-center pe-3"
         >
-          {loading ? (
-            <div className="loading loading-spinner"></div>
-          ) : (
-            <BsSend />
-          )}
+          <BsSend />
         </button>
       </div>
     </form>

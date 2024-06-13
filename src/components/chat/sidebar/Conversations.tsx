@@ -1,28 +1,27 @@
 
+import { useSocketContext } from "../../../contexts/SocketContext";
 import Conversation from "./Conversation";
-import useGetConversations from "../../../hooks/useGetConversations";
-// import { getRandomEmoji } from "../../../utils/emoji";
 interface ConversationsProps {
   user: string;
 }
 
 const Conversations: React.FC<ConversationsProps> = ({ user }) => {
-  const { loading, conversations } = useGetConversations(user);
-  console.log("🚀 ~ Conversations ~ conversations:", conversations)
+  console.log("🚀 ~ user:", user)
+  const { onlineUsers } = useSocketContext();
+  console.log("🚀 ~ onlineUsers:", onlineUsers)
 
   return (
     <div className="py-2 flex flex-col overflow-auto h-[96vh] border-r border-gray-600">
-      {conversations.map((conversation, idx) => (
+      {onlineUsers?.map((conversation, idx) => (
         <Conversation
           key={conversation?._id}
           conversation={conversation}
-          // emoji={getRandomEmoji()}
-          lastIdx={idx === conversations.length - 1}
+          lastIdx={idx === onlineUsers.length - 1}
         />
       ))}
-      {loading ? (
+      {/* {loading ? (
         <span className="loading loading-spinner mx-auto"></span>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }

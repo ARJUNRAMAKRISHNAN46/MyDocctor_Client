@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useState } from "react";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { useConversation } from "../../../zustand/useConversation";
 
-interface ConversationProps {
+export interface ConversationProps {
   conversation: {
     _id: string;
     profilePhoto: string;
-    userName: string;
+    name: string;
   };
   lastIdx: boolean;
-  emoji: string;
 }
 
-const Conversation: React.FC<ConversationProps> = ({ conversation, lastIdx, emoji }) => {
-  const { selectedConversation, setSelectedConversation } = useConversation();
-  const isSelected = selectedConversation?._id === conversation._id;
+const Conversation: React.FC<ConversationProps> = ({
+  conversation,
+  lastIdx,
+}) => {
   const { onlineUsers } = useSocketContext();
+  const { selectedConversation, setSelectedConversation } = useConversation();
   const isOnline = onlineUsers.includes(conversation._id);
-console.log(conversation, "converstatiotej");
+  const isSelected = selectedConversation?._id === conversation._id;
+  console.log(conversation, "converstatiotej");
 
   return (
     <>
@@ -29,7 +31,14 @@ console.log(conversation, "converstatiotej");
       >
         <div className={`avatar ${isOnline ? "online" : ""}`}>
           <div className="w-12 rounded-full">
-            <img className='w-12 h-12 rounded-full' src={conversation.profilePhoto || "../../../../src/assets/demoimage.jpg"} alt="user avatar" />
+            <img
+              className="w-12 h-12 rounded-full"
+              src={
+                conversation.profilePhoto ||
+                "../../../../src/assets/demoimage.jpg"
+              }
+              alt="user avatar"
+            />
           </div>
         </div>
         <div className="flex flex-col flex-1">

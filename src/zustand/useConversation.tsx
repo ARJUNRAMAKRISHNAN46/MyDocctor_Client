@@ -1,20 +1,14 @@
 import { create } from "zustand";
-import { UserData } from "../types/userData";
+import { ConversationProps } from "../components/chat/sidebar/Conversation";
 
 interface Message {
   _id: string;
   text: string;
-  // Add other fields as necessary
-}
-
-interface Conversation {
-  _id: string;
-  // Add other fields as necessary
 }
 
 interface ConversationState {
-  selectedConversation: UserData | null;
-  setSelectedConversation: (selectedConversation: UserData | null) => void;
+  selectedConversation: ConversationProps | null;
+  setSelectedConversation: (selectedConversation: ConversationProps | null) => void;
   messages: Message[];
   setMessages: (messages: Message[]) => void;
 }
