@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { BsSend } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { useConversation } from "../../../zustand/useConversation";
+import { sendMessage } from "../../../redux/actions/ChatActions";
+import { ChatData } from "../../../types/ChatTypes";
+import { useSocketContext } from "../../../contexts/SocketContext";
 
 function MessageInput() {
   const [message, setMessage] = useState<string>("");
-  const userData = useSelector((state: RootState) => state.userData.user);
-  console.log("🚀 ~ MessageInput ~ userData:", userData);
-
+  const { setMessages, messages } = useConversation();
+  const [lastMessage, setLastMessage] = useState<ChatData>();
+  const userData = useSelector((state: RootState) => state.authData.user);
+  const dispatch: AppDispatch = useDispatch();
+  const { selectedConversation } = useConversation();
+  const { socket } = useSocketContext();
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     if (!message) {
       return;
     }
@@ -23,20 +30,17 @@ function MessageInput() {
     }
 
     const messageData = {
-      recieverId: "664605618a6679a8b418ac0e",
+      senderId: userData?._id,
+      recieverId: selectedConversation?._id,
       message: message,
     };
+    socket.emit("new message",{ obj: { ...messageData, createdAt: new Date()}});
 
-    await axios
-      .post(`http://localhost:8080/chat/api/send-message/${userData?._id}`,{
-        messageData
-      })
-      .then((res) => {
-        console.log("🚀 ~ awaitaxios.post ~ res:", res);
-      })
-      .catch((err) => {
-        console.log("🚀 ~ awaitaxios.post ~ err:", err);
-      });
+    dispatch(sendMessage(messageData)).then((res) => {
+
+      setLastMessage(res.payload?.data);
+      setMessages([...messages, res.payload?.data]);
+    });
 
     setMessage("");
   };

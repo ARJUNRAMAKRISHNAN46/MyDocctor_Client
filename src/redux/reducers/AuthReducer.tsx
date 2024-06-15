@@ -171,6 +171,7 @@ const authReducer = createSlice({
         }
         console.log("🚀 ~ .addCase ~ payload:", payload);
         state.user = payload?.data;
+        console.log(state.user, "\\\\\\\\\\")
       })
       .addCase(LoginUser.rejected, (state, { payload }) => {
         console.log("🚀 ~ .addCase error ~ payload:", payload);
@@ -224,6 +225,7 @@ const authReducer = createSlice({
         console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.user = payload?.data;
+        console.log(state.user, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
       })
       .addCase(getUser.rejected, (state, { payload }) => {
         console.log("🚀 ~ .addCase ~ payload:", payload);

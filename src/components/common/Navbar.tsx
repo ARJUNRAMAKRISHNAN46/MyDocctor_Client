@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import NavbarDropDown from "./NavbarDropDown";
 
 function Navbar() {
-  const userData = useSelector((data: RootState) => data.userData);
+  const userData = useSelector((data: RootState) => data.authData);
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState("");
   const [show, setShow] = useState<boolean>(false);

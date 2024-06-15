@@ -50,8 +50,8 @@ import DoctorPayments from "./doctor/DoctorPayments";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
-  const userData = useSelector((state: RootState) => state.userData.user);
-  const loading = useSelector((state: RootState) => state.userData.loading);
+  const userData = useSelector((state: RootState) => state.authData.user);
+  const loading = useSelector((state: RootState) => state.authData.loading);
   console.log("🚀 ~ Router ~ loading:", loading);
   console.log("🚀 ~ Router ~ userData:", userData);
   if (loading === true) {

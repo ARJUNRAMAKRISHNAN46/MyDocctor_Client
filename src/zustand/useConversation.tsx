@@ -1,16 +1,12 @@
 import { create } from "zustand";
 import { ConversationProps } from "../components/chat/sidebar/Conversation";
-
-interface Message {
-  _id: string;
-  text: string;
-}
+import { ChatData } from "../types/ChatTypes";
 
 interface ConversationState {
   selectedConversation: ConversationProps | null;
   setSelectedConversation: (selectedConversation: ConversationProps | null) => void;
-  messages: Message[];
-  setMessages: (messages: Message[]) => void;
+  messages: ChatData[];
+  setMessages: (messages: ChatData[]) => void;
 }
 
 export const useConversation = create<ConversationState>((set) => ({

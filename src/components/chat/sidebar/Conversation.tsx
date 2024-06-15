@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { useConversation } from "../../../zustand/useConversation";
+import { UserData } from "../../../types/userData";
 
 export interface ConversationProps {
-  conversation: {
-    _id: string;
-    profilePhoto: string;
-    name: string;
-  };
+  conversation: UserData
+  // {
+  //   _id: string;
+  //   profilePhoto: string;
+  //   name: string;
+  // };
   lastIdx: boolean;
 }
 
@@ -15,11 +17,10 @@ const Conversation: React.FC<ConversationProps> = ({
   conversation,
   lastIdx,
 }) => {
-  const { onlineUsers } = useSocketContext();
   const { selectedConversation, setSelectedConversation } = useConversation();
+  const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
   const isSelected = selectedConversation?._id === conversation._id;
-  console.log(conversation, "converstatiotej");
 
   return (
     <>

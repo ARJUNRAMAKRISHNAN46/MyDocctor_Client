@@ -58,7 +58,7 @@ const SidePanel: React.FC<SidePanelProps> = ({ data }) => {
         onClick={handleLogout}
         className={`text-gray-200 bg-gray-700 font-semibold pl-10 py-1.5 m-1 rounded-md`}
       >
-        <span>Logout</span>
+        <span className="cursor-pointer">Logout</span>
       </div>
     </div>
   );

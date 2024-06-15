@@ -1,29 +1,57 @@
-
+import { useEffect, useState } from "react";
 import { useSocketContext } from "../../../contexts/SocketContext";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
+import {
+  listDoctorsForSideBar,
+  listUserForSideBar,
+} from "../../../redux/actions/AppointmentActions";
+import { UserData } from "../../../types/userData";
 import Conversation from "./Conversation";
+
 interface ConversationsProps {
   user: string;
 }
 
 const Conversations: React.FC<ConversationsProps> = ({ user }) => {
-  console.log("🚀 ~ user:", user)
   const { onlineUsers } = useSocketContext();
-  console.log("🚀 ~ onlineUsers:", onlineUsers)
+  const dispatch: AppDispatch = useDispatch();
+  const [users, setUsers] = useState<UserData[]>()
+  const userData = useSelector((state: RootState) => state.authData.user);
+
+  useEffect(() => {
+    if (user === "user") {
+      dispatch(listDoctorsForSideBar(userData?._id))
+        .then((res) => {
+          setUsers(res.payload?.data)
+          console.log(res.payload);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (user === "doctor") {
+      dispatch(listUserForSideBar(userData?._id))
+        .then((res) => {
+          setUsers(res.payload?.data)
+          console.log(res.payload);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   return (
     <div className="py-2 flex flex-col overflow-auto h-[96vh] border-r border-gray-600">
-      {onlineUsers?.map((conversation, idx) => (
+      {users?.map((conversation, idx) => (
         <Conversation
           key={conversation?._id}
           conversation={conversation}
           lastIdx={idx === onlineUsers.length - 1}
         />
       ))}
-      {/* {loading ? (
-        <span className="loading loading-spinner mx-auto"></span>
-      ) : null} */}
     </div>
   );
-}
+};
 
 export default Conversations;

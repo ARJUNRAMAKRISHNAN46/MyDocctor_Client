@@ -3,27 +3,62 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../../contexts/AuthContext";
+import { useConversation } from "../../../zustand/useConversation";
+import { CiMenuKebab } from "react-icons/ci";
+import { IoVideocam } from "react-icons/io5";
+import { useSocketContext } from "../../../contexts/SocketContext";
+import { GoDotFill } from "react-icons/go";
 
 function MessageContainer() {
+  const { selectedConversation, setMessages } = useConversation();
+  const { onlineUsers, socket } = useSocketContext();
+  const isOnline = onlineUsers.includes(selectedConversation?._id);
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, [setMessages]);
+
+  const handleVideoCall = () => {
+    if (onlineUsers.includes(selectedConversation?._id)) {
+      socket.emit("videoCall", { recieverId: selectedConversation?._id, recieverName: selectedConversation?.name })
+    }
+  };
+
   return (
     <div className="md:min-w-[450px] flex flex-col">
       {!selectedConversation ? (
         <NoChatSelected />
       ) : (
         <div className="flex-col flex justify-between h-[96vh]">
-          <div className="bg-gray-700 px-4 py-2 mb-2 flex items-center">
-            <img
-              className="w-12 h-12 rounded-full object-contain"
-              src={selectedConversation?.profilePhoto || "../../../../src/assets/demoimage.jpg"}
-              alt="profileImage"
-            />
-            <div className="ml-4">
-              <span className="text-white font-bold">
-                {selectedConversation?.name}
-              </span>
+          <div className="bg-gray-700 px-4 py-2 mb-2 flex items-center justify-between">
+            <div className="flex items-center">
+              <img
+                className="w-12 h-12 rounded-full object-contain"
+                src={
+                  selectedConversation?.profilePhoto ||
+                  "../../../../src/assets/demoimage.jpg"
+                }
+                alt="profileImage"
+              />
+              <div className="ml-4 flex flex-col">
+                <span className="text-white font-bold">
+                  {selectedConversation?.name}
+                </span>
+                {isOnline ? (
+                  <span className="flex items-center">
+                    online <GoDotFill className="text-green-600" />
+                  </span>
+                ) : (
+                  <span className="flex items-center">
+                    offline <GoDotFill className="text-red-600" />
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className={`flex items-center`}>
+              <IoVideocam
+                onClick={handleVideoCall}
+                className="text-3xl text-white font-bold"
+              />
+              <CiMenuKebab className="text-2xl text-white font-bold ml-6" />
             </div>
           </div>
           <Messages />

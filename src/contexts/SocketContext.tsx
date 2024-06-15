@@ -23,11 +23,13 @@ export const useSocketContext = (): SocketContextType => {
   return useContext(socketContext);
 };
 
-const SocketContext = ({ children }: any) => {
+export const SocketProvider = ({ children }: any) => {
   const [socket, setSocket] = useState<any | null>(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
-  const userId = useSelector((state: RootState) => state.userData.user?._id);
+  const userId = useSelector((state: RootState) => state.authData.user?._id);
+  console.log("🚀 ~ SocketProvider ~ userId:", userId)
+
 
   useEffect(() => {
     if (userId) {
@@ -80,5 +82,3 @@ const SocketContext = ({ children }: any) => {
     </socketContext.Provider>
   );
 };
-
-export default SocketContext;
