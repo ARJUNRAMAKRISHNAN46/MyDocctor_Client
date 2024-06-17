@@ -4,6 +4,7 @@ import { RootState } from "../redux/store";
 import io from "socket.io-client";
 import hotToast from "react-hot-toast";
 import { BiPhoneCall } from "react-icons/bi";
+import { useConversation } from "../zustand/useConversation";
 
 const SOCKET_URL = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
@@ -24,16 +25,14 @@ export const useSocketContext = (): SocketContextType => {
 };
 
 export const SocketProvider = ({ children }: any) => {
+  const { setAttendCall } = useConversation();
   const [socket, setSocket] = useState<any | null>(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   const userId = useSelector((state: RootState) => state.authData.user?._id);
-  console.log("🚀 ~ SocketProvider ~ userId:", userId)
-
 
   useEffect(() => {
     if (userId) {
-      console.log("This is the socket url: ", SOCKET_URL);
       const newSocket = io(SOCKET_URL, {
         query: {
           userId: userId,
@@ -41,15 +40,12 @@ export const SocketProvider = ({ children }: any) => {
       });
 
       setSocket(newSocket);
-      console.log("socket: ", socket);
 
       newSocket.on("getOnlineUsers", (users: any) => {
         setOnlineUsers(users);
-        console.log("users: ", users);
       });
 
       newSocket.on("incomingCall", (data: any) => {
-        console.log("incoming data", data);
 
         hotToast(
           (t) => (
@@ -57,7 +53,7 @@ export const SocketProvider = ({ children }: any) => {
               <BiPhoneCall className="h-8 w-8 text-green-500 " />
               <p className="font-medium"> from user</p>
               <p className="text-blue-500">
-                <a href="/">join now</a>
+                <button onClick={attendVideoCall}>Join Now</button>
               </p>
             </div>
           ),
@@ -69,6 +65,20 @@ export const SocketProvider = ({ children }: any) => {
       });
     }
   }, [userId]);
+
+  const attendVideoCall = () => {
+    if (userId) {
+      // console.log("This is the socket url: ", SOCKET_URL);
+      const newSocket = io(SOCKET_URL, {
+        query: {
+          userId: userId,
+        },
+      });
+      console.log("setAttendCall : true", socket);
+      newSocket.emit("attendCall", { userId });
+      setAttendCall(true);
+    }
+  };
 
   const contextValue: SocketContextType = {
     socket,

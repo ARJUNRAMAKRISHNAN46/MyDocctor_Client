@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, {  } from "react";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { useConversation } from "../../../zustand/useConversation";
 import { UserData } from "../../../types/userData";
 
 export interface ConversationProps {
-  conversation: UserData
+  conversation: UserData;
   // {
   //   _id: string;
   //   profilePhoto: string;

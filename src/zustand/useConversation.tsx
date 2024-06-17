@@ -7,6 +7,8 @@ interface ConversationState {
   setSelectedConversation: (selectedConversation: ConversationProps | null) => void;
   messages: ChatData[];
   setMessages: (messages: ChatData[]) => void;
+  attendCall: boolean;
+  setAttendCall: (attendCall: boolean) => void;
 }
 
 export const useConversation = create<ConversationState>((set) => ({
@@ -15,4 +17,6 @@ export const useConversation = create<ConversationState>((set) => ({
     set({ selectedConversation }),
   messages: [],
   setMessages: (messages) => set({ messages }),
+  attendCall: false,
+  setAttendCall: (attendCall) => set({ attendCall }),
 }));

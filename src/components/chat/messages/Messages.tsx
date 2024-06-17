@@ -36,8 +36,8 @@ function Messages() {
     const handleNewMessage = (newMessage: any) => {
       console.log("🚀 ~ handleNewMessage ~ newMessage:", newMessage)
       newMessage.shouldShake = true;
-      const sound = new Audio(notificationSound);
-      sound.play();
+      // const sound = new Audio(notificationSound);
+      // sound.play();
       setMessages([...messages, newMessage]);
     };
 

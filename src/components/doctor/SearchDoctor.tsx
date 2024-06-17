@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useRef } from "react";
 import axios from "axios";
 import { RiSearchLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
@@ -14,23 +14,31 @@ const SearchDoctors: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const navigate = useNavigate();
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
-    if (value.length > 1) {
-      try {
-        const response = await axios.get<Doctor[]>(
-          `http://localhost:8080/doctor/api/search-doctors?q=${value}`
-        );
-        console.log("🚀 ~ handleSearch ~ response:", response.data?.data);
-        setDoctors(response.data?.data);
-      } catch (err) {
-        console.error(err);
-      }
-    } else {
-      setDoctors([]);
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
     }
+
+    debounceRef.current = setTimeout(async () => {
+      if (value.length > 1) {
+        try {
+          const response = await axios.get<Doctor[]>(
+            `http://localhost:8080/doctor/api/search-doctors?q=${value}`
+          );
+          console.log("🚀 ~ handleSearch ~ response:", response.data?.data);
+          setDoctors(response.data?.data);
+        } catch (err) {
+          console.error(err);
+        }
+      } else {
+        setDoctors([]);
+      }
+    }, 300); // Adjust the delay as needed (300ms is commonly used)
   };
 
   const handleClick = async (id: string) => {
@@ -39,7 +47,7 @@ const SearchDoctors: React.FC = () => {
 
   const goToDoctors = () => {
     navigate("/list-doctors");
-  }
+  };
 
   return (
     <div className="md:ml-32 mt-10">
@@ -70,7 +78,6 @@ const SearchDoctors: React.FC = () => {
             ))}
             <div onClick={goToDoctors} className=" text-gray-600 flex items-center justify-center border-t border-gray-300">
               <p>View all</p>
-
               <IoArrowForwardSharp />
             </div>
           </ul>

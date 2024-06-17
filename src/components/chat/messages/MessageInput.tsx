@@ -39,7 +39,8 @@ function MessageInput() {
     dispatch(sendMessage(messageData)).then((res) => {
 
       setLastMessage(res.payload?.data);
-      setMessages([...messages, res.payload?.data]);
+      setMessages([...(messages || []), res.payload?.data]);
+      // setMessages([...messages, res.payload?.data]);
     });
 
     setMessage("");

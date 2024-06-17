@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { LogoutUser } from "../../redux/actions/AuthActions";
@@ -9,15 +9,17 @@ import { DataItem } from "../../types/doctorSidebar";
 import { IoIosPeople } from "react-icons/io";
 import { MdOutlineDateRange } from "react-icons/md";
 import Navbar from "../../components/common/Navbar";
-import Footer from "../../components/common/Footer";
+// import Footer from "../../components/common/Footer";
 
 function ProfileLayout() {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(LogoutUser())
       .then((res) => {
         console.log("🚀 ~ logout ~ dispatch ~ res:", res);
+        navigate("/");
       })
       .catch((err) => {
         console.log("🚀 ~ logout ~ dispatch ~ err:", err);

@@ -21,8 +21,8 @@ export const sendMessage = createAsyncThunk(
   "user/sendMessage",
   async (ids: { senderId: string, recieverId: string, message: string }, { rejectWithValue }) => {
     try {
-      const { data } = await ChatAxios.post(`/send-message/${ids.senderId}`, {
-        senderId: ids.recieverId, message: ids.message
+      const { data } = await ChatAxios.post(`/send-message/${ids.recieverId}`, {
+        senderId: ids.senderId, message: ids.message
       });
 
       return data;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
@@ -8,25 +8,38 @@ import { CiMenuKebab } from "react-icons/ci";
 import { IoVideocam } from "react-icons/io5";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { GoDotFill } from "react-icons/go";
+import VideoCall from "../../videoCall/VideoCall";
+import { ImPhoneHangUp } from "react-icons/im";
 
 function MessageContainer() {
   const { selectedConversation, setMessages } = useConversation();
   const { onlineUsers, socket } = useSocketContext();
   const isOnline = onlineUsers.includes(selectedConversation?._id);
+  const [videoCall, setVideoCall] = useState<boolean>(false);
 
-  useEffect(() => {}, [setMessages]);
+  useEffect(() => {
+    return () => setVideoCall(false);
+  }, [setMessages]);
 
   const handleVideoCall = () => {
     if (onlineUsers.includes(selectedConversation?._id)) {
-      socket.emit("videoCall", { recieverId: selectedConversation?._id, recieverName: selectedConversation?.name })
+      socket.emit("videoCall", {
+        recieverId: selectedConversation?._id,
+        recieverName: selectedConversation?.name,
+      });
     }
+    setVideoCall(true);
   };
+
+  const closeVideoCall = () => {
+    setVideoCall(false);
+  }
 
   return (
     <div className="md:min-w-[450px] flex flex-col">
       {!selectedConversation ? (
         <NoChatSelected />
-      ) : (
+      ) : !videoCall ? (
         <div className="flex-col flex justify-between h-[96vh]">
           <div className="bg-gray-700 px-4 py-2 mb-2 flex items-center justify-between">
             <div className="flex items-center">
@@ -54,15 +67,27 @@ function MessageContainer() {
               </div>
             </div>
             <div className={`flex items-center`}>
-              <IoVideocam
-                onClick={handleVideoCall}
-                className="text-3xl text-white font-bold"
-              />
+              {isOnline && (
+                <IoVideocam
+                  onClick={handleVideoCall}
+                  className="text-3xl text-white font-bold"
+                />
+              )}
               <CiMenuKebab className="text-2xl text-white font-bold ml-6" />
             </div>
           </div>
           <Messages />
           <MessageInput />
+        </div>
+      ) : (
+        // <VideoCall/>
+        <div className="h-[96vh] bg-gray-700 flex flex-col justify-center items-center">
+          <div className="h-[90vh] flex justify-center items-center">
+            <h1>Calling...</h1>
+          </div>
+          <div className="h-[10vh] flex justify-center items-center">
+            <button onClick={closeVideoCall} className="bg-red-600 rounded px-6 py-2"><ImPhoneHangUp className="text-white" /></button>
+          </div>
         </div>
       )}
     </div>
