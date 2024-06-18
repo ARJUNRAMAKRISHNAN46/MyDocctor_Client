@@ -4,7 +4,7 @@ import { RootState } from "../../redux/store";
 import { UserData } from "../../types/userData";
 
 function DoctorProfile() {
-  const userData: UserData = useSelector((state: RootState) => state.userData.user);
+  const userData: UserData = useSelector((state: RootState) => state.authData.user);
   return (
     <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
       <div className=" bg-gray-800 w-[82vw] h-[146vh]">

@@ -2,13 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { listDoctorAppoinments } from "../../redux/actions/AppointmentActions";
 import { useEffect, useState } from "react";
-// import { AppointmentEntity } from "../../types/AddAppoinment";
 import { useNavigate } from "react-router-dom";
 
 function DoctorAppointments() {
   const [slots, setSlots] = useState([]);
   const dispatch: AppDispatch = useDispatch();
-  const userData = useSelector((state: RootState) => state.userData.user);
+  const userData = useSelector((state: RootState) => state.authData.user);
   const navigate = useNavigate();
 
   useEffect(() => {

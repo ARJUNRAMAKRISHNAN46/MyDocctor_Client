@@ -12,7 +12,7 @@ function DoctorOverview() {
           <LineChart />
           <BarChart />
         </div>
-        <ListPatients/>4
+        <ListPatients/>
       </div>
     </div>
   );

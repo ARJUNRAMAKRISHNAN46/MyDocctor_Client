@@ -6,6 +6,7 @@ const refreshToken = localStorage.getItem('refresh_token');
 
 const CompleteBooking: React.FC = () => {
   useEffect(() => {
+    console.log("useEffect worked herrrrrrrr")
     const bookingData = localStorage.getItem("bookingData");
     if (bookingData) {
       const parsedBookingData = JSON.parse(bookingData);

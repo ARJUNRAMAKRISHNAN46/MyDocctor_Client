@@ -11,7 +11,7 @@ interface AddSlotModalProps {
 }
 
 const DoctorAddSlotModal: React.FC<AddSlotModalProps> = ({ show, date }) => {
-  const userData = useSelector((state: RootState) => state.userData.user);
+  const userData = useSelector((state: RootState) => state.authData.user);
   const dispatch: AppDispatch = useDispatch();
   const [status, setStatus] = useState<boolean>(false);
 

@@ -6,7 +6,7 @@ import { PaymentEntity } from "../../types/Payment";
 
 const DoctorPayments = () => {
   const dispatch: AppDispatch = useDispatch();
-  const userData = useSelector((state: RootState) => state.userData.user);
+  const userData = useSelector((state: RootState) => state.authData.user);
   const [payments, setPayments] = useState<PaymentEntity[]>([]);
   console.log("🚀 ~ DoctorPayments ~ payments:", payments);
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +14,7 @@ const DoctorPayments = () => {
 
   useEffect(() => {
     dispatch(listPayments(userData?._id)).then((res) => {
+      console.log("🚀 ~ dispatch ~ res:", res)
       setPayments(res.payload?.data || []);
     });
   }, [dispatch]);

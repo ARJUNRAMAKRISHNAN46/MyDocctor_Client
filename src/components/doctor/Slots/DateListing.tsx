@@ -9,7 +9,8 @@ const DatePicker: React.FC = () => {
   const [currentStartDate, setCurrentStartDate] = useState(dayjs());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const dispatch: AppDispatch = useDispatch();
-  const userData = useSelector((state: RootState) => state.userData.user);
+  const userData = useSelector((state: RootState) => state.authData.user);
+  console.log("🚀 ~ userData:", userData)
   const [slots, setSlots] = useState([]);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const DatePicker: React.FC = () => {
       listDoctorSlots({ id: userData?._id, selectedDate: currentDateFormatted })
     ).then((res) => {
       setSlots(res.payload?.data);
-      console.log("~ DoctorListing ~ res : ", res);
+      // console.log("~ DoctorListing ~ res : ", res);
     });
   }, []);
 
