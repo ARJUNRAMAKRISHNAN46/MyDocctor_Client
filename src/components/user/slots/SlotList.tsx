@@ -11,7 +11,7 @@ interface ListSlotsProps {
 }
 
 const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
-  const userData = useSelector((state: RootState) => state.userData.user);
+  const userData = useSelector((state: RootState) => state.authData.user);
   const [booked, setBooked] = useState("");
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
@@ -56,14 +56,14 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   return (
     <div className="bg-white">
       <div className="md:px-32">
-        {slots.length === 0 && (
+        {slots?.length === 0 && (
           <div>
             <div className="text-center md:mt-16">
               <h1 className="text-xl font-semibold text-red-600">No Available Slots!!!</h1>
             </div>
           </div>
         )}
-        {slots.map((appointment) => (
+        {slots?.map((appointment) => (
           <div
             key={appointment?._id}
             className="appointment-card bg-white py-4 rounded-[5px] m-4 px-2 text-center text-blue-600"

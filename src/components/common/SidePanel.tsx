@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../redux/actions/AuthActions";
 import { AppDispatch, RootState } from "../../redux/store";
 import { NavLink } from "react-router-dom";
+import { useSocketContext } from "../../contexts/SocketContext";
 
 const SidePanel: React.FC<SidePanelProps> = ({ data }) => {
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const dispatch: AppDispatch = useDispatch();
-  const userData = useSelector((state: RootState) => state.userData.user);
-  // const navigate = useNavigate();
-  console.log("🚀 ~ clickedIndex:", clickedIndex, userData)
-
+  const userData = useSelector((state: RootState) => state.authData.user);
+  const { socket } = useSocketContext();
   useEffect(() => {
     setClickedIndex(0);
   }, []);
@@ -19,10 +18,8 @@ const SidePanel: React.FC<SidePanelProps> = ({ data }) => {
   const handleLogout = () => {
     dispatch(LogoutUser())
       .then((res) => {
-        console.log("🚀 ~ logout ~ dispatch ~ res:", res);
-      })
-      .catch((err) => {
-        console.log("🚀 ~ logout ~ dispatch ~ err:", err);
+        if(res)
+        socket.emit("disconnec", userData?._id)
       });
   };
 

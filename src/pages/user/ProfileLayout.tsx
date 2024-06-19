@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { AppDispatch } from "../../redux/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../redux/actions/AuthActions";
 import { MdLogout } from "react-icons/md";
 import { FaUserDoctor } from "react-icons/fa6";
@@ -9,21 +9,19 @@ import { DataItem } from "../../types/doctorSidebar";
 import { IoIosPeople } from "react-icons/io";
 import { MdOutlineDateRange } from "react-icons/md";
 import Navbar from "../../components/common/Navbar";
-// import Footer from "../../components/common/Footer";
+import { useSocketContext } from "../../contexts/SocketContext";
 
 function ProfileLayout() {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const { socket } = useSocketContext();
+  const userData = useSelector((state: RootState) => state.authData.user);
 
   const handleLogout = () => {
-    dispatch(LogoutUser())
-      .then((res) => {
-        console.log("🚀 ~ logout ~ dispatch ~ res:", res);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log("🚀 ~ logout ~ dispatch ~ err:", err);
-      });
+    dispatch(LogoutUser()).then((res) => {
+      if (res) socket.emit("disconnec", userData?._id);
+      navigate("/");
+    });
   };
 
   const data: DataItem[] = [
