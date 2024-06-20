@@ -6,17 +6,14 @@ import { Login, Signup, UpdatePassword } from "../../types/userData";
 export const signupUser = createAsyncThunk(
   "user/userSignup",
   async (userData: Signup, { rejectWithValue }) => {
-    console.log("🚀 ~useraction/signup userData:", userData);
     try {
       const { data } = await AuthAxios.post("/signup", {
         ...userData,
         role: "user",
       });
-      console.log("return data from background : ", data);
 
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -27,7 +24,6 @@ export const forgotPassword = createAsyncThunk(
   async (email: string, { rejectWithValue }) => {
     try {
       const { data } = await AuthAxios.post("/forgotPassword", { email });
-      console.log("🚀 ~ 'forgot/password', ~ data:", data);
 
       return data;
     } catch (error) {
@@ -39,7 +35,6 @@ export const forgotPassword = createAsyncThunk(
 export const signupDoctor = createAsyncThunk(
   "doctor/doctorSignup",
   async (userData: Signup, { rejectWithValue }) => {
-    console.log("🚀 ~useraction/signup userData:", userData);
     try {
       const { data } = await AuthAxios.post("/signup", {
         ...userData,
@@ -48,7 +43,6 @@ export const signupDoctor = createAsyncThunk(
 
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -57,7 +51,6 @@ export const signupDoctor = createAsyncThunk(
 export const doctorGoogle = createAsyncThunk(
   "doctor/doctorGoogle",
   async (userData: Signup, { rejectWithValue }) => {
-    console.log("🚀 ~useraction/signup userData:", userData);
     try {
       const { data } = await AuthAxios.post("/googleSignup", {
         ...userData,
@@ -66,7 +59,6 @@ export const doctorGoogle = createAsyncThunk(
 
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -96,7 +88,6 @@ export const userGoogle = createAsyncThunk(
 
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -107,7 +98,6 @@ export const getUser = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await AuthAxios.get("/isExist");
-      console.log("🚀 ~ getUser ~ data:", data);
 
       return data;
     } catch (error) {
@@ -119,14 +109,12 @@ export const getUser = createAsyncThunk(
 export const googleLogin = createAsyncThunk(
   "login/googleLogin",
   async (loginData: Login, { rejectWithValue }) => {
-    console.log("🚀 ~ loginData:", loginData);
     try {
       const { data } = await AuthAxios.post("/googleLogin", {
         ...loginData,
       });
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -135,14 +123,12 @@ export const googleLogin = createAsyncThunk(
 export const LoginUser = createAsyncThunk(
   "user/userLogin",
   async (loginData: Login, { rejectWithValue }) => {
-    console.log("🚀 ~ loginData:", loginData);
     try {
       const { data } = await AuthAxios.post("/login", {
         ...loginData,
       });
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }

@@ -27,13 +27,14 @@ const HeaderStats: React.FC = () => {
       setPayments(res.payload?.data);
     })
   }, []);
+  
   const totalPayment = payments?.reduce((total, pay) => total + pay?.fees, 0);
-  console.log("🚀 ~ totalPayment:", totalPayment/1000)
   const stats: Stat[] = [
     { label: "Appointments", value: String(appointments?.length | 0), percentage: `0.${String(appointments?.length | 0)}%` },
     { label: "Patients", value: String(patients?.length | 0), percentage: `0.${String(patients?.length | 0)}%` },
     { label: "Payments", value: String(totalPayment | 0), percentage: `0.${String(payments?.length | 0)}%` },
   ];
+
   return (
     <div className="grid grid-cols-1 mt-5 md:grid-cols-4 gap-6">
       {stats.map((stat) => (

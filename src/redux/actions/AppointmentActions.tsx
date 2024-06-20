@@ -25,12 +25,10 @@ export const listDoctorSlots = createAsyncThunk(
     { id, selectedDate }: { id: string; selectedDate: string },
     { rejectWithValue }
   ) => {
-    console.log("🚀 ~ id:", id);
     try {
       const { data } = await AppointmentAxios.get(`/list-doctor-slots/${id}`, {
         params: { date: selectedDate },
       });
-      console.log("🚀 ~ async ~ response:", data);
 
       return data;
     } catch (error: any) {
@@ -42,10 +40,8 @@ export const listDoctorSlots = createAsyncThunk(
 export const listDoctorAppoinments = createAsyncThunk(
   "doctor/listDoctorSlots",
   async (id: string, { rejectWithValue }) => {
-    console.log("🚀 ~ id:", id);
     try {
       const { data } = await AppointmentAxios.get(`/list-slots/${id}`);
-      console.log("🚀 ~ async ~ response:", data);
 
       return data;
     } catch (error: any) {
@@ -57,10 +53,8 @@ export const listDoctorAppoinments = createAsyncThunk(
 export const listUserForSideBar = createAsyncThunk(
   "user/listUserForSideBar",
   async (id: string, { rejectWithValue }) => {
-    console.log("🚀 ~ id:", id);
     try {
       const { data } = await AppointmentAxios.get(`/list-users/${id}`);
-      console.log("🚀 ~ async ~ response:", data);
 
       return data;
     } catch (error: any) {
@@ -72,10 +66,8 @@ export const listUserForSideBar = createAsyncThunk(
 export const listDoctorsForSideBar = createAsyncThunk(
   "user/listDoctorsForSideBar",
   async (id: string, { rejectWithValue }) => {
-    console.log("🚀 ~ id:", id);
     try {
       const { data } = await AppointmentAxios.get(`/list-doctors/${id}`);
-      console.log("🚀 ~ async ~ response:", data);
 
       return data;
     } catch (error: any) {
@@ -89,7 +81,6 @@ export const listUserAppoinments = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       const { data } = await AppointmentAxios.get(`/list-user-appointments/${id}`);
-      console.log("🚀 ~ async ~ response:", data);
 
       return data;
     } catch (error: any) {

@@ -52,15 +52,11 @@ function Router() {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
   const loading = useSelector((state: RootState) => state.authData.loading);
-  console.log("🚀 ~ Router ~ loading:", loading);
-  console.log("🚀 ~ Router ~ userData:", userData);
   if (loading === true) {
     <Loader />;
   }
   useEffect(() => {
-    dispatch(getUser()).then((res) => {
-      console.log("🚀 ~ dispatch ~ res:", res);
-    });
+    dispatch(getUser());
   }, [dispatch]);
 
   if (
@@ -107,6 +103,7 @@ function Router() {
             <Route path="slots" element={<Navigate to={"/"} />} />
             <Route path="profile" element={<Navigate to={"/"} />} />
             <Route path="overview" element={<Navigate to={"/"} />} />
+            <Route path="payments" element={<Navigate to={"/"} />} />
           </Route>
           {/* doctor routers */}
           <Route path="admin">
@@ -120,10 +117,7 @@ function Router() {
           {/* userprofile routes*/}
           <Route path="view" element={<ProfileLayout />}>
             <Route path="profile" element={<UserProfile />} />
-            <Route
-              path="favourite-doctors"
-              element={<FavouriteDoctors />}
-            />
+            <Route path="favourite-doctors" element={<FavouriteDoctors />} />
             <Route path="prescriptions" element={<UserPrescriptions />} />
             <Route path="chats" element={<UserChats />} />
             <Route path="appointments" element={<UserBookings />} />

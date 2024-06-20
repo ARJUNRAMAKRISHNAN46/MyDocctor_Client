@@ -26,17 +26,14 @@ const AppointmentReducer = createSlice({
         state.loading = true;
       })
       .addCase(addAppointment.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
       })
       .addCase(addAppointment.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
-        console.log("🚀 ~ .addCase ~ errorPayload:", errorPayload)
         state.err = errorPayload.message;
         toast.error(errorPayload.message);
         state.user = null;
@@ -45,14 +42,12 @@ const AppointmentReducer = createSlice({
         state.loading = true;
       })
       .addCase(listDoctorSlots.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
       })
       .addCase(listDoctorSlots.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;

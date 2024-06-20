@@ -11,7 +11,7 @@ import { getUser } from "../../redux/actions/AuthActions";
 
 function UserProfile() {
   const userData: UserData = useSelector(
-    (state: RootState) => state.userData.user
+    (state: RootState) => state.authData.user
   );
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();

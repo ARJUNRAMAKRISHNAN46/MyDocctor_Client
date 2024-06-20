@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import DoctorAddSlotModal from "../../modal/DoctorAddSlotModal";
 import { ListSlotsProps } from "../../../types/slotBooking";
 
-
 const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   const [showSlot, setShowSlot] = useState<boolean>(false);
 
@@ -12,15 +11,14 @@ const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
 
   useEffect(() => {
     setShowSlot(false);
-  },[selectedDate]);
-  
+  }, [selectedDate]);
+
   const openModal = () => {
     setShowSlot(true);
   };
 
   return (
     <div>
-      (
       {slots.length === 0 ? (
         <div className="flex justify-center">
           {showSlot ? (
@@ -76,7 +74,6 @@ const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
           ))}
         </div>
       )}
-      )
     </div>
   );
 };

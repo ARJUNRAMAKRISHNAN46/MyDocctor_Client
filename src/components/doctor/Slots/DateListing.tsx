@@ -10,7 +10,6 @@ const DatePicker: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
-  console.log("🚀 ~ userData:", userData)
   const [slots, setSlots] = useState([]);
 
   useEffect(() => {
@@ -20,7 +19,6 @@ const DatePicker: React.FC = () => {
       listDoctorSlots({ id: userData?._id, selectedDate: currentDateFormatted })
     ).then((res) => {
       setSlots(res.payload?.data);
-      // console.log("~ DoctorListing ~ res : ", res);
     });
   }, []);
 
@@ -42,12 +40,11 @@ const DatePicker: React.FC = () => {
   };
 
   const handleDateClick = (formattedDate: string, fullDate: Date) => {
-    console.log("🚀 ~ handleDateClick ~ fullDate:", userData?._id);
+    console.log("🚀 ~ handleDateClick ~ fullDate:", fullDate)
     dispatch(
       listDoctorSlots({ id: userData?._id, selectedDate: formattedDate })
     ).then((res) => {
       setSlots(res.payload?.data);
-      console.log("~ DoctorListing ~ res : ", res);
     });
     setSelectedDate(formattedDate);
     fetchSlots(formattedDate);

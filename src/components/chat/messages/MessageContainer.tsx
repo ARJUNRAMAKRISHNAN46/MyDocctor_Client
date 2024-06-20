@@ -80,7 +80,6 @@ function MessageContainer() {
           <MessageInput />
         </div>
       ) : (
-        // <VideoCall/>
         <div className="h-[96vh] bg-gray-700 flex flex-col justify-center items-center">
           <div className="h-[90vh] flex justify-center items-center">
             <h1>Calling...</h1>

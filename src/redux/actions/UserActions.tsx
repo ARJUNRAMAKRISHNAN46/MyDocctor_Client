@@ -7,16 +7,13 @@ import { UserProfileData } from "../../types/UserProfile";
 export const addSpeciality = createAsyncThunk(
   "admin/addSpeciality",
   async (specData: AddSpeciality, { rejectWithValue }) => {
-    console.log("🚀 ~ data:", specData);
     try {
       const { data } = await UserAxios.post("/add-speciality", {
         ...specData,
         role: "admin",
       });
-      console.log("🚀 ~ data:", data);
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -25,16 +22,13 @@ export const addSpeciality = createAsyncThunk(
 export const addService = createAsyncThunk(
   "admin/addService",
   async (specData: AddService, { rejectWithValue }) => {
-    console.log("🚀 ~ data:", specData);
     try {
       const { data } = await UserAxios.post("/add-service", {
         ...specData,
         role: "admin",
       });
-      console.log("🚀 ~ data:", data);
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -45,7 +39,6 @@ export const listUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await UserAxios.get("/list-users");
-      console.log("🚀 ~ async ~ data:", data);
 
       return data;
     } catch (error: any) {
@@ -72,7 +65,6 @@ export const listService = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await UserAxios.get("/list-services");
-      console.log("🚀 ~ async ~ data:", data);
 
       return data;
     } catch (error: any) {
@@ -86,7 +78,6 @@ export const updateProfile = createAsyncThunk(
   async (userData: UserProfileData, { rejectWithValue }) => {
     try {
       const { data } = await UserAxios.post("/update-profile", { ...userData });
-      console.log("🚀 ~ async ~ data:", data);
 
       return data;
     } catch (error: any) {

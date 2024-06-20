@@ -1,45 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ConsultationItem from "./ConsultationItem";
-
-const users = [
-  {
-    id: 1,
-    name: "patient1",
-    consultationMethod: "Video Consultancy",
-    date: "12-04-2024",
-    profile: "https://i.mydramalist.com/1kymd_5v.jpg",
-  },
-  {
-    id: 2,
-    name: "patient1",
-    consultationMethod: "Phone Consultancy",
-    date: "12-04-2024",
-    profile: "https://i.mydramalist.com/ZyyEJ_5v.jpg",
-  },
-  {
-    id: 3,
-    name: "patient1",
-    consultationMethod: "In-pernal Consultancy",
-    date: "12-04-2024",
-    profile: "https://i.mydramalist.com/jQQJvv_5v.jpg",
-  },
-  {
-    id: 2,
-    name: "patient1",
-    consultationMethod: "Phone Consultancy",
-    date: "12-04-2024",
-    profile: "https://i.mydramalist.com/ZyyEJ_5v.jpg",
-  },
-  {
-    id: 3,
-    name: "patient1",
-    consultationMethod: "In-pernal Consultancy",
-    date: "12-04-2024",
-    profile: "https://i.mydramalist.com/jQQJvv_5v.jpg",
-  },
-];
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { listUserForSideBar } from "../../redux/actions/AppointmentActions";
+import { UserData } from "../../types/userData";
 
 const ConsultationList: React.FC = () => {
+  const [patients, setPatients] = useState<UserData[]>([]);
+  const dispatch: AppDispatch = useDispatch();
+  const userData = useSelector((state: RootState) => state.authData.user);
+
+  useEffect(() => {
+    dispatch(listUserForSideBar(userData?._id)).then((res) => {
+      setPatients(res.payload?.data);
+    });
+  }, []);
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full text-white bg-gray-700">
@@ -53,8 +29,8 @@ const ConsultationList: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((consultation) => (
-            <ConsultationItem key={consultation.id} {...consultation} />
+          {patients.map((patient) => (
+            <ConsultationItem key={patient?._id} {...patient} />
           ))}
         </tbody>
       </table>

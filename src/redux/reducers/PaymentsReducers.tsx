@@ -26,17 +26,14 @@ const PaymentReducer = createSlice({
         state.loading = true;
       })
       .addCase(listPayments.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
       })
       .addCase(listPayments.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
-        console.log("🚀 ~ .addCase ~ errorPayload:", errorPayload);
         state.err = errorPayload.message;
         toast.error(errorPayload.message);
         state.user = null;

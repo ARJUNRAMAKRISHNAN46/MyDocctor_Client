@@ -26,7 +26,6 @@ const doctorReducer = createSlice({
         state.loading = true;
       })
       .addCase(updateDoctorProfile.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -36,7 +35,6 @@ const doctorReducer = createSlice({
         });
       })
       .addCase(updateDoctorProfile.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -47,7 +45,6 @@ const doctorReducer = createSlice({
         state.loading = true;
       })
       .addCase(verifyDoctor.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -57,7 +54,6 @@ const doctorReducer = createSlice({
         });
       })
       .addCase(verifyDoctor.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -68,14 +64,12 @@ const doctorReducer = createSlice({
         state.loading = true;
       })
       .addCase(listDoctor.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
       })
       .addCase(listDoctor.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -86,14 +80,12 @@ const doctorReducer = createSlice({
         state.loading = true;
       })
       .addCase(findDoctorById.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
       })
       .addCase(findDoctorById.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -104,14 +96,12 @@ const doctorReducer = createSlice({
         state.loading = true;
       })
       .addCase(blockUser.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
       })
       .addCase(blockUser.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -122,14 +112,12 @@ const doctorReducer = createSlice({
         state.loading = true;
       })
       .addCase(updateBooking.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
       })
       .addCase(updateBooking.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;

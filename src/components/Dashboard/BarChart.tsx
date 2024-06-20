@@ -145,7 +145,6 @@
 
 // export default BarChart;
 
-
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
@@ -210,10 +209,20 @@ const BarChart: React.FC = () => {
   const filterDataByDate = (data: any, key: any, format: any) => {
     const last7Days = getLast7Days();
     return last7Days.map((date) => {
-      const count = data.filter((item: any) => {
+      let count = 0;
+
+      data.forEach((item: any) => {
         const itemDate = moment(item[key], format).format("YYYY-MM-DD");
-        return itemDate === date;
-      }).length;
+
+        if (itemDate === date) {
+          item.slots.forEach((slot: any) => {
+            if (slot.userId) {
+              count++;
+            }
+          });
+        }
+      });
+
       return count;
     });
   };
@@ -287,8 +296,10 @@ const BarChart: React.FC = () => {
 
   return (
     <div className="bg-gray-700 mt-6 md:mt-0 md:w-[38%] p-2 rounded shadow">
-      <h2 className="text-xl mb-2 text-gray-300">Total Fees & Total Appointments by last week</h2>
-      <div style={{ height: '200px' }}> 
+      <h2 className="text-xl mb-2 text-gray-300">
+        Total Fees & Total Appointments by last week
+      </h2>
+      <div style={{ height: "200px" }}>
         <Bar data={data} options={options} />
       </div>
     </div>

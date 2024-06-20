@@ -37,7 +37,6 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(signupUser.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -47,7 +46,6 @@ const authReducer = createSlice({
         });
       })
       .addCase(signupUser.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -58,7 +56,6 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(signupDoctor.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -68,7 +65,6 @@ const authReducer = createSlice({
         });
       })
       .addCase(signupDoctor.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -79,7 +75,6 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(forgotPassword.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -89,7 +84,6 @@ const authReducer = createSlice({
         });
       })
       .addCase(forgotPassword.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -100,7 +94,6 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(doctorGoogle.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -110,7 +103,6 @@ const authReducer = createSlice({
         });
       })
       .addCase(doctorGoogle.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -121,7 +113,6 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(updatePassword.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -131,7 +122,6 @@ const authReducer = createSlice({
         });
       })
       .addCase(updatePassword.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -142,7 +132,6 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(userGoogle.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.err = false;
         state.user = payload.user;
@@ -152,7 +141,6 @@ const authReducer = createSlice({
         });
       })
       .addCase(userGoogle.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -169,12 +157,10 @@ const authReducer = createSlice({
         if (payload) {
           toast.success("Login successful !!!");
         }
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.user = payload?.data;
         console.log(state.user, "\\\\\\\\\\")
       })
       .addCase(LoginUser.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase error ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -191,11 +177,9 @@ const authReducer = createSlice({
         if (payload) {
           toast.success("Login successful !!!");
         }
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.user = payload?.data;
       })
       .addCase(googleLogin.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
@@ -206,12 +190,10 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(LogoutUser.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.user = payload?.data;
       })
       .addCase(LogoutUser.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload?.message;
@@ -222,17 +204,13 @@ const authReducer = createSlice({
         state.loading = true;
       })
       .addCase(getUser.fulfilled, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         state.user = payload?.data;
-        console.log(state.user, "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
       })
       .addCase(getUser.rejected, (state, { payload }) => {
-        console.log("🚀 ~ .addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload?.message;
-        // toast.error(errorPayload.message);
         state.user = null;
       });
   },

@@ -7,17 +7,14 @@ import { profileValues } from "../../pages/doctor/ProfileUpdation";
 export const updateDoctorProfile = createAsyncThunk(
   "doctor/updateProfile",
   async (userData: profileValues, { rejectWithValue }) => {
-    console.log("🚀 ~ userData:", userData);
     try {
       const { data } = await DoctorAxios.post("/update-profile", {
         ...userData,
         role: "doctor",
       });
-      console.log("🚀 ~ data:", data);
 
       return data;
     } catch (error) {
-      console.log("🚀 ~ error:", error);
       return rejectWithValue(handleErrors(error));
     }
   }
@@ -30,7 +27,6 @@ export const verifyDoctor = createAsyncThunk(
       const { data } = await DoctorAxios.get("/verify-doctor", {
         params: { email },
       });
-      console.log("🚀 ~ async ~ data:", data);
       return data;
     } catch (error: any) {
       return rejectWithValue(handleErrors(error));
@@ -43,7 +39,6 @@ export const listDoctor = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await DoctorAxios.get("/list-doctor");
-      console.log("🚀 ~ data:", data);
 
       return data;
     } catch (error: any) {
@@ -58,7 +53,6 @@ export const findDoctorById = createAsyncThunk(
     console.log("🚀 ~ id:", id)
     try {
       const { data } = await DoctorAxios.get(`/find-doctor/${id}`);
-      console.log("🚀 ~ async ~ data:", data);
       return data;
     } catch (error: any) {
       return rejectWithValue(handleErrors(error));
@@ -71,7 +65,6 @@ export const updateBooking = createAsyncThunk(
   async (availableShift: AvailableShift, { rejectWithValue }) => {
     try {
       const { data } = await DoctorAxios.put(`/update-booking/${availableShift?.doctorId}`, availableShift);
-      console.log("🚀 ~ async ~ data:", data);
       return data;
     } catch (error: any) {
       return rejectWithValue(handleErrors(error));
@@ -84,7 +77,6 @@ export const blockUser = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
     try {
       const { data } = await DoctorAxios.get(`/block-user/${id}`);
-      console.log("🚀 ~ async ~ data:", data);
 
       return data;
     } catch (error: any) {
@@ -98,7 +90,6 @@ export const addAppointmentLink = createAsyncThunk(
   async (linkData: { id: string, link: string }, { rejectWithValue }) => {
     try {
       const response = await DoctorAxios.post(`/add-link/${linkData.id}`, { link: linkData.link });
-      console.log('🚀 ~ async ~ response:', response.data);
 
       return response.data;
     } catch (error: any) {

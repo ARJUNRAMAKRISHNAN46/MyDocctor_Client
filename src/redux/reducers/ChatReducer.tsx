@@ -31,7 +31,6 @@ const ChatReducer = createSlice({
         state.message = payload?.message;
       })
       .addCase(getChats.rejected, (state, { payload }) => {
-        console.log("🚀 ~ builder.addCase ~ payload:", payload);
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
