@@ -8,14 +8,12 @@ const DoctorPayments = () => {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
   const [payments, setPayments] = useState<PaymentEntity[]>([]);
-  console.log("🚀 ~ DoctorPayments ~ payments:", payments);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
     dispatch(listPayments(userData?._id)).then((res) => {
-      console.log("🚀 ~ dispatch ~ res:", res);
-      setPayments(res.payload?.data || []);
+     setPayments(res.payload?.data || []);
     });
   }, [dispatch]);
 
@@ -40,7 +38,6 @@ const DoctorPayments = () => {
         <h1 className="font-bold text-[30px] text-white px-5">Payments</h1>
         <div className="w-[82vw] overflow-x-scroll">
           <div className="flex justify-center mt-4">
-            <div className="flex">
               <h1 className="text-center bg-gray-300 text-gray-700 py-2.5 font-bold  w-[60px]">
                 Sl.No
               </h1>
@@ -62,7 +59,6 @@ const DoctorPayments = () => {
               <h1 className="text-center bg-gray-300 text-gray-700 py-2.5 font-bold  w-[100px]">
                 Time Slot
               </h1>
-            </div>
           </div>
           <div className="flex justify-center">
             <div className="h-[65vh]">

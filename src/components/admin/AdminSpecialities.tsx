@@ -10,7 +10,9 @@ import { IoIosArrowForward } from "react-icons/io";
 function AdminSpecialities() {
   const [showBtn, setShowBtn] = useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const [speciality, setSpeciality] = useState<AddSpeciality[]>();
+  const [speciality, setSpeciality] = useState<AddSpeciality[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
     dispatch(listSpeciality()).then((res) => {
@@ -21,7 +23,16 @@ function AdminSpecialities() {
   const handleBtnClick = () => {
     setShowBtn(!showBtn);
   };
-  console.log(speciality, "=specifdsdsfhdsfiugdsifufdsgbfiuygsf");
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentSpeciality = speciality.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(speciality.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <div className="w-[84vw] min-h-[150vh] bg-gray-700 flex justify-center items-center">
@@ -50,7 +61,7 @@ function AdminSpecialities() {
           )}
         </div>
         <div className="md:px-16 grid grid-cols-3">
-          {speciality?.map((spec) => (
+          {currentSpeciality?.map((spec) => (
             <Card
               specialtyName={spec?.specialtyName}
               specialtyDescription={spec?.specialtyDescription}
@@ -58,6 +69,33 @@ function AdminSpecialities() {
               _id={spec?._id}
             />
           ))}
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="px-3 py-1 mx-1 bg-gray-600 text-white rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-3 py-1 mx-1 ${
+                currentPage === index + 1 ? "bg-gray-500" : "bg-gray-600"
+              } text-white rounded`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="px-3 py-1 mx-1 bg-gray-600 text-white rounded disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

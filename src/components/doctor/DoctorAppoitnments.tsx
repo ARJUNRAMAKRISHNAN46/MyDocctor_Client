@@ -47,7 +47,7 @@ function DoctorAppointments() {
   );
 
   const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
-  
+
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -62,27 +62,25 @@ function DoctorAppointments() {
       <div className="bg-gray-800 w-[82vw] h-[96vh]">
         <h1 className="font-bold text-[30px] text-white px-5">Payments</h1>
         <div className="w-[82vw] overflow-x-scroll">
-          <div className="flex mt-4">
-            <div className="flex">
-              <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[60px]">
-                Sl.No
-              </h1>
-              <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[300px]">
-                Appointment ID
-              </h1>
-              <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[300px]">
-                User ID
-              </h1>
-              <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[100px]">
-                Date
-              </h1>
-              <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
-                Time
-              </h1>
-              <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
-                Action
-              </h1>
-            </div>
+          <div className="flex mt-4 justify-center">
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[60px]">
+              Sl.No
+            </h1>
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[300px]">
+              Appointment ID
+            </h1>
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[300px]">
+              User ID
+            </h1>
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[100px]">
+              Date
+            </h1>
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
+              Time
+            </h1>
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
+              Action
+            </h1>
           </div>
           <div className="flex justify-center">
             <div className="h-[65vh]">

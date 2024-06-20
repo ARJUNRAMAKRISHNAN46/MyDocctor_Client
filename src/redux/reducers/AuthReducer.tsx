@@ -158,7 +158,6 @@ const authReducer = createSlice({
           toast.success("Login successful !!!");
         }
         state.user = payload?.data;
-        console.log(state.user, "\\\\\\\\\\")
       })
       .addCase(LoginUser.rejected, (state, { payload }) => {
         state.loading = false;

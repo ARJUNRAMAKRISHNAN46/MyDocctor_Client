@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useConversation } from "../../../zustand/useConversation";
 import { getChats } from "../../../redux/actions/ChatActions";
 import { useSocketContext } from "../../../contexts/SocketContext";
-import notificationSound from "../../../assets/sounds/notification.mp3";
+// import notificationSound from "../../../assets/sounds/notification.mp3";
 
 function Messages() {
   const lastMessageRef = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ function Messages() {
   useEffect(() => {
     setTimeout(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 1000);
+    }, 100);
     dispatch(
       getChats({
         userId: userData?._id as string,
@@ -30,11 +30,10 @@ function Messages() {
         setMessages(res.payload?.data?.messages);
       }
     });
-  }, [lastMessageRef]);
+  }, [lastMessageRef, selectedConversation]);
 
   useEffect(() => {
     const handleNewMessage = (newMessage: any) => {
-      console.log("🚀 ~ handleNewMessage ~ newMessage:", newMessage)
       newMessage.shouldShake = true;
       // const sound = new Audio(notificationSound);
       // sound.play();

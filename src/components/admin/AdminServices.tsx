@@ -10,7 +10,9 @@ import ServiceModal from "../modal/ServiceModal";
 function AdminServices() {
   const [showBtn, setShowBtn] = useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const [service, setService] = useState<AddService[]>();
+  const [service, setService] = useState<AddService[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
     dispatch(listService()).then((res) => {
@@ -21,11 +23,21 @@ function AdminServices() {
   const handleBtnClick = () => {
     setShowBtn(!showBtn);
   };
-  console.log(service, "=specifdsdsfhdsfiugdsifufdsgbfiuygsf");
+
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentServices = service?.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(service.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
-    <div className="min-h-[150vh] bg-gray-700 flex justify-center items-center p-3">
-      <div className=" bg-gray-800 min-h-[146vh]">
+    <div className="min-h-[150vh] bg-gray-700 flex w-[84vw] justify-center items-center p-3">
+      <div className=" bg-gray-800 min-h-[146vh] w-[82vw]">
         <div className="flex justify-between">
           <div className="flex items-center py-4 ml-6">
             <h1 className="text-white font-bold">ADMIN</h1>
@@ -50,14 +62,41 @@ function AdminServices() {
           )}
         </div>
         <div className="md:px-16 grid grid-cols-3">
-          {service?.map((svc) => (
+          {currentServices?.map((svc) => (
             <Card
               specialtyName={svc?.serviceName}
               specialtyDescription={svc?.serviceDescription}
               specialtyImage={svc?.serviceImage}
-              _id={svc?._id}
+              _id={String(svc?._id)}
             />
           ))}
+        </div>
+        <div className="flex justify-center mt-4">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="px-3 py-1 mx-1 bg-gray-600 text-white rounded disabled:opacity-50"
+          >
+            Previous
+          </button>
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-3 py-1 mx-1 ${
+                currentPage === index + 1 ? "bg-gray-500" : "bg-gray-600"
+              } text-white rounded`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="px-3 py-1 mx-1 bg-gray-600 text-white rounded disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

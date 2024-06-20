@@ -24,7 +24,7 @@ const Conversations: React.FC<ConversationsProps> = ({ user }) => {
       dispatch(listDoctorsForSideBar(userData?._id))
         .then((res) => {
           setUsers(res.payload?.data)
-          console.log(res.payload);
+          console.log(res.payload, "user");
         })
         .catch((err) => {
           console.log(err);
@@ -33,7 +33,7 @@ const Conversations: React.FC<ConversationsProps> = ({ user }) => {
       dispatch(listUserForSideBar(userData?._id))
         .then((res) => {
           setUsers(res.payload?.data)
-          console.log(res.payload);
+          console.log(res.payload, "doctor");
         })
         .catch((err) => {
           console.log(err);

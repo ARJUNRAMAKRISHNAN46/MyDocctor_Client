@@ -8,7 +8,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { IoVideocam } from "react-icons/io5";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { GoDotFill } from "react-icons/go";
-import VideoCall from "../../videoCall/VideoCall";
+// import VideoCall from "../../videoCall/VideoCall";
 import { ImPhoneHangUp } from "react-icons/im";
 
 function MessageContainer() {
@@ -34,6 +34,7 @@ function MessageContainer() {
   const closeVideoCall = () => {
     setVideoCall(false);
   }
+
 
   return (
     <div className="md:min-w-[450px] flex flex-col">

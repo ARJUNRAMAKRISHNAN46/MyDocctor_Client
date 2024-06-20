@@ -6,8 +6,8 @@ import { UserData } from "../../types/userData";
 function DoctorProfile() {
   const userData: UserData = useSelector((state: RootState) => state.authData.user);
   return (
-    <div className="w-[84vw] h-[150vh] bg-gray-700 flex justify-center items-center">
-      <div className=" bg-gray-800 w-[82vw] h-[146vh]">
+    <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">
+      <div className=" bg-gray-800 w-[82vw] h-[96vh]">
         <div className="flex items-center p-2">
           <h1 className="text-white font-bold">DOCTOR</h1>
           <IoIosArrowForward className="text-xl text-white" />
