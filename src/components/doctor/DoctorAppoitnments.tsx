@@ -60,7 +60,7 @@ function DoctorAppointments() {
   return (
     <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">
       <div className="bg-gray-800 w-[82vw] h-[96vh]">
-        <h1 className="font-bold text-[30px] text-white px-5">Payments</h1>
+        <h1 className="font-bold text-[30px] text-white px-5">Appointments</h1>
         <div className="w-[82vw] overflow-x-scroll">
           <div className="flex mt-4 justify-center">
             <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[60px]">

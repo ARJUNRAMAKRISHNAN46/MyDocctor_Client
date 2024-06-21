@@ -1,7 +1,11 @@
 import toast from "react-hot-toast";
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
-import { addAppointment, listDoctorSlots } from "../actions/AppointmentActions";
+import {
+  addAppointment,
+  listAllAppoinments,
+  listDoctorSlots,
+} from "../actions/AppointmentActions";
 
 const initialState: userReducerInitial = {
   loading: false,
@@ -22,7 +26,7 @@ const AppointmentReducer = createSlice({
   },
   extraReducers: (builder: ActionReducerMapBuilder<userReducerInitial>) => {
     builder
-    .addCase(addAppointment.pending, (state) => {
+      .addCase(addAppointment.pending, (state) => {
         state.loading = true;
       })
       .addCase(addAppointment.fulfilled, (state, { payload }) => {
@@ -38,7 +42,7 @@ const AppointmentReducer = createSlice({
         toast.error(errorPayload.message);
         state.user = null;
       })
-    .addCase(listDoctorSlots.pending, (state) => {
+      .addCase(listDoctorSlots.pending, (state) => {
         state.loading = true;
       })
       .addCase(listDoctorSlots.fulfilled, (state, { payload }) => {
@@ -54,7 +58,23 @@ const AppointmentReducer = createSlice({
         toast.error(errorPayload.message);
         state.user = null;
       })
-    },
+      .addCase(listAllAppoinments.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(listAllAppoinments.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(listAllAppoinments.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      });
+  },
 });
 
 export default AppointmentReducer.reducer;

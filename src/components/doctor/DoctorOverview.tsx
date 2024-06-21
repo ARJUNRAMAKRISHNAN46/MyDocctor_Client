@@ -1,7 +1,7 @@
-import BarChart from "../Dashboard/BarChart";
-import HeaderStats from "../Dashboard/HeaderStats";
-import LineChart from "../Dashboard/LineChart";
-import ListPatients from "../Dashboard/ListPatients";
+import BarChart from "../Dashboard/doctor/BarChart";
+import HeaderStats from "../Dashboard/doctor/HeaderStats";
+import LineChart from "../Dashboard/doctor/LineChart";
+import ListPatients from "../Dashboard/doctor/ListPatients";
 
 function DoctorOverview() {
   return (

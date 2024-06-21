@@ -14,3 +14,16 @@ export const listPayments = createAsyncThunk(
     }
   }
 );
+
+export const listAllPayments = createAsyncThunk(
+  "doctors/allPayments",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await PaymentsAxios.get(`/list-all-payments`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);

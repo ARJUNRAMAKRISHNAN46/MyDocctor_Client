@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { listDoctorAppoinments, listUserForSideBar } from "../../redux/actions/AppointmentActions";
-import { listPayments } from "../../redux/actions/PaymentActions";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/store";
+import { listAllAppoinments } from "../../../redux/actions/AppointmentActions";
+import { listAllPayments } from "../../../redux/actions/PaymentActions";
+import { listUsers } from "../../../redux/actions/UserActions";
 
 type Stat = {
   label: string;
@@ -12,18 +13,18 @@ type Stat = {
 
 const HeaderStats: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const userData = useSelector((state: RootState) => state.authData.user);
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState([]);
   const [payments, setPayments] = useState([]);
+
   useEffect(() => {
-    dispatch(listDoctorAppoinments(userData?._id)).then((res) => {
+    dispatch(listAllAppoinments()).then((res) => {
       setAppointments(res.payload?.data);
     })
-    dispatch(listUserForSideBar(userData?._id)).then((res) => {
+    dispatch(listUsers()).then((res) => {
       setPatients(res.payload?.data);
     });
-    dispatch(listPayments(userData?._id)).then((res) => {
+    dispatch(listAllPayments()).then((res) => {
       setPayments(res.payload?.data);
     })
   }, []);
@@ -44,10 +45,6 @@ const HeaderStats: React.FC = () => {
           <div className="text-green-400">{stat.percentage}</div>
         </div>
       ))}
-      {/* <div className="bg-gray-700 text-white p-4 rounded shadow flex flex-col justify-between">
-        <h1>Sales Report</h1>
-         <button className="bg-blue-700 px-4 py-1">Download</button>
-        </div> */}
     </div>
   );
 };

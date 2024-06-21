@@ -73,7 +73,9 @@ function AdminPatients() {
           {currentUsers.map((data: any, index) => (
             <div className="flex">
               <div className="border-b w-[60px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
-                <h1 className="">{index + 1}</h1>
+                <h1 className="">
+                  {(currentPage - 1) * itemsPerPage + index + 1}
+                </h1>
               </div>
               <div className="border-b w-[300px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
                 <h1 className="">{data.name}</h1>

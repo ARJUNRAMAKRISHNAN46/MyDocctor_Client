@@ -11,9 +11,9 @@ import {
   Legend,
 } from "chart.js";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { listPayments } from "../../redux/actions/PaymentActions";
-import { listDoctorAppoinments } from "../../redux/actions/AppointmentActions";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { listAllPayments } from "../../../redux/actions/PaymentActions";
+import { listAllAppoinments } from "../../../redux/actions/AppointmentActions";
 import { parse } from "date-fns";
 
 ChartJS.register(
@@ -51,15 +51,15 @@ const LineChart: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const paymentsResponse = await dispatch(listPayments(userData?._id));
+        const paymentsResponse = await dispatch(listAllPayments());
         const appointmentsResponse = await dispatch(
-          listDoctorAppoinments(userData?._id)
+          listAllAppoinments()
         );
-
+        
         setPayments(paymentsResponse.payload?.data || []);
         setAppointments(appointmentsResponse.payload?.data || []);
       } catch (error) {
@@ -106,7 +106,7 @@ const LineChart: React.FC = () => {
 
   appointments.forEach((appointment) => {
     const month = parseAppointmentDate(appointment.date).getMonth();
-    const appointmentCount = appointment.slots.filter(
+    const appointmentCount = appointment?.slots?.filter(
       (slot) => slot.userId
     ).length;
     appointmentsByMonth[month] += appointmentCount;

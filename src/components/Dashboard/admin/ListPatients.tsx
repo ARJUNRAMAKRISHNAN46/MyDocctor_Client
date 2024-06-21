@@ -1,4 +1,4 @@
-import ConsultationList from "../consultation/ConsultationList"
+import ConsultationList from "../../consultation/ConsultationList"
 
 function ListPatients() {
   return (

@@ -89,3 +89,15 @@ export const listUserAppoinments = createAsyncThunk(
   }
 );
 
+export const listAllAppoinments = createAsyncThunk(
+  "admin/listAllAppoinment",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await AppointmentAxios.get(`/list-all-appointments`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);

@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
-import { listPayments } from "../actions/PaymentActions";
+import { listAllPayments, listPayments } from "../actions/PaymentActions";
 import toast from "react-hot-toast";
 
 const initialState: userReducerInitial = {
@@ -32,6 +32,22 @@ const PaymentReducer = createSlice({
         state.message = payload?.message;
       })
       .addCase(listPayments.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(listAllPayments.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(listAllPayments.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(listAllPayments.rejected, (state, { payload }) => {
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;

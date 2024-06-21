@@ -156,10 +156,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { AppDispatch, RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { listDoctorAppoinments } from "../../redux/actions/AppointmentActions";
-import { listPayments } from "../../redux/actions/PaymentActions";
+import { listDoctorAppoinments } from "../../../redux/actions/AppointmentActions";
+import { listPayments } from "../../../redux/actions/PaymentActions";
 import { Appointment, Payment } from "./LineChart";
 import moment from "moment";
 
