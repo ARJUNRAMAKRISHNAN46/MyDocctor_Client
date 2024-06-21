@@ -68,7 +68,6 @@ export const SocketProvider = ({ children }: any) => {
 
   const attendVideoCall = () => {
     if (userId) {
-      // console.log("This is the socket url: ", SOCKET_URL);
       const newSocket = io(SOCKET_URL, {
         query: {
           userId: userId,

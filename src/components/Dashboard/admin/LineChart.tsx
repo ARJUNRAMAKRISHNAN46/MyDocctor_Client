@@ -51,15 +51,13 @@ const LineChart: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const paymentsResponse = await dispatch(listAllPayments());
-        const appointmentsResponse = await dispatch(
-          listAllAppoinments()
-        );
-        
+        const appointmentsResponse = await dispatch(listAllAppoinments());
+
         setPayments(paymentsResponse.payload?.data || []);
         setAppointments(appointmentsResponse.payload?.data || []);
       } catch (error) {
@@ -72,45 +70,64 @@ const LineChart: React.FC = () => {
     }
   }, [dispatch, userData]);
 
-  const parsePaymentDate = (dateStr: string) => {
+  const parsePaymentDate = (dateStr: string): Date => {
     return parse(dateStr, "dd-MM-yyyy", new Date());
   };
 
-  const parseAppointmentDate = (dateStr: string) => {
-    const [day, month, year] = dateStr.split("-").map(Number);
-    return new Date(year, month - 1, day);
-  };
+  function parseDate(dateString: string): string {
+    const [day, month, year] = dateString.split("-").map(Number);
+    return `${month.toString().padStart(2, "0")}-${year}`;
+  }
 
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  function countAppointments(data: Appointment[]): Record<string, number> {
+    const counts: Record<string, number> = {};
 
-  const paymentsByMonth = Array(12).fill(0);
-  const appointmentsByMonth = Array(12).fill(0);
+    data.forEach((appointment) => {
+      const date = parseDate(appointment.date);
+
+      if (!counts[date]) {
+        counts[date] = 0;
+      }
+
+      counts[date]++;
+    });
+
+    return counts;
+  }
+
+  function filterAppointmentsWithUserId(data: Appointment[]): Appointment[] {
+    return data.filter((appointment) =>
+      appointment.slots?.some((slot) => slot.userId)
+    );
+  }
+
+  const monthlyCounts = countAppointments(appointments);
+  const appointmentsWithUserId = filterAppointmentsWithUserId(appointments);
+
+  console.log("Monthly Appointment Counts:", monthlyCounts);
+  console.log("Appointments with userId in slots:", appointmentsWithUserId);
+
+  const paymentsByMonth: number[] = Array(12).fill(0);
 
   payments.forEach((payment) => {
     const month = parsePaymentDate(payment.date).getMonth();
     paymentsByMonth[month] += payment.fees;
   });
 
-  appointments.forEach((appointment) => {
-    const month = parseAppointmentDate(appointment.date).getMonth();
-    const appointmentCount = appointment?.slots?.filter(
-      (slot) => slot.userId
-    ).length;
-    appointmentsByMonth[month] += appointmentCount;
-  });
+  const months = [
+    "01-2024",
+    "02-2024",
+    "03-2024",
+    "04-2024",
+    "05-2024",
+    "06-2024",
+    "07-2024",
+    "08-2024",
+    "09-2024",
+    "10-2024",
+    "11-2024",
+    "12-2024",
+  ];
 
   const data = {
     labels: months,
@@ -123,7 +140,7 @@ const LineChart: React.FC = () => {
       },
       {
         label: "Total Appointments",
-        data: appointmentsByMonth,
+        data: months.map((month) => monthlyCounts[month] || 0),
         borderColor: "rgba(255, 73, 73, 0.8)",
         backgroundColor: "rgba(255, 99, 132, 0.2)",
       },

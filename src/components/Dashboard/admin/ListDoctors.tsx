@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import { UserData } from "../../../types/userData";
-import { listUsers } from "../../../redux/actions/UserActions";
+import { listDoctor } from "../../../redux/actions/DoctorActions";
 
-const ListPatients: React.FC = () => {
+const ListDoctors: React.FC = () => {
   const [doctors, setDoctors] = useState<UserData[]>([]);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listUsers()).then((res) => {
+    dispatch(listDoctor()).then((res) => {
       setDoctors(res.payload?.data);
     });
   }, []);
@@ -20,9 +20,9 @@ const ListPatients: React.FC = () => {
         <thead>
           <tr className="border border-b-gray-500 border-t-0 border-x-0">
             <th className="py-2 px-4 text-left">Profile</th>
-            <th className="py-2 px-4 text-left">Patient Name</th>
-            <th className="py-2 px-4 text-left">Mobile Number</th>
-            <th className="py-2 px-4 text-left">Country</th>
+            <th className="py-2 px-4 text-left">Doctor Name</th>
+            <th className="py-2 px-4 text-left">Expertise</th>
+            <th className="py-2 px-4 text-left">Date</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@ const ListPatients: React.FC = () => {
               </td>
               <td className="py-2 px-4">{doctor?.name}</td>
               <td className="py-2 px-4">
-                {doctor?.mobileNumber || "No number"}
+                {doctor?.expertise || "Unavailable"}
               </td>
               <td className="py-2 px-4">{doctor?.country || "Not provided"}</td>
             </tr>
@@ -50,4 +50,4 @@ const ListPatients: React.FC = () => {
   );
 };
 
-export default ListPatients;
+export default ListDoctors;
