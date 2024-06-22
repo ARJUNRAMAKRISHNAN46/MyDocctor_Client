@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
 import toast from "react-hot-toast";
-import { getChats } from "../actions/ChatActions";
+import { getChats, getPrescriptions } from "../actions/ChatActions";
 
 const initialState: userReducerInitial = {
   loading: false,
@@ -35,21 +35,26 @@ const ChatReducer = createSlice({
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;
         toast.error(errorPayload.message);
+      })
+      .addCase(getPrescriptions.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getPrescriptions.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.message = payload?.message;
+      })
+      .addCase(getPrescriptions.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
       });
   },
 });
 
 export default ChatReducer.reducer;
 export const { resetMessage } = ChatReducer.actions;
-
-
-
-
-
-
-
-
-
 
 // import { createSlice } from "@reduxjs/toolkit";
 // import { ErrorPayload } from "vite/types/hmrPayload.js";

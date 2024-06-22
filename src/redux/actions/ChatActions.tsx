@@ -31,3 +31,16 @@ export const sendMessage = createAsyncThunk(
     }
   }
 )
+
+export const getPrescriptions = createAsyncThunk(
+  "user/getPrescriptions",
+  async ( recieverId: string, { rejectWithValue }) => {
+    try {
+      const { data } = await ChatAxios.get(`/get-prescriptions/${recieverId}`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error))
+    }
+  }
+)

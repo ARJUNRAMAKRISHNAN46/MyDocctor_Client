@@ -48,6 +48,11 @@ const Message: React.FC<MessageProps> = ({ message }) => {
           <img className="w-48 h-48 object-contain" src={message?.message} alt={message?.message} />
         </div>
       )}
+      {message?.type === "audio" && (
+        <div>
+          
+        </div>
+      )}
       {message?.type === "text" && (
         <div className={`chat-bubble  text-white pb-2`}>{message?.message}</div>
       )}
