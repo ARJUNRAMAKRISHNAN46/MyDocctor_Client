@@ -10,6 +10,14 @@ interface MessageProps {
 const Message: React.FC<MessageProps> = ({ message }) => {
   const userData = useSelector((state: RootState) => state.authData.user);
   const { selectedConversation } = useConversation();
+  const showThisMessage = (
+    message.senderId === selectedConversation?._id ||  message.senderId ===userData._id &&
+    message.recieverId === userData._id ||   message.recieverId===selectedConversation?._id 
+  );
+  console.log(showThisMessage,"==>")
+  if (!showThisMessage) {
+    return null;
+  }
   const fromMe = message?.senderId === userData?._id;
   const chatClassName = fromMe ? "chat-end" : "chat-start";
   const profilePhoto = fromMe
