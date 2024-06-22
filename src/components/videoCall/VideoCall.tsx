@@ -1,9 +1,12 @@
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useRef, useEffect, useState } from "react";
+import { useSocketContext } from "../../contexts/SocketContext";
+import { useConversation } from "../../zustand/useConversation";
 
 function randomID(len: number) {
   let result = "";
-  const chars = "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP",
+  const chars =
+      "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP",
     maxPos = chars.length;
   len = len || 5;
   for (let i = 0; i < len; i++) {
@@ -20,10 +23,12 @@ export function getUrlParams(url = window.location.href) {
 export default function VideoCall() {
   const [roomID, setRoomID] = useState("");
   const meetingContainerRef = useRef(null);
+  const { socket } = useSocketContext();
+  const { selectedConversation } = useConversation();
 
   useEffect(() => {
     const initialRoomID = getUrlParams().get("roomID") || randomID(5);
-    setRoomID(initialRoomID);
+    setRoomID("78945612");
     console.log("🚀 ~ App ~ roomID:", initialRoomID);
     console.log(
       window.location.protocol +
@@ -34,7 +39,6 @@ export default function VideoCall() {
         initialRoomID
     );
 
-    // Join the meeting automatically
     if (meetingContainerRef.current) {
       myMeeting(meetingContainerRef.current, initialRoomID);
     }
@@ -73,9 +77,29 @@ export default function VideoCall() {
         mode: ZegoUIKitPrebuilt.OneONoneCall,
       },
     });
-
-    
   };
+
+  socket.emit("videoCall", {
+    recieverId: selectedConversation?._id,
+    recieverName: selectedConversation?.name,
+    url:
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      "?roomID=" +
+      roomID,
+  });
+
+  console.log(
+    "🚀 ~ VideoCall ~ roomID:",
+    window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      "?roomID=" +
+      roomID
+  );
 
   return (
     <div>

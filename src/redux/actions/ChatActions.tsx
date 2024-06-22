@@ -19,10 +19,10 @@ export const getChats = createAsyncThunk(
 
 export const sendMessage = createAsyncThunk(
   "user/sendMessage",
-  async (ids: { senderId: string, recieverId: string, message: string }, { rejectWithValue }) => {
+  async (ids: { senderId: string, recieverId: string, message: string, type: string }, { rejectWithValue }) => {
     try {
       const { data } = await ChatAxios.post(`/send-message/${ids.recieverId}`, {
-        senderId: ids.senderId, message: ids.message
+        senderId: ids.senderId, message: ids.message, type: ids.type
       });
 
       return data;

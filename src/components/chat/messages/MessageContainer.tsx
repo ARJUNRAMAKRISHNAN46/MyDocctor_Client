@@ -8,39 +8,29 @@ import { CiMenuKebab } from "react-icons/ci";
 import { IoVideocam } from "react-icons/io5";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { GoDotFill } from "react-icons/go";
-// import VideoCall from "../../videoCall/VideoCall";
-import { ImPhoneHangUp } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 function MessageContainer() {
   const { selectedConversation, setMessages } = useConversation();
-  const { onlineUsers, socket } = useSocketContext();
+  const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(selectedConversation?._id);
-  const [videoCall, setVideoCall] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    return () => setVideoCall(false);
   }, [setMessages]);
 
   const handleVideoCall = () => {
     if (onlineUsers.includes(selectedConversation?._id)) {
-      socket.emit("videoCall", {
-        recieverId: selectedConversation?._id,
-        recieverName: selectedConversation?.name,
-      });
+      
+      navigate("/start-video-call")
     }
-    setVideoCall(true);
   };
-
-  const closeVideoCall = () => {
-    setVideoCall(false);
-  }
-
 
   return (
     <div className="md:min-w-[450px] flex flex-col">
       {!selectedConversation ? (
         <NoChatSelected />
-      ) : !videoCall ? (
+      ) : (
         <div className="flex-col flex justify-between h-[96vh]">
           <div className="bg-gray-700 px-4 py-2 mb-2 flex items-center justify-between">
             <div className="flex items-center">
@@ -80,16 +70,16 @@ function MessageContainer() {
           <Messages />
           <MessageInput />
         </div>
-      ) : (
-        <div className="h-[96vh] bg-gray-700 flex flex-col justify-center items-center">
-          <div className="h-[90vh] flex justify-center items-center">
-            <h1>Calling...</h1>
-          </div>
-          <div className="h-[10vh] flex justify-center items-center">
-            <button onClick={closeVideoCall} className="bg-red-600 rounded px-6 py-2"><ImPhoneHangUp className="text-white" /></button>
-          </div>
-        </div>
-      )}
+      ) 
+        // <div className="h-[96vh] bg-gray-700 flex flex-col justify-center items-center">
+        //   <div className="h-[90vh] flex justify-center items-center">
+        //     <h1>Calling...</h1>
+        //   </div>
+        //   <div className="h-[10vh] flex justify-center items-center">
+        //     <button onClick={closeVideoCall} className="bg-red-600 rounded px-6 py-2"><ImPhoneHangUp className="text-white" /></button>
+        //   </div>
+        // </div>
+      }
     </div>
   );
 }

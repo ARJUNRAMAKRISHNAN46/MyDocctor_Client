@@ -47,6 +47,7 @@ import AdminServices from "./admin/AdminServices";
 import PaymentSuccess from "./payment/PaymentSuccess";
 import ViewPatient from "./doctor/subpages/ViewPatient";
 import DoctorPayments from "./doctor/DoctorPayments";
+import VideoCall from "./videoCall/VideoCall";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -83,6 +84,7 @@ function Router() {
           <Route path="/our-service" element={<Services />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/view-doctor-profile/:id" element={<ViewDoctor />} />
+          <Route path="/start-video-call" element={<VideoCall />} />
           <Route
             path="/select-slot/:id"
             element={
@@ -147,6 +149,7 @@ function Router() {
             path="/userHome"
             element={userData ? <Home /> : <Navigate to={"/login"} />}
           />
+          <Route path="/start-video-call" element={<VideoCall />} />
           <Route path="/select-slot/:id" element={<SlotBooking />} />
           <Route path="/list-doctors" element={<Doctors />} />
           <Route path="/show-Profile" element={<UserProfile />} />
@@ -253,6 +256,7 @@ function Router() {
               path="/doctor/updateDetails"
               element={<Navigate to={"/doctor/overview"} />}
             />
+            <Route path="/start-video-call" element={<VideoCall />} />
             <Route path="doctor" element={<DoctorLayout />}>
               <Route path="doctorHome" element={<DoctorOverview />} />
               <Route path="overview" element={<DoctorOverview />} />

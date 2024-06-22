@@ -8,13 +8,14 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ message }) => {
+  console.log("🚀 ~ message:", message);
   const userData = useSelector((state: RootState) => state.authData.user);
   const { selectedConversation } = useConversation();
-  const showThisMessage = (
-    message.senderId === selectedConversation?._id ||  message.senderId ===userData._id &&
-    message.recieverId === userData._id ||   message.recieverId===selectedConversation?._id 
-  );
-  console.log(showThisMessage,"==>")
+  const showThisMessage =
+    message?.senderId === selectedConversation?._id ||
+    (message?.senderId === userData?._id &&
+      message?.recieverId === userData?._id) ||
+    message?.recieverId === selectedConversation?._id;
   if (!showThisMessage) {
     return null;
   }
@@ -42,7 +43,14 @@ const Message: React.FC<MessageProps> = ({ message }) => {
           />
         </div>
       </div>
-      <div className={`chat-bubble  text-white pb-2`}>{message?.message}</div>
+      {message?.type === "image" && (
+        <div>
+          <img className="w-48 h-48 object-contain" src={message?.message} alt={message?.message} />
+        </div>
+      )}
+      {message?.type === "text" && (
+        <div className={`chat-bubble  text-white pb-2`}>{message?.message}</div>
+      )}
       <div className="chat-footer opacity-50 text-sm flex gap-1 items-center">
         {formattedTime}
       </div>

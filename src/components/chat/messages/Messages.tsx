@@ -42,6 +42,7 @@ function Messages() {
 
     socket?.on("newMessage", handleNewMessage);
   }, [socket, setMessages, messages]);
+  console.log("🚀 ~ Messages ~ messages:", messages)
 
   return (
     <div className="px-4 flex-1 overflow-auto">

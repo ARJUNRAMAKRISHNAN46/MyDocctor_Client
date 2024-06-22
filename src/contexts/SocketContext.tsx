@@ -4,7 +4,8 @@ import { RootState } from "../redux/store";
 import io from "socket.io-client";
 import hotToast from "react-hot-toast";
 import { BiPhoneCall } from "react-icons/bi";
-import { useConversation } from "../zustand/useConversation";
+// import { useConversation } from "../zustand/useConversation";
+import { useNavigate } from "react-router-dom";
 
 const SOCKET_URL = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
@@ -25,9 +26,10 @@ export const useSocketContext = (): SocketContextType => {
 };
 
 export const SocketProvider = ({ children }: any) => {
-  const { setAttendCall } = useConversation();
+  // const { setAttendCall } = useConversation();
   const [socket, setSocket] = useState<any | null>(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const navigate = useNavigate();
 
   const userId = useSelector((state: RootState) => state.authData.user?._id);
 
@@ -46,14 +48,16 @@ export const SocketProvider = ({ children }: any) => {
       });
 
       newSocket.on("incomingCall", (data: any) => {
-
+        console.log("🚀 ~ newSocket.on ~ data:", data)
         hotToast(
           (t) => (
             <div className="bg-green-100 h-10 flex justify-center items-center rounded-md gap-3">
               <BiPhoneCall className="h-8 w-8 text-green-500 " />
               <p className="font-medium"> from user</p>
               <p className="text-blue-500">
-                <button onClick={attendVideoCall}>Join Now</button>
+                <a href={data?.url}>
+                  Join Now
+                </a>
               </p>
             </div>
           ),
@@ -66,18 +70,19 @@ export const SocketProvider = ({ children }: any) => {
     }
   }, [userId]);
 
-  const attendVideoCall = () => {
-    if (userId) {
-      const newSocket = io(SOCKET_URL, {
-        query: {
-          userId: userId,
-        },
-      });
-      console.log("setAttendCall : true", socket);
-      newSocket.emit("attendCall", { userId });
-      setAttendCall(true);
-    }
-  };
+  // const attendVideoCall = (roomID: string) => {
+  //   console.log("🚀 ~ attendVideoCall ~ url:", roomID)
+  //   if (userId) {
+  //     const newSocket = io(SOCKET_URL, {
+  //       query: {
+  //         userId: userId,
+  //       },
+  //     });
+  //     console.log("setAttendCall : true", socket);
+  //     newSocket.emit("attendCall", { userId });
+  //     navigate(`/start-video-call?roomID=${roomID}`);
+  //   }
+  // };
 
   const contextValue: SocketContextType = {
     socket,

@@ -12,6 +12,7 @@ export interface ChatInitial {
 export interface ChatData {
   createdAt: string;
   message: string;
+  type: string;
   recieverId: string;
   senderId: string;
   updatedAt: string;
