@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { listDoctorAppoinments } from "../../redux/actions/AppointmentActions";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function DoctorAppointments() {
   const [slots, setSlots] = useState([]);
@@ -54,8 +54,8 @@ function DoctorAppointments() {
     setCurrentPage(pageNumber);
   };
 
-  const viewUsers = (userId: string) => {
-    navigate(`/doctor/show-patient/${userId}`);
+  const viewUsers = (slotId: string, userId: string) => {
+    navigate(`/doctor/show-patient/${slotId}?userId=${userId}`);
   };
 
   return (
@@ -104,7 +104,7 @@ function DoctorAppointments() {
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[200px]">
                     <button
-                      onClick={() => viewUsers(appointment.slotId)}
+                      onClick={() => viewUsers(appointment.slotId, appointment?.userId)}
                       className="bg-blue-500 text-white px-8 py-0.5 rounded"
                     >
                       View
