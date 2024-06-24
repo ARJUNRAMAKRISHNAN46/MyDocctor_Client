@@ -44,3 +44,16 @@ export const getPrescriptions = createAsyncThunk(
     }
   }
 )
+
+export const deleteMessage = createAsyncThunk(
+  "user/deleteMessage",
+  async ( msgId: string, { rejectWithValue }) => {
+    try {
+      const { data } = await ChatAxios.get(`/delete-message/${msgId}`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error))
+    }
+  }
+)

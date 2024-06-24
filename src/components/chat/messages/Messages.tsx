@@ -3,7 +3,7 @@ import Message from "./Message";
 import { AppDispatch, RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { useConversation } from "../../../zustand/useConversation";
-import { getChats } from "../../../redux/actions/ChatActions";
+import { getChats, deleteMessage } from "../../../redux/actions/ChatActions";
 import { useSocketContext } from "../../../contexts/SocketContext";
 // import notificationSound from "../../../assets/sounds/notification.mp3";
 
@@ -11,7 +11,7 @@ function Messages() {
   const lastMessageRef = useRef<HTMLDivElement>(null);
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
-  const { selectedConversation, setMessages, messages } = useConversation();
+  const { selectedConversation, setMessages, messages = [] } = useConversation(); // Ensure messages is an array
   const { socket } = useSocketContext();
 
   useEffect(() => {
@@ -30,31 +30,45 @@ function Messages() {
         setMessages(res.payload?.data?.messages);
       }
     });
-  }, [lastMessageRef, selectedConversation]);
+  }, [lastMessageRef, selectedConversation, setMessages, messages, dispatch, userData?._id]);
 
   useEffect(() => {
     const handleNewMessage = (newMessage: any) => {
       newMessage.shouldShake = true;
       // const sound = new Audio(notificationSound);
       // sound.play();
-      setMessages([...messages, newMessage]);
+      setMessages((prevMessages: any) => [...prevMessages, newMessage]);
     };
 
     socket?.on("newMessage", handleNewMessage);
-  }, [socket, setMessages, messages]);
-  console.log("🚀 ~ Messages ~ messages:", messages)
+    return () => {
+      socket?.off("newMessage", handleNewMessage);
+    };
+  }, [socket, setMessages]);
+
+  const handleDelete = (messageId: string) => {
+    dispatch(deleteMessage(messageId)).then((res) => {
+      console.log("🚀 ~ dispatch ~ res:", res);
+    });
+
+    setMessages((prevMessages: any) =>
+      prevMessages.filter((message: any) => message._id !== messageId)
+    );
+    console.log("message deleted");
+  };
 
   return (
     <div className="px-4 flex-1 overflow-auto">
-      {messages?.length > 0 &&
-        messages?.map((message, index) => (
+      {Array.isArray(messages) && messages.length > 0 && 
+        messages.map((message, index) => (
           <div
             key={message?._id}
-            ref={index === messages?.length - 1 ? lastMessageRef : null}
+            ref={index === messages.length - 1 ? lastMessageRef : null}
           >
-            <Message message={message} />
+            <Message message={message} handleDelete={handleDelete} />
           </div>
-        ))}
+        ))
+      }
     </div>
   );
 }
