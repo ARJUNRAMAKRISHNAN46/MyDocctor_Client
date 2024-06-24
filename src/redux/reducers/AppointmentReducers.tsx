@@ -3,6 +3,7 @@ import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
 import {
   addAppointment,
+  getSlotById,
   listAllAppoinments,
   listDoctorSlots,
 } from "../actions/AppointmentActions";
@@ -73,7 +74,23 @@ const AppointmentReducer = createSlice({
         state.err = errorPayload.message;
         toast.error(errorPayload.message);
         state.user = null;
-      });
+      })
+      .addCase(getSlotById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getSlotById.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(getSlotById.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
   },
 });
 

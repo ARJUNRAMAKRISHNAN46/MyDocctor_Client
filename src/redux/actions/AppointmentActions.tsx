@@ -80,7 +80,9 @@ export const listUserAppoinments = createAsyncThunk(
   "user/listUserAppoinment",
   async (id: string, { rejectWithValue }) => {
     try {
-      const { data } = await AppointmentAxios.get(`/list-user-appointments/${id}`);
+      const { data } = await AppointmentAxios.get(
+        `/list-user-appointments/${id}`
+      );
 
       return data;
     } catch (error: any) {
@@ -94,6 +96,19 @@ export const listAllAppoinments = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await AppointmentAxios.get(`/list-all-appointments`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const getSlotById = createAsyncThunk(
+  "admin/getSlotById",
+  async (slotId: string, { rejectWithValue }) => {
+    try {
+      const { data } = await AppointmentAxios.get(`/get-slot/${slotId}`);
 
       return data;
     } catch (error: any) {

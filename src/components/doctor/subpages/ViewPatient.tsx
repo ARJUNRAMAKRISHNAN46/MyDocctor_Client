@@ -10,7 +10,7 @@ const ViewPatient = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState<UserData>();
-  const userData = useSelector((state: RootState) => state.userData.user);
+  const userData = useSelector((state: RootState) => state.authData.user);
   const [slots, setSlots] = useState([]);
   const dispatch: AppDispatch = useDispatch();
 
@@ -21,34 +21,35 @@ const ViewPatient = () => {
     });
   }, [dispatch, userData?._id]);
 
-  const listAppointmentsWithUserId = (appointments: any) => {
-    const result: any = [];
+  // const listAppointmentsWithUserId = (appointments: any) => {
+  //   const result: any = [];
 
-    appointments.forEach((appointment) => {
-      appointment.slots.forEach((slot) => {
-        if (slot.userId) {
-          result.push({
-            appointmentId: appointment._id,
-            userId: slot.userId,
-            date: appointment.date,
-            time: slot.start,
-          });
-        }
-      });
-    });
+  //   appointments.forEach((appointment: any) => {
+  //     appointment.slots.forEach((slot: any) => {
+        
+  //       if (slot.userId) {
+  //         result.push({
+  //           appointmentId: appointment._id,
+  //           userId: slot.userId?._id,
+  //           date: appointment.date,
+  //           time: slot.start,
+  //         });
+  //       }
+  //     });
+  //   });
 
-    return result;
-  };
+  //   return result;
+  // };
 
-  const filteredAppointments = listAppointmentsWithUserId(slots);
+  // const filteredAppointments = listAppointmentsWithUserId(slots);
 
-  function getAppointmentsByUserId(userId: string) {
-    return filteredAppointments.filter(
-      (appointment) => appointment.userId === userId
-    );
-  }
+  // function getAppointmentsByUserId(userId: string) {
+  //   return filteredAppointments.filter(
+  //     (appointment: any) => appointment.userId === userId
+  //   );
+  // }
 
-  const data = getAppointmentsByUserId(String(user?._id));
+  // const data = getAppointmentsByUserId(String(user?._id));
 
   const fetchUser = async () => {
     const response = await axios.get(
@@ -76,10 +77,10 @@ const ViewPatient = () => {
             <h1 className="mt-2 text-gray-300">Name: {user?.name}</h1>
             <h1 className="mt-2 text-gray-300">Email: {user?.email}</h1>
             <h1 className="mt-2 text-gray-300">
-              Mobile Number: {user?.mobileNumber}
+              Mobile Number: {user?.mobileNumber || "not provided"}
             </h1>
-            <h1 className="mt-2 text-gray-300">state: {user?.state}</h1>
-            <h1 className="mt-2 text-gray-300">Country: {user?.country}</h1>
+            <h1 className="mt-2 text-gray-300">state: {user?.state || "not provided"}</h1>
+            <h1 className="mt-2 text-gray-300">Country: {user?.country || "not provided"}</h1>
           </div>
           <div className="w-[50%]">
             <div className="flex">

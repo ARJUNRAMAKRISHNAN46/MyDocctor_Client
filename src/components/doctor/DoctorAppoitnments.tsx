@@ -26,9 +26,11 @@ function DoctorAppointments() {
         if (slot.userId) {
           result.push({
             appointmentId: appointment._id,
-            userId: slot.userId,
+            name: slot.userId.name,
+            userId: slot.userId?._id,
             date: appointment.date,
             time: slot.start,
+            slotId: slot._id,
           });
         }
       });
@@ -53,7 +55,6 @@ function DoctorAppointments() {
   };
 
   const viewUsers = (userId: string) => {
-    console.log("🚀 ~ viewUsers ~ userId:", userId);
     navigate(`/doctor/show-patient/${userId}`);
   };
 
@@ -70,7 +71,7 @@ function DoctorAppointments() {
               Appointment ID
             </h1>
             <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[300px]">
-              User ID
+              User Name
             </h1>
             <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[100px]">
               Date
@@ -93,7 +94,7 @@ function DoctorAppointments() {
                     {appointment.appointmentId}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
-                    {appointment.userId}
+                    {appointment.name}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[100px]">
                     {appointment.date}
@@ -103,7 +104,7 @@ function DoctorAppointments() {
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[200px]">
                     <button
-                      onClick={() => viewUsers(appointment.userId)}
+                      onClick={() => viewUsers(appointment.slotId)}
                       className="bg-blue-500 text-white px-8 py-0.5 rounded"
                     >
                       View

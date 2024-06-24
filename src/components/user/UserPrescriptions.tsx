@@ -31,7 +31,7 @@ function UserPrescriptions() {
   };
 
   return (
-    <div className="bg-white h-[100vh] px-4">
+    <div className="bg-white h-[100vh] px-4 curs">
       <h1 className="text-gray-800 font-semibold">Prescriptions</h1>
       <div className="grid grid-cols-3">
         {currentPrescriptions?.map((presc) => (
