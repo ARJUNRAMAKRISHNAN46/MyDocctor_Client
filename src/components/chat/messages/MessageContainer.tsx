@@ -64,16 +64,7 @@ function MessageContainer() {
           <Messages />
           <MessageInput />
         </div>
-      ) 
-        // <div className="h-[96vh] bg-gray-700 flex flex-col justify-center items-center">
-        //   <div className="h-[90vh] flex justify-center items-center">
-        //     <h1>Calling...</h1>
-        //   </div>
-        //   <div className="h-[10vh] flex justify-center items-center">
-        //     <button onClick={closeVideoCall} className="bg-red-600 rounded px-6 py-2"><ImPhoneHangUp className="text-white" /></button>
-        //   </div>
-        // </div>
-      }
+      )}
     </div>
   );
 }

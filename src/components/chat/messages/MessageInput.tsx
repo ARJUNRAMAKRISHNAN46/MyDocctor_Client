@@ -5,15 +5,14 @@
 // import { AppDispatch, RootState } from "../../../redux/store";
 // import { useConversation } from "../../../zustand/useConversation";
 // import { sendMessage } from "../../../redux/actions/ChatActions";
-// import { ChatData } from "../../../types/ChatTypes";
 // import { useSocketContext } from "../../../contexts/SocketContext";
 // import { GrAttachment } from "react-icons/gr";
 // import { imageUpload } from "../../../utils/UploadImage";
 
 // function MessageInput() {
 //   const [message, setMessage] = useState<string>("");
-//   const { setMessages, messages } = useConversation();
-//   const [lastMessage, setLastMessage] = useState<ChatData>();
+//   const { setMessages, messages, replyToMessage, setReplyToMessage } =
+//     useConversation();
 //   const userData = useSelector((state: RootState) => state.authData.user);
 //   const dispatch: AppDispatch = useDispatch();
 //   const { selectedConversation } = useConversation() as any;
@@ -33,17 +32,18 @@
 //       recieverId: selectedConversation?._id,
 //       message: message,
 //       type: "text",
+//       replyTo: replyToMessage?.message,
 //     };
 //     socket.emit("new message", {
 //       obj: { ...messageData, createdAt: new Date() },
 //     });
 
 //     dispatch(sendMessage(messageData)).then((res) => {
-//       setLastMessage(res.payload?.data);
 //       setMessages([...(messages || []), res.payload?.data]);
 //     });
 
 //     setMessage("");
+//     setReplyToMessage(null);
 //   };
 
 //   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +61,7 @@
 //           recieverId: selectedConversation?._id,
 //           message: fileUrl,
 //           type: "image",
+//           replyTo: replyToMessage?.message,
 //         };
 
 //         socket.emit("new message", {
@@ -68,21 +69,37 @@
 //         });
 
 //         dispatch(sendMessage(messageData)).then((res) => {
-//           setLastMessage(res.payload?.data);
 //           setMessages([...(messages || []), res.payload?.data]);
 //         });
+
+//         setReplyToMessage(null);
 //       } catch (error) {
 //         toast.error("Failed to upload image");
 //       }
 //     }
 //   };
 
+//   console.log(
+//     "🚀 ~ handleFileChange ~ messageData.replyToMessage:",
+//     replyToMessage
+//   );
 //   const handleAttachClick = () => {
 //     fileInputRef.current?.click();
 //   };
 
 //   return (
 //     <form className="px-4 my-3" onSubmit={handleSubmit}>
+//       {replyToMessage && (
+//         <div className="p-2 bg-gray-300 text-gray-700 rounded mb-2">
+//           Replying to: {replyToMessage.message}
+//           <button
+//             className="ml-4 text-red-600"
+//             onClick={() => setReplyToMessage(null)}
+//           >
+//             Cancel
+//           </button>
+//         </div>
+//       )}
 //       <div className="w-full relative">
 //         <button
 //           type="button"
@@ -126,15 +143,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
 import { useConversation } from "../../../zustand/useConversation";
 import { sendMessage } from "../../../redux/actions/ChatActions";
-// import { ChatData } from "../../../types/ChatTypes";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { GrAttachment } from "react-icons/gr";
+import { FiMic } from "react-icons/fi";
 import { imageUpload } from "../../../utils/UploadImage";
+import { VideoUpload } from "../../../utils/UploadVideo";
 
 function MessageInput() {
   const [message, setMessage] = useState<string>("");
-  const { setMessages, messages, replyToMessage, setReplyToMessage } = useConversation();
-  // const [ setLastMessage] = useState<ChatData>();
+  const [isRecording, setIsRecording] = useState<boolean>(false);
+  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+  const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
+  const { setMessages, messages, replyToMessage, setReplyToMessage } =
+    useConversation();
   const userData = useSelector((state: RootState) => state.authData.user);
   const dispatch: AppDispatch = useDispatch();
   const { selectedConversation } = useConversation() as any;
@@ -161,7 +182,6 @@ function MessageInput() {
     });
 
     dispatch(sendMessage(messageData)).then((res) => {
-      // setLastMessage(res.payload?.data);
       setMessages([...(messages || []), res.payload?.data]);
     });
 
@@ -184,28 +204,89 @@ function MessageInput() {
           recieverId: selectedConversation?._id,
           message: fileUrl,
           type: "image",
-          replyTo: replyToMessage?.message, 
+          replyTo: replyToMessage?.message,
         };
-        
+
         socket.emit("new message", {
           obj: { ...messageData, createdAt: new Date() },
         });
 
         dispatch(sendMessage(messageData)).then((res) => {
-          // setLastMessage(res.payload?.data);
           setMessages([...(messages || []), res.payload?.data]);
         });
 
-        setReplyToMessage(null); 
+        setReplyToMessage(null);
       } catch (error) {
         toast.error("Failed to upload image");
       }
     }
   };
-  
-  console.log("🚀 ~ handleFileChange ~ messageData.replyToMessage:", replyToMessage)
+
   const handleAttachClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleStartRecording = () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      toast.error("Audio recording is not supported in this browser");
+      return;
+    }
+
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then((stream) => {
+        const recorder = new MediaRecorder(stream);
+        recorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            setAudioChunks((prev) => [...prev, event.data]);
+          }
+        };
+        recorder.onstop = async () => {
+          const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+          try {
+            const audioUrl = await VideoUpload(audioBlob);
+            if (!audioUrl) {
+              toast.error("Failed to upload audio");
+              return;
+            }
+
+            const messageData = {
+              senderId: userData?._id,
+              recieverId: selectedConversation?._id,
+              message: audioUrl,
+              type: "audio",
+              replyTo: replyToMessage?.message,
+            };
+
+            socket.emit("new message", {
+              obj: { ...messageData, createdAt: new Date() },
+            });
+
+            dispatch(sendMessage(messageData)).then((res) => {
+              setMessages([...(messages || []), res.payload?.data]);
+            });
+
+            setReplyToMessage(null);
+          } catch (error) {
+            toast.error("Failed to upload audio");
+          }
+        };
+        recorder.start();
+        setMediaRecorder(recorder);
+        setAudioChunks([]);
+        setIsRecording(true);
+      })
+      .catch((error) => {
+        toast.error("Failed to start recording");
+        console.error("Error accessing audio stream:", error);
+      });
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setIsRecording(false);
+    }
   };
 
   return (
@@ -213,7 +294,12 @@ function MessageInput() {
       {replyToMessage && (
         <div className="p-2 bg-gray-300 text-gray-700 rounded mb-2">
           Replying to: {replyToMessage.message}
-          <button className="ml-4 text-red-600" onClick={() => setReplyToMessage(null)}>Cancel</button>
+          <button
+            className="ml-4 text-red-600"
+            onClick={() => setReplyToMessage(null)}
+          >
+            Cancel
+          </button>
         </div>
       )}
       <div className="w-full relative">
@@ -242,6 +328,13 @@ function MessageInput() {
           className="absolute inset-y-0 end-0 flex items-center pe-3"
         >
           <BsSend />
+        </button>
+        <button
+          type="button"
+          className="absolute inset-y-0 end-10 flex items-center pe-3"
+          onClick={isRecording ? handleStopRecording : handleStartRecording}
+        >
+          <FiMic className={isRecording ? "text-red-600" : ""} />
         </button>
       </div>
     </form>
