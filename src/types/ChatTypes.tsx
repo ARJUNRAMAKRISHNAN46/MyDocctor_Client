@@ -16,6 +16,7 @@ export interface ChatData {
   recieverId: string;
   senderId: string;
   updatedAt: string;
+  replyTo?: string;
   _id: string;
 }
 

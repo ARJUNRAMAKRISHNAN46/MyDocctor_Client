@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
@@ -8,22 +8,16 @@ import { CiMenuKebab } from "react-icons/ci";
 import { IoVideocam } from "react-icons/io5";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { GoDotFill } from "react-icons/go";
-import { useNavigate } from "react-router-dom";
 
 function MessageContainer() {
-  const { selectedConversation, setMessages } = useConversation();
+  const { selectedConversation, setMessages } = useConversation() as any;
   const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(selectedConversation?._id);
-  const navigate = useNavigate();
 
   useEffect(() => {
   }, [setMessages]);
 
   const handleVideoCall = () => {
-    if (onlineUsers.includes(selectedConversation?._id)) {
-      
-      navigate("/start-video-call")
-    }
   };
 
   return (
