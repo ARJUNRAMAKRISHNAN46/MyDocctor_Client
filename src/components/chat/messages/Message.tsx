@@ -59,7 +59,22 @@ const Message: React.FC<MessageProps> = ({
       <div className={`flex flex-col ${fromMe ? "items-end" : "items-start"}`}>
         {message?.replyTo && (
           <div className="bg-gray-700 p-2 rounded-[10px] mb-1 text-white self-start">
-            <div>{message?.replyTo}</div>
+
+            {message?.replyTo &&
+              !message.replyTo.includes(".webm") &&
+              !message.replyTo.includes(".jpg") &&
+              !message.replyTo.includes(".png") &&
+              <div>{message.replyTo}</div>}
+            {message?.replyTo && message.replyTo.endsWith(".webm") && (
+              <div>
+                <video className="h-14 w-32" src={message.replyTo} controls />
+              </div>
+            )}
+            {message?.replyTo && (message.replyTo.includes(".jpg") || message.replyTo.includes(".png")) && (
+              <div className="w-14">
+                <img src={message.replyTo} />
+              </div>
+            )}
           </div>
         )}
         {message?.type === "image" && (
@@ -73,7 +88,7 @@ const Message: React.FC<MessageProps> = ({
         )}
         {message?.type === "audio" && (
           <div>
-            <audio src={message?.message} controls />
+            <video className="h-14 w-64" src={message?.message} controls />
           </div>
         )}
         {message?.type === "text" && (

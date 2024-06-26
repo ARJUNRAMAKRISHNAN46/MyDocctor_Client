@@ -292,8 +292,24 @@ function MessageInput() {
   return (
     <form className="px-4 my-3" onSubmit={handleSubmit}>
       {replyToMessage && (
-        <div className="p-2 bg-gray-300 text-gray-700 rounded mb-2">
-          Replying to: {replyToMessage.message}
+        <div className="p-2 bg-gray-600 text-white rounded mb-2">
+          Replying to: 
+          {/* {replyToMessage.message} */}
+          {replyToMessage.message &&
+              !replyToMessage.message.includes(".webm") &&
+              !replyToMessage.message.includes(".jpg") &&
+              !replyToMessage.message.includes(".png") &&
+              <div>{replyToMessage.message}</div>}
+            {replyToMessage.message && replyToMessage.message.endsWith(".webm") && (
+              <div>
+                <video className="h-14 w-32" src={replyToMessage.message} controls />
+              </div>
+            )}
+            {replyToMessage.message && (replyToMessage.message.includes(".jpg") || replyToMessage.message.includes(".png")) && (
+              <div className="w-14">
+                <img src={replyToMessage.message} />
+              </div>
+            )}
           <button
             className="ml-4 text-red-600"
             onClick={() => setReplyToMessage(null)}
