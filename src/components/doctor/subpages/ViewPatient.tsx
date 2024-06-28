@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserData } from "../../../types/userData";
-import { AppDispatch } from "../../../redux/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getSlotById,
   removeSlot,
 } from "../../../redux/actions/AppointmentActions";
 import { useLocation } from "react-router-dom";
+import { cancellationMail } from "../../../redux/actions/NotificationActions";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -16,9 +17,10 @@ const useQuery = () => {
 
 const ViewPatient = () => {
   const { id } = useParams();
-  console.log("🚀 ~ ViewPatient ~ id:", id);
   const query = useQuery();
+  const userData = useSelector((state: RootState) => state.authData.user);
   const userId = query.get("userId");
+  console.log("🚀 ~ ViewPatient ~ userId:", userId);
   const navigate = useNavigate();
   const [user, setUser] = useState<UserData>();
   const [time, setTime] = useState();
@@ -47,10 +49,21 @@ const ViewPatient = () => {
   const cancelSlot = () => {
     dispatch(removeSlot(String(id))).then((res) => {
       if (res) {
+        dispatch(cancellationMail(data)).then((res) => {
+          console.log("🚀 ~ dispatch ~ res:", res);
+        });
         navigate("/doctor/appointments");
       }
     });
   };
+  const data = {
+    email: String(user?.email),
+    message: "Appointment cancellation update",
+    doctorName: String(userData?.name),
+    date: String(date),
+    time: String(time),
+  };
+  console.log("🚀 ~ ViewPatient ~ data:", data);
 
   return (
     <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">

@@ -10,6 +10,7 @@ export const appointmentUrl = String(
 );
 export const paymentsUrl = String(import.meta.env.VITE_PAYMENTS_SERVICE_URI);
 export const chatUrl = String(import.meta.env.VITE_CHAT_SERVICE_URI);
+export const NotificationUrl = String(import.meta.env.VITE_NOTIFICATION_SERVICE_URI);
 
 export const AuthAxios = axios.create({
   baseURL: authbaseUrl,
@@ -43,5 +44,10 @@ export const PaymentsAxios = axios.create({
 
 export const ChatAxios = axios.create({
   baseURL: chatUrl,
+  withCredentials: true,
+});
+
+export const NotificationAxios = axios.create({
+  baseURL: NotificationUrl,
   withCredentials: true,
 });
