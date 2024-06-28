@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { listUserAppoinments } from "../../redux/actions/AppointmentActions";
+import {
+  cancelSlot,
+  listUserAppoinments,
+} from "../../redux/actions/AppointmentActions";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
 
@@ -7,6 +10,7 @@ export default function UserBookings() {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
   const [slots, setSlots] = useState([]);
+  const [status, setStatus] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -15,7 +19,7 @@ export default function UserBookings() {
       console.log("res.payload: ", res.payload?.data);
       setSlots(res.payload?.data);
     });
-  }, [dispatch]);
+  }, [dispatch, status]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -25,6 +29,15 @@ export default function UserBookings() {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+  };
+
+  const cancelAppointment = (appId: string) => {
+    console.log("this is the appointment ID: ", appId);
+    dispatch(cancelSlot(String(appId))).then((res) => {
+      if (res) {
+        setStatus(!status);
+      }
+    });
   };
 
   return (
@@ -52,7 +65,7 @@ export default function UserBookings() {
                 <h1 className="font-bold">Action</h1>
               </div>
             </div>
-            {currentSlots.map((appointment: any, id: number) => (
+            {currentSlots?.map((appointment: any, id: number) => (
               <div
                 className="flex text-gray-700 text-sm"
                 key={appointment.appointmentId + id}
@@ -75,7 +88,12 @@ export default function UserBookings() {
                   <h1 className="">{appointment.time}</h1>
                 </div>
                 <div className="text-center text-sm border-b border-gray-300 py-3 w-[200px]">
-                  <button>cancel</button>
+                  <button
+                    onClick={() => cancelAppointment(appointment.appId)}
+                    className="bg-red-600 rounded text-white px-6 py-0.5"
+                  >
+                    cancel
+                  </button>
                 </div>
               </div>
             ))}

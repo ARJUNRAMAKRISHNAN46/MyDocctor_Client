@@ -116,3 +116,31 @@ export const getSlotById = createAsyncThunk(
     }
   }
 );
+
+export const cancelSlot = createAsyncThunk(
+  "user/cancelSlot",
+  async (slotId: string, { rejectWithValue }) => {
+    console.log("🚀 ~ slotId:", slotId)
+    try {
+      const { data } = await AppointmentAxios.get(`/remove-userId/${slotId}`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const removeSlot = createAsyncThunk(
+  "doctor/removeSlot",
+  async (slotId: string, { rejectWithValue }) => {
+    console.log("🚀 ~ slotId:", slotId)
+    try {
+      const { data } = await AppointmentAxios.get(`/remove-slot/${slotId}`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);

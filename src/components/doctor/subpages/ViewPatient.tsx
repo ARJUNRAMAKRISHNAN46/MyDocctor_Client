@@ -4,7 +4,10 @@ import axios from "axios";
 import { UserData } from "../../../types/userData";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
-import { getSlotById } from "../../../redux/actions/AppointmentActions";
+import {
+  getSlotById,
+  removeSlot,
+} from "../../../redux/actions/AppointmentActions";
 import { useLocation } from "react-router-dom";
 
 const useQuery = () => {
@@ -13,6 +16,7 @@ const useQuery = () => {
 
 const ViewPatient = () => {
   const { id } = useParams();
+  console.log("🚀 ~ ViewPatient ~ id:", id);
   const query = useQuery();
   const userId = query.get("userId");
   const navigate = useNavigate();
@@ -38,6 +42,14 @@ const ViewPatient = () => {
 
   const goToMessages = () => {
     navigate(`/doctor/messages`);
+  };
+
+  const cancelSlot = () => {
+    dispatch(removeSlot(String(id))).then((res) => {
+      if (res) {
+        navigate("/doctor/appointments");
+      }
+    });
   };
 
   return (
@@ -76,12 +88,18 @@ const ViewPatient = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-between px-32 ">
           <button
             onClick={goToMessages}
-            className="bg-green-700 px-8 text-sm py-1 text-white rounded"
+            className="bg-green-600 px-8 text-sm py-1 text-white rounded"
           >
             GO TO MESSAGES
+          </button>
+          <button
+            onClick={cancelSlot}
+            className="bg-red-600 text-white px-6 text-sm py-1 rounded"
+          >
+            Cancel Slot
           </button>
         </div>
       </div>

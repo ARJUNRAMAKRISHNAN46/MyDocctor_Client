@@ -3,9 +3,11 @@ import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { userReducerInitial, ErrorPayload } from "../../types/otherTypes";
 import {
   addAppointment,
+  cancelSlot,
   getSlotById,
   listAllAppoinments,
   listDoctorSlots,
+  removeSlot,
 } from "../actions/AppointmentActions";
 
 const initialState: userReducerInitial = {
@@ -85,6 +87,38 @@ const AppointmentReducer = createSlice({
         state.message = payload?.message;
       })
       .addCase(getSlotById.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(cancelSlot.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(cancelSlot.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(cancelSlot.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(removeSlot.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(removeSlot.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(removeSlot.rejected, (state, { payload }) => {
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;

@@ -91,7 +91,7 @@ function DoctorAppointments() {
                     {(currentPage - 1) * itemsPerPage + index + 1}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
-                    {appointment.appointmentId}
+                    {appointment.slotId}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
                     {appointment.name}
