@@ -1,164 +1,192 @@
-import { useEffect, useRef, useState } from "react"
-import Peer from "peerjs"
-import { useNavigate, useParams } from "react-router-dom";
-import { useSocketContext } from "../../../contexts/SocketContext";
-import { FaVideoSlash } from "react-icons/fa";
-import { FaVideo } from "react-icons/fa";
-import { AiFillAudio } from "react-icons/ai";
-import { IoMdMicOff } from "react-icons/io";
-import { IoExit } from "react-icons/io5";
-import { MdOutlineIosShare } from "react-icons/md";
-const VideoCall = () => {
+// import io from "socket.io-client";
+// const SOCKET_URL = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
-  const [stream, setStream] = useState<MediaStream | null>(null);
-  const [peerId, setPeerId] = useState<string>("");
-  const [sharingId, setSharingId] = useState<boolean>(false);
-  const [personToCall, setPersonToCall] = useState<string>("")
-  const [videoEnabled, setVideoEnabled] = useState<boolean>(true);
-  const [audioEnabled, setAudioEnabled] = useState<boolean>(true);
-  const [userAccepted, setUserAccepted] = useState<boolean>(false);
-  const [isleaveRoom, setIsLeaveRoom] = useState<boolean>(false);
-  const myVideoRef = useRef<HTMLVideoElement | null>(null)
-  const remoteVideoRef = useRef<HTMLVideoElement | null>(null)
-  const peerInstance = useRef<Peer | null>(null)
-  const { socket } = useSocketContext();
+// const VideoCall = () => {
+//   const userName = "tbud-" + Math.floor(Math.random() * 100000);
+//   const password = "x";
 
-  const { roomId } = useParams()
+//   const newSocket = io(SOCKET_URL, {
+//     query: {
+//       userName,
+//       password,
+//     },
+//   });
 
-  const navigate = useNavigate()
+//   let localStream;
+//   let remoteStream;
+//   let peerConnection;
+//   let didIOffer = false;
+
+//   return (
+//     <div>
+//       <div className=" mb-3 mt-3 justify-center">
+//         <div id="user-name">{userName}</div>
+//         <button id="call">Call!</button>
+//         <button id="hangup">Hangup</button>
+//         <div id="answer"></div>
+//       </div>
+//       <div id="videos">
+//         <div id="video-wrapper">
+//           <div id="waiting">Waiting for answer...</div>
+//           <video id="local-video" controls />
+//         </div>
+//         <video id="remote-video" controls />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VideoCall;
+
+import React, { useState, useEffect, useRef } from "react";
+import io from "socket.io-client";
+
+const VideoCall: React.FC = () => {
+  const [localStream, setLocalStream] = useState<MediaStream | null>(null);
+  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
+  const [peerConnection, setPeerConnection] =
+    useState<RTCPeerConnection | null>(null);
+  const [socket, setSocket] = useState<any>(null);
+  const [userId, setUserId] = useState<string>(
+    `user-${Math.floor(Math.random() * 1000000)}`
+  );
+
+  const localVideoRef = useRef<HTMLVideoElement>(null);
+  const remoteVideoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
-    const peer = new Peer();
-
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
-      if (myVideoRef.current) {
-        myVideoRef.current.srcObject = stream;
-      }
-      setStream(stream);
+    const newSocket = io("http://localhost:4007", {
+      query: { userId },
+      withCredentials: true,
     });
-
-    peer.on("open", (id: any) => {
-      setPeerId(id);
-      socket && socket.emit("room-joined", ({ roomId, id }));
-    });
-
-    peerInstance.current = peer;
+    setSocket(newSocket);
 
     return () => {
-      peerInstance.current?.destroy();
+      newSocket.close();
     };
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
-    socket &&
-      socket.on('new-user-joined', (userId: any) => {
-        if (userId !== peerId) {
-          setPersonToCall(userId)
-        }
-      });
-  }, [socket]);
-
-
-  peerInstance.current && peerInstance.current.on("call", (call: any) => {
-    if (stream) {
-      call.answer(stream);
-      call.on("stream", (remoteVideoStream: any) => {
-        if (remoteVideoRef.current) {
-          remoteVideoRef.current.srcObject = remoteVideoStream;
-        }
-      });
+    console.log("🚀 ~ useEffect ~ socket:", socket);
+    if (socket) {
+      socket.on("incomingCall", handleIncomingCall);
+      socket.on("callAnswered", handleCallAnswered);
+      socket.on("iceCandidate", handleNewICECandidate);
     }
-    call.on('close', () => {
-      if (remoteVideoRef.current) {
-        remoteVideoRef.current.srcObject = null;
-      }
+    console.log("🚀 ~ useEffect ~ on:", socket);
+  }, [socket, ]);
+
+  const createPeerConnection = () => {
+    const pc = new RTCPeerConnection({
+      iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
     });
-  })
 
-  const call = (remotePeerId: string) => {
-    if (peerInstance.current && stream) {
-      const call = peerInstance.current.call(remotePeerId, stream);
-      call.on('stream', (remoteStream: MediaStream) => {
-        if (remoteVideoRef.current) {
-          remoteVideoRef.current.srcObject = remoteStream;
-        }
+    pc.onicecandidate = (event) => {
+      if (event.candidate) {
+        socket.emit("iceCandidate", { candidate: event.candidate, userId });
+      }
+    };
+
+    pc.ontrack = (event) => {
+      setRemoteStream(event.streams[0]);
+    };
+
+    setPeerConnection(pc);
+    return pc;
+  };
+
+  const getMedia = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
       });
-    }
-
-  };
-
-  const toggleVideo = () => {
-    const tracks = stream?.getTracks().filter((track) => track.kind === 'video');
-    tracks?.forEach((track) => (track.enabled = !videoEnabled));
-    setVideoEnabled(!videoEnabled);
-  };
-
-  const toggleAudio = () => {
-    const tracks = stream?.getTracks().filter((track) => track.kind === 'audio');
-    tracks?.forEach((track) => (track.enabled = !audioEnabled));
-    setAudioEnabled(!audioEnabled);
-  };
-
-  const leaveRoom = () => {
-    setIsLeaveRoom(true)
-    navigate('/')
-    if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
+      setLocalStream(stream);
+      if (localVideoRef.current) localVideoRef.current.srcObject = stream;
+      return stream;
+    } catch (err) {
+      console.error("Failed to get local stream", err);
     }
   };
 
-  const switchStream = (stream: any) => {
-    setStream(stream)
-    setSharingId(!sharingId)
-    if (peerInstance.current)
-      Object.values(peerInstance.current?.connections).forEach((connection: any) => {
-        const videoTrack = stream?.getTracks().find((track: any) => track.kind === "video");
-        connection[0].peerConnection.getSenders()[1].replaceTrack(videoTrack).catch((err: any) => console.log(err, "error in get tracks"))
-      })
-    if (myVideoRef.current) {
-      myVideoRef.current.srcObject = stream
-    }
-  }
+  const call = async (receiverId: string) => {
+    const stream = await getMedia();
+    const pc = createPeerConnection();
+    stream?.getTracks().forEach((track) => {
+      pc.addTrack(track, stream);
+    });
 
-  const shareScreen = () => {
-    if (sharingId) {
-      navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((switchStream))
-    } else {
-      navigator.mediaDevices.getDisplayMedia({ video: true, audio: true }).then((switchStream))
+    try {
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+      socket.emit("call", { offer: pc.localDescription, receiverId });
+      console.log(
+        "--------------------------------------------------------------------------->"
+      );
+    } catch (err) {
+      console.error("Error creating offer", err);
     }
-  }
+  };
+
+  const handleIncomingCall = async (data: {
+    offer: RTCSessionDescriptionInit;
+    callerId: string;
+  }) => {
+    console.log("🚀 ~ handleIncomingCall ~ data:", data);
+    const stream = await getMedia();
+    const pc = createPeerConnection();
+
+    stream?.getTracks().forEach((track) => {
+      pc.addTrack(track, stream);
+    });
+
+    await pc.setRemoteDescription(new RTCSessionDescription(data.offer));
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+    socket.emit("answerCall", {
+      answer: pc.localDescription,
+      callerId: data.callerId,
+    });
+  };
+
+  const handleCallAnswered = async (data: {
+    answer: RTCSessionDescriptionInit;
+  }) => {
+    await peerConnection?.setRemoteDescription(
+      new RTCSessionDescription(data.answer)
+    );
+  };
+
+  const handleNewICECandidate = async (data: {
+    candidate: RTCIceCandidateInit;
+  }) => {
+    if (peerConnection) {
+      try {
+        await peerConnection.addIceCandidate(
+          new RTCIceCandidate(data.candidate)
+        );
+      } catch (e) {
+        console.error("Error adding received ice candidate", e);
+      }
+    }
+  };
 
   return (
-    <>
-      {
-        personToCall.length > 0 && personToCall !== peerId && !userAccepted &&
-        <>
-          <h1 className=" poppins ">Someone is requesting to join....</h1>
-          <button className="px-2 py-2 rounded-md bg-lightgreen text-white font-bold" onClick={() => { call(personToCall), setUserAccepted(true) }}>Accept Join</button>
-        </>
-      }
-      <div className={`grid place-content-start ${userAccepted ? 'md:grid-cols-2 grid-cols-1' : 'md:grid-cols-2 grid-cols-1'} `}>
-        <div>
-          {
-            !isleaveRoom &&
-            <video className={` mt-5 rounded-lg${isleaveRoom ? 'hidden' : ''}`} autoPlay muted ref={remoteVideoRef}></video>
-          }
-        </div>
-        <div>
-          <video className={`w-full mt-5 rounded-lg`} autoPlay ref={myVideoRef}></video>
-        </div>
-      </div>
+    <div>
+      <video ref={localVideoRef} autoPlay muted playsInline />
+      <video ref={remoteVideoRef} autoPlay playsInline />
+      <input type="text" placeholder="Receiver ID" id="receiverId" />
+      <button
+        onClick={() =>
+          call(
+            (document.getElementById("receiverId") as HTMLInputElement).value
+          )
+        }
+      >
+        Call
+      </button>
+    </div>
+  );
+};
 
-      <div className="flex gap-x-4 mt-12 bg-gray-900 justify-center py-3 rounded-md  w-6/6 ">
-        <button className="text-3xl bg-lightgreen px-3 py-2 text-white rounded-lg" onClick={toggleVideo}>{videoEnabled ? <FaVideo className="text-3xl" /> : <FaVideoSlash className="" />}</button>
-        <button className="text-3xl bg-lightgreen text-white rounded-lg px-3 py-2" onClick={shareScreen}>{<MdOutlineIosShare className="text-3xl" />}</button>
-        <button className="text-3xl bg-lightgreen text-white rounded-lg px-3 py-2" onClick={toggleAudio}>{audioEnabled ? <AiFillAudio className="text-3xl" /> : <IoMdMicOff className="text-3xl" />}</button>
-        {<button className="text-3xl bg-red-600 text-white rounded-lg px-3 py-2" onClick={leaveRoom}>{<IoExit className="text-3xl" />}</button>}
-      </div>
-    </>
-  )
-}
-
-export default VideoCall
-
-
-
+export default VideoCall;

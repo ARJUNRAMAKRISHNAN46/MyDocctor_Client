@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 function PaymentSuccess() {
   const navigate = useNavigate();
+  const userData = useSelector((state: RootState) => state.authData.user);
 
   const storedBookingData = localStorage.getItem("bookingData");
 
@@ -18,7 +21,21 @@ function PaymentSuccess() {
       "http://localhost:8080/appointment/api/update-appoinment",
       bookingData
     );
-    console.log("🚀 ~ PaymentSuccess ~ response:", response, update);
+
+    const sendMail = async () => {
+      try {
+        const response = await axios.post('http://localhost:8080/notification/mail/send-mail', {
+          email: userData?.email,
+          message: "Appointment Booked Successfully"
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error sending email:', error);
+      }
+    };
+    sendMail();
+
+    console.log("🚀 ~ PaymentSuccess ~ response:", response, update, sendMail);
   } else {
     console.log("No booking data found in localStorage.");
   }

@@ -8,16 +8,18 @@ import { CiMenuKebab } from "react-icons/ci";
 import { IoVideocam } from "react-icons/io5";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { GoDotFill } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 function MessageContainer() {
   const { selectedConversation, setMessages } = useConversation() as any;
   const { onlineUsers } = useSocketContext();
+  const navigate = useNavigate();
   const isOnline = onlineUsers.includes(selectedConversation?._id);
 
-  useEffect(() => {
-  }, [setMessages]);
+  useEffect(() => {}, [setMessages]);
 
   const handleVideoCall = () => {
+    navigate("/start-video-call");
   };
 
   return (

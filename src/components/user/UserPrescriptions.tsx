@@ -33,7 +33,7 @@ function UserPrescriptions() {
   return (
     <div className="bg-white h-[100vh] px-4 curs">
       <h1 className="text-gray-800 font-semibold">Prescriptions</h1>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-4">
         {currentPrescriptions?.map((presc) => (
           <div className="py-2">
             <img className="w-48 h-48" src={presc?.message} alt={presc?.message} />

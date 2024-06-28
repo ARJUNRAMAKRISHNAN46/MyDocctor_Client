@@ -21,7 +21,6 @@ function ListDate() {
         listDoctorSlots({ id: String(id), selectedDate: currentDateFormatted })
       ).then((res) => {
         setSlots(res.payload?.data);
-        console.log("~ DoctorListing ~ res : ", res);
       });
     }, []);
   
@@ -43,12 +42,10 @@ function ListDate() {
     };
   
     const handleDateClick = (formattedDate: string, fullDate: Date) => {
-      console.log("🚀 ~ handleDateClick ~ fullDate:", userData?._id);
       dispatch(
         listDoctorSlots({ id: String(id), selectedDate: formattedDate })
       ).then((res) => {
         setSlots(res.payload?.data);
-        console.log("~ DoctorListing ~ res : ", res);
       });
       setSelectedDate(formattedDate);
       fetchSlots(formattedDate);

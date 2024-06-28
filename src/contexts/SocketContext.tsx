@@ -4,7 +4,6 @@ import { RootState } from "../redux/store";
 import io from "socket.io-client";
 import hotToast from "react-hot-toast";
 import { BiPhoneCall } from "react-icons/bi";
-// import { useConversation } from "../zustand/useConversation";
 import { useNavigate } from "react-router-dom";
 
 const SOCKET_URL = import.meta.env.VITE_REACT_APP_SOCKET_URL;
@@ -26,7 +25,6 @@ export const useSocketContext = (): SocketContextType => {
 };
 
 export const SocketProvider = ({ children }: any) => {
-  // const { setAttendCall } = useConversation();
   const [socket, setSocket] = useState<any | null>(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const navigate = useNavigate();
@@ -55,9 +53,10 @@ export const SocketProvider = ({ children }: any) => {
               <BiPhoneCall className="h-8 w-8 text-green-500 " />
               <p className="font-medium"> from user</p>
               <p className="text-blue-500">
-                <a href={data?.url}>
+                <button onClick={() => {console.log("clicked");
+                }}>
                   Join Now
-                </a>
+                </button>
               </p>
             </div>
           ),
@@ -69,20 +68,6 @@ export const SocketProvider = ({ children }: any) => {
       });
     }
   }, [userId]);
-
-  // const attendVideoCall = (roomID: string) => {
-  //   console.log("🚀 ~ attendVideoCall ~ url:", roomID)
-  //   if (userId) {
-  //     const newSocket = io(SOCKET_URL, {
-  //       query: {
-  //         userId: userId,
-  //       },
-  //     });
-  //     console.log("setAttendCall : true", socket);
-  //     newSocket.emit("attendCall", { userId });
-  //     navigate(`/start-video-call?roomID=${roomID}`);
-  //   }
-  // };
 
   const contextValue: SocketContextType = {
     socket,

@@ -1,5 +1,4 @@
 export const VideoUpload = async (video: any) => {
-  console.log(video, "imageeeeeeeeee");
 
   const formData = new FormData();
   formData.append("file", video);

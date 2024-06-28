@@ -4,6 +4,7 @@ import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSocketContext } from "../../../contexts/SocketContext";
 
 interface ListSlotsProps {
   slots: Array<any>;
@@ -13,12 +14,22 @@ interface ListSlotsProps {
 const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   const userData = useSelector((state: RootState) => state.authData.user);
   const [booked, setBooked] = useState("");
+  const [slotAvailable, setSlotAvailable] = useState(slots);
   const [status, setStatus] = useState("");
+  const [id, setId] = useState("");
   const navigate = useNavigate();
+  const { socket } = useSocketContext();
   const { id: doctorId } = useParams();
 
-  useEffect(() => {}, [selectedDate]);
-
+  useEffect(() => {
+    if (socket) {
+      socket.on("filterSlots", (bookingData: any) => {
+        const newSlots = slots.filter((x) => x?._id !== bookingData?._id)
+        setSlotAvailable(newSlots)
+        console.log("🚀 ~ socket.on ~ slots:", slots)
+      });
+    }
+  }, [socket]);
 
   const makePayment = async () => {
     setBooked(status);
@@ -35,6 +46,8 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
       fees: 400,
     };
 
+    socket.emit("refreshSlots", { id });
+
     localStorage.setItem("bookingData", JSON.stringify(bookingData));
     const response: any = await axios.post(
       "http://localhost:4006/api/create-checkout-session",
@@ -44,13 +57,13 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     const result = stripe?.redirectToCheckout({
       sessionId: response?.data?.id,
     });
-    console.log(result);
 
     navigate("/show-payment");
   };
 
-  const SelectSlot = (time: string) => {
-    setStatus(time);
+  const SelectSlot = (slot: any) => {
+    setId(slot?._id);
+    setStatus(slot?.start);
   };
 
   return (
@@ -59,7 +72,9 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
         {slots?.length === 0 && (
           <div>
             <div className="text-center md:mt-16">
-              <h1 className="text-xl font-semibold text-red-600">No Available Slots!!!</h1>
+              <h1 className="text-xl font-semibold text-red-600">
+                No Available Slots!!!
+              </h1>
             </div>
           </div>
         )}
@@ -84,20 +99,23 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
             </div>
             <h4 className="font-bold text-sm mt-4">SLOTS</h4>
             <div className="bg-white px-4 grid grid-cols-6">
-              {appointment.slots.map((slot: any, idx: any) => (
-                !slot?.userId && <div key={idx}>
-                  <div
-                    onClick={() => SelectSlot(slot?.start)}
-                    className={`${
-                      status === slot?.start
-                        ? "bg-blue-500 text-white"
-                        : "text-blue-600 border-blue-600"
-                    } font-semibold m-4 py-1 border text-center rounded`}
-                  >
-                    {!slot.userId && <h1>{slot.start}</h1>}
-                  </div>
-                </div>
-              ))}
+              {appointment.slots.map(
+                (slot: any, idx: any) =>
+                  !slot?.userId && (
+                    <div key={idx}>
+                      <div
+                        onClick={() => SelectSlot(slot)}
+                        className={`${
+                          status === slot?.start
+                            ? "bg-blue-500 text-white"
+                            : "text-blue-600 border-blue-600"
+                        } font-semibold m-4 py-1 border text-center rounded`}
+                      >
+                        {!slot.userId && <h1>{slot.start}</h1>}
+                      </div>
+                    </div>
+                  )
+              )}
             </div>
             <div className="flex justify-center mt-4">
               <button

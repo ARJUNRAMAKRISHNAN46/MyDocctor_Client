@@ -64,8 +64,7 @@ const DoctorAddSlotModal: React.FC<AddSlotModalProps> = ({ show, date }) => {
           const { date, consultationMethods, times } = values;
           const slots = times.map((startTime) => ({
             start: startTime,
-            end: calculateEndTime(startTime),
-            userId: userData?._id || "",
+            end: calculateEndTime(startTime)
           }));
 
           const appointmentData = {

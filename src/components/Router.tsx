@@ -47,7 +47,7 @@ import AdminServices from "./admin/AdminServices";
 import PaymentSuccess from "./payment/PaymentSuccess";
 import ViewPatient from "./doctor/subpages/ViewPatient";
 import DoctorPayments from "./doctor/DoctorPayments";
-import VideoCall from "./videoCall/VideoCall";
+import VideoCall from "./chat/VideoCall/VideoCall";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -71,6 +71,8 @@ function Router() {
           {/* authentication routes */}
           <Route path="/login" element={userData ? <Home /> : <Login />} />
           <Route path="/signup" element={userData ? <Home /> : <Signup />} />
+          <Route path="/forgotPassword" element={userData ? <Home /> : <ForgotPassword />} />
+          <Route path="/forgotPassword-post" element={userData ? <Home /> : <ResetPassword />} />
           <Route
             path="/doctor/signup"
             element={userData ? <DoctorOverview /> : <DoctorSignup />}

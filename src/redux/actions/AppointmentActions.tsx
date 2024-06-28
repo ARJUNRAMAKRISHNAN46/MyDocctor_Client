@@ -6,11 +6,11 @@ import { AppointmentEntity } from "../../types/AddAppoinment";
 export const addAppointment = createAsyncThunk(
   "doctor/addAppointment",
   async (appointmentData: AppointmentEntity, { rejectWithValue }) => {
+    console.log("🚀 ~ appointmentData:", appointmentData)
     try {
       const { data } = await AppointmentAxios.post("/create-appointment", {
         appointmentData,
       });
-      console.log("🚀 ~ async ~ response:", data);
 
       return data;
     } catch (error: any) {
