@@ -7,6 +7,7 @@ import {
   getSlotById,
   listAllAppoinments,
   listDoctorSlots,
+  refundToWallet,
   removeSlot,
 } from "../actions/AppointmentActions";
 
@@ -119,6 +120,22 @@ const AppointmentReducer = createSlice({
         state.message = payload?.message;
       })
       .addCase(removeSlot.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      })
+      .addCase(refundToWallet.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(refundToWallet.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(refundToWallet.rejected, (state, { payload }) => {
         state.loading = false;
         const errorPayload = payload as ErrorPayload;
         state.err = errorPayload.message;

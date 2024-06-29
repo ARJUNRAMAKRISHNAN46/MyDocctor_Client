@@ -6,10 +6,15 @@ import { AppDispatch, RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getSlotById,
+  refundToWallet,
   removeSlot,
 } from "../../../redux/actions/AppointmentActions";
 import { useLocation } from "react-router-dom";
 import { cancellationMail } from "../../../redux/actions/NotificationActions";
+import {
+  formatDate,
+  getCurrentDate,
+} from "../../../utils/GetCurrentDateAndTIme";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -20,7 +25,6 @@ const ViewPatient = () => {
   const query = useQuery();
   const userData = useSelector((state: RootState) => state.authData.user);
   const userId = query.get("userId");
-  console.log("🚀 ~ ViewPatient ~ userId:", userId);
   const navigate = useNavigate();
   const [user, setUser] = useState<UserData>();
   const [time, setTime] = useState();
@@ -46,11 +50,19 @@ const ViewPatient = () => {
     navigate(`/doctor/messages`);
   };
 
+  const refundData = {
+    userId: String(user?._id),
+    amount: "400",
+    date: formatDate(new Date()),
+    reason: "refund for appointment cancellation",
+  };
+
   const cancelSlot = () => {
     dispatch(removeSlot(String(id))).then((res) => {
       if (res) {
-        dispatch(cancellationMail(data)).then((res) => {
-          console.log("🚀 ~ dispatch ~ res:", res);
+        dispatch(cancellationMail(data));
+        dispatch(refundToWallet(refundData)).then((res) => {
+          console.log("🚀 ~ dispatch ~ res:", res.payload);
         });
         navigate("/doctor/appointments");
       }
@@ -63,7 +75,6 @@ const ViewPatient = () => {
     date: String(date),
     time: String(time),
   };
-  console.log("🚀 ~ ViewPatient ~ data:", data);
 
   return (
     <div className="w-[84vw] h-[100vh] bg-gray-700 flex justify-center items-center">

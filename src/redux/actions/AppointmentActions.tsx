@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AppointmentAxios } from "../../constants/axiosInstance";
 import { handleErrors } from "../../utils/handleErrors";
 import { AppointmentEntity } from "../../types/AddAppoinment";
+import { WalletData } from "../../types/Wallet";
 
 export const addAppointment = createAsyncThunk(
   "doctor/addAppointment",
@@ -137,6 +138,23 @@ export const removeSlot = createAsyncThunk(
     console.log("🚀 ~ slotId:", slotId)
     try {
       const { data } = await AppointmentAxios.get(`/remove-slot/${slotId}`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+
+export const refundToWallet = createAsyncThunk(
+  'doctor/refundToWallet',
+  async (walletData: WalletData, { rejectWithValue }) => {
+    try {
+      const { data } = await AppointmentAxios.post(`/refund-payment/${walletData?.userId}`, {
+        amount: walletData?.amount,
+        date: walletData?.date,
+        reason: walletData?.reason,
+      });
 
       return data;
     } catch (error: any) {
