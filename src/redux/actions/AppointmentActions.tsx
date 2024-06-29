@@ -3,11 +3,12 @@ import { AppointmentAxios } from "../../constants/axiosInstance";
 import { handleErrors } from "../../utils/handleErrors";
 import { AppointmentEntity } from "../../types/AddAppoinment";
 import { WalletData } from "../../types/Wallet";
+import { slotData } from "../../types/slotBooking";
 
 export const addAppointment = createAsyncThunk(
   "doctor/addAppointment",
   async (appointmentData: AppointmentEntity, { rejectWithValue }) => {
-    console.log("🚀 ~ appointmentData:", appointmentData)
+    console.log("🚀 ~ appointmentData:", appointmentData);
     try {
       const { data } = await AppointmentAxios.post("/create-appointment", {
         appointmentData,
@@ -121,7 +122,7 @@ export const getSlotById = createAsyncThunk(
 export const cancelSlot = createAsyncThunk(
   "user/cancelSlot",
   async (slotId: string, { rejectWithValue }) => {
-    console.log("🚀 ~ slotId:", slotId)
+    console.log("🚀 ~ slotId:", slotId);
     try {
       const { data } = await AppointmentAxios.get(`/remove-userId/${slotId}`);
 
@@ -135,7 +136,7 @@ export const cancelSlot = createAsyncThunk(
 export const removeSlot = createAsyncThunk(
   "doctor/removeSlot",
   async (slotId: string, { rejectWithValue }) => {
-    console.log("🚀 ~ slotId:", slotId)
+    console.log("🚀 ~ slotId:", slotId);
     try {
       const { data } = await AppointmentAxios.get(`/remove-slot/${slotId}`);
 
@@ -147,14 +148,17 @@ export const removeSlot = createAsyncThunk(
 );
 
 export const refundToWallet = createAsyncThunk(
-  'doctor/refundToWallet',
+  "doctor/refundToWallet",
   async (walletData: WalletData, { rejectWithValue }) => {
     try {
-      const { data } = await AppointmentAxios.post(`/refund-payment/${walletData?.userId}`, {
-        amount: walletData?.amount,
-        date: walletData?.date,
-        reason: walletData?.reason,
-      });
+      const { data } = await AppointmentAxios.post(
+        `/refund-payment/${walletData?.userId}`,
+        {
+          amount: walletData?.amount,
+          date: walletData?.date,
+          reason: walletData?.reason,
+        }
+      );
 
       return data;
     } catch (error: any) {
@@ -164,7 +168,7 @@ export const refundToWallet = createAsyncThunk(
 );
 
 export const walletHistory = createAsyncThunk(
-  'doctor/walletHistory',
+  "doctor/walletHistory",
   async (userId: string, { rejectWithValue }) => {
     try {
       const { data } = await AppointmentAxios.get(`/wallet-history/${userId}`);
@@ -176,3 +180,19 @@ export const walletHistory = createAsyncThunk(
   }
 );
 
+export const reserveSlot = createAsyncThunk(
+  "user/reserveSlot",
+  async (slotData: slotData, { rejectWithValue }) => {
+    try {
+      const { data } = await AppointmentAxios.post("/reserve-slot", {
+        doctorId: slotData?.doctorId,
+        date: slotData?.date,
+        slot: slotData?.slot,
+      });
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);

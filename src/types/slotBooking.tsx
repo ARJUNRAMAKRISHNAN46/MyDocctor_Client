@@ -16,3 +16,9 @@ export type ListSlotsProps = {
   slots: AppointmentEntity[];
   selectedDate: string;
 };
+
+export interface slotData {
+  doctorId: string,
+  date: string,
+  slot: string,
+}

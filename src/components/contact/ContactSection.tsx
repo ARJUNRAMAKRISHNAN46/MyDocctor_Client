@@ -4,10 +4,10 @@ import ContactForm from "./ContactForm";
 function ContactSection() {
   return (
     <div className="grid md:grid-cols-2 md:px-32 py-10 bg-white">
-      <div className="md:w-[40%]">
+      <div className="">
         <ContactAddress />
       </div>
-      <div className="md:w-[60%]">
+      <div className="">
         <ContactForm />
       </div>
     </div>

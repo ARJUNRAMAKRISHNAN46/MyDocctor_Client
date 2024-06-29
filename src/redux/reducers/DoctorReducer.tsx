@@ -30,9 +30,9 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        toast.success("doctor profile updated successfully", {
-          className: "text-center",
-        });
+        // toast.success("doctor profile updated successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(updateDoctorProfile.rejected, (state, { payload }) => {
         state.loading = false;
@@ -49,9 +49,9 @@ const doctorReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload?.message;
-        toast.success("doctor verified successfully", {
-          className: "text-center",
-        });
+        // toast.success("doctor verified successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(verifyDoctor.rejected, (state, { payload }) => {
         state.loading = false;

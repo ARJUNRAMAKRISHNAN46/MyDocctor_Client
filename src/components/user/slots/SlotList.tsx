@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { RootState } from "../../../redux/store";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-import { useSocketContext } from "../../../contexts/SocketContext";
+import { reserveSlot } from "../../../redux/actions/AppointmentActions";
+import toast from "react-hot-toast";
 
 interface ListSlotsProps {
   slots: Array<any>;
@@ -14,24 +15,12 @@ interface ListSlotsProps {
 const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   const userData = useSelector((state: RootState) => state.authData.user);
   const [booked, setBooked] = useState("");
-  // const [slotAvailable, setSlotAvailable] = useState(slots);
   const [status, setStatus] = useState("");
+  const dispatch: AppDispatch = useDispatch();
 
   const [id, setId] = useState("");
   const navigate = useNavigate();
-  const { socket } = useSocketContext();
   const { id: doctorId } = useParams();
-
-  useEffect(() => {
-    if (socket) {
-      socket.on("filterSlots", (id: any) => {
-        console.log("🚀 ~ socket.on ~ bookingData:", id)
-        const newSlots = slots.filter((x) => x?._id !== id)
-        // setSlotAvailable(newSlots)
-        console.log("🚀 ~ socket.on ~ slots:", slots)
-      });
-    }
-  }, [socket]);
 
   const makePayment = async () => {
     setBooked(status);
@@ -48,8 +37,6 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
       fees: 400,
     };
 
-    socket.emit("refreshSlots", { id });
-
     localStorage.setItem("bookingData", JSON.stringify(bookingData));
     const response: any = await axios.post(
       "http://localhost:4006/api/create-checkout-session",
@@ -62,8 +49,19 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
 
     navigate("/show-payment");
   };
-
-  const SelectSlot = (slot: any) => {
+  
+  const SelectSlot = async (slot: any) => {
+    const data = {
+      doctorId: String(doctorId),
+      date: selectedDate,
+      slot: slot?.start,
+    };
+    dispatch(reserveSlot(data)).then((res) => {
+      console.log("🚀 ~ dispatch ~ res:", res);
+      if (res.type.endsWith("rejected")) {
+        toast.error("Slot already booked! Please select other one")
+      }
+    });
     setId(slot?._id);
     setStatus(slot?.start);
   };
