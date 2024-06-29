@@ -14,8 +14,9 @@ interface ListSlotsProps {
 const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   const userData = useSelector((state: RootState) => state.authData.user);
   const [booked, setBooked] = useState("");
-  const [slotAvailable, setSlotAvailable] = useState(slots);
+  // const [slotAvailable, setSlotAvailable] = useState(slots);
   const [status, setStatus] = useState("");
+
   const [id, setId] = useState("");
   const navigate = useNavigate();
   const { socket } = useSocketContext();
@@ -23,9 +24,10 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on("filterSlots", (bookingData: any) => {
-        const newSlots = slots.filter((x) => x?._id !== bookingData?._id)
-        setSlotAvailable(newSlots)
+      socket.on("filterSlots", (id: any) => {
+        console.log("🚀 ~ socket.on ~ bookingData:", id)
+        const newSlots = slots.filter((x) => x?._id !== id)
+        // setSlotAvailable(newSlots)
         console.log("🚀 ~ socket.on ~ slots:", slots)
       });
     }
