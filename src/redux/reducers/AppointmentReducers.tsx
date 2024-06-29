@@ -9,6 +9,7 @@ import {
   listDoctorSlots,
   refundToWallet,
   removeSlot,
+  walletHistory,
 } from "../actions/AppointmentActions";
 
 const initialState: userReducerInitial = {
@@ -142,6 +143,22 @@ const AppointmentReducer = createSlice({
         toast.error(errorPayload.message);
         state.user = null;
       })
+      .addCase(walletHistory.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(walletHistory.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.err = false;
+        state.user = payload.user;
+        state.message = payload?.message;
+      })
+      .addCase(walletHistory.rejected, (state, { payload }) => {
+        state.loading = false;
+        const errorPayload = payload as ErrorPayload;
+        state.err = errorPayload.message;
+        toast.error(errorPayload.message);
+        state.user = null;
+      });
   },
 });
 

@@ -163,3 +163,16 @@ export const refundToWallet = createAsyncThunk(
   }
 );
 
+export const walletHistory = createAsyncThunk(
+  'doctor/walletHistory',
+  async (userId: string, { rejectWithValue }) => {
+    try {
+      const { data } = await AppointmentAxios.get(`/wallet-history/${userId}`);
+
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(handleErrors(error));
+    }
+  }
+);
+

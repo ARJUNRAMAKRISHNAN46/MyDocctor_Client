@@ -2,9 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   cancelSlot,
   listUserAppoinments,
+  refundToWallet,
 } from "../../redux/actions/AppointmentActions";
 import { AppDispatch, RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
+import { formatDate } from "../../utils/GetCurrentDateAndTIme";
 
 export default function UserBookings() {
   const dispatch: AppDispatch = useDispatch();
@@ -31,11 +33,23 @@ export default function UserBookings() {
     setCurrentPage(pageNumber);
   };
 
+  const refundData = {
+    userId: String(userData?._id),
+    amount: "400",
+    date: formatDate(new Date()),
+    reason: "refund for appointment cancellation",
+  };
+
   const cancelAppointment = (appId: string) => {
     console.log("this is the appointment ID: ", appId);
     dispatch(cancelSlot(String(appId))).then((res) => {
       if (res) {
-        setStatus(!status);
+        setStatus(true);
+      }
+    });
+    dispatch(refundToWallet(refundData)).then((res) => {
+      if (res) {
+        setStatus(true);
       }
     });
   };
