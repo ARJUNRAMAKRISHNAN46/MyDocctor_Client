@@ -2,9 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import io from "socket.io-client";
-import hotToast from "react-hot-toast";
-import { BiPhoneCall } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const SOCKET_URL = import.meta.env.VITE_REACT_APP_SOCKET_URL;
 
@@ -27,7 +25,6 @@ export const useSocketContext = (): SocketContextType => {
 export const SocketProvider = ({ children }: any) => {
   const [socket, setSocket] = useState<any | null>(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  const navigate = useNavigate();
 
   const userId = useSelector((state: RootState) => state.authData.user?._id);
 
@@ -45,26 +42,33 @@ export const SocketProvider = ({ children }: any) => {
         setOnlineUsers(users);
       });
 
-      newSocket.on("incomingCall", (data: any) => {
-        console.log("🚀 ~ newSocket.on ~ data:", data)
-        hotToast(
-          (t) => (
-            <div className="bg-green-100 h-10 flex justify-center items-center rounded-md gap-3">
-              <BiPhoneCall className="h-8 w-8 text-green-500 " />
-              <p className="font-medium"> from user</p>
-              <p className="text-blue-500">
-                <button onClick={() => {console.log("clicked");
-                }}>
-                  Join Now
-                </button>
-              </p>
+      newSocket.on('incomingCall', (data) => {
+        console.log('Incoming call:', data);
+        toast((t) => (
+          <div className="bg-green-100 p-4 rounded-md">
+            <p className="font-medium">Incoming call</p>
+            <div className="mt-2">
+              <button
+                className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
+                onClick={() => {
+                  window.location.href = data.link;
+                  toast.dismiss(t.id);
+                }}
+              >
+                Join
+              </button>
+              <button
+                className="bg-red-500 text-white px-3 py-1 rounded"
+                onClick={() => toast.dismiss(t.id)}
+              >
+                Decline
+              </button>
             </div>
-          ),
-          {
-            duration: 10000,
-            position: "top-center",
-          }
-        );
+          </div>
+        ), {
+          duration: 20000,
+          position: 'top-right',
+        });
       });
     }
   }, [userId]);

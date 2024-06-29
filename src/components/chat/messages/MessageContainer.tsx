@@ -9,17 +9,20 @@ import { IoVideocam } from "react-icons/io5";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { GoDotFill } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../redux/store";
+import { useSelector } from "react-redux";
 
 function MessageContainer() {
   const { selectedConversation, setMessages } = useConversation() as any;
   const { onlineUsers } = useSocketContext();
   const navigate = useNavigate();
+  const userData = useSelector((state: RootState) => state.authData.user);
   const isOnline = onlineUsers.includes(selectedConversation?._id);
 
   useEffect(() => {}, [setMessages]);
 
   const handleVideoCall = () => {
-    navigate("/start-video-call");
+    navigate(`/call?id=${selectedConversation?._id}&senderId=${userData?._id}`)
   };
 
   return (
