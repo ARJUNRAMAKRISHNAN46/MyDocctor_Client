@@ -57,7 +57,6 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
       slot: slot?.start,
     };
     dispatch(reserveSlot(data)).then((res) => {
-      console.log("🚀 ~ dispatch ~ res:", res);
       if (res.type.endsWith("rejected")) {
         toast.error("Slot already booked! Please select other one")
       }

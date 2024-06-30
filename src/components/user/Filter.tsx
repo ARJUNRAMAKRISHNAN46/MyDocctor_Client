@@ -24,7 +24,6 @@ const DoctorSearch = () => {
 
   useEffect(() => {
     dispatch(listSpeciality()).then((res) => {
-      console.log("🚀 ~ dispatch ~ res=========================================================================:", res)
       setSpecs(res.payload.data);
     });
   }, [dispatch]);

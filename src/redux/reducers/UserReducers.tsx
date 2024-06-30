@@ -30,9 +30,9 @@ const userReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload.message;
-        toast.success("Speciality added successfully", {
-          className: "text-center",
-        });
+        // toast.success("Speciality added successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(addSpeciality.rejected, (state, { payload }) => {
         state.loading = false;
@@ -49,9 +49,9 @@ const userReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload.message;
-        toast.success("user listed successfully", {
-          className: "text-center",
-        });
+        // toast.success("user listed successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(listUsers.rejected, (state, { payload }) => {
         state.loading = false;
@@ -68,9 +68,9 @@ const userReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload.message;
-        toast.success("speciality listed successfully", {
-          className: "text-center",
-        });
+        // toast.success("speciality listed successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(listSpeciality.rejected, (state, { payload }) => {
         state.loading = false;
@@ -87,9 +87,9 @@ const userReducer = createSlice({
         state.err = false;
         state.user = payload.user;
         state.message = payload.message;
-        toast.success("speciality listed successfully", {
-          className: "text-center",
-        });
+        // toast.success("speciality listed successfully", {
+        //   className: "text-center",
+        // });
       })
       .addCase(updateProfile.rejected, (state, { payload }) => {
         state.loading = false;
