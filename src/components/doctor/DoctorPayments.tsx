@@ -71,7 +71,7 @@ const DoctorPayments = () => {
                     {payment.user_id}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
-                    {payment.user_id}
+                    {`stripe_${payment._id.slice(14)}`}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[100px]">
                     {payment.fees}
