@@ -30,7 +30,7 @@ function DoctorAppointments() {
             userId: slot.userId?._id,
             date: appointment.date,
             time: slot.start,
-            slotId: slot._id,
+            slotId: `appointment${slot._id?.slice(15)}`,
           });
         }
       });
