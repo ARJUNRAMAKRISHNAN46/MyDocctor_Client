@@ -13,7 +13,17 @@ function AdminBookings() {
 
   useEffect(() => {
     dispatch(listAllAppoinments()).then((res) => {
-      setAppointments(res.payload?.data);
+      const appointmentsData = res.payload?.data;
+
+      if (appointmentsData) {
+        const sortedAppointments = appointmentsData.sort((a: any, b: any) => {
+          const dateA = new Date(a.date.split('-').reverse().join('-')).getTime(); ;
+          const dateB = new Date(b.date.split('-').reverse().join('-')).getTime(); ;
+          return dateB - dateA;
+        });
+
+        setAppointments(sortedAppointments);
+      }
     });
   }, [dispatch]);
 
@@ -31,7 +41,6 @@ function AdminBookings() {
   };
 
   const viewUsers = (userId: string) => {
-    console.log("🚀 ~ viewUsers ~ userId:", userId);
     navigate(`/doctor/show-patient/${userId}`);
   };
 
@@ -68,7 +77,7 @@ function AdminBookings() {
                     {(currentPage - 1) * itemsPerPage + index + 1}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
-                    {appointment.appId}
+                    {`appointment_${appointment.appId.slice(14)}`}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
                     {appointment.userId}
