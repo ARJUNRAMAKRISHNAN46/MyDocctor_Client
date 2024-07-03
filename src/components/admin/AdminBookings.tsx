@@ -56,16 +56,19 @@ function AdminBookings() {
             <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[300px]">
               Appointment ID
             </h1>
-            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[300px]">
-              User ID
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
+              User Name
             </h1>
-            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[100px]">
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
+              Doctor Name
+            </h1>
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[120px]">
               Date
             </h1>
-            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[150px]">
               Time
             </h1>
-            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[200px]">
+            <h1 className="text-center bg-gray-300 text-gray-700 py-3 font-bold  w-[180px]">
               Action
             </h1>
           </div>
@@ -79,16 +82,19 @@ function AdminBookings() {
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
                     {`appointment_${appointment.appId.slice(14)}`}
                   </div>
-                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
-                    {appointment.userId}
+                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[200px]">
+                    {appointment.userName}
                   </div>
-                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[100px]">
+                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[200px]">
+                    {appointment.doctorName}
+                  </div>
+                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[120px]">
                     {appointment.date}
                   </div>
-                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[200px]">
+                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[150px]">
                     {appointment.time}
                   </div>
-                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[200px]">
+                  <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[180px]">
                     <button
                       onClick={() => viewUsers(appointment.userId)}
                       className="bg-blue-500 text-white px-8 py-0.5 rounded"
