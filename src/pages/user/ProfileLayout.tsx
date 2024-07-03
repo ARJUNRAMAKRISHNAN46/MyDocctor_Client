@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { LogoutUser } from "../../redux/actions/AuthActions";
 import { MdLogout } from "react-icons/md";
 import { FaUserDoctor } from "react-icons/fa6";
-import { RxDashboard } from "react-icons/rx";
 import { DataItem } from "../../types/doctorSidebar";
 import { IoIosPeople } from "react-icons/io";
-import { MdOutlineDateRange } from "react-icons/md";
+import { MdDashboard } from "react-icons/md";
 import Navbar from "../../components/common/Navbar";
 import { useSocketContext } from "../../contexts/SocketContext";
+import { IoWallet } from "react-icons/io5";
+import { IoMdPhotos } from "react-icons/io";
+import { IoIosTime } from "react-icons/io";
 
 function ProfileLayout() {
   const dispatch: AppDispatch = useDispatch();
@@ -26,7 +28,7 @@ function ProfileLayout() {
 
   const data: DataItem[] = [
     {
-      logo: <RxDashboard />,
+      logo: <MdDashboard />,
       value: "Profile",
       component: "/view/profile",
     },
@@ -36,7 +38,7 @@ function ProfileLayout() {
       component: "/view/favourite-doctors",
     },
     {
-      logo: <IoIosPeople />,
+      logo: <IoMdPhotos />,
       value: "Prescriptions",
       component: "/view/prescriptions",
     },
@@ -46,9 +48,14 @@ function ProfileLayout() {
       component: "/view/chats",
     },
     {
-      logo: <MdOutlineDateRange />,
+      logo: <IoIosTime />,
       value: "Appointments",
       component: "/view/appointments",
+    },
+    {
+      logo: <IoWallet />,
+      value: "Wallet",
+      component: "/view/wallet",
     },
   ];
 
@@ -56,7 +63,7 @@ function ProfileLayout() {
     <div>
       <Navbar />
       <div className="flex bg-gray-200">
-        <div className="w-[250px] bg-white pt-10 flex flex-col justify-between">
+        <div className="w-[250px] bg-white pt-10">
           <div>
             {data.map((item, index) => (
               <NavLink

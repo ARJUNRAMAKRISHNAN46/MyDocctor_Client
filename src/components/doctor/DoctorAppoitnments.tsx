@@ -215,7 +215,7 @@ function DoctorAppointments() {
             userId: slot.userId?._id,
             date: appointment.date,
             time: slot.start,
-            slotId: `appointment${slot._id?.slice(15)}`,
+            slotId: slot?._id,
           });
         }
       });
@@ -280,7 +280,7 @@ function DoctorAppointments() {
                     {(currentPage - 1) * itemsPerPage + index + 1}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
-                    {appointment.slotId}
+                  appointment{appointment.slotId?.slice(15)}
                   </div>
                   <div className="border-b text-sm border-gray-600 text-center py-2.5 w-[300px]">
                     {appointment.name}
