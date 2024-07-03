@@ -22,8 +22,8 @@ function ProfileLayout() {
   const handleLogout = () => {
     dispatch(LogoutUser()).then((res) => {
       if (res) socket.emit("disconnec", userData?._id);
-      navigate("/");
     });
+    navigate("/");
   };
 
   const data: DataItem[] = [

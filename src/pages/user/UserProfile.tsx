@@ -20,9 +20,7 @@ function UserProfile() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [wallet, setWallet] = useState<WalletData[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-
+ 
   const [profileData, setProfileData] = useState({
     _id: userData?._id || "",
     profilePhoto: userData?.profilePhoto || "",
@@ -74,17 +72,7 @@ function UserProfile() {
       setProfileImage(image);
     }
   };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentWallet = wallet.slice(indexOfFirstItem, indexOfLastItem);
-
-  const totalPages = Math.ceil(wallet.length / itemsPerPage);
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
+  
   const handleSubmit = () => {
     setLoading(true);
     setTimeout(() => {
@@ -135,68 +123,6 @@ function UserProfile() {
             </button>
             <span className="font-bold mt-3">{profileData.name}</span>
             <span className="text-gray-600">{profileData.email}</span>
-            <h1 className="md:mt-10 bg-green-500 text-white px-6">
-              wallet : {`${sum}/-`}
-            </h1>
-            <div>
-              <div className="flex mt-2">
-                <div className="w-[50px] border-y border-gray-500 text-gray-600 font-semibold text-sm">
-                  Sl.No
-                </div>
-                <div className="w-[70px] border-y border-gray-500 text-gray-600 font-semibold text-sm">
-                  Amount
-                </div>
-                <div className="w-[200px] border-y border-gray-500 text-gray-600 font-semibold text-sm">
-                  Reason
-                </div>
-                <div className="w-[90px] border-y border-gray-500 text-gray-600 font-semibold text-sm">
-                  Date
-                </div>
-              </div>
-              {currentWallet?.map((wallet, index) => (
-                <div className="flex">
-                  <div className="w-[50px] border-b border-gray-500 text-gray-500 text-sm">
-                    {(currentPage - 1) * itemsPerPage + index + 1}
-                  </div>
-                  <div className="w-[70px] border-b border-gray-500 text-gray-500 text-sm">
-                    {wallet?.amount}
-                  </div>
-                  <div className="w-[200px] border-b border-gray-500 text-gray-500 text-sm">
-                    {wallet?.reason}
-                  </div>
-                  <div className="w-[90px] border-b border-gray-500 text-gray-500 text-sm">
-                    {wallet?.date}
-                  </div>
-                </div>
-              ))}
-              <div className="flex justify-center mt-4">
-                <button
-                  disabled={currentPage === 1}
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  className="px-3 py-1 mx-1 bg-gray-600 text-white rounded disabled:opacity-50"
-                >
-                  Previous
-                </button>
-                {[...Array(totalPages)].map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handlePageChange(index + 1)}
-                    className={`px-3 py-1 mx-1 ${
-                      currentPage === index + 1 ? "bg-gray-500" : "bg-gray-600"
-                    } text-white rounded`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
-                <button
-                  disabled={currentPage === totalPages}
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  className="px-3 py-1 mx-1 bg-gray-600 text-white rounded disabled:opacity-50"
-                >
-                  Next
-                </button>
-              </div>
-            </div>
           </div>
           <div className="md:w-2/3 p-5">
             <div className="mb-6">
