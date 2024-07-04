@@ -28,7 +28,7 @@ const HeaderStats: React.FC = () => {
     })
   }, []);
   
-  const totalPayment = payments?.reduce((total, pay) => total + pay?.fees, 0);
+  const totalPayment = payments?.reduce((total, pay: any) => total + pay?.fees, 0);
   const stats: Stat[] = [
     { label: "Appointments", value: String(appointments?.length | 0), percentage: `0.${String(appointments?.length | 0)}%` },
     { label: "Patients", value: String(patients?.length | 0), percentage: `0.${String(patients?.length | 0)}%` },

@@ -17,7 +17,7 @@ const Conversation: React.FC<ConversationProps> = ({
   conversation,
   lastIdx,
 }) => {
-  const { selectedConversation, setSelectedConversation } = useConversation();
+  const { selectedConversation, setSelectedConversation } = useConversation() as any;
   const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
   const isSelected = selectedConversation?._id === conversation._id;

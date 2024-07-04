@@ -2,52 +2,34 @@ import { useNavigate } from "react-router-dom";
 import { UserData } from "../../types/userData";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-// import axios from "axios";
 
 interface Pagination {
   currentPage: number;
   pageSize: number;
 }
 
+interface Filters {
+  name: string;
+  country: string;
+  expertise: string;
+  sort: string;
+  consultationType: string[]; 
+}
+
 function ListDoctors({ doctors }: { doctors: UserData[] }) {
-// function ListDoctors() {
   const navigate = useNavigate();
   const [show, setShow] = useState<boolean>(false);
-  // const [doctors, setDoctors] = useState<UserData[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
     currentPage: 1,
     pageSize: 10,
   });
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     name: "",
     country: "",
     expertise: "",
     sort: "",
     consultationType: [],
   });
-
-  
-//   useEffect(() => {
-//     fetchDoctors();
-//     const queryString = new URLSearchParams(filters).toString();
-//     navigate(`?${queryString}`);
-// }, [filters, navigate]);
-  
-//   const fetchDoctors = async () => {
-//     const response = await axios.get(
-//       "http://localhost:8080/doctor/api/filter-doctors",
-//       {
-//         params: {
-//           name: filters.name,
-//           country: filters.country,
-//           expertise: filters.expertise,
-//           sort: filters.sort,
-//           consultationType: filters.consultationType.join(","),
-//         },
-//       }
-//     );
-//     // setDoctors(response.data?.data);
-//   };
 
   const handleFilterChange = (e: any) => {
     const { name, value, type, checked } = e.target;

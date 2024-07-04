@@ -40,6 +40,7 @@ const DatePicker: React.FC = () => {
   };
 
   const handleDateClick = (formattedDate: string, fullDate: Date) => {
+    console.log("🚀 ~ handleDateClick ~ fullDate:", fullDate)
     dispatch(
       listDoctorSlots({ id: userData?._id, selectedDate: formattedDate })
     ).then((res) => {

@@ -8,6 +8,7 @@ import { useSocketContext } from "../../contexts/SocketContext";
 
 const SidePanel: React.FC<SidePanelProps> = ({ data }) => {
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+  console.log("🚀 ~ clickedIndex:", clickedIndex)
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
   const { socket } = useSocketContext();

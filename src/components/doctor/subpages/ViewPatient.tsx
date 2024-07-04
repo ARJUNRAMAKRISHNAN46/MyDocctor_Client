@@ -13,7 +13,6 @@ import { useLocation } from "react-router-dom";
 import { cancellationMail } from "../../../redux/actions/NotificationActions";
 import {
   formatDate,
-  getCurrentDate,
 } from "../../../utils/GetCurrentDateAndTIme";
 
 const useQuery = () => {

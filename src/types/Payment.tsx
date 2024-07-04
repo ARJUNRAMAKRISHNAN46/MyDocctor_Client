@@ -1,5 +1,7 @@
+
+
 export interface PaymentEntity {
-    _id: Key | null | undefined;
+    _id: string;
     doctor_id: string;
     date: string;
     user_id: string;

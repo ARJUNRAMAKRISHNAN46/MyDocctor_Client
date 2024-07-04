@@ -76,6 +76,7 @@ const LineChart: React.FC = () => {
 
   function parseDate(dateString: string): string {
     const [day, month, year] = dateString.split("-").map(Number);
+    console.log("🚀 ~ parseDate ~ day:", day)
     return `${month.toString().padStart(2, "0")}-${year}`;
   }
 

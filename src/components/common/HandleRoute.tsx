@@ -17,7 +17,6 @@ import PageNotFound from "./PageNotFound";
 import DoctorOverview from "../doctor/DoctorOverview";
 import DoctorAppoitnments from "../doctor/DoctorAppoitnments";
 import DoctorPatients from "../doctor/DoctorPatients";
-import DoctorCommunityChat from "../doctor/DoctorCommunityChat";
 import DoctorMessages from "../doctor/DoctorMessages";
 import DoctorProfile from "../user/DoctorProfile";
 import DoctorSlots from "../doctor/DoctorSlots";
@@ -62,7 +61,6 @@ function HandleRoute() {
               <Route path="overview" element={<DoctorOverview />} />
               <Route path="appointments" element={<DoctorAppoitnments />} />
               <Route path="patients" element={<DoctorPatients />} />
-              <Route path="community-chat" element={<DoctorCommunityChat />} />
               <Route path="messages" element={<DoctorMessages />} />
               <Route path="slots" element={<DoctorSlots />} />
               <Route path="profile" element={<DoctorProfile />} />

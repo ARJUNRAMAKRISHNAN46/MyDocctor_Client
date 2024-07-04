@@ -27,7 +27,7 @@ const SearchDoctors: React.FC = () => {
     debounceRef.current = setTimeout(async () => {
       if (value.length > 1) {
         try {
-          const response = await axios.get<Doctor[]>(
+          const response: any = await axios.get<Doctor[]>(
             `http://localhost:8080/doctor/api/search-doctors?q=${value}`
           );
           console.log("🚀 ~ handleSearch ~ response:", response.data?.data);

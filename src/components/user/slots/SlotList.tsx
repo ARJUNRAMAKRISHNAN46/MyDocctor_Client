@@ -15,10 +15,12 @@ interface ListSlotsProps {
 const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   const userData = useSelector((state: RootState) => state.authData.user);
   const [booked, setBooked] = useState("");
+  console.log("🚀 ~ booked:", booked)
   const [status, setStatus] = useState("");
   const dispatch: AppDispatch = useDispatch();
 
   const [id, setId] = useState("");
+  console.log("🚀 ~ id:", id)
   const navigate = useNavigate();
   const { id: doctorId } = useParams();
 
@@ -46,6 +48,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     const result = stripe?.redirectToCheckout({
       sessionId: response?.data?.id,
     });
+    console.log("🚀 ~ makePayment ~ result:", result)
 
     navigate("/show-payment");
   };

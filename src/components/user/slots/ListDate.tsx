@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { listDoctorSlots } from "../../../redux/actions/AppointmentActions";
@@ -11,7 +11,6 @@ function ListDate() {
     const [currentStartDate, setCurrentStartDate] = useState(dayjs());
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const dispatch: AppDispatch = useDispatch();
-    const userData = useSelector((state: RootState) => state.userData.user);
     const [slots, setSlots] = useState([]);
     
     useEffect(() => {
@@ -42,6 +41,7 @@ function ListDate() {
     };
   
     const handleDateClick = (formattedDate: string, fullDate: Date) => {
+      console.log("🚀 ~ handleDateClick ~ fullDate:", fullDate)
       dispatch(
         listDoctorSlots({ id: String(id), selectedDate: formattedDate })
       ).then((res) => {
