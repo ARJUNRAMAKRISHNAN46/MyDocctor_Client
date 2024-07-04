@@ -55,18 +55,18 @@ function AdminPatients() {
               <h1 className="text-gray-200 py-2.5 font-bold">Sl.No</h1>
             </div>
             <div className="border-y text-sm w-[300px] py-2.5 border-gray-500 text-center">
-              <h1 className="text-gray-200 font-bold">Doctor Name</h1>
+              <h1 className="text-gray-200 font-bold">User Name</h1>
             </div>
-            <div className="border-y text-sm w-[300px] py-2.5 border-gray-500 text-center">
-              <h1 className="text-gray-200 font-bold">Doctor ID</h1>
+            <div className="border-y text-sm w-[200px] py-2.5 border-gray-500 text-center">
+              <h1 className="text-gray-200 font-bold">Mobile Number</h1>
             </div>
             <div className="border-y text-sm w-[350px] py-2.5 border-gray-500 text-center">
               <h1 className="text-gray-200 font-bold">Doctor Email</h1>
             </div>
-            <div className="border-y text-sm w-[150px] py-2.5 border-gray-500 text-center">
+            <div className="border-y text-sm w-[200px] py-2.5 border-gray-500 text-center">
               <h1 className="text-gray-200 font-bold">Action</h1>
             </div>
-            <div className="border-y text-sm w-[150px] py-2.5 border-gray-500 text-center">
+            <div className="border-y text-sm w-[200px] py-2.5 border-gray-500 text-center">
               <h1 className="text-gray-200 font-bold">View</h1>
             </div>
           </div>
@@ -80,13 +80,13 @@ function AdminPatients() {
               <div className="border-b w-[300px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
                 <h1 className="">{data.name}</h1>
               </div>
-              <div className="border-b w-[300px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
-                <h1 className="">{data._id}</h1>
+              <div className="border-b w-[200px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
+                <h1 className="">{data.mobileNumber}</h1>
               </div>
               <div className="border-b w-[350px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
                 <h1 className="">{data?.email}</h1>
               </div>
-              <div className="border-b w-[150px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
+              <div className="border-b w-[200px] border-gray-500 text-sm text-gray-300 text-center py-2.5">
                 <button
                   onClick={() => handleAction(data?._id)}
                   className={`${
@@ -96,7 +96,7 @@ function AdminPatients() {
                   {data?.isActive === true ? "Active" : "Blocked"}
                 </button>
               </div>
-              <div className="border-b w-[150px] border-gray-500 text-sm text-center py-2.5">
+              <div className="border-b w-[200px] border-gray-500 text-sm text-center py-2.5">
                 <button
                   onClick={() => handleNavigate(data?._id)}
                   className="text-white bg-blue-600 px-6 rounded-[5px]"

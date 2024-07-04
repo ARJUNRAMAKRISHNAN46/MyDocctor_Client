@@ -52,14 +52,17 @@ function AdminDoctors() {
           <div className="border-y w-[60px]  border-gray-500 text-center text-sm">
             <h1 className="text-white py-2.5 font-bold">Sl.No</h1>
           </div>
-          <div className="border-y w-[300px] py-2.5 border-gray-500 text-center text-sm">
+          <div className="border-y w-[250px] py-2.5 border-gray-500 text-center text-sm">
             <h1 className="text-gray-200 font-bold">Doctor Name</h1>
           </div>
-          <div className="border-y w-[300px] py-2.5 border-gray-500 text-center text-sm">
-            <h1 className="text-gray-200 font-bold">Doctor ID</h1>
+          <div className="border-y w-[150px] py-2.5 border-gray-500 text-center text-sm">
+            <h1 className="text-gray-200 font-bold">Mobile Number</h1>
           </div>
-          <div className="border-y w-[350px] py-2.5 border-gray-500 text-center text-sm">
+          <div className="border-y w-[300px] py-2.5 border-gray-500 text-center text-sm">
             <h1 className="text-gray-200 font-bold">Doctor Email</h1>
+          </div>
+          <div className="border-y w-[200px] py-2.5 border-gray-500 text-center text-sm">
+            <h1 className="text-gray-200 font-bold">Expertise</h1>
           </div>
           <div className="border-y w-[150px] py-2.5 border-gray-500 text-center text-sm">
             <h1 className="text-gray-200 font-bold">Action</h1>
@@ -75,14 +78,17 @@ function AdminDoctors() {
                 {(currentPage - 1) * itemsPerPage + index + 1}
               </h1>
             </div>
-            <div className="border-b w-[300px] border-gray-500 text-center py-2.5">
+            <div className="border-b w-[250px] border-gray-500 text-center py-2.5">
               <h1 className="text-gray-100 text-sm font-thin">{data.name}</h1>
             </div>
-            <div className="border-b w-[300px] border-gray-500 text-center py-2.5">
-              <h1 className="text-gray-100 text-sm font-thin">{data._id}</h1>
+            <div className="border-b w-[150px] border-gray-500 text-center py-2.5">
+              <h1 className="text-gray-100 text-sm font-thin">{data.mobileNumber}</h1>
             </div>
-            <div className="border-b w-[350px] border-gray-500 text-center py-2.5">
+            <div className="border-b w-[300px] border-gray-500 text-center py-2.5">
               <h1 className="text-gray-100 text-sm font-thin">{data?.email}</h1>
+            </div>
+            <div className="border-b w-[200px] border-gray-500 text-center py-2.5">
+              <h1 className="text-gray-100 text-sm font-thin">{data?.expertise || "Not Defined"}</h1>
             </div>
             <div className="border-b w-[150px] border-gray-500 text-center py-2.5">
               <button
