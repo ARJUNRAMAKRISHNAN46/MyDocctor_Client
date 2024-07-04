@@ -10,11 +10,11 @@ function AppBanner() {
     >
       <div className="flex justify-start bg-yel items-end h-[300px] md:ml-32">
         <div>
-          <h1 className="font-semibold">TOTAL HEALTH CARE SOLUTION</h1>
-          <h1 className="font-bold text-[50px] text-blue-900">
+          <h1 className="font-semibold md:text-xl text-gray-400 text-sm">TOTAL HEALTH CARE SOLUTION</h1>
+          <h1 className="font-bold md:text-[50px] text-2xl text-blue-900">
             YOUR MOST TRUSTED
           </h1>
-          <h1 className="font-bold text-[50px] text-blue-900">
+          <h1 className="font-bold md:text-[50px] text-2xl text-blue-900">
             HEALTH PARTNER
           </h1>
           <p className="font-semibold text-gray-700">
