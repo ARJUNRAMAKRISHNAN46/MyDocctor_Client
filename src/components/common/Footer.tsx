@@ -1,16 +1,13 @@
 import { RiArrowRightDoubleLine } from "react-icons/ri";
 import { IoLocationOutline } from "react-icons/io5";
+import appLogo from "../../../src/assets/MyDocctorLogo.png";
 
 function Footer() {
   return (
-    <div className=" bg-blue-950 py-8 pb-4 px-6">
+    <div className=" bg-blue-950 py-8 pb-4 md:px-20">
       <div className="grid md:grid-cols-4">
         <div>
-          <img
-            className="object-contain w-56"
-            src="../../../src/assets/MyDocctorLogo.png"
-            alt=""
-          />
+          <img className="object-contain w-56" src={appLogo} alt="" />
           <p className="text-white font-thin text-sm">
             MyDocctor enables patients to book health consultations and
             appointments with their preferred doctor. In addition, mydocctor
@@ -85,10 +82,14 @@ function Footer() {
       </div>
       <div className="border border-r-0 border-l-0 border-b-0 mt-6 pt-4 md:flex">
         <div className="md:w-[50%]">
-          <h1 className="text-center text-white text-sm font-thin">Copyright 2024 All Rights Reserved</h1>
+          <h1 className="text-center text-white text-sm font-thin">
+            Copyright 2024 All Rights Reserved
+          </h1>
         </div>
         <div className="md:w-[50%]">
-          <h1 className="text-center text-white text-sm font-thin">Terms and Conditions Policy</h1>
+          <h1 className="text-center text-white text-sm font-thin">
+            Terms and Conditions Policy
+          </h1>
         </div>
       </div>
     </div>

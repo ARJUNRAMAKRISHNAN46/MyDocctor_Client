@@ -10,6 +10,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { FormValues, GoogleValues } from "../../types/FormValues";
 import { useNavigate } from "react-router-dom";
+import appLogo from "../../../src/assets/MyDocctorLogo.png";
 
 interface Tokendata {
   email: string;
@@ -84,7 +85,7 @@ function SignupComp() {
 
   const handleRoute = () => {
     navigate("/doctor/signup");
-  }
+  };
 
   return (
     <>
@@ -111,7 +112,12 @@ function SignupComp() {
                   </button>
                 </div>
                 <div className="flex justify-center mt-8">
-                  <h1 onClick={handleRoute} className="text-white hover:border border-white px-6 py-1">Register as a Doctor</h1>
+                  <h1
+                    onClick={handleRoute}
+                    className="text-white hover:border border-white px-6 py-1"
+                  >
+                    Register as a Doctor
+                  </h1>
                 </div>
               </div>
             </div>
@@ -122,11 +128,7 @@ function SignupComp() {
                 className="flex justify-center md:hidden block
             "
               >
-                <img
-                  className="w-72 mt-4"
-                  src="../../../src/assets/MyDocctorLogo.png"
-                  alt=""
-                />
+                <img className="w-72 mt-4" src={appLogo} alt={appLogo} />
               </div>
               <div className="text-center text-black font-semibold">
                 <h1 className="md:text-2xl mt-4 text-violet-500 font-bold">

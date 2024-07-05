@@ -1,15 +1,15 @@
+import doc4 from "../../../src/assets/consultations/doc4.jpg";
+
 function WhatDoctorsDay() {
   return (
     <div className="grid md:grid-cols-2 bg-white">
       <div className="md:p-8 flex justify-center">
-        <img
-          className="w-[90%]"
-          src="../../../src/assets/consultations/doc4.jpg"
-          alt=""
-        />
+        <img className="w-[90%]" src={doc4} alt={doc4} />
       </div>
       <div className="">
-        <h1 className="text-center font-bold text-blue-950 mt-20 text-[30px]">WHAT DOCTOR'S SAY</h1>
+        <h1 className="text-center font-bold text-blue-950 mt-20 text-[30px]">
+          WHAT DOCTOR'S SAY
+        </h1>
         <div className="flex justify-center mt-2 mb-2">
           <div className="boder-2 h-1 w-12 bg-gray-300"></div>
           <div className="boder-2 h-1 w-12 bg-blue-800"></div>

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { UserData } from "../../types/userData";
 import { FaStar } from "react-icons/fa6";
-
+import banner from "../../../src/assets/banners/banner.jpg";
 
 const star = [1, 2, 3, 4, 5];
 
@@ -36,7 +36,7 @@ function DoctorProfile() {
       <div
         className="h-72 "
         style={{
-          backgroundImage: `url("../../../src/assets/banners/banner.jpg")`,
+          backgroundImage: `url(${banner})`,
         }}
       >
         <div className="w-full h-full bg-blue-950 opacity-80 flex items-center justify-start">

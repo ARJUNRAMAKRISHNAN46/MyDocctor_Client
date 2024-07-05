@@ -3,6 +3,7 @@ import { listService } from "../../redux/actions/UserActions";
 import { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { AddService } from "../../types/userData";
+import banner from "../../../src/assets/banners/banner.jpg";
 
 function Service() {
   const dispatch: AppDispatch = useDispatch();
@@ -19,7 +20,7 @@ function Service() {
       <div
         className="h-72 "
         style={{
-          backgroundImage: `url("../../../src/assets/banners/banner.jpg")`,
+          backgroundImage: `url(${banner})`,
         }}
       >
         <div className="w-full h-full bg-blue-950 opacity-80 flex items-center justify-center">

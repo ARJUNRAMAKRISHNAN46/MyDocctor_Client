@@ -9,6 +9,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { GoogleValues } from "../../types/FormValues";
 import { useAuthContext } from "../../contexts/AuthContext";
+import appLogo from "../../../src/assets/MyDocctorLogo.png";
 
 const initialValues = {
   email: "",
@@ -136,8 +137,8 @@ function LoginComp() {
             >
               <img
                 className="w-72 mt-4"
-                src="../../../src/assets/MyDocctorLogo.png"
-                alt=""
+                src={appLogo}
+                alt={appLogo}
               />
             </div>
             <div className="text-center text-black font-semibold">

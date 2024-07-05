@@ -1,3 +1,4 @@
+import banner from "../../../src/assets/banners/banner.jpg";
 
 function ContactHeader() {
   return (
@@ -5,7 +6,7 @@ function ContactHeader() {
       <div
         className="h-72 "
         style={{
-          backgroundImage: `url("../../../src/assets/banners/banner.jpg")`,
+          backgroundImage: `url(${banner})`
         }}
       >
         <div className="w-full h-full bg-blue-950 opacity-80 flex items-center justify-center">

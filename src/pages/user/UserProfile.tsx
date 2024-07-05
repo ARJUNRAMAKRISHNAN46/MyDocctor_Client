@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { getUser } from "../../redux/actions/AuthActions";
 import { walletHistory } from "../../redux/actions/AppointmentActions";
 import { WalletData } from "../../types/Wallet";
+import demoImage from "../../../src/assets/demoimage.jpg";
 
 function UserProfile() {
   const userData: UserData = useSelector(
@@ -104,7 +105,7 @@ function UserProfile() {
               src={
                 profileImage
                   ? profileImage
-                  : "../../../src/assets/demoimage.jpg"
+                  : demoImage
               }
               alt="Profile"
             />

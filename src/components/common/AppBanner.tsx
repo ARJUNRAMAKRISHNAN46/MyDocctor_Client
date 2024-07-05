@@ -1,11 +1,12 @@
 import SearchDoctors from "../doctor/SearchDoctor";
+import backgroundImage from "../../../src/assets/banners/hero-bg.jpg";
 
 function AppBanner() {
   return (
     <div
       className="w-full md:h-[650px] bg-cover bg-no-repeat p-4"
       style={{
-        backgroundImage: `url('../../../src/assets/banners/hero-bg.jpg')`,
+        backgroundImage: `url(${backgroundImage})`,
       }}
     >
       <div className="flex justify-start bg-yel items-end h-[300px] md:ml-32">

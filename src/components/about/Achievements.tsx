@@ -1,10 +1,13 @@
+import banner from '../../../src/assets/banners/banner.jpg'
+import doc5 from "../../../src/assets/consultations/doctor 5.jpg"
+
 function Achievements() {
   return (
     <div className="bg-white">
       <div
         className="h-72 "
         style={{
-          backgroundImage: `url("../../../src/assets/banners/banner.jpg")`,
+          backgroundImage: `url(${banner})`,
         }}
       >
         <div className="w-full h-full bg-blue-950 opacity-80 flex items-center justify-center">
@@ -49,8 +52,8 @@ function Achievements() {
         <div className="md:p-8 flex justify-center">
           <img
             className="h-[90%]"
-            src="../../../src/assets/consultations/doctor 5.jpg"
-            alt=""
+            src={doc5}
+            alt={doc5}
           />
         </div>
       </div>

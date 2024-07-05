@@ -4,6 +4,7 @@ import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavbarDropDown from "./NavbarDropDown";
+import appLogo from "../../../src/assets/MyDocctorLogo.png";
 
 function Navbar() {
   const userData = useSelector((data: RootState) => data.authData);
@@ -27,7 +28,7 @@ function Navbar() {
           <div onClick={() => handleLinkClick("/userHome")}>
             <img
               className="object-contain w-60 h-16"
-              src="../../../src/assets/MyDocctorLogo.png"
+              src={appLogo}
               alt="Logo"
             />
           </div>
@@ -68,7 +69,7 @@ function Navbar() {
         <div className="flex justify-between px-2 items-center">
           <img
             className="w-40 h-16"
-            src="../../../src/assets/MyDocctorLogo.png"
+            src={appLogo}
             alt=""
           />
           <GiHamburgerMenu onClick={openDropDown} className="text-4xl" />

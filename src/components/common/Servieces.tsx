@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import image1 from "../../../src/assets/consultations/doc1.jpg";
+import image2 from "../../../src/assets/consultations/doc4.jpg";
+import image3 from "../../../src/assets/consultations/doctor 5.jpg";
 
 const Service = () => {
   const navigate = useNavigate();
@@ -25,14 +28,14 @@ const Service = () => {
             <div>
               <img
                 className="image-fluid object-contain"
-                src="../../../src/assets/consultations/doc1.jpg"
+                src={image1}
                 alt=""
               />
             </div>
             <div>
               <img
                 className="image-fluid object-contain mt-4"
-                src="../../../src/assets/consultations/doc4.jpg"
+                src={image2}
                 alt=""
               />
             </div>
@@ -40,7 +43,7 @@ const Service = () => {
           <div className="flex items-center md:p-2 md:mt-0 mt-4">
             <img
               className="image-fluid object-contain "
-              src="../../../src/assets/consultations/doctor 5.jpg"
+              src={image3}
               alt=""
             />
           </div>

@@ -1,3 +1,5 @@
+import doc1 from "../../../src/assets/consultations/doc1.jpg";
+
 function MeetOurSpecialist() {
   return (
     <div className="bg-white">
@@ -22,11 +24,7 @@ function MeetOurSpecialist() {
           </p>
         </div>
         <div className="flex justify-center md:p-8">
-          <img
-            className="w-[90%] h-[90%]"
-            src="../../../src/assets/consultations/doc1.jpg"
-            alt=""
-          />
+          <img className="w-[90%] h-[90%]" src={doc1} alt={doc1} />
         </div>
       </div>
     </div>

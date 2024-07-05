@@ -1,10 +1,12 @@
+import doctor from "../../../src/assets/banners/doctors-bg2.jpg";
+
 function Offers() {
   return (
     <div className="md:py-24 bg-white">
       <div
         className=" object-contain md:px-10 md:h-96"
         style={{
-          backgroundImage: `url("../../../src/assets/banners/doctors-bg2.jpg")`,
+          backgroundImage: `url(${doctor})`,
         }}
       >
         <div className="flex">
