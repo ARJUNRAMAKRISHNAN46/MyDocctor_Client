@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydocctorfrontend
+  labels:
+    app: mydocctorfrontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mydocctorfrontend
+  template:
+    metadata:
+      labels:
+        app: mydocctorfrontend
+    spec:
+      containers:
+        - name: mydocctorfrontend
+          image: shihadb/hiremeup-client:latest
+          ports:
+            - containerPort: 5173
+          envFrom:
+            - configMapRef:
+                name: mydocctorfrontend-config
