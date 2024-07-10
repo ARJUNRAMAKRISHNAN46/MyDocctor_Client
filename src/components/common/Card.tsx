@@ -6,12 +6,12 @@ function Card(props: {
 }) {
 
   const deleteSpeciality = (specId: string) => {
-  console.log("🚀 ~ deleteSpeciality ~ specId: ", specId)
+  console.log("🚀 ~ deleteSpeciality ~ specId:", specId)
 
   }
 
   const editSpeciality = (specId: string) => {
-  console.log("🚀 ~ deleteSpeciality ~ specId: ", specId)
+  console.log("🚀 ~ deleteSpeciality ~ specId:", specId)
 
   }
   return (
