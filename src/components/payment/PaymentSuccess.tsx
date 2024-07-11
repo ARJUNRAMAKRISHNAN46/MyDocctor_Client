@@ -13,18 +13,18 @@ function PaymentSuccess() {
     const bookingData = JSON.parse(storedBookingData);
     console.log(bookingData);
     const response = axios.post(
-      "http://localhost:4006/api/save-payment",
+      "http://mydocctor.online/api/save-payment",
       bookingData
     );
 
     const update = axios.post(
-      "http://localhost:8080/appointment/api/update-appoinment",
+      "http://mydocctor.online/appointment/api/update-appoinment",
       bookingData
     );
 
     const sendMail = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/notification/mail/send-mail', {
+        const response = await axios.post('http://mydocctor.online/notification/mail/send-mail', {
           email: userData?.email,
           message: "Appointment Booked Successfully"
         });

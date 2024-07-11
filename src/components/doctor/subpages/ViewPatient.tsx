@@ -40,7 +40,7 @@ const ViewPatient = () => {
 
   const fetchUser = async () => {
     const response = await axios.get(
-      `http://localhost:8080/auth/api/find-user/${userId}`
+      `http://mydocctor.online/auth/api/find-user/${userId}`
     );
     setUser(response.data?.data);
   };
