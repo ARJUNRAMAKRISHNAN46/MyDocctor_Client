@@ -5,13 +5,13 @@ metadata:
   labels: 
     app: mydocctorfrontend-service
 data:
-  VITE_AUTHENTICATION_SERVICE_URI: http://mydocctor.online/api/auth
-  VITE_USER_SERVICE_URI: http://mydocctor.online/api/user
-  VITE_ADMIN_SERVICE_URI: http://mydocctor.online/api/admin
-  VITE_DOCTOR_SERVICE_URI: http://mydocctor.online/api/doctor
-  VITE_APPOINTMENT_SERVICE_URI: http://mydocctor.online/api/appointment
-  VITE_CHAT_SERVICE_URI: http://mydocctor.online/api/chat
-  VITE_PAYMENTS_SERVICE_URI: http://mydocctor.online/api/payments
-  VITE_NOTIFICATION_SERVICE_URI: http://mydocctor.online/api/notification
-  VITE_REACT_APP_SOCKET_URL: http://mydocctor.online
+  VITE_AUTHENTICATION_SERVICE_URI: https://mydocctor.online/api/auth
+  VITE_USER_SERVICE_URI: https://mydocctor.online/api/user
+  VITE_ADMIN_SERVICE_URI: https://mydocctor.online/api/admin
+  VITE_DOCTOR_SERVICE_URI: https://mydocctor.online/api/doctor
+  VITE_APPOINTMENT_SERVICE_URI: https://mydocctor.online/api/appointment
+  VITE_CHAT_SERVICE_URI: https://mydocctor.online/api/chat
+  VITE_PAYMENTS_SERVICE_URI: https://mydocctor.online/api/payments
+  VITE_NOTIFICATION_SERVICE_URI: https://mydocctor.online/api/notification
+  VITE_REACT_APP_SOCKET_URL: https://mydocctor.online
   VITE_STRIPE_PUBLISHABLE_KEY: pk_test_51PIuj3SJ9OOYvlrHOauQWO17OdBdAuDQPghBjv7PupaNcGHw5kYsqw6Dfpgf4Xa3Y2K98W5k2CdS42waGYsaHbpp00L5J3ZxJA
