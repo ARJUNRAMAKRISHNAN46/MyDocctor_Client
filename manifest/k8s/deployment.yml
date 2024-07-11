@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: mydocctorfrontend
-          image: shihadb/hiremeup-client:latest
+          image: arjun164/mydocctor-client:latest
           ports:
             - containerPort: 5173
           envFrom:
