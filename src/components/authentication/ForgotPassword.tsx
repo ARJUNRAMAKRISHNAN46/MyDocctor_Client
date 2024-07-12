@@ -24,7 +24,6 @@ function ForgotPassword() {
       dispatch(forgotPassword(values?.email))
         .then((res) => {
           if (res.type.endsWith("fulfilled")) {
-            console.log("fulfilled=============================>");
             setMessage(true)
           }
           if (res.type.endsWith("rejected")) {
