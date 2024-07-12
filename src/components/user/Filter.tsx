@@ -160,7 +160,7 @@ const DoctorSearch = () => {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get(
-          "https://mydocctor.online/doctor/api/filter-doctors",
+          "https://mydocctor.online/api/doctor/filter-doctors",
           {
             params: {
               name: filters.name,
