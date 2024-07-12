@@ -41,7 +41,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
 
     localStorage.setItem("bookingData", JSON.stringify(bookingData));
     const response: any = await axios.post(
-      "http://mydocctor.online/api/create-checkout-session",
+      "https://mydocctor.online/api/create-checkout-session",
       bookingData
     );
 

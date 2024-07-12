@@ -28,7 +28,7 @@ const SearchDoctors: React.FC = () => {
       if (value.length > 1) {
         try {
           const response: any = await axios.get<Doctor[]>(
-            `http://mydocctor.online/doctor/api/search-doctors?q=${value}`
+            `https://mydocctor.online/doctor/api/search-doctors?q=${value}`
           );
           console.log("🚀 ~ handleSearch ~ response:", response.data?.data);
           setDoctors(response.data?.data);
