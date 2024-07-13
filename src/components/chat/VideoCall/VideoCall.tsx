@@ -36,8 +36,8 @@ const VideoCall = () => {
     }
 
     async function myMeeting(element: any) {
-      const appID = import.meta.env.ZEGOCLOUD_APPID;
-      const serverSecret = String(import.meta.env.ZEGOCLOUD_SERVERSECRET);
+      const appID = 1055358616;
+      const serverSecret = "8c6de53aa2140d72314c6aa407979f46";
       const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
         appID,
         serverSecret,
