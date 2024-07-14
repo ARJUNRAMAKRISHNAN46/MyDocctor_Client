@@ -29,7 +29,7 @@ const ConsultationList: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {patients.map((patient) => (
+          {patients?.map((patient) => (
             <ConsultationItem key={patient?._id} {...patient} />
           ))}
         </tbody>
