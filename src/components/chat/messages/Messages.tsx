@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import Message from "./Message";
 import { AppDispatch, RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ function Messages() {
   const lastMessageRef = useRef<HTMLDivElement>(null);
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
+  const [ss, setss] = useState<boolean>(true);
   const {
     selectedConversation,
     setMessages,
@@ -36,6 +37,10 @@ function Messages() {
     }
   }, [userData?._id, selectedConversation?._id, dispatch, setMessages]);
 
+  socket.on("refresh", () => {
+    setss(!ss);
+  });
+
   useEffect(() => {
     fetchChats();
   }, [fetchChats]);
@@ -55,7 +60,7 @@ function Messages() {
     return () => {
       socket?.off("newMessage", handleNewMessage);
     };
-  }, [socket, setMessages]);
+  }, [socket, setMessages, ss]);
 
   const handleDelete = useCallback(
     (messageId: string) => {
