@@ -1,31 +1,46 @@
-import React, {  } from "react";
+import React, { useEffect, useState } from "react";
 import { useSocketContext } from "../../../contexts/SocketContext";
 import { useConversation } from "../../../zustand/useConversation";
 import { UserData } from "../../../types/userData";
+import { format, isToday, parseISO } from "date-fns";
 
 export interface ConversationProps {
   conversation: UserData;
-  // {
-  //   _id: string;
-  //   profilePhoto: string;
-  //   name: string;
-  // };
+  conversatio_id: Promise<any>;
   lastIdx: boolean;
 }
 
 const Conversation: React.FC<ConversationProps> = ({
   conversation,
+  conversatio_id,
   lastIdx,
 }) => {
-  const { selectedConversation, setSelectedConversation } = useConversation() as any;
+  const [lastMessage, setLastMessage] = useState(null) as any;
+  useEffect(() => {
+    conversatio_id.then((res) => {
+      console.log("🚀 ~ conversatio_id.then ~ res:", res);
+      setLastMessage(res);
+    });
+  }, [conversatio_id]);
+  const { selectedConversation, setSelectedConversation } =
+    useConversation() as any;
   const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
   const isSelected = selectedConversation?._id === conversation._id;
 
+  const formatLastMessageDate = (dateString: any) => {
+    const date = parseISO(dateString);
+    if (isToday(date)) {
+      return format(date, "HH:mm");
+    } else {
+      return format(date, "yyyy-MM-dd");
+    }
+  };
+
   return (
     <>
       <div
-        className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-2 cursor-pointer ${
+        className={`flex gap-2 items-center hover:bg-sky-500 border-b border-gray-600 rounded p-2 py-2 cursor-pointer ${
           isSelected ? "bg-sky-500" : ""
         }`}
         onClick={() => setSelectedConversation(conversation)}
@@ -43,8 +58,27 @@ const Conversation: React.FC<ConversationProps> = ({
           </div>
         </div>
         <div className="flex flex-col flex-1">
-          <div className="flex gap-3 justify-between">
-            <p className="font-bold text-gray-200">{conversation?.name}</p>
+          <div className="gap-3 justify-between">
+            <div className="flex justify-between">
+              <span className="font-bold text-gray-200">
+                {conversation?.name}
+              </span>
+              <span className="text-gray-200 text-[12px]">
+                {lastMessage?.createdAt &&
+                  formatLastMessageDate(lastMessage.createdAt)}
+              </span>
+            </div>
+            {lastMessage?.type === "text" && (
+              <p className="text-[12px] truncate w-28 text-gray-200">
+                {lastMessage?.message}
+              </p>
+            )}
+            {lastMessage?.type === "image" && (
+              <p className="text-[12px] truncate w-28 text-gray-200">image</p>
+            )}
+            {lastMessage?.type === "audio" && (
+              <p className="text-[12px] truncate w-28 text-gray-200">audio</p>
+            )}
           </div>
         </div>
       </div>

@@ -10,9 +10,11 @@ import { GrAttachment } from "react-icons/gr";
 import { FiMic } from "react-icons/fi";
 import { imageUpload } from "../../../utils/UploadImage";
 import { VideoUpload } from "../../../utils/UploadVideo";
+import { FaSpinner } from "react-icons/fa"; 
 
 function MessageInput() {
   const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
     null
@@ -57,7 +59,9 @@ function MessageInput() {
     const files = e.target.files;
     if (files && files.length > 0) {
       try {
+        setLoading(true)
         const fileUrl = await imageUpload(files[0]);
+        setLoading(false)
         if (!fileUrl) {
           toast.error("Failed to upload image");
           return;
@@ -108,11 +112,13 @@ function MessageInput() {
         recorder.onstop = async () => {
           const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
           try {
+            setLoading(true);
             const audioUrl = await VideoUpload(audioBlob);
             if (!audioUrl) {
               toast.error("Failed to upload audio");
               return;
             }
+            setLoading(false)
 
             const messageData = {
               senderId: userData?._id,
@@ -155,76 +161,83 @@ function MessageInput() {
 
   return (
     <form className="px-4 my-3" onSubmit={handleSubmit}>
-      {replyToMessage && (
-        <div className="p-2 bg-gray-600 text-white rounded mb-2">
-          Replying to:
-          {/* {replyToMessage.message} */}
-          {replyToMessage.message &&
-            !replyToMessage.message.includes(".webm") &&
-            !replyToMessage.message.includes(".jpg") &&
-            !replyToMessage.message.includes(".png") && (
-              <div>{replyToMessage.message}</div>
-            )}
-          {replyToMessage.message &&
-            replyToMessage.message.endsWith(".webm") && (
-              <div>
-                <video
-                  className="h-14 w-32"
-                  src={replyToMessage.message}
-                  controls
-                />
-              </div>
-            )}
-          {replyToMessage.message &&
-            (replyToMessage.message.includes(".jpg") ||
-              replyToMessage.message.includes(".png")) && (
-              <div className="w-14">
-                <img src={replyToMessage.message} />
-              </div>
-            )}
-          <button
-            className="ml-4 text-red-600"
-            onClick={() => setReplyToMessage(null)}
-          >
-            Cancel
-          </button>
+      {loading ? (
+        <div className="flex justify-center items-center">
+          <FaSpinner className="animate-spin text-3xl text-gray-400" />
         </div>
+      ) : (
+        <>
+          {replyToMessage && (
+            <div className="p-2 bg-gray-600 text-white rounded mb-2">
+              Replying to:
+              {replyToMessage.message &&
+                !replyToMessage.message.includes(".webm") &&
+                !replyToMessage.message.includes(".jpg") &&
+                !replyToMessage.message.includes(".png") && (
+                  <div>{replyToMessage.message}</div>
+                )}
+              {replyToMessage.message &&
+                replyToMessage.message.endsWith(".webm") && (
+                  <div>
+                    <video
+                      className="h-14 w-32"
+                      src={replyToMessage.message}
+                      controls
+                    />
+                  </div>
+                )}
+              {replyToMessage.message &&
+                (replyToMessage.message.includes(".jpg") ||
+                  replyToMessage.message.includes(".png")) && (
+                  <div className="w-14">
+                    <img src={replyToMessage.message} alt="Reply" />
+                  </div>
+                )}
+              <button
+                className="ml-4 text-red-600"
+                onClick={() => setReplyToMessage(null)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+          <div className="w-full relative">
+            <button
+              type="button"
+              className="absolute inset-y-0 start-0 ml-3 flex items-center pe-3"
+              onClick={handleAttachClick}
+            >
+              <GrAttachment />
+            </button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <input
+              type="text"
+              className="border text-sm rounded-lg block w-full p-2.5 pl-10 bg-gray-600 text-white"
+              placeholder="Send a message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="absolute inset-y-0 end-0 flex items-center pe-3"
+            >
+              <BsSend />
+            </button>
+            <button
+              type="button"
+              className="absolute inset-y-0 end-10 flex items-center pe-3"
+              onClick={isRecording ? handleStopRecording : handleStartRecording}
+            >
+              <FiMic className={isRecording ? "text-red-600" : ""} />
+            </button>
+          </div>
+        </>
       )}
-      <div className="w-full relative">
-        <button
-          type="button"
-          className="absolute inset-y-0 start-0 ml-3 flex items-center pe-3"
-          onClick={handleAttachClick}
-        >
-          <GrAttachment />
-        </button>
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleFileChange}
-        />
-        <input
-          type="text"
-          className="border text-sm rounded-lg block w-full p-2.5 pl-10 bg-gray-600 text-white"
-          placeholder="Send a message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="absolute inset-y-0 end-0 flex items-center pe-3"
-        >
-          <BsSend />
-        </button>
-        <button
-          type="button"
-          className="absolute inset-y-0 end-10 flex items-center pe-3"
-          onClick={isRecording ? handleStopRecording : handleStartRecording}
-        >
-          <FiMic className={isRecording ? "text-red-600" : ""} />
-        </button>
-      </div>
     </form>
   );
 }

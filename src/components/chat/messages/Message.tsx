@@ -92,7 +92,7 @@ const Message: React.FC<MessageProps> = ({
           </div>
         )}
         {message?.type === "text" && (
-          <div className={`text-gray-200 px-4 py-2 rounded-[10px] bg-gray-900`}>
+          <div className={`text-gray-200 max-w-96 px-4 py-2 rounded-[10px] bg-gray-900`}>
             {message?.message}
           </div>
         )}

@@ -49,6 +49,7 @@ import ViewPatient from "./doctor/subpages/ViewPatient";
 import DoctorPayments from "./doctor/DoctorPayments";
 import VideoCall from "./chat/VideoCall/VideoCall";
 import Wallet from "./user/Wallet";
+import AppointmentDetails from "./user/AppointmentDetails";
 
 function Router() {
   const dispatch: AppDispatch = useDispatch();
@@ -126,6 +127,7 @@ function Router() {
             <Route path="prescriptions" element={<UserPrescriptions />} />
             <Route path="chats" element={<UserChats />} />
             <Route path="appointments" element={<UserBookings />} />
+            <Route path="appointments/details/:id" element={<AppointmentDetails />} />
             <Route path="wallet" element={<Wallet />} />
           </Route>
           <Route path="/paymentSuccess" element={<PaymentSuccess />} />
