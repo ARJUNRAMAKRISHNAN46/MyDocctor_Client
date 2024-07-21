@@ -11,27 +11,31 @@ function PaymentSuccess() {
 
   if (storedBookingData) {
     const savePayment = async () => {
-      const bookingData = JSON.parse(storedBookingData);
-      console.log(
-        bookingData,
-        "------------------------------------------------------>>>>"
-      );
-      const response = await axios.post(
-        "https://mydocctor.online/api/payments/save-payment",
-        bookingData
-      );
+      try {
+        const bookingData = JSON.parse(storedBookingData);
+        console.log(
+          bookingData,
+          "------------------------------------------------------>>>>"
+        );
+        const response = await axios.post(
+          "https://mydocctor.online/api/payments/save-payment",
+          bookingData
+        );
 
-      // bookingData
-      console.log(response, "=============================response");
+        // bookingData
+        console.log(response, "=============================response");
 
-      const appResponse = await axios.post(
-        "https://mydocctor.online/api/appointment/update-appoinment",
-        bookingData
-      );
-      console.log(
-        appResponse,
-        "/////////////////////////////////appresponse\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
-      );
+        const appResponse = await axios.post(
+          "https://mydocctor.online/api/appointment/update-appoinment",
+          bookingData
+        );
+        console.log(
+          appResponse,
+          "/////////////////////////////////appresponse\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
+        );
+      } catch (error: any) {
+        console.log("🚀 ~ savePayment ~ error:", error);
+      }
     };
     savePayment();
     const sendMail = async () => {
