@@ -126,8 +126,9 @@ function PaymentSuccess() {
             "https://mydocctor.online/api/payments/save-payment",
             bookingData
           );
-          console.log("Payment response:", paymentResponse);
-
+          console.log("Payment response:", paymentResponse?.data?.data?._id);
+          
+          console.log("Attempting to update appointment...");
           const appResponse = await axios.post(
             "https://mydocctor.online/api/appointment/update-appoinment",
             bookingData
