@@ -10,36 +10,46 @@ function PaymentSuccess() {
   const storedBookingData = localStorage.getItem("bookingData");
 
   if (storedBookingData) {
-    const bookingData = JSON.parse(storedBookingData);
-    console.log(bookingData,"------------------------------------------------------>>>>");
-    const response = axios.post(
-      "https://mydocctor.online/api/payments/save-payment",
-      bookingData
-    ).then((res) => {
-      console.log(res.data?.data,"payment sucess data============================================//////");
-      // bookingData
-      
-    })
+    const savePayment = async () => {
+      const bookingData = JSON.parse(storedBookingData);
+      console.log(
+        bookingData,
+        "------------------------------------------------------>>>>"
+      );
+      await axios
+        .post("https://mydocctor.online/api/payments/save-payment", bookingData)
+        .then((res) => {
+          console.log(
+            res.data?.data,
+            "payment sucess data============================================//////"
+          );
+          // bookingData
+        });
 
-    const update = axios.post(
-      "https://mydocctor.online/api/appointment/update-appoinment",
-      bookingData
-    );
-
+      axios.post(
+        "https://mydocctor.online/api/appointment/update-appoinment",
+        bookingData
+      ).then((res) => {
+        console.log("🚀 ~ ).then ~ res:", res)
+        
+      })
+    };
+    savePayment();
     const sendMail = async () => {
       try {
-        const response = await axios.post('https://mydocctor.online/api/notification/mail/send-mail', {
-          email: userData?.email,
-          message: "Appointment Booked Successfully"
-        });
+        const response = await axios.post(
+          "https://mydocctor.online/api/notification/mail/send-mail",
+          {
+            email: userData?.email,
+            message: "Appointment Booked Successfully",
+          }
+        );
         console.log(response.data);
       } catch (error) {
-        console.error('Error sending email:', error);
+        console.error("Error sending email:", error);
       }
     };
     sendMail();
-
-    console.log("🚀 ~ PaymentSuccess ~ response:", response, update, sendMail);
   } else {
     console.log("No booking data found in localStorage.");
   }
