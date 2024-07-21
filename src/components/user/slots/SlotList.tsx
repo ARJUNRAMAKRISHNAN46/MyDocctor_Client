@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -18,10 +18,8 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
   console.log("🚀 ~ booked:", booked);
   const [status, setStatus] = useState("");
   const dispatch: AppDispatch = useDispatch();
-
   const [id, setId] = useState("");
-  console.log("🚀 ~ id:", id);
-  const navigate = useNavigate();
+  console.log("🚀 ~ id:", id)
   const { id: doctorId } = useParams();
 
   const makePayment = async () => {
@@ -40,8 +38,9 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     };
 
     localStorage.setItem("bookingData", JSON.stringify(bookingData));
+
     const response: any = await axios.post(
-      "http://localhost:8080/payments/api/create-checkout-session",
+      "https://mydocctor.online/payments/api/create-checkout-session",
       bookingData
     );
 
@@ -50,7 +49,6 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     });
     console.log("🚀 ~ makePayment ~ result:", result);
 
-    navigate("/show-payment");
   };
 
   const SelectSlot = async (slot: any) => {

@@ -282,7 +282,8 @@ const Conversations: React.FC<ConversationsProps> = ({ user }) => {
   const fetchMessageDetails = async (conversation_id: string) => {
     try {
       const res = await axios.post(
-        `http://localhost:8080/chat/api/get-last-message/${userData?._id}`,
+        `http://mydocctor.online/api/chat/get-last-message/${userData?._id}`,
+        // `http://:8080/chat/api/get-last-message/${userData?._id}`,
         {
           senderId: conversation_id,
         }

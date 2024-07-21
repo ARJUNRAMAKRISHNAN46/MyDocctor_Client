@@ -14,7 +14,7 @@ function ListDate() {
     const [slots, setSlots] = useState([]);
     
     useEffect(() => {
-        const currentDateFormatted = dayjs().format("DD-MM-YYYY");
+        const currentDateFormatted = dayjs().format("YYYY-MM-DD");
       setSelectedDate(currentDateFormatted);
       dispatch(
         listDoctorSlots({ id: String(id), selectedDate: currentDateFormatted })
@@ -28,7 +28,7 @@ function ListDate() {
         day: startDate.add(i, "day").format("ddd"),
         date: startDate.add(i, "day").date(),
         fullDate: startDate.add(i, "day").toDate(),
-        formattedDate: startDate.add(i, "day").format("DD-MM-YYYY"),
+        formattedDate: startDate.add(i, "day").format("YYYY-MM-DD"),
       }));
     };
   
@@ -40,8 +40,7 @@ function ListDate() {
       setCurrentStartDate(currentStartDate.add(1, "day"));
     };
   
-    const handleDateClick = (formattedDate: string, fullDate: Date) => {
-      console.log("🚀 ~ handleDateClick ~ fullDate:", fullDate)
+    const handleDateClick = (formattedDate: string) => {
       dispatch(
         listDoctorSlots({ id: String(id), selectedDate: formattedDate })
       ).then((res) => {
@@ -75,7 +74,7 @@ function ListDate() {
                     ? "text-blue-500 font-semibold"
                     : "text-gray-800 font-semibold"
                 }`}
-                onClick={() => handleDateClick(d.formattedDate, d.fullDate)}
+                onClick={() => handleDateClick(d.formattedDate)}
               >
                 <span>{d.day}</span>
                 <span

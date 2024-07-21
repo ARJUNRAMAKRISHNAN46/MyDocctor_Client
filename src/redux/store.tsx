@@ -5,6 +5,7 @@ import PaymentsReducer from "./reducers/PaymentsReducers";
 import AppointmentReducer from "./reducers/AppointmentReducers";
 import UserReducer from "./reducers/UserReducers";
 import ChatReducer from "./reducers/ChatReducer";
+import bookingReducer from "./reducers/BookingReducer";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     appointmentData: AppointmentReducer,
     userData: UserReducer,
     chatData: ChatReducer,
+    booking: bookingReducer,
   },
 });
 

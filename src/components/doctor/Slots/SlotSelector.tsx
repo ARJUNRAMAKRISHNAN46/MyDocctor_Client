@@ -28,12 +28,12 @@ const times = [
   "04:30",
 ];
 
-interface Slot {
-  start: string;
-  userId?: string;
-  status?: string;
-  reservedAt?: Date | null;
-}
+// interface Slot {
+//   start: string;
+//   userId?: string;
+//   status?: string;
+//   reservedAt?: Date | null;
+// }
 
 const SlotSelector: React.FC<AddSlotModalProps> = ({ show, refresh }) => {
   const [startDate, setStartDate] = useState<string>("");
@@ -74,7 +74,8 @@ const SlotSelector: React.FC<AddSlotModalProps> = ({ show, refresh }) => {
       try {
         await axios
           .post(
-            "http://localhost:8080/appointment/api/create-appointment",
+            // "http://localhost:8080/appointment/api/create-appointment",
+            "https://mydocctor.online/api/appointment/create-appointment",
             appointment
           )
           .then((res) => {

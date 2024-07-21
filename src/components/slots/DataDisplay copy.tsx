@@ -15,7 +15,8 @@ const DataDisplay: React.FC<DataDisplayProps> = ({ selectedDate, availableSlots 
   const handleSlotClick = async (slot: string) => {
     try {
       setLoading(true);
-      const response = await axios.post("http://localhost:8080/save-slot", {
+      // const response = await axios.post("http://localhost:8080/save-slot", {
+      const response = await axios.post("https://mydocctor.online/save-slot", {
         date: formattedDate,
         time: slot,
       });

@@ -16,7 +16,8 @@ const AppointmentDetails = () => {
   }, []);
   const fetchData = async () => {
     const response = await axios.get(
-      `http://localhost:8080/appointment/api/get-slot/${id}`
+      // `http://localhost:8080/appointment/api/get-slot/${id}`
+      `https://mydocctor.online/api/appointment/get-slot/${id}`
     );
     console.log("response.data: ", response.data?.data);
   };
