@@ -11,11 +11,15 @@ function PaymentSuccess() {
 
   if (storedBookingData) {
     const bookingData = JSON.parse(storedBookingData);
-    console.log(bookingData);
+    console.log(bookingData,"------------------------------------------------------>>>>");
     const response = axios.post(
       "https://mydocctor.online/api/payments/save-payment",
       bookingData
-    );
+    ).then((res) => {
+      console.log(res.data,"payment sucess data");
+      // bookingData
+      
+    })
 
     const update = axios.post(
       "https://mydocctor.online/api/appointment/update-appoinment",

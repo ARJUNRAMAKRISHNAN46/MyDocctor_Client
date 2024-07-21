@@ -35,6 +35,7 @@ const SlotList: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
       date: selectedDate,
       slot: status,
       fees: 400,
+      paymentId: "",
     };
 
     localStorage.setItem("bookingData", JSON.stringify(bookingData));
