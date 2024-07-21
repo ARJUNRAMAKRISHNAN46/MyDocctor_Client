@@ -13,7 +13,7 @@ const DatePicker: React.FC = () => {
   const [slots, setSlots] = useState([]);
 
   useEffect(() => {
-    const currentDateFormatted = dayjs().format("DD-MM-YYYY");
+    const currentDateFormatted = dayjs().format("YYYY-MM-DD");
     setSelectedDate(currentDateFormatted);
     dispatch(
       listDoctorSlots({ id: userData?._id, selectedDate: currentDateFormatted })
@@ -27,7 +27,7 @@ const DatePicker: React.FC = () => {
       day: startDate.add(i, "day").format("ddd"),
       date: startDate.add(i, "day").date(),
       fullDate: startDate.add(i, "day").toDate(),
-      formattedDate: startDate.add(i, "day").format("DD-MM-YYYY"),
+      formattedDate: startDate.add(i, "day").format("YYYY-MM-DD"),
     }));
   };
 
