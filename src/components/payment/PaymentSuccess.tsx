@@ -16,23 +16,22 @@ function PaymentSuccess() {
         bookingData,
         "------------------------------------------------------>>>>"
       );
-      await axios
-        .post("https://mydocctor.online/api/payments/save-payment", bookingData)
-        .then((res) => {
-          console.log(
-            res.data?.data,
-            "payment sucess data============================================//////"
-          );
-          // bookingData
-        });
+      const response = await axios.post(
+        "https://mydocctor.online/api/payments/save-payment",
+        bookingData
+      );
 
-      axios.post(
+      // bookingData
+      console.log(response, "=============================response");
+
+      const appResponse = await axios.post(
         "https://mydocctor.online/api/appointment/update-appoinment",
         bookingData
-      ).then((res) => {
-        console.log("🚀 ~ ).then ~ res:", res)
-        
-      })
+      );
+      console.log(
+        appResponse,
+        "/////////////////////////////////appresponse\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"
+      );
     };
     savePayment();
     const sendMail = async () => {
