@@ -5,7 +5,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/store";
 import SlotSelector from "./SlotSelector";
 
-const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
+const ListSlots: React.FC<ListSlotsProps> = ({
+  slots,
+  refresh,
+  selectedDate,
+}) => {
   const [showSlot, setShowSlot] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
   const [openSlot, setOpenSlot] = useState<boolean>(false);
@@ -28,6 +32,7 @@ const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     dispatch(removeSlot(slot)).then((res) => {
       console.log("🚀 ~ dispatch ~ res:", res);
       setOpenSlot(false);
+      refresh();
     });
   };
 
@@ -44,13 +49,13 @@ const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
     <div>
       {openSlot ? (
         <div className="flex justify-center items-centermt-32">
-          <div className="w-80 text-white h-40 border">
-            <h1 className="text-center">Are you sure ?</h1>
-            <div className="px-10 flex justify-between">
-              <button onClick={closeSlot} className="bg-green-500 px-4 py-1">
+          <div className="w-80 bg-white h-40 border py-8">
+            <h1 className="text-center font-semibold text-gray-800">Are you sure you want to delete slot?</h1>
+            <div className="px-10 flex justify-between mt-8">
+              <button onClick={closeSlot} className="bg-green-500 px-4 text-white py-1">
                 Cancel
               </button>
-              <button onClick={cancelSlot} className="bg-red-500 px-4 py-1">
+              <button onClick={cancelSlot} className="bg-red-500 px-4 text-white py-1">
                 Delete
               </button>
             </div>
@@ -61,7 +66,7 @@ const ListSlots: React.FC<ListSlotsProps> = ({ slots, selectedDate }) => {
           {slots.length === 0 ? (
             <div className="flex justify-center">
               {showSlot ? (
-                <SlotSelector show={closeSlotAddModal} />
+                <SlotSelector refresh={refresh} show={closeSlotAddModal} />
               ) : (
                 <button
                   className="text-sm font-semibold text-white bg-green-600 px-8 py-1 rounded"

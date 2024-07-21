@@ -11,6 +11,7 @@ const DatePicker: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.authData.user);
   const [slots, setSlots] = useState([]);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     const currentDateFormatted = dayjs().format("YYYY-MM-DD");
@@ -20,7 +21,7 @@ const DatePicker: React.FC = () => {
     ).then((res) => {
       setSlots(res.payload?.data);
     });
-  }, []);
+  }, [refresh]);
 
   const generateDates = (startDate: dayjs.Dayjs, numDays: number) => {
     return Array.from({ length: numDays }, (_, i) => ({
@@ -30,6 +31,10 @@ const DatePicker: React.FC = () => {
       formattedDate: startDate.add(i, "day").format("YYYY-MM-DD"),
     }));
   };
+
+  const renderPage = () => {
+    setRefresh(!refresh);
+  }
 
   const handlePrevClick = () => {
     setCurrentStartDate(currentStartDate.subtract(1, "day"));
@@ -97,7 +102,7 @@ const DatePicker: React.FC = () => {
         </button>
       </div>
       <div>
-        <ListSlots slots={slots} selectedDate={String(selectedDate)}/>
+        <ListSlots slots={slots} refresh={renderPage} selectedDate={String(selectedDate)}/>
       </div>
     </div>
   );
