@@ -16,7 +16,7 @@ function PaymentSuccess() {
       "https://mydocctor.online/api/payments/save-payment",
       bookingData
     ).then((res) => {
-      console.log(res.data,"payment sucess data");
+      console.log(res.data?.data,"payment sucess data============================================//////");
       // bookingData
       
     })
