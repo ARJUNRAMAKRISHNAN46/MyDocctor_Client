@@ -64,7 +64,7 @@ export default function UserBookings() {
   };
 
   const closeModal = () => {
-    setModal(false);
+    setModal(false );
   };
 
   const navigateToNext = (id: string, doctorName: string) => {
