@@ -44,20 +44,20 @@ const AppointmentDetails = () => {
     <div className="w-[82vw] h-[96vh] bg-white">
       <div className="md:px-20 py-10">
         <h1 className="text-2xl font-semibold text-blue-900 text-center">YOUR BOOKING DETAILS</h1>
-        <h1 className="text-center font-semibold mt-6">
-          DOCTOR NAME: <span className="text-gray-800">{doctorName}</span>
+        <h1 className="text-center font-semibold mt-6 text-gray-600">
+          DOCTOR NAME: <span className="text-gray-800 ml-2">{doctorName}</span>
         </h1>
         <h1 className="text-center font-semibold text-gray-600">
-          SLOT TIME: <span className="text-gray-800">{slotData?.slots[0]?.start}</span>
+          SLOT TIME: <span className="text-gray-800 ml-2">{slotData?.slots[0]?.start}</span>
         </h1>
         <h1 className="text-center font-semibold text-gray-600">
-          SLOT DATE: <span className="text-gray-800">{slotData?.date}</span>
+          SLOT DATE: <span className="text-gray-800 ml-2">{slotData?.date}</span>
         </h1>
         <h1 className="text-center font-semibold text-gray-600">
-          FEES: <span className="text-gray-800">{paymentData?.fees}</span>
+          FEES: <span className="text-gray-800 ml-2">{paymentData?.fees}</span>
         </h1>
         <h1 className="text-center font-semibold text-gray-600">
-          PAYMENT DATE: <span className="text-gray-800">{formatDate(paymentData?.createdAt)}</span>
+          PAYMENT DATE: <span className="text-gray-800 ml-2">{formatDate(paymentData?.createdAt)}</span>
         </h1>
       </div>
     </div>
