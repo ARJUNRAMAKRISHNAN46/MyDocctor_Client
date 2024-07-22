@@ -57,7 +57,6 @@ const AppointmentDetails = () => {
           FEES: <span className="text-gray-800">{paymentData?.fees}</span>
         </h1>
         <h1 className="text-center font-semibold">
-          PAYMENT DATE: <span>{paymentData?.createdAt?.toLocaleDateString()}</span>
           PAYMENT DATE: <span>{paymentData?.createdAt?.slice(0,12)}</span>
           PAYMENT DATE: <span>{formatDate(paymentData?.createdAt)}</span>
         </h1>
