@@ -1,12 +1,10 @@
 import "./App.css";
-// import Router from "./components/Router";
-import AppointmentDetails from "./components/user/AppointmentDetails";
+import Router from "./components/Router";
 
 function App() {
   return (
     <>
-      {/* <Router /> */}
-      <AppointmentDetails/>
+      <Router />
     </>
   );
 }
