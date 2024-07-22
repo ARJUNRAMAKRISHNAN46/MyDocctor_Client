@@ -47,18 +47,17 @@ const AppointmentDetails = () => {
         <h1 className="text-center font-semibold mt-6">
           DOCTOR NAME: <span className="text-gray-800">{doctorName}</span>
         </h1>
-        <h1 className="text-center font-semibold">
+        <h1 className="text-center font-semibold text-gray-600">
           SLOT TIME: <span className="text-gray-800">{slotData?.slots[0]?.start}</span>
         </h1>
-        <h1 className="text-center font-semibold">
+        <h1 className="text-center font-semibold text-gray-600">
           SLOT DATE: <span className="text-gray-800">{slotData?.date}</span>
         </h1>
-        <h1 className="text-center font-semibold">
+        <h1 className="text-center font-semibold text-gray-600">
           FEES: <span className="text-gray-800">{paymentData?.fees}</span>
         </h1>
-        <h1 className="text-center font-semibold">
-          PAYMENT DATE: <span>{paymentData?.createdAt?.slice(0,12)}</span>
-          PAYMENT DATE: <span>{formatDate(paymentData?.createdAt)}</span>
+        <h1 className="text-center font-semibold text-gray-600">
+          PAYMENT DATE: <span className="text-gray-800">{formatDate(paymentData?.createdAt)}</span>
         </h1>
       </div>
     </div>
