@@ -19,12 +19,14 @@ const AppointmentDetails = () => {
       // `http://localhost:8080/appointment/api/get-slot/${id}`
       `https://mydocctor.online/api/appointment/get-slot/${id}`
     );
+    const payment = await axios.get(`https://mydocctor.online/api/payments/find-payment/`)
     console.log("response.data: ", response.data?.data);
+    console.log("response.data payment id: ", response.data?.data?.slots[0].paymentId);
   };
   return (
     <div className="w-[82vw] h-[96vh] bg-white">
       <div>
-        <h1>gelloe</h1>
+       
       </div>
     </div>
   );
