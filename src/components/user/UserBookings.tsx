@@ -15,7 +15,6 @@ export default function UserBookings() {
   const navigate = useNavigate();
   const userData = useSelector((state: RootState) => state.authData.user);
   const [slots, setSlots] = useState([]);
-  const [status, setStatus] = useState<boolean>(false);
   const [bookId, setBookId] = useState("");
   const [modal, setModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,7 +25,7 @@ export default function UserBookings() {
       console.log("res.payload: ", res.payload?.data);
       setSlots(res.payload?.data);
     });
-  }, [dispatch, status]);
+  }, [dispatch]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -46,16 +45,8 @@ export default function UserBookings() {
   };
 
   const cancelAppointment = () => {
-    dispatch(cancelSlot(String(bookId))).then((res) => {
-      if (res) {
-        setStatus(true);
-      }
-    });
-    dispatch(refundToWallet(refundData)).then((res) => {
-      if (res) {
-        setStatus(true);
-      }
-    });
+    dispatch(cancelSlot(String(bookId)));
+    dispatch(refundToWallet(refundData));
   };
 
   const openModal = (appId: string) => {
@@ -64,12 +55,12 @@ export default function UserBookings() {
   };
 
   const closeModal = () => {
-    setModal(false );
+    setModal(false);
   };
 
   const navigateToNext = (id: string, doctorName: string) => {
-    navigate(`/view/appointments/details/${id}?doctorName=${doctorName}`)
-  }
+    navigate(`/view/appointments/details/${id}?doctorName=${doctorName}`);
+  };
 
   return (
     <div className="bg-white h-[100vh] flex justify-center items-center">
@@ -141,7 +132,12 @@ export default function UserBookings() {
                   </div>
                   <div className="text-center text-sm border-b border-gray-300 py-3 w-[150px]">
                     <button
-                      onClick={() => navigateToNext(appointment.appId, appointment.doctorName)}
+                      onClick={() =>
+                        navigateToNext(
+                          appointment.appId,
+                          appointment.doctorName
+                        )
+                      }
                       className="bg-green-600 rounded text-white px-6 py-0.5"
                     >
                       view
