@@ -123,14 +123,14 @@ function PaymentSuccess() {
         try {
           console.log("Attempting to save payment...");
           const paymentResponse = await axios.post(
-            "https://mydocctor.online/api/payments/save-payment",
+            "https://mydocctor-server-7.onrender.com/api/payments/save-payment",
             bookingData
           );
           console.log("Payment response:", paymentResponse?.data?.data?._id);
           bookingData.paymentId = paymentResponse?.data?.data?._id;
           console.log("Attempting to update appointment...",bookingData);
           const appResponse = await axios.post(
-            "https://mydocctor.online/api/appointment/update-appoinment",
+            "https://mydocctor-server-7.onrender.com/api/appointment/update-appoinment",
             bookingData
           );
           console.log("Appointment response:", appResponse);
@@ -143,7 +143,7 @@ function PaymentSuccess() {
         try {
           console.log("Attempting to send mail...");
           const response = await axios.post(
-            "https://mydocctor.online/api/notification/mail/send-mail",
+            "https://mydocctor-server-7.onrender.com/api/notification/mail/send-mail",
             {
               email: userData?.email,
               message: "Appointment Booked Successfully",

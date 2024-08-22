@@ -75,7 +75,7 @@ const SlotSelector: React.FC<AddSlotModalProps> = ({ show, refresh }) => {
         await axios
           .post(
             // "http://localhost:8080/appointment/api/create-appointment",
-            "https://mydocctor.online/api/appointment/create-appointment",
+            "https://mydocctor-server-7.onrender.com/api/appointment/create-appointment",
             appointment
           )
           .then((res) => {

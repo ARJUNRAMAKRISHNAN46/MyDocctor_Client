@@ -63,7 +63,7 @@ function OtpComp({ data }: OtpCompProps) {
       console.log("data.otp :", userData.otp);
       try {
         const response = await axios.post(
-          `https://mydocctor.online/auth/signup`,
+          `https://mydocctor-server-7.onrender.com/auth/signup`,
           userData,
           { withCredentials: true }
         );
@@ -88,7 +88,7 @@ function OtpComp({ data }: OtpCompProps) {
   const handleResendOTP = async () => {
     setCountDown(30);
     const response = await axios.post(
-      `https://mydocctor.online/auth/signup`,
+      `https://mydocctor-server-7.onrender.com/auth/signup`,
       userData,
       { withCredentials: true }
     );

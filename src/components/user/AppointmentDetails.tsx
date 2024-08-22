@@ -18,10 +18,10 @@ const AppointmentDetails = () => {
   }, []);
   const fetchData = async () => {
     const response = await axios.get(
-      `https://mydocctor.online/api/appointment/get-slot/${id}`
+      `https://mydocctor-server-7.onrender.com/api/appointment/get-slot/${id}`
     );
     const payment = await axios.get(
-      `https://mydocctor.online/api/payments/find-payment/${response.data?.data?.slots[0].paymentId}`
+      `https://mydocctor-server-7.onrender.com/api/payments/find-payment/${response.data?.data?.slots[0].paymentId}`
     );
     setPaymentData(payment?.data?.data);
     console.log("response.data: ", response.data?.data);
