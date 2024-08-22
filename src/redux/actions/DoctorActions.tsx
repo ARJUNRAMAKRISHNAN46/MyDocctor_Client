@@ -12,7 +12,7 @@ export const updateDoctorProfile = createAsyncThunk(
         ...userData,
         role: "doctor",
       });
-
+      
       return data;
     } catch (error) {
       return rejectWithValue(handleErrors(error));

@@ -21,7 +21,6 @@ function DoctorProfile() {
     dispatch(findDoctorById(String(id)))
       .then((res) => {
         setDoctor(res.payload.data);
-        console.log("🚀 ~ dispatch ~ doctor ~ res:", res.payload.data);
       })
       .catch((err) => {
         console.log("🚀 ~ dispatch ~ err:", err);
