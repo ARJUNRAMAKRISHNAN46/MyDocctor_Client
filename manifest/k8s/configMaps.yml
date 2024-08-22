@@ -5,14 +5,15 @@ metadata:
   labels: 
     app: mydocctorfrontend-service
 data:
-  VITE_AUTHENTICATION_SERVICE_URI: https://mydocctor.online/api/auth
-  VITE_USER_SERVICE_URI: https://mydocctor.online/api/user
-  VITE_ADMIN_SERVICE_URI: https://mydocctor.online/api/admin
-  VITE_DOCTOR_SERVICE_URI: https://mydocctor.online/api/doctor
-  VITE_APPOINTMENT_SERVICE_URI: https://mydocctor.online/api/appointment
-  VITE_CHAT_SERVICE_URI: https://mydocctor.online/api/chat
-  VITE_PAYMENTS_SERVICE_URI: https://mydocctor.online/api/payments
-  VITE_NOTIFICATION_SERVICE_URI: https://mydocctor.online/api/notification
-  VITE_REACT_APP_SOCKET_URL: https://mydocctor.online
-  VITE_STRIPE_PUBLISHABLE_KEY: pk_test_51PIuj3SJ9OOYvlrHOauQWO17OdBdAuDQPghBjv7PupaNcGHw5kYsqw6Dfpgf4Xa3Y2K98W5k2CdS42waGYsaHbpp00L5J3ZxJA
-  HELLO: "helo"
+  VITE_AUTHENTICATION_SERVICE_URI: https://mydocctor-server-7.onrender.com/auth/api
+VITE_USER_SERVICE_URI: https://mydocctor-server-7.onrender.com/user/api
+VITE_ADMIN_SERVICE_URI: https://mydocctor-server-7.onrender.com/admin/api
+VITE_DOCTOR_SERVICE_URI: https://mydocctor-server-7.onrender.com/doctor/api
+VITE_APPOINTMENT_SERVICE_URI: https://mydocctor-server-7.onrender.com/appointment/api
+VITE_CHAT_SERVICE_URI: https://mydocctor-server-7.onrender.com/chat/api
+VITE_PAYMENTS_SERVICE_URI: https://mydocctor-server-7.onrender.com/payments/api
+VITE_NOTIFICATION_SERVICE_URI: https://mydocctor-server-7.onrender.com/notification
+VITE_REACT_APP_SOCKET_URL: https://mydocctor-server-1.onrender.com
+VITE_STRIPE_PUBLISHABLE_KEY: pk_test_51PIuj3SJ9OOYvlrHOauQWO17OdBdAuDQPghBjv7PupaNcGHw5kYsqw6Dfpgf4Xa3Y2K98W5k2CdS42waGYsaHbpp00L5J3ZxJA
+ZEGOCLOUD_APPID: 1055358616
+ZEGOCLOUD_SERVERSECRET: 8c6de53aa2140d72314c6aa407979f46
