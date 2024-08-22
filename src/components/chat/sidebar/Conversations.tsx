@@ -73,7 +73,7 @@ const Conversations: React.FC<ConversationsProps> = ({ user }) => {
   const fetchMessageDetails = async (conversation_id: string) => {
     try {
       const res = await axios.post(
-        `https://mydocctor-server-7.onrender.com/api/chat/get-last-message/${userData?._id}`,
+        `https://mydocctor-server-7.onrender.com/chat/api/get-last-message/${userData?._id}`,
         {
           senderId: conversation_id,
         }
