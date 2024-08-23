@@ -11,7 +11,7 @@ import { SocketProvider } from "./contexts/SocketContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="263439428108-avotk62vmf6mr2qoerrtunlrri85ioeo.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="678751824155-u5o87lalbm4dmica8t72hrd63j062oiv.apps.googleusercontent.com">
       <Provider store={store}>
         <Toaster position="top-center" />
         <Router>
