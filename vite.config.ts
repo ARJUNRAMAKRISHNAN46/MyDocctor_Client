@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/socket.io": {
-        target: "https://mydocctor-server-7.onrender.com",
+        target: "https://mydocctor-server-1.onrender.com",
         secure: false,
         ws: true,
       },
