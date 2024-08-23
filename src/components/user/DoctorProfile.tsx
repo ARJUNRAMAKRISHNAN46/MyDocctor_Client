@@ -23,7 +23,7 @@ function DoctorProfile() {
         setDoctor(res.payload.data);
       })
       .catch((err) => {
-        console.log("🚀 ~ dispatch ~ err:",err);
+        console.log("🚀 ~ dispatch ~ err:", err);
       });
   }, []);
 
